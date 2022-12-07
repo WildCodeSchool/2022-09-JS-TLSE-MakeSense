@@ -1,36 +1,59 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import React, { useContext, useState } from "react";
+import { AuthStatus } from "@components/AuthStatus";
+import { Outlet } from "react-router-dom";
+import { Text, LanguageContext } from "../contexts/Language";
+
+const selectOptions = ["option1", "option2", "option3"];
 
 export default function Home() {
+  const [clickText, setClickText] = useState();
+  const [selectedOption, setSelectedOption] = useState();
+  const { dictionary } = useContext(LanguageContext);
+
+  const handleClick = () => {
+    setClickText(<Text tid="buttonClicked" />);
+  };
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
-
-      <Counter />
-
+    <div>
+      <AuthStatus />
+      <h1>
+        <Text tid="exploreHeader" />
+      </h1>
       <p>
-        Edit <code>App.jsx</code> and save to test HMR updates.
+        <Text tid="welcomeDescription" />
       </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
+
+      <div>
+        <input type="text" placeholder={dictionary.enterText} />
+        <button type="button" onClick={handleClick}>
+          <Text tid="clickMe" />
+        </button>
+        <p>{clickText}</p>
+      </div>
+
+      <div>
+        <select onChange={handleOptionChange} value={selectedOption}>
+          {selectOptions.map((option) => (
+            <option key={option} value={option}>
+              {dictionary[option]}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <a
+        href="https://halilcanozcelik.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Text tid="aboutMe" />
+      </a>
+      <Outlet />
+    </div>
   );
 }
