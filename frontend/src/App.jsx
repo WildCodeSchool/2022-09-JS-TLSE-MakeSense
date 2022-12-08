@@ -3,12 +3,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import LanguageSelector from "./components/LanguageSelector";
 
-/// Context
-import { LanguageProvider } from "./contexts/Language";
-
 function App() {
   return (
-    <LanguageProvider>
+    <>    
       <header className="App-header">
         <div className="App">
           <LanguageSelector />
@@ -24,7 +21,7 @@ function App() {
         </Routes>
       </main>
       <footer />
-    </LanguageProvider>
+    </>
   );
 }
 
