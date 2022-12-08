@@ -1,6 +1,4 @@
 import React, { useContext, useState } from "react";
-import { AuthStatus } from "@components/AuthStatus";
-import { Outlet } from "react-router-dom";
 import { Text, LanguageContext } from "../contexts/Language";
 
 const selectOptions = ["option1", "option2", "option3"];
@@ -20,7 +18,6 @@ export default function Home() {
 
   return (
     <div>
-      <AuthStatus />
       <h1>
         <Text tid="exploreHeader" />
       </h1>
@@ -53,7 +50,6 @@ export default function Home() {
       >
         <Text tid="aboutMe" />
       </a>
-      <Outlet />
     </div>
   );
 }
