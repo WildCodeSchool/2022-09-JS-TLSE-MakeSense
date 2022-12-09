@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import useLocalStorage from "./useLocalStorage";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const AuthContext = createContext();
 export const useAuth = () => {

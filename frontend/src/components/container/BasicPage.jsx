@@ -12,5 +12,5 @@ function BasicPage({ title }) {
 export default BasicPage;
 
 BasicPage.propTypes = {
-  title: PropTypes.element.isRequired,
+  title: PropTypes.string.isRequired,
 };

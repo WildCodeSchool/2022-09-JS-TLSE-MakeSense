@@ -52,5 +52,5 @@ function AppBar({ pages }) {
 export default AppBar;
 
 AppBar.propTypes = {
-  pages: PropTypes.element.isRequired,
+  pages: PropTypes.instanceOf(Array).isRequired,
 };
