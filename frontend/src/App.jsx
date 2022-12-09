@@ -1,27 +1,25 @@
 import "./assets/css/App.css";
-import { Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import LanguageSelector from "./components/LanguageSelector";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/Login";
+import HomePage from "./pages/Home";
+import ProfilePage from "./pages/Profile";
+import SettingsPage from "./pages/Settings";
+import ProtectedLayout from "./components/ProtectedLayout";
+import HomeLayout from "./components/HomeLayout";
 
 function App() {
   return (
-    <>    
-      <header className="App-header">
-        <div className="App">
-          <LanguageSelector />
-          <nav>
-            <Link to="/">Home</Link>
-          </nav>
-        </div>
-      </header>
-      <main>
-        <p>MakeSense BIENVENUE SUPER JE PETE UN PLOMB</p>
-        <Routes element={<Home />}>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </main>
-      <footer />
-    </>
+    <Routes>
+      <Route element={<HomeLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Route>
+
+      <Route path="/dashboard" element={<ProtectedLayout />}>
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="settings" element={<SettingsPage />} />
+      </Route>
+    </Routes>
   );
 }
 
