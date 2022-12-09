@@ -10,6 +10,7 @@ import HomeLayout from "./components/HomeLayout";
 function App() {
   return (
     <Routes>
+
       <Route element={<HomeLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -19,6 +20,7 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
+
     </Routes>
   );
 }

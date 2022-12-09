@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 const useLocalStorage = (keyName, defaultValue) => {
+
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const value = window.localStorage.getItem(keyName);
-      if (value) {
-        return JSON.parse(value);
-      }
-      window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
+      const value = window.localStorage.getItem(keyName); // créer un constante // verifie sur le localstorage l'existence
+        if (value) { // Si des preferences existe sur le localstorage
+          return JSON.parse(value);
+        }
+      window.localStorage.setItem(keyName, JSON.stringify(defaultValue)); // créer une clé par defaut sur l'ordinateur
       return defaultValue;
     } catch (err) {
       return defaultValue;
@@ -22,6 +23,8 @@ const useLocalStorage = (keyName, defaultValue) => {
     }
     setStoredValue(newValue);
   };
+
   return [storedValue, setValue];
 };
+
 export default useLocalStorage;
