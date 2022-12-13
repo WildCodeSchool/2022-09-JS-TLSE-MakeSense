@@ -1,5 +1,6 @@
 {
   "home": "Willkommen",
   "login": "Anmeldung",
-  "logout": "Ausloggen"
+  "logout": "Ausloggen",
+  "register": "Registrieren"
 }

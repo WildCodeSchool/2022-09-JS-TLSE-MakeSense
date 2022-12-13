@@ -1,5 +1,6 @@
 {
-  "home": "Acceuil",
+  "home": "Accueil",
   "login": "Connexion",
-  "logout": "Deconnexion"
+  "logout": "Deconnexion",
+  "register": "S'enregistrer"
 }
