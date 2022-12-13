@@ -1,11 +1,6 @@
 {
-  "exploreHeader": "fr",
-  "welcomeDescription": "React Context API ile çok dil destekli web sitesi örneği",
-  "clickMe": "fr",
-  "aboutMe": "Yazar hakkinda daha fazlabilgi için..",
-  "buttonClicked": "fr",
-  "enterText": "fr",
-  "option1": "Secenek 1",
-  "option2": "Secenek 2",
-  "option3": "Secenek 3"
+  "home": "Accueil",
+  "login": "Connexion",
+  "logout": "Deconnexion",
+  "register": "S'enregistrer"
 }
