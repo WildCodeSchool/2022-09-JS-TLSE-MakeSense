@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2022 at 02:34 PM
+-- Generation Time: Dec 13, 2022 at 10:57 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.1.13
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `makesense`
 --
+CREATE DATABASE IF NOT EXISTS `makesense` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `makesense`;
 
 -- --------------------------------------------------------
 
@@ -91,14 +93,14 @@ CREATE TABLE `group_user` (
 CREATE TABLE `languages` (
   `id` int NOT NULL,
   `name` char(49) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `iso_639-1` char(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
+  `iso_639_1` char(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
 --
 -- Dumping data for table `languages`
 --
 
-INSERT INTO `languages` (`id`, `name`, `iso_639-1`) VALUES
+INSERT INTO `languages` (`id`, `name`, `iso_639_1`) VALUES
 (1, 'English', 'en'),
 (2, 'Afar', 'aa'),
 (3, 'Abkhazian', 'ab'),
@@ -246,6 +248,15 @@ CREATE TABLE `lang_active` (
   `json` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `lang_active`
+--
+
+INSERT INTO `lang_active` (`id_language`, `json`) VALUES
+(1, '{\"home\": \"Home\", \"login\": \"Login\", \"logout\": \"Logout\", \"register\": \"Register\", \"register2\": \"Register2\"}'),
+(23, '{\"home\": \"Willkommen\", \"login\": \"Anmeldung\", \"logout\": \"Ausloggen\", \"register\": \"Registrieren\"}'),
+(34, '{\"home\": \"Accueil\", \"login\": \"Connexion\", \"logout\": \"Deconnexion\", \"register\": \"S\'enregistrer\"}');
+
 -- --------------------------------------------------------
 
 --
@@ -321,7 +332,7 @@ ALTER TABLE `languages`
 -- Indexes for table `lang_active`
 --
 ALTER TABLE `lang_active`
-  ADD KEY `fk_lang_active` (`id_language`);
+  ADD UNIQUE KEY `fk_lang_active` (`id_language`) USING BTREE;
 
 --
 -- Indexes for table `services`
@@ -407,7 +418,7 @@ ALTER TABLE `group_user`
 -- Constraints for table `lang_active`
 --
 ALTER TABLE `lang_active`
-  ADD CONSTRAINT `fk_lang_active` FOREIGN KEY (`id_language`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_lang_active` FOREIGN KEY (`id_language`) REFERENCES `languages` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
