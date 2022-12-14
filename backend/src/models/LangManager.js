@@ -7,7 +7,7 @@ class LangManager extends AbstractManager {
 
   findLangList() {
     return this.connection.query(
-      `SELECT l.iso_639_1 FROM ${this.table} INNER JOIN languages as l WHERE id_language = l.id`
+      `SELECT l.iso_639_1, l.name,json FROM ${this.table} INNER JOIN languages as l WHERE id_language = l.id`
     );
   }
 
