@@ -1,13 +1,17 @@
-import mysqlapi from "@services/mysqlapi";
+import api from "@services/api";
 
-import fr from "./fr.json";
-import en from "./en.json";
-import de from "./de.json";
-
-export const dictionaryList = { en, fr, de };
-
-export const languageOptions = {
-  en: "Anglais",
-  fr: "Français",
-  de: "Allemand",
-};
+export function LoadSqlLang() {
+  const List = {};
+  const Options = {};
+  return api
+    .apimysql(`${import.meta.env.VITE_BACKEND_URL}/lang`, "GET")
+    .then((json) => {
+      json.forEach((element) => {
+        (List[element.iso_639_1.toString()] = element.json),
+          (Options[element.iso_639_1.toString()] = element.name);
+      });
+      return { List, Options };
+    });
+}
+// export const dictionaryList = List;
+// export const languageOptions = Options;

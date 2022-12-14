@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
-
-import { languageOptions } from "../../languages";
 import { LanguageContext } from "../../contexts/Language";
 
 export default function LanguageSelector() {
-  const { userLanguage, userLanguageChange } = useContext(LanguageContext);
-
+  const { userLanguage, userLanguageChange, languageOptions } =
+    useContext(LanguageContext);
   // set selected language by calling context method
   const handleLanguageChange = (e) => userLanguageChange(e.target.value);
 
