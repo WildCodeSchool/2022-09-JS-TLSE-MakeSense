@@ -13,5 +13,3 @@ export function LoadSqlLang() {
       return { List, Options };
     });
 }
-// export const dictionaryList = List;
-// export const languageOptions = Options;

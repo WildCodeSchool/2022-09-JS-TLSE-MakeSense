@@ -6,8 +6,6 @@ import React, {
   useEffect,
 } from "react";
 import PropTypes from "prop-types";
-
-// import { languageOptions, dictionaryList } from "../languages";
 import { LoadSqlLang } from "../languages";
 
 // create the language context with default selected language
@@ -21,9 +19,9 @@ export function LanguageProvider({ children }) {
   const [provider, setProvider] = useState({});
 
   useEffect(() => {
-    LoadSqlLang().then((e) => {
-      const dictionaryList = e.List;
-      const languageOptions = e.Options;
+    LoadSqlLang().then((item) => {
+      const dictionaryList = item.List;
+      const languageOptions = item.Options;
 
       setProvider({
         userLanguage,

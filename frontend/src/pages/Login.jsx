@@ -39,11 +39,7 @@ function LoginPage() {
             id="password"
             autoComplete="current-password"
           />
-          <button
-            type="submit"
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             <Text tid="login" />
           </button>
           <div>
