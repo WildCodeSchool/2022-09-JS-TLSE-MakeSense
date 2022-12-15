@@ -1,13 +1,13 @@
 import "./assets/css/App.css";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import HomePage from "./pages/Home";
-import ProfilePage from "./pages/Profile";
-import SettingsPage from "./pages/Settings";
+import LoginPage from "./pages/HomeLayout/Login";
+import RegisterPage from "./pages/HomeLayout/Register";
+import HomePage from "./pages/HomeLayout/Home";
+import ProfilePage from "./pages/ProtectedLayout/Profile";
+import SettingsPage from "./pages/ProtectedLayout/Settings";
 import ProtectedLayout from "./components/ProtectedLayout";
 import AdminLayout from "./components/AdminLayout";
-import AdminPage from "./pages/Admin";
+import AdminPage from "./pages/AdminLayout/Admin";
 import HomeLayout from "./components/HomeLayout";
 
 function App() {

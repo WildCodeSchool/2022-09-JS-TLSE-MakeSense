@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/useAuth";
-import { Text } from "../contexts/Language";
+import { useAuth } from "../../contexts/useAuth";
+import { Text } from "../../contexts/Language";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -55,11 +55,7 @@ function LoginPage() {
           />
           <br />
 
-          <button
-            type="submit"
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Login In
           </button>
           <div>
