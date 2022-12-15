@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
+import { Text } from "../contexts/Language";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -38,13 +39,8 @@ function LoginPage() {
             id="password"
             autoComplete="current-password"
           />
-          <button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Login In
+          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Text tid="login" />
           </button>
           <div>
             <Link to="/register">Don't have an account? Sign Up</Link>
