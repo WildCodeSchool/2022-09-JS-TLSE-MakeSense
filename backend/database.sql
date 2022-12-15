@@ -159,7 +159,7 @@ CREATE TABLE
     `lang_active` (
         `id_language` int NOT NULL,
         `json` json NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 --
 
@@ -205,12 +205,12 @@ CREATE TABLE
 CREATE TABLE
     `users` (
         `id` int NOT NULL,
-        `lastname` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-        `firstname` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+        `lastname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+        `firstname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
         `email` varchar(254) DEFAULT NULL,
         `service_id` int DEFAULT NULL,
         `admin` int DEFAULT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Table utilisateurs';
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci COMMENT = 'Table utilisateurs';
 
 --
 
