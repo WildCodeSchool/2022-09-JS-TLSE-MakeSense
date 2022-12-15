@@ -147,19 +147,15 @@ VALUES (1, 'English', 'en'), (2, 'Afar', 'aa'), (3, 'Abkhazian', 'ab'), (4, 'Afr
         'om'
     ), (86, 'Punjabi', 'pa'), (87, 'Polish', 'pl'), (88, 'Pashto/Pushto', 'ps'), (89, 'Portuguese', 'pt'), (90, 'Quechua', 'qu'), (91, 'Rhaeto-Romance', 'rm'), (92, 'Kirundi', 'rn'), (93, 'Romanian', 'ro'), (94, 'Russian', 'ru'), (95, 'Kinyarwanda', 'rw'), (96, 'Sanskrit', 'sa'), (97, 'Sindhi', 'sd'), (98, 'Sangro', 'sg'), (99, 'Serbo-Croatian', 'sh'), (100, 'Singhalese', 'si'), (101, 'Slovak', 'sk'), (102, 'Slovenian', 'sl'), (103, 'Samoan', 'sm'), (104, 'Shona', 'sn'), (105, 'Somali', 'so'), (106, 'Albanian', 'sq'), (107, 'Serbian', 'sr'), (108, 'Siswati', 'ss'), (109, 'Sesotho', 'st'), (110, 'Sundanese', 'su'), (111, 'Swedish', 'sv'), (112, 'Swahili', 'sw'), (113, 'Tamil', 'ta'), (114, 'Telugu', 'te'), (115, 'Tajik', 'tg'), (116, 'Thai', 'th'), (117, 'Tigrinya', 'ti'), (118, 'Turkmen', 'tk'), (119, 'Tagalog', 'tl'), (120, 'Setswana', 'tn'), (121, 'Tonga', 'to'), (122, 'Turkish', 'tr'), (123, 'Tsonga', 'ts'), (124, 'Tatar', 'tt'), (125, 'Twi', 'tw'), (126, 'Ukrainian', 'uk'), (127, 'Urdu', 'ur'), (128, 'Uzbek', 'uz'), (129, 'Vietnamese', 'vi'), (130, 'Volapuk', 'vo'), (131, 'Wolof', 'wo'), (132, 'Xhosa', 'xh'), (133, 'Yoruba', 'yo'), (134, 'Chinese', 'zh'), (135, 'Zulu', 'zu');
 
--- --------------------------------------------------------
-
+>> >> >> > 3543 ee64eebe8e1ad11504cd5cd859bdf0783e1f -- --------------------------------------------------------
 --
-
 -- Structure de la table `lang_active`
-
 --
-
 CREATE TABLE
     `lang_active` (
         `id_language` int NOT NULL,
         `json` json NOT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 --
 
@@ -205,12 +201,12 @@ CREATE TABLE
 CREATE TABLE
     `users` (
         `id` int NOT NULL,
-        `lastname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-        `firstname` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+        `lastname` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+        `firstname` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
         `email` varchar(254) DEFAULT NULL,
         `service_id` int DEFAULT NULL,
         `admin` int DEFAULT NULL
-    ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci COMMENT = 'Table utilisateurs';
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'Table utilisateurs';
 
 --
 
@@ -233,6 +229,8 @@ ADD
 
 -- Index pour la table `decisions_experts`
 
+-- Index pour la table `decisions_experts`
+
 --
 
 ALTER TABLE
@@ -243,6 +241,8 @@ ADD
     KEY `fk_decisions_experts_user` (`id_user_expert`);
 
 --
+
+-- Index pour la table `decisions_impacts`
 
 -- Index pour la table `decisions_impacts`
 
@@ -259,6 +259,8 @@ ADD
 
 -- Index pour la table `group`
 
+-- Index pour la table `group`
+
 --
 
 ALTER TABLE `group`
@@ -267,6 +269,8 @@ ADD
     UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
+
+-- Index pour la table `group_user`
 
 -- Index pour la table `group_user`
 
@@ -280,11 +284,15 @@ ADD KEY `id_group` (`id_group`);
 
 -- Index pour la table `languages`
 
+-- Index pour la table `languages`
+
 --
 
 ALTER TABLE `languages` ADD PRIMARY KEY (`id`);
 
 --
+
+-- Index pour la table `lang_active`
 
 -- Index pour la table `lang_active`
 
@@ -294,7 +302,13 @@ ALTER TABLE `lang_active`
 ADD
     UNIQUE KEY `fk_lang_active` (`id_language`) USING BTREE;
 
+ALTER TABLE `lang_active`
+ADD
+    UNIQUE KEY `fk_lang_active` (`id_language`) USING BTREE;
+
 --
+
+-- Index pour la table `services`
 
 -- Index pour la table `services`
 
@@ -309,7 +323,16 @@ ADD
 
 -- Index pour la table `users`
 
+-- Index pour la table `users`
+
 --
+
+ALTER TABLE `users`
+ADD PRIMARY KEY (`id`),
+ADD
+    UNIQUE KEY `email_UNIQUE` (`email`),
+ADD
+    KEY `service_id` (`service_id`);
 
 ALTER TABLE `users`
 ADD PRIMARY KEY (`id`),
@@ -322,9 +345,13 @@ ADD
 
 -- AUTO_INCREMENT pour les tables déchargées
 
+-- AUTO_INCREMENT pour les tables déchargées
+
 --
 
 --
+
+-- AUTO_INCREMENT pour la table `decisions`
 
 -- AUTO_INCREMENT pour la table `decisions`
 
@@ -336,11 +363,15 @@ ALTER TABLE `decisions` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 -- AUTO_INCREMENT pour la table `group`
 
+-- AUTO_INCREMENT pour la table `group`
+
 --
 
 ALTER TABLE `group` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+
+-- AUTO_INCREMENT pour la table `languages`
 
 -- AUTO_INCREMENT pour la table `languages`
 
@@ -354,6 +385,8 @@ ALTER TABLE
 
 -- AUTO_INCREMENT pour la table `services`
 
+-- AUTO_INCREMENT pour la table `services`
+
 --
 
 ALTER TABLE `services` MODIFY `id` int NOT NULL AUTO_INCREMENT;
@@ -362,11 +395,17 @@ ALTER TABLE `services` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 -- AUTO_INCREMENT pour la table `users`
 
+-- AUTO_INCREMENT pour la table `users`
+
 --
 
 ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
 --
+
+-- Contraintes pour les tables déchargées
 
 -- Contraintes pour les tables déchargées
 
@@ -376,9 +415,45 @@ ALTER TABLE `users` MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 -- Contraintes pour la table `decisions`
 
+-- Contraintes pour la table `decisions`
+
 --
 
 ALTER TABLE `decisions`
+ADD
+    CONSTRAINT `fk_decision_user_creator` FOREIGN KEY (`id_user_creator`) REFERENCES `users` (`id`) ON DELETE
+SET NULL ON UPDATE CASCADE;
+
+--
+
+-- Contraintes pour la table `decisions_experts`
+
+--
+
+ALTER TABLE
+    `decisions_experts`
+ADD
+    CONSTRAINT `fk_decisions_experts_decision` FOREIGN KEY (`id_decision`) REFERENCES `decisions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD
+    CONSTRAINT `fk_decisions_experts_user` FOREIGN KEY (`id_user_expert`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+
+-- Contraintes pour la table `decisions_impacts`
+
+--
+
+ALTER TABLE
+    `decisions_impacts`
+ADD
+    CONSTRAINT `fk_decisions_impacts_decisions` FOREIGN KEY (`id_decision`) REFERENCES `decisions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD
+    CONSTRAINT `fk_decisions_impacts_users` FOREIGN KEY (`id_user_impact`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+
+-- Contraintes pour la table `group_user`
+
 ADD
     CONSTRAINT `fk_decision_user_creator` FOREIGN KEY (`id_user_creator`) REFERENCES `users` (`id`) ON DELETE
 SET NULL ON UPDATE CASCADE;
