@@ -1,4 +1,3 @@
-import AdminPage from "@pages/Admin";
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
