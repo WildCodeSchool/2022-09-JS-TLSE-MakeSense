@@ -10,7 +10,7 @@ export default function HomeLayout() {
   const { dictionary } = useContext(LanguageContext);
 
   if (user) {
-    return <Navigate to="/dashboard/profile" replace />;
+    return <Navigate to="/user/profile" replace />;
   }
 
   return (
