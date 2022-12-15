@@ -9,6 +9,7 @@ export default function HomeLayout() {
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
+  // Si connecté redirige vers profile page
   if (user) {
     return <Navigate to="/dashboard/profile" replace />;
   }
