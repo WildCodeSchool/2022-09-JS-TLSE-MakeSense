@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const login = async (data) => {
     setUser(data);
     if (data.admin === "on") {
-      navigate("user/admin/dashboard", { replace: true });
+      navigate("/admin/dashboard", { replace: true });
     } else {
       navigate("/user/profile", { replace: true });
     }

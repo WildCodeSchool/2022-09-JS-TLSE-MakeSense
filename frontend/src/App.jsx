@@ -22,7 +22,12 @@ function App() {
       <Route path="/user" element={<ProtectedLayout />}>
         <Route path="profile" element={<ProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
-        <Route path="admin" element={<AdminLayout />} />
+      </Route>
+
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="dashboard" element={<AdminPage />} />
       </Route>
     </Routes>
   );
