@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
+import { Text } from "../contexts/Language";
 
 function LoginPage() {
   const { login } = useAuth();

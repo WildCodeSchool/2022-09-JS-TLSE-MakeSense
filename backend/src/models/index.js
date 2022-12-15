@@ -8,8 +8,8 @@ const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 const pool = mysql.createPool({
   host: DB_HOST,
   user: DB_USER,
-  password: DB_PASSWORD,
   database: DB_NAME,
+  password: DB_PASSWORD,
 });
 
 pool.getConnection().catch(() => {
@@ -27,10 +27,8 @@ const models = fs
   .reduce((acc, file) => {
     // eslint-disable-next-line global-require, import/no-dynamic-require
     const Manager = require(path.join(__dirname, file));
-
     const managerInstance = new Manager();
     managerInstance.setConnection(pool);
-
     return { ...acc, [managerInstance.table]: managerInstance };
   }, {});
 

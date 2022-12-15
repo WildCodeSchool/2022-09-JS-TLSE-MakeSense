@@ -6,18 +6,21 @@ export default function ProtectedLayout() {
   const { user } = useAuth();
   const outlet = useOutlet();
 
+  // Si NON connecté redirige vers Home
   if (!user) {
     return <Navigate to="/" />;
   }
 
   return (
     <div>
-      <AppBar
-        pages={[
-          { label: "Settings", path: "settings" },
-          { label: "Profile", path: "profile" },
-        ]}
-      />
+      <header>
+        <AppBar
+          pages={[
+            { label: "Settings", path: "settings" },
+            { label: "Profile", path: "profile" },
+          ]}
+        />
+      </header>
       {outlet}
     </div>
   );
