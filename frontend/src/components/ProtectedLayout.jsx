@@ -6,7 +6,7 @@ export default function ProtectedLayout() {
   const { user } = useAuth();
   const outlet = useOutlet();
 
-  // Si NON connecté redirige vers Home 
+  // Si NON connecté redirige vers Home
   if (!user) {
     return <Navigate to="/" />;
   }

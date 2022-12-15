@@ -21,7 +21,6 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
-      
     </Routes>
   );
 }
