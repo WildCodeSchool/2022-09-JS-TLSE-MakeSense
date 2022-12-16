@@ -1,12 +1,26 @@
 function api() {
-  const apimysql = (url, method) => {
-    return fetch(url, {
-      type: method,
-    }).then((res) => res.json());
+  const apigetmysql = async (url) => {
+    const res = await fetch(url, {
+      method: "GET",
+    });
+    return await res.json();
+  };
+
+  const apipostmysql = async (url, body) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(body), // body data type must match "Content-Type" header
+    });
+    return await res.json();
   };
 
   return {
-    apimysql,
+    apigetmysql,
+    apipostmysql,
   };
 }
 

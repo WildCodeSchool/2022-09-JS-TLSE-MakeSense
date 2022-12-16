@@ -1,33 +1,35 @@
 require("dotenv").config();
 const fs = require("fs");
 
-const regex = /([A-Z])\w+/g;
-const folder = "../frontend/src/pages";
+const regex = /[^/]+(?=\/$|$)/g;
 
 const readallfiles = (req, res) => {
-  res.send(
-    fs.readdirSync(folder).reduce((acc, file) => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      const namefile = file.replace(".jsx", "");
-      if (fs.statSync(`${folder}/${file}`).isDirectory()) {
-        const subfolder = `${folder}/${file}`.match(regex)[0];
-        fs.readdirSync(`${folder}/${file}`).reduce((acc2, file2) => {
-          const namesubfile = file2.replace(".jsx", "");
+  const readFolder = (folder) => {
+    return fs
+      .readdirSync(folder)
+      .filter((file) => file !== ".gitignore")
+      .reduce((acc, file) => {
+        // eslint-disable-next-line global-require, import/no-dynamic-require
+        const namefile = file.replace(".jsx", "");
+        if (fs.statSync(`${folder}/${file}`).isDirectory()) {
+          const foldername = `${folder}/${file}`.match(regex)[0];
+          let acc2 = { ...acc };
+          const files2 = readFolder(`${folder}/${file}`);
+          acc2 = { [foldername]: files2 };
           /* eslint-disable no-param-reassign */
-          acc2 = {
-            ...acc,
-            [subfolder]: { ...acc[subfolder], [namesubfile]: file2 },
-          };
-          acc = acc2;
+          acc = { ...acc, ...acc2 };
           /* eslint-enable no-param-reassign */
-          return acc2;
-        }, {});
-      } else {
+          return acc;
+        }
         return { ...acc, [namefile]: file };
-      }
-      return acc;
-    }, {})
-  );
+      }, {});
+  };
+
+  const result = req.body.folders.map((e) => {
+    return readFolder(e);
+  });
+
+  res.send(result);
 };
 
 module.exports = {

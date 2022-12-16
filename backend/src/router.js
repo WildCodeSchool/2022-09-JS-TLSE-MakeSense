@@ -6,7 +6,7 @@ const langControllers = require("./controllers/langControllers");
 
 const scriptfs = require("./scripts/fs");
 
-router.get("/readfs", scriptfs.readallfiles);
+router.post("/readfs", scriptfs.readallfiles);
 
 router.get("/lang", langControllers.langlist);
 
