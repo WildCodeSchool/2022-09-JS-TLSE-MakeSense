@@ -1,6 +1,6 @@
 import BasicPage from "../../components/container/BasicPage";
 
-function AdminPage() {
+function DashboardPage() {
   return (
     <>
       <BasicPage title="Admin Page" />
@@ -9,4 +9,4 @@ function AdminPage() {
   );
 }
 
-export default AdminPage;
+export default DashboardPage;

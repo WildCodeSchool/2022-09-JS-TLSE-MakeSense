@@ -17,8 +17,8 @@ export default function AdminLayout() {
     <>
       <AppBar
         pages={[
-          { label: "Settings", path: "settings" },
-          { label: "Profile", path: "profile" },
+          { label: "Settings", path: "../user/settings" },
+          { label: "Profile", path: "../user/profile" },
           { label: "Admin", path: "dashboard" },
         ]}
       />
