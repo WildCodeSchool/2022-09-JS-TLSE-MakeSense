@@ -5,11 +5,11 @@ import AppBar from "./header/AppBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 
-export default function ProtectedLayout() {
-  const { pages, components } = useContext(FolderContext);
+export default function AdminLayout() {
   const { user } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
+  const { pages, components } = useContext(FolderContext);
 
   // Creation pages
   let menu = [];
@@ -17,32 +17,30 @@ export default function ProtectedLayout() {
     const labelpage = item.toLowerCase();
     const addmenu = {
       label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
-      path: `/user/${item.replace("Home", "").toLowerCase()}`,
+      path: `/user/${item.toLowerCase()}`,
     };
     menu = [...menu, addmenu];
   });
-  if (user.admin)
-    // Pages add admin
-    Object.keys(pages.Admin).forEach((item) => {
-      const labelpage = item.toLowerCase();
-      const addmenu = {
-        label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
-        path: `/admin/${item.replace("Home", "").toLowerCase()}`,
-      };
-      menu = [...menu, addmenu];
-    });
+  Object.keys(pages.Admin).forEach((item) => {
+    const labelpage = item.toLowerCase();
+    const addmenu = {
+      label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
+      path: `/admin/${item.replace("Home", "").toLowerCase()}`,
+    };
+    menu = [...menu, addmenu];
+  });
 
-  // Si NON connecté redirige vers Home
   if (!user) {
     return <Navigate to="/" />;
   }
+  if (!user.admin) {
+    return <Navigate to="../user/profile" />;
+  }
 
   return (
-    <div>
-      <header>
-        <AppBar menu={menu} />
-      </header>
+    <>
+      <AppBar menu={menu} />
       {outlet}
-    </div>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/useAuth";
-import { Text } from "../contexts/Language";
+import { useAuth } from "../../contexts/useAuth";
+import { Text } from "../../contexts/Language";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -13,6 +13,7 @@ function LoginPage() {
     login({
       email: data.get("email"),
       password: data.get("password"),
+      admin: data.get("admin"),
     });
   };
 
@@ -22,6 +23,7 @@ function LoginPage() {
         <h1>Log In</h1>
 
         <form onSubmit={handleSubmit} noValidate>
+          <label htmlFor="email">Enter your email: </label>
           <input
             margin="normal"
             required
@@ -30,6 +32,8 @@ function LoginPage() {
             name="email"
             autoComplete="email"
           />
+          <br />
+          <label htmlFor="password">Enter your password: </label>
           <input
             margin="normal"
             required
@@ -39,8 +43,20 @@ function LoginPage() {
             id="password"
             autoComplete="current-password"
           />
+          <br />
+          <label htmlFor="admin">Are you admin ?</label>
+          <input
+            margin="normal"
+            required
+            name="admin"
+            label="Admin"
+            type="checkbox"
+            id="admin"
+          />
+          <br />
+
           <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            <Text tid="login" />
+            Login In
           </button>
           <div>
             <Link to="/register">Don't have an account? Sign Up</Link>

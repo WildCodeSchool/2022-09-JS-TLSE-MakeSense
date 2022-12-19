@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/useAuth";
-import { Text, LanguageContext } from "../contexts/Language";
+import { useAuth } from "../../contexts/useAuth";
+import { Text, LanguageContext } from "../../contexts/Language";
 
 function RegisterPage() {
   const { login } = useAuth();
@@ -67,12 +67,7 @@ function RegisterPage() {
             autoComplete="current-password"
           />
           <br />
-          <button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Register
           </button>
         </form>

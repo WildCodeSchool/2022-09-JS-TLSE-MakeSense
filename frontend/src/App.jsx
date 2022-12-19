@@ -1,28 +1,53 @@
 import "./assets/css/App.css";
-import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import HomePage from "./pages/Home";
-import ProfilePage from "./pages/Profile";
-import SettingsPage from "./pages/Settings";
-import ProtectedLayout from "./components/ProtectedLayout";
-import HomeLayout from "./components/HomeLayout";
+import { useRoutes } from "react-router-dom";
+
+import { Suspense, useContext } from "react";
+import Loader from "@services/Loader";
+import { FolderContext } from "./contexts/Folder";
+import ErrorPage from "./pages/Error";
 
 function App() {
-  return (
-    <Routes>
-      <Route element={<HomeLayout />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Route>
+  const { pages, components } = useContext(FolderContext);
 
-      <Route path="/dashboard" element={<ProtectedLayout />}>
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="settings" element={<SettingsPage />} />
-      </Route>
-    </Routes>
-  );
+  // // Array pour les routes
+  let routes = [];
+  Object.values(pages).forEach((element, index) => {
+    let childrenroutes = [];
+    const folder = Object.keys(pages)[index];
+    Object.keys(element).forEach((files) => {
+      childrenroutes = [
+        ...childrenroutes,
+        {
+          path: `${files.toLocaleLowerCase()}`,
+          element: (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Loader foldername={`pages/${folder}`} filename={files} />
+            </Suspense>
+          ),
+          errorElement: <ErrorPage />,
+        },
+      ];
+    });
+
+    routes = [
+      ...routes,
+      {
+        path: `/${folder
+          .toLocaleLowerCase()
+          .replace("home", "")
+          .replace("protected", "user")}`,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Loader foldername="components/" filename={`${folder}Layout`} />
+          </Suspense>
+        ),
+        errorElement: <ErrorPage />,
+        children: childrenroutes,
+      },
+    ];
+  });
+  const element = useRoutes(routes);
+
+  return element;
 }
-
 export default App;

@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text, LanguageContext } from "../../contexts/Language";
 
-function AppBar({ pages }) {
+function AppBar({ menu }) {
   // CONST //
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function AppBar({ pages }) {
   return (
     <div className="wrap-header">
       <div className="menu">
-        {pages?.map((page) => (
+        {menu?.map((page) => (
           <button
             type="button"
             key={page.label}
@@ -36,7 +36,7 @@ function AppBar({ pages }) {
               handleCloseNavMenu(page.path);
             }}
           >
-            {page.label}
+            <Text tid={page.label} />
           </button>
         ))}
         {!!user && (
@@ -52,5 +52,5 @@ function AppBar({ pages }) {
 export default AppBar;
 
 AppBar.propTypes = {
-  pages: PropTypes.instanceOf(Array).isRequired,
+  menu: PropTypes.instanceOf(Array).isRequired,
 };

@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import PropTypes from "prop-types";
-import { LoadSqlLang } from "../languages";
+import { LoadSqlLang } from "./functions/languages";
 
 // create the language context with default selected language
 export const LanguageContext = createContext({});
