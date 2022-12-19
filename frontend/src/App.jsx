@@ -1,7 +1,5 @@
 import "./assets/css/App.css";
-import {
-  useRoutes,
-} from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 import { Suspense, useContext } from "react";
 import Loader from "@services/Loader";

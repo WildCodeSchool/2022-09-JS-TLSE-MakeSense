@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
@@ -5,14 +6,29 @@ import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 
 export default function AdminLayout() {
-
-  const { pages, components } = useContext(FolderContext);
-  // Creation pages
-  
-
   const { user } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
+  const { pages, components } = useContext(FolderContext);
+
+  // Creation pages
+  let menu = [];
+  Object.keys(pages.Protected).forEach((item) => {
+    const labelpage = item.toLowerCase();
+    const addmenu = {
+      label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
+      path: `/user/${item.toLowerCase()}`,
+    };
+    menu = [...menu, addmenu];
+  });
+  Object.keys(pages.Admin).forEach((item) => {
+    const labelpage = item.toLowerCase();
+    const addmenu = {
+      label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
+      path: `/admin/${item.replace("Home", "").toLowerCase()}`,
+    };
+    menu = [...menu, addmenu];
+  });
 
   if (!user) {
     return <Navigate to="/" />;
@@ -23,13 +39,7 @@ export default function AdminLayout() {
 
   return (
     <>
-      <AppBar
-        pages={[
-          { label: dictionary.settings ? dictionary.settings : "Settings", path: "../user/settings" },
-          { label: dictionary.profile ? dictionary.settings : "Profile", path: "../user/profile" },
-          { label: dictionary.admin ? dictionary.settings : "Admin", path: "dashboard" },
-        ]}
-      />
+      <AppBar menu={menu} />
       {outlet}
     </>
   );

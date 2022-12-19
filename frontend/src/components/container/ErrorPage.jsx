@@ -1,4 +1,3 @@
-
 import PropTypes from "prop-types";
 
 function ErrorPage({ title }) {
@@ -8,10 +7,8 @@ function ErrorPage({ title }) {
         <h1>{title}</h1>
       </div>
       <div>
-        <p>
-            Il y a eu une erreur lors du chargement du composant !
-        </p>
-        </div>
+        <p>Il y a eu une erreur lors du chargement du composant !</p>
+      </div>
     </main>
   );
 }
