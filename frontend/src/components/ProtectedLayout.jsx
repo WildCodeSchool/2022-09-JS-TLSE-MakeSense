@@ -1,10 +1,12 @@
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
+import { LanguageContext } from "../contexts/Language";
 
 export default function ProtectedLayout() {
   const { user } = useAuth();
   const outlet = useOutlet();
+  const { dictionary } = useContext(LanguageContext);
 
   // Si NON connecté redirige vers Home
   if (!user) {
@@ -16,8 +18,8 @@ export default function ProtectedLayout() {
       <header>
         <AppBar
           pages={[
-            { label: "Settings", path: "settings" },
-            { label: "Profile", path: "profile" },
+            { label: dictionary.settings ? dictionary.settings : "Settings", path: "../user/settings" },
+            { label: dictionary.profile ? dictionary.settings : "Profile", path: "../user/profile" },
           ]}
         />
       </header>

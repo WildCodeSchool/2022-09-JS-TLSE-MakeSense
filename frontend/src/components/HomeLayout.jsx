@@ -3,8 +3,13 @@ import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import { LanguageContext } from "../contexts/Language";
+import { FolderContext } from "../contexts/Folder";
 
 export default function HomeLayout() {
+  const { pages, components } = useContext(FolderContext);
+  // Creation pages
+  console.log(pages);
+
   const { user } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
@@ -19,8 +24,8 @@ export default function HomeLayout() {
       <header>
         <AppBar
           pages={[
-            { label: dictionary.home, path: "/" },
-            { label: dictionary.login, path: "/login" },
+            { label: dictionary.home ? dictionary.home : "Home", path: "/" },
+            { label: dictionary.login ? dictionary.login : "Login", path: "/login" },
           ]}
         />
       </header>

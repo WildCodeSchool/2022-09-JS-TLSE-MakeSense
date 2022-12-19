@@ -7,7 +7,7 @@ const readallfiles = (req, res) => {
   const readFolder = (folder) => {
     return fs
       .readdirSync(folder)
-      .filter((file) => file !== ".gitignore")
+      .filter((file) => file !== ".gitignore" && file !== "Error.jsx")
       .reduce((acc, file) => {
         // eslint-disable-next-line global-require, import/no-dynamic-require
         const namefile = file.replace(".jsx", "");
