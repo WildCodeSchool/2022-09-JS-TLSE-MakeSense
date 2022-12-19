@@ -1,8 +1,11 @@
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
+// const { pages, components } = useContext(FolderContext);
 
 export default function AdminLayout() {
+  // Creation pages
+
   const { user } = useAuth();
   const outlet = useOutlet();
 

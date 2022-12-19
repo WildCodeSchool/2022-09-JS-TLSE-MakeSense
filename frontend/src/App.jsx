@@ -1,7 +1,13 @@
 import "./assets/css/App.css";
-import { Routes, Route, createBrowserRouter } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  createBrowserRouter,
+  useRoutes,
+} from "react-router-dom";
 
 import { lazy, Suspense, useContext } from "react";
+import Loader from "@services/Loader";
 import LoginPage from "./pages/Home/Login";
 import DecisionsPage from "./pages/Protected/Decisions";
 import RegisterPage from "./pages/Home/Register";
@@ -28,10 +34,10 @@ function App() {
         ...childrenroutes,
         {
           path: `${files.toLocaleLowerCase()}`,
-          components: lazy(() => import(`./pages/${files}.jsx`)),
+          // components: lazy(() => import(`./pages/${files}.jsx`)),
           element: (
             <Suspense fallback={<div>Loading...</div>}>
-              <components />
+              <Loader foldername={`pages/${folder}`} filename={files} />
             </Suspense>
           ),
         },
@@ -41,11 +47,14 @@ function App() {
     routes = [
       ...routes,
       {
-        path: `/${folder.toLocaleLowerCase().replace("home", "")}`,
-        components: lazy(() => import(`./components/${folder}Layout.jsx`)),
+        path: `/${folder
+          .toLocaleLowerCase()
+          .replace("home", "")
+          .replace("protected", "user")}`,
+        // components: lazy(() => import(`./components/${folder}Layout.jsx`)),
         element: (
           <Suspense fallback={<div>Loading...</div>}>
-            <components />
+            <Loader foldername="components/" filename={`${folder}Layout`} />
           </Suspense>
         ),
         // errorElement: <ErrorPage />,
@@ -53,39 +62,8 @@ function App() {
       },
     ];
   });
-  const router = createBrowserRouter(routes);
+  const element = useRoutes(routes);
 
-  return (
-    <Routes router={router}>
-      {/* {Object.keys(pages).map((item) => (
-        console.log(`<Route path=/${item.toLowerCase().replace('home', '').replace('protected', 'user')} element=eval(${item}Layout)>`),
-        <Route key={`/${item.toLowerCase().replace('home', '')}`} path={`/${item.toLowerCase().replace('home', '')}`} element={eval(`${item}Layout`)}>
-                {Object.keys(pages[item]).map((subitem, index) => (
-                 console.log(`<Route path=${subitem.toLowerCase()} element=eval(${subitem}Page)/>`),
-
-                 <Route
-                   key={`${subitem.toLowerCase()}`}
-                    path={`${subitem.toLowerCase()}`}
-                    component= {<Loader path={subitem} />}
-                    // errorElement={<ErrorPage />}
-                    />
-                 ))}
-           {console.log("</Route>")}
-           </Route>
-         ))} */}
-
-      {/* <Route path="/user" element={<ProtectedLayout />}>
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="settings" element={<SettingsPage />} />
-      </Route>
-
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="dashboard" element={<AdminPage />} />
-      </Route> */}
-
-      {/* <Route path="*" element={<NoMatch />} /> */}
-    </Routes>
-  );
+  return element;
 }
-
 export default App;
