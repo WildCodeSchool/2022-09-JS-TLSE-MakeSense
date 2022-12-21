@@ -38,11 +38,12 @@ export default function ProtectedLayout() {
   }
 
   return (
-    <div>
+    <div className="container">
       <header>
         <AppBar menu={menu} />
       </header>
       {outlet}
+      <footer>Hello</footer>
     </div>
   );
 }

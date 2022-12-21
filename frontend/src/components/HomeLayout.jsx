@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
+import "../assets/css/Layout.css";
 
 export default function HomeLayout() {
   const { pages, components } = useContext(FolderContext);
@@ -29,11 +30,12 @@ export default function HomeLayout() {
   }
 
   return (
-    <div>
+    <div className="container">
       <header>
         <AppBar menu={menu} />
       </header>
       {outlet}
+      <footer>Hello</footer>
     </div>
   );
 }
