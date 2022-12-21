@@ -38,9 +38,12 @@ export default function AdminLayout() {
   }
 
   return (
-    <>
-      <AppBar menu={menu} />
+    <div className="container">
+      <header>
+        <AppBar menu={menu} />
+      </header>
       {outlet}
-    </>
+      <footer>Hello</footer>
+    </div>
   );
 }

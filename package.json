@@ -21,10 +21,13 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-sass": "^8.0.0",
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.4",
-    "sass-loader": "^13.2.0"
+    "sass-loader": "^13.2.0",
+    "argon2": "^0.30.2",
+    "joi": "^17.7.0"
   }
 }
