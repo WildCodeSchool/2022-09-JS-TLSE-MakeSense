@@ -9,10 +9,9 @@ const {
   verifyPassword,
   verifyToken,
 } = require("./midleware/Password");
-
-router.use(express.json());
 const scriptfs = require("./scripts/fs");
 
+router.use(express.json());
 router.get("/lang", langControllers.langlist);
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);

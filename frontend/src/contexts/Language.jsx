@@ -13,24 +13,24 @@ export const LanguageContext = createContext({});
 
 // it provides the language context to app
 export function LanguageProvider({ children }) {
-  const defaultLanguage = window.localStorage.getItem("rcml-lang");
+  const defaultLanguage = window.localStorage.getItem("user-lang");
   const [userLanguage, setUserLanguage] = useState(defaultLanguage || "fr");
   const [isLoaded, setIsLoaded] = useState(false);
   const [provider, setProvider] = useState({});
 
   useEffect(() => {
+    setIsLoaded(false);
     LoadSqlLang().then((item) => {
       const dictionaryList = item.List;
       const languageOptions = item.Options;
-
       setProvider({
         userLanguage,
-        dictionary: dictionaryList[userLanguage],
+        dictionary: JSON.parse(dictionaryList[userLanguage]),
         languageOptions,
         userLanguageChange: (selected) => {
-          const newLanguage = languageOptions[selected] ? selected : "en";
+          const newLanguage = languageOptions[selected] ? selected : "fr";
           setUserLanguage(newLanguage);
-          window.localStorage.setItem("rcml-lang", newLanguage);
+          window.localStorage.setItem("user-lang", newLanguage);
         },
       });
       setIsLoaded(true);
