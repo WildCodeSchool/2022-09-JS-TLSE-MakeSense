@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
+import "../assets/css/Layout.css";
 
 export default function AdminLayout() {
   const { user } = useAuth();

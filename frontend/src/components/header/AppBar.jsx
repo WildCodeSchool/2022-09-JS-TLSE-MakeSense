@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text, LanguageContext } from "../../contexts/Language";
-import "../../assets/css/Layout.css";
+import "../../assets/css/header/AppBar.css";
 import logo from "../../assets/img/logo-makesense.png";
 
 function AppBar({ menu }) {
@@ -18,7 +18,6 @@ function AppBar({ menu }) {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-
   const handleCloseNavMenu = (path) => {
     setAnchorElNav(null);
     if (path) {
@@ -31,19 +30,20 @@ function AppBar({ menu }) {
     <div className="wrap-header">
       <img src={logo} alt="logo" className="logo" />
       <div className="menu">
-        {menu?.map((page) => (
-          <>
+        {menu?.map((page, index) => (
+          <div className="wrapper-menu" key={`wrapper-${page.label}`}>
             <button
               type="button"
               key={page.label}
+              id={page.label}
               onClick={() => {
                 handleCloseNavMenu(page.path);
               }}
             >
               <Text tid={page.label} />
             </button>
-            <div className="bean" />
-          </>
+            <div key={`bean${page.label}`} className="bean" />
+          </div>
         ))}
         {!!user && (
           <button type="button" key="logout" onClick={logout}>
