@@ -13,7 +13,7 @@ export const LanguageContext = createContext({});
 
 // it provides the language context to app
 export function LanguageProvider({ children }) {
-  const defaultLanguage = window.localStorage.getItem("user-lang");
+  const defaultLanguage = window.localStorage.getItem("mks-user-lang");
   const [userLanguage, setUserLanguage] = useState(defaultLanguage || "fr");
   const [isLoaded, setIsLoaded] = useState(false);
   const [provider, setProvider] = useState({});
@@ -30,7 +30,7 @@ export function LanguageProvider({ children }) {
         userLanguageChange: (selected) => {
           const newLanguage = languageOptions[selected] ? selected : "fr";
           setUserLanguage(newLanguage);
-          window.localStorage.setItem("user-lang", newLanguage);
+          window.localStorage.setItem("mks-user-lang", newLanguage);
         },
       });
       setIsLoaded(true);

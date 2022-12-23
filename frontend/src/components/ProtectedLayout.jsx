@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
+import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.css";
@@ -18,7 +19,7 @@ export default function ProtectedLayout() {
     const labelpage = item.toLowerCase();
     const addmenu = {
       label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
-      path: `/user/${item.replace("Home", "").toLowerCase()}`,
+      path: `/user/${item.toLowerCase()}`,
     };
     menu = [...menu, addmenu];
   });
@@ -28,7 +29,7 @@ export default function ProtectedLayout() {
       const labelpage = item.toLowerCase();
       const addmenu = {
         label: dictionary.labelpage ? dictionary.item.toLowerCase() : `${item}`,
-        path: `/admin/${item.replace("Home", "").toLowerCase()}`,
+        path: `/admin/${item.toLowerCase()}`,
       };
       menu = [...menu, addmenu];
     });
@@ -44,7 +45,9 @@ export default function ProtectedLayout() {
         <AppBar menu={menu} />
       </header>
       {outlet}
-      <footer>Hello</footer>
+      <footer>
+        <FooterBar />
+      </footer>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
+import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.css";
@@ -19,7 +20,7 @@ export default function HomeLayout() {
       label: dictionary[item.toLowerCase()]
         ? dictionary[item.toLowerCase()]
         : `${item}`,
-      path: `${item.replace("Home", "").toLowerCase()}`,
+      path: `${item.replace("Home", "/").toLowerCase()}`,
     };
     menu = [...menu, addmenu];
   });
@@ -35,7 +36,9 @@ export default function HomeLayout() {
         <AppBar menu={menu} />
       </header>
       {outlet}
-      <footer>Hello</footer>
+      <footer>
+        <FooterBar />
+      </footer>
     </div>
   );
 }
