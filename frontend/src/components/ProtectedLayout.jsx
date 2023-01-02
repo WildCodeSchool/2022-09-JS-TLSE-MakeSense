@@ -40,7 +40,7 @@ export default function ProtectedLayout() {
   }
 
   return (
-    <div className="container">
+    <main className="container">
       <header>
         <AppBar menu={menu} />
       </header>
@@ -48,6 +48,6 @@ export default function ProtectedLayout() {
       <footer>
         <FooterBar />
       </footer>
-    </div>
+    </main>
   );
 }

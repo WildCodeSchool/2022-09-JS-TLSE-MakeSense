@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
+import AdminBar from "./container/Admin/AdminBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
@@ -40,14 +41,19 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="container">
+    <main className="container">
       <header>
         <AppBar menu={menu} />
       </header>
-      {outlet}
+      <div className="admin-wrapper">
+        <div className="menu-admin">
+          <AdminBar />
+        </div>
+        <div className="admin-tools-container">{outlet}</div>
+      </div>
       <footer>
         <FooterBar />
       </footer>
-    </div>
+    </main>
   );
 }

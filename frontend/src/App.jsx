@@ -9,7 +9,7 @@ import ErrorPage from "./pages/Error";
 function App() {
   const { pages, components } = useContext(FolderContext);
 
-  // // Array pour les routes
+  // // Array pour les routes du dossier pages
   let routes = [];
   Object.values(pages).forEach((element, index) => {
     let childrenroutes = [];
@@ -38,7 +38,7 @@ function App() {
           .replace("protected", "user")}`,
         element: (
           <Suspense fallback={<div>Loading...</div>}>
-            <Loader foldername="components/" filename={`${folder}Layout`} />
+            <Loader foldername="components" filename={`${folder}Layout`} />
           </Suspense>
         ),
         errorElement: <ErrorPage />,
@@ -46,6 +46,7 @@ function App() {
       },
     ];
   });
+  /// On rajoute les components dans les sous-routes
   const element = useRoutes(routes);
   return element;
 }
