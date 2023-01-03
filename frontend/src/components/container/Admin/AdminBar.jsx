@@ -20,9 +20,11 @@ function AdminBar({ menuadmin }) {
 
   return (
     <div className="wrapper">
-      <div className="menu">
+      <div className="menuadmin">
         {menuadmin?.map((page, index) => (
+
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
+            <div key={`bean${page.label}`} className="bean" />
             <button
               type="button"
               key={page.label}
@@ -33,7 +35,6 @@ function AdminBar({ menuadmin }) {
             >
               <Text tid={page.label} />
             </button>
-            <div key={`bean${page.label}`} className="bean" />
           </div>
         ))}
       </div>
