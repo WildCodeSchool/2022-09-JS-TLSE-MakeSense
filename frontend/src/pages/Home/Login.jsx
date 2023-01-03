@@ -1,60 +1,83 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/useAuth";
-import { Text } from "../../contexts/Language";
+import useLocalStorage from "../../hooks/useLocalStorage";
+// import { useAuth } from "../../contexts/useAuth";
+// import css from "../../assets/css/container/Login.css";
+
+// const errorColor = [red, setRed];
+// const successColor = [green, setGreen];
+
+function showError(input, message) {
+  const formControl = input.parentElement;
+  formControl.className = "form-control error";
+  // small.innerText = message;
+}
+
+function showSuccess(input) {
+  const formControl = input.parentElement;
+  formControl.className = "form-control success";
+}
 
 function LoginPage() {
-  const { login } = useAuth();
+  // const { login } = useAuth();
 
-  // Clic du Submit //
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    login({
-      email: data.get("email"),
-      password: data.get("password"),
-      admin: data.get("admin"),
-    });
-  };
+  function emailControl(input) {
+    const regex1 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+
+    if (regex1.test(input)) {
+      showSuccess(input);
+    } else {
+      showError(input, "Email is not valid");
+    }
+  }
+
+  function passwordControl(input) {
+    const regex2 =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    if (regex2.test(input)) {
+      showSuccess(input);
+    } else {
+      showError(input, "Password is not valid");
+    }
+  }
+
+  function controlValues(input) {
+    if (emailControl && passwordControl) {
+      window.localStorage.setItem("formValues", JSON.stringify(input));
+    } else {
+      showError(input, "Some informations are incorrect");
+    }
+  }
 
   return (
     <div className="wrapper">
       <div className="login">
         <h1>Log In</h1>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="email">Enter your email: </label>
+        <form onSubmit={controlValues}>
           <input
             margin="normal"
+            placeholder="Email"
             required
             id="email"
-            label="Email Address"
             name="email"
+            type="text"
+            onChange={emailControl}
+            label="Email Address"
             autoComplete="email"
           />
-          <br />
-          <label htmlFor="password">Enter your password: </label>
           <input
             margin="normal"
+            placeholder="Password"
             required
+            id="password"
             name="password"
             label="Password"
             type="password"
-            id="password"
+            onChange={passwordControl}
             autoComplete="current-password"
           />
-          <br />
-          <label htmlFor="admin">Are you admin ?</label>
-          <input
-            margin="normal"
-            required
-            name="admin"
-            label="Admin"
-            type="checkbox"
-            id="admin"
-          />
-          <br />
-
           <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
             Login In
           </button>
