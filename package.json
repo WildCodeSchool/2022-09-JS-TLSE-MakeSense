@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-sass": "^8.0.0",
+    "react-datepicker": "^4.8.0",
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.4",
     "sass-loader": "^13.2.0"
