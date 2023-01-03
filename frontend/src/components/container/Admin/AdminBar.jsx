@@ -22,7 +22,6 @@ function AdminBar({ menuadmin }) {
     <div className="wrapper">
       <div className="menuadmin">
         {menuadmin?.map((page, index) => (
-
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
             <div key={`bean${page.label}`} className="bean" />
             <button

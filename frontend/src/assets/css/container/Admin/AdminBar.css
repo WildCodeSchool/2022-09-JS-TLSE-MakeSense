@@ -1,15 +1,15 @@
 .menuadmin {
-    display: flex;
-    flex-wrap: nowrap;
-    background-color: white;
-    border-radius: 10px;
-    flex-direction: column;
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  border-radius: 10px;
+  flex-direction: column;
 }
 
 .menuadmin button {
-    border: none;
-    background-color: transparent;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1rem;
 }
