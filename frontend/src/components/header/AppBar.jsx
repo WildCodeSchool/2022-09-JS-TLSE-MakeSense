@@ -12,7 +12,6 @@ function AppBar({ menu }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { dictionary } = useContext(LanguageContext);
 
   // Handle (Toogle) Menu Open Close //
   const handleOpenNavMenu = (event) => {
