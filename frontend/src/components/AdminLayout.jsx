@@ -16,7 +16,7 @@ export default function AdminLayout() {
   const { pages, components } = useContext(FolderContext);
 
   const URLParam = useLocation().search;
-  const tools = new URLSearchParams(URLParam).get("tools");
+  const tools = new URLSearchParams(URLParam).get("tools") ? new URLSearchParams(URLParam).get("tools") : "Dashboard";
 
   // Creation pages
   let menu = [];
