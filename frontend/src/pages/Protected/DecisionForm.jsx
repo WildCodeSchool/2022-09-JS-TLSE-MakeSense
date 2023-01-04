@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
+// import calendrier
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../../assets/css/header/AppBar.css";
+// import WYSIWYG
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useForm, useFieldArray } from "react-hook-form";
+// import pour récupérer les données
+import { useForm } from "react-hook-form";
+// import CSS
+import "../../assets/css/header/AppBar.css";
+import { Impacted, Expert } from "@components/form/Concerned";
+import { USERS } from "@components/form/usersMock";
 
 const modules = {
   toolbar: [
@@ -43,7 +49,7 @@ function DecisionForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.warn(data);
+    console.log(data);
   };
 
   // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
@@ -92,6 +98,7 @@ function DecisionForm() {
           <Field name="Contexte autour de la décision" content="context" />
           <Field name="Bénéfices" content="pros" />
           <Field name="Inconvénients" content="cons" />
+          <input type="submit" value="Poster ma décision ! Youpiiiii" />
         </fieldset>
         {
           // button pass to next
@@ -99,6 +106,8 @@ function DecisionForm() {
         <button type="button">Passer aux concernés</button>
         <fieldset>
           <legend>Définir les concernés et les experts</legend>
+          <Impacted table={USERS} name="concernés" />
+          <Expert table={USERS} name="experts" />
         </fieldset>
         <button type="button">Définir le calendrier</button>
         <fieldset>
@@ -118,7 +127,6 @@ function DecisionForm() {
           <input type="checkbox" />
           <p>Ne pas définir de date pour cette étape</p>
           <div>
-            <input type="submit" value="Poster ma décision ! Youpiiiii" />
           </div>
         </fieldset>
       </form>

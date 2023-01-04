@@ -17,6 +17,7 @@
     "react-hook-form": "^7.41.3",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.4",
+    "react-tag-input": "^6.8.1",
     "template-fullstack": "file:.."
   },
   "devDependencies": {
