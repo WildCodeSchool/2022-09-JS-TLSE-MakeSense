@@ -12,7 +12,25 @@ header {
 
 .container {
   display: grid;
-  grid-template-rows: 10% 85% 5%;
+  /* grid-template-rows: 10% 85% 5%; */
   height: 100vh;
   gap: 0px 0px;
+}
+
+form {
+  width: 80vw;
+  margin: auto;
+}
+
+form fieldset {
+  border-radius: 5px;
+  padding: 50px;
+}
+
+form fieldset div {
+  padding-top: 10px;
+}
+
+form fieldset label {
+  font-size: 1.5rem;
 }
