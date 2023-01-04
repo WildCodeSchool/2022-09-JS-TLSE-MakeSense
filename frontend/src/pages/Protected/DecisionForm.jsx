@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../../assets/css/header/AppBar.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 
 const modules = {
   toolbar: [
@@ -33,29 +33,41 @@ function DatePick() {
   );
 }
 
-function Field(props) {
-  return (
-    <div>
-      <label htmlFor="email">{props.name}</label>
-      <ReactQuill theme="snow" value={props.value} modules={modules} />
-    </div>
-  );
-}
-
 function DecisionForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  // // =>>>>>> https://www.react-hook-form.com/
-  // // https://codesandbox.io/s/cdjru?file=/src/App.js:325-427l
 
-  // useEffect(() => {
-  //   register("", { required: true, minLength: 11 });
-  // }, [register]);
+  const onSubmit = (data) => {
+    console.warn(data);
+  };
+
+  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
+  function Field({ name, content }) {
+    useEffect(() => {
+      register(content);
+    }, [onSubmit]);
+
+    const onEditorStateChange = (editorState) => {
+      setValue(content, editorState);
+    };
+
+    return (
+      <div>
+        <label htmlFor="email">{name}</label>
+        <ReactQuill
+          theme="snow"
+          modules={modules}
+          value={undefined}
+          onChange={onEditorStateChange}
+        />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -66,13 +78,20 @@ function DecisionForm() {
           <div>
             <label htmlFor="title">Titre</label>
             <br />
-            <input type="text" name="title" id="title" required />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register("title")}
+            />
           </div>
-          <Field name="Description de la décision" value="description" />
-          <Field name="Utilité pour l'organisation" value="utility" />
-          <Field name="Contexte autour de la décision" value="context" />
-          <Field name="Bénéfices" value="pros" />
-          <Field name="Inconvénients" value="cons" />
+          <Field name="Description de la décision" content="description" />
+          <Field name="Utilité pour l'organisation" content="utility" />
+          <Field name="Contexte autour de la décision" content="context" />
+          <Field name="Bénéfices" content="pros" />
+          <Field name="Inconvénients" content="cons" />
         </fieldset>
         {
           // button pass to next

@@ -27,10 +27,6 @@ form fieldset {
   padding: 50px;
 }
 
-form fieldset div {
-  padding-top: 10px;
-}
-
 form fieldset label {
   font-size: 1.5rem;
 }
