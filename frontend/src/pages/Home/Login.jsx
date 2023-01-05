@@ -1,61 +1,45 @@
-import * as React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import useLocalStorage from "../../hooks/useLocalStorage";
-// import { useAuth } from "../../contexts/useAuth";
-// import css from "../../assets/css/container/Login.css";
+import { useAuth } from "../../contexts/useAuth";
+import css from "../../assets/css/container/Login.css";
 
-// const errorColor = [red, setRed];
-// const successColor = [green, setGreen];
+export default function LoginPage() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.warn("hello");
 
-function showError(input, message) {
-  const formControl = input.parentElement;
-  formControl.className = "form-control error";
-  // small.innerText = message;
-}
+    const email = document.getElementById("email");
+    const regex1 =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-function showSuccess(input) {
-  const formControl = input.parentElement;
-  formControl.className = "form-control success";
-}
-
-function LoginPage() {
-  // const { login } = useAuth();
-
-  function emailControl(input) {
-    const regex1 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
-
-    if (regex1.test(input)) {
-      showSuccess(input);
+    if (regex1.test(email.value)) {
+      // console.warn("youpi");
     } else {
-      showError(input, "Email is not valid");
+      // console.warn("Email is not valid");
     }
-  }
 
-  function passwordControl(input) {
-    const regex2 =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const password = document.getElementById("password");
+    const regex2 = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    if (regex2.test(input)) {
-      showSuccess(input);
+    if (regex2.test(password)) {
+      // console.log("youpi");
     } else {
-      showError(input, "Password is not valid");
+      // console.log("Password is not valid");
     }
-  }
+  };
 
-  function controlValues(input) {
-    if (emailControl && passwordControl) {
-      window.localStorage.setItem("formValues", JSON.stringify(input));
-    } else {
-      showError(input, "Some informations are incorrect");
-    }
-  }
+  // if (emailControl() && passwordControl()) {
+  //   window.localStorage.setItem("formValues", JSON.stringify(input));
+  // } else {
+  //   showError(input, "Some informations are incorrect");
+  // }
 
   return (
     <div className="wrapper">
       <div className="login">
         <h1>Log In</h1>
-
-        <form onSubmit={controlValues}>
+        <form className="form" onSubmit={handleSubmit}>
           <input
             margin="normal"
             placeholder="Email"
@@ -63,7 +47,6 @@ function LoginPage() {
             id="email"
             name="email"
             type="text"
-            onChange={emailControl}
             label="Email Address"
             autoComplete="email"
           />
@@ -75,12 +58,9 @@ function LoginPage() {
             name="password"
             label="Password"
             type="password"
-            onChange={passwordControl}
             autoComplete="current-password"
           />
-          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Login In
-          </button>
+          <button type="submit">Loging In</button>
           <div>
             <Link to="/register">Don't have an account? Sign Up</Link>
           </div>
@@ -89,4 +69,3 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage;

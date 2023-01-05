@@ -1,7 +1,12 @@
-.form-control.success input {
-  border-color: var(--succes-color);
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+.form-control.error {
+  border-color: red;
 }
 
-.form-control.error input {
-  border-color: var(--error-color);
+.form-control.success {
+  border-color: green;
+}
+.form {
+  border-color: aqua;
 }
