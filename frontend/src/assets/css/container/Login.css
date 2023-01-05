@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+.form-control.error {
+  border-color: red;
+}
+
+.form-control.success {
+  border-color: green;
+}
+.form {
+  border-color: aqua;
+}
