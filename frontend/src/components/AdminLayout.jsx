@@ -6,7 +6,7 @@ import AdminBar from "./container/Admin/AdminBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.css";
+import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
@@ -16,7 +16,9 @@ export default function AdminLayout() {
   const { pages, components } = useContext(FolderContext);
 
   const URLParam = useLocation().search;
-  const tools = new URLSearchParams(URLParam).get("tools") ? new URLSearchParams(URLParam).get("tools") : "Dashboard";
+  const tools = new URLSearchParams(URLParam).get("tools")
+    ? new URLSearchParams(URLParam).get("tools")
+    : "Dashboard";
 
   // Creation pages
   let menu = [];
@@ -60,20 +62,25 @@ export default function AdminLayout() {
 
   return (
     <main className="container">
-      <header>
+      <header className="header">
         <AppBar menu={menu} />
       </header>
-      <div className="admin-wrapper">
-        <div className="menu-admin">
-          <AdminBar menuadmin={menuadmin} />
-        </div>
-        <div className="admin-tools-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Loader foldername="/components/container/Admin" filename={tools} />
-          </Suspense>
+      <div className="content">
+        <div className="admin-wrapper">
+          <div className="menu-admin">
+            <AdminBar menuadmin={menuadmin} />
+          </div>
+          <div className="admin-tools-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Loader
+                foldername="components/container/Admin"
+                filename={tools}
+              />
+            </Suspense>
+          </div>
         </div>
       </div>
-      <footer>
+      <footer className="footer">
         <FooterBar />
       </footer>
     </main>
