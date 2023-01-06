@@ -1,16 +1,20 @@
-import { useEffect, useState, useRef } from "react";
-// import WYSIWYG
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-// import pour récupérer les données
-import { useForm } from "react-hook-form";
-// import CSS
-import "../../assets/css/header/AppBar.css";
-import "../../assets/css/form/form.css";
+import { useState } from "react";
 import { Impacted, Expert } from "@components/form/Concerned";
 import { USERS } from "@components/form/usersMock";
-import DatePick from "@components/form/DatePicker";
+// imports WYSIWYG
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+// import to get datas on submit
+import { useForm } from "react-hook-form";
+// imports CSS
+import "../../assets/css/header/AppBar.css";
+import "../../assets/css/form/form.css";
+// imports DatePicker
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
+// set options WYSIWYG
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -41,8 +45,6 @@ function DecisionForm() {
 
   // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
   function Field({ name, content }) {
-    // console.warn(divTest);
-
     const onEditorStateChange = (editorState) => {
       setValue(content, editorState);
     };
@@ -61,7 +63,21 @@ function DecisionForm() {
     );
   }
 
-  const divTest = useRef(null);
+  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
+  function Calendar({ id }) {
+    const [date, setDate] = useState(new Date());
+
+    const handleChange = (d) => {
+      setDate(d);
+      setValue(id, format(d, "dd-MM-yyyy"));
+    };
+
+    return (
+      <div>
+        <DatePicker selected={date} onChange={handleChange} id={id} />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -99,21 +115,21 @@ function DecisionForm() {
         <button type="button">Définir le calendrier</button>
         <fieldset>
           <legend>Définir le calendrier</legend>
-          <div className="datepicker" ref={divTest}>
+          <div className="datepicker">
             <p>Fin de la prise des avis</p>
-            <DatePick id="opinion" />
+            <Calendar id="opinion" />
           </div>
           <div className="datepicker">
             <p>Fin de la première décision</p>
-            <DatePick id="firstDecision" />
+            <Calendar id="firstDecision" />
           </div>
           <div className="datepicker">
             <p>Fin du conflit sur la première décision</p>
-            <DatePick id="endConflict" />
+            <Calendar id="endConflict" />
           </div>
           <div className="datepicker">
             <p>Décision définitive</p>
-            <DatePick id="finaleDecision" />
+            <Calendar id="finaleDecision" />
           </div>
         </fieldset>
         <input type="submit" value="Poster ma décision ! Youpiiiii" />
