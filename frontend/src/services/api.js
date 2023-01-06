@@ -15,7 +15,7 @@ function api() {
         // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(body), // body data type must match "Content-Type" header
-      // credentials: "include",
+      credentials: "include",
     });
     return await res;
   };

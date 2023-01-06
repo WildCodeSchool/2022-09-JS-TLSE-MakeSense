@@ -1,7 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import useLocalStorage from "../hooks/useLocalStorage";
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -9,7 +8,10 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [user, setUser] = useState({
+    admin: null,
+    email: null,
+  });
   const navigate = useNavigate();
 
   const login = async (data) => {
@@ -22,7 +24,9 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    setUser(null);
+    document.cookie =
+      "makesense_access_token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    setUser("user", null);
     navigate("/", { replace: true });
   };
 

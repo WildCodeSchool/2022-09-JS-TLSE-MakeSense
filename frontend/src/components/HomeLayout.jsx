@@ -26,7 +26,7 @@ export default function HomeLayout() {
   });
 
   // Si connecté redirige vers profile page
-  if (user) {
+  if (user.email) {
     return <Navigate to="/user/profile" replace />;
   }
 

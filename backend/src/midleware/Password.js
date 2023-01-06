@@ -30,11 +30,11 @@ const verifyPassword = (req, res) => {
         });
         delete req.user.password;
         res
-          .clearCookie("userToken")
-          .cookie("userToken", token, { maxAge: 2 * 60 * 60 * 1000 }) // maxAge : 1 hour
-          .send(
-            `Credentials are valid with Token=${token} and user=${req.user.email}`
-          );
+          .status(201)
+          .cookie("makesense_access_token", `Bearer ${token}`, {
+            expires: new Date(Date.now() + 1 * 3600000), // cookie will be removed after 1 hours
+          })
+          .json({ admin: req.user.admin });
       } else {
         res.status(401).send("Réfléchis encore !");
       }
@@ -59,7 +59,7 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    res.sendStatus(401);
+    res.clearCookie("makesense_access_token").sendStatus(401);
   }
 };
 

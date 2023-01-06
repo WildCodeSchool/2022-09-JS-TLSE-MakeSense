@@ -21,16 +21,17 @@ function LangSettings() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const lang = event.target.addlangselect.value
-    const json = JSON.stringify(AddLangForm)
-    const body = {lang, json};
+    const lang = event.target.addlangselect.value;
+    const json = JSON.stringify(AddLangForm);
+    const body = { lang, json };
     const sendForm = async () => {
-      const resalllang = await api.apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/addlang`, body);
-      console.log(resalllang);
+      const resalllang = await api.apipostmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/addlang`,
+        body
+      );
     };
 
     sendForm();
-
   };
 
   useEffect(() => {
@@ -60,7 +61,12 @@ function LangSettings() {
         <Text tid="add" />
       </button>
       <form onSubmit={handleSubmit}>
-        <select key="addlangselect"  id="addlangselect" onChange={HandlerLang} required>
+        <select
+          key="addlangselect"
+          id="addlangselect"
+          onChange={HandlerLang}
+          required
+        >
           <option key="select" value="">
             <Text tid="selectlanguage" />
           </option>
@@ -84,8 +90,13 @@ function LangSettings() {
               </div>
               {/* Lang que l'on veut ajouter */}
               <div className="div-input">
-                <label >{AddLangSelect ?? <Text tid="selectlanguage" />}</label>
-                <input key={key[0]} id={key[0]} onChange={HandlerKey} required />
+                <label>{AddLangSelect ?? <Text tid="selectlanguage" />}</label>
+                <input
+                  key={key[0]}
+                  id={key[0]}
+                  onChange={HandlerKey}
+                  required
+                />
               </div>
             </div>
           </div>

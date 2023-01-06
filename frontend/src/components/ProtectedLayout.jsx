@@ -9,7 +9,7 @@ import "../assets/css/Layout.scss";
 
 export default function ProtectedLayout() {
   const { pages, components } = useContext(FolderContext);
-  const { user } = useAuth();
+  const { user, logout, login } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
@@ -23,6 +23,7 @@ export default function ProtectedLayout() {
     };
     menu = [...menu, addmenu];
   });
+
   if (user.admin)
     // Pages add admin
     Object.keys(pages.Admin).forEach((item) => {
@@ -35,7 +36,7 @@ export default function ProtectedLayout() {
     });
 
   // Si NON connecté redirige vers Home
-  if (!user) {
+  if (!user.email) {
     return <Navigate to="/" />;
   }
 

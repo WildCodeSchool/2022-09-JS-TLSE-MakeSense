@@ -16,7 +16,6 @@ class LangManager extends AbstractManager {
   }
 
   insert(body) {
-
     return this.connection.query(
       `INSERT INTO ${this.table}(id_language, json) VALUES ((SELECT id FROM languages WHERE name = ?), ?)`,
       [body.lang, body.json]

@@ -53,10 +53,10 @@ export default function AdminLayout() {
       menuadmin = [...menuadmin, addmenuadmin];
     });
 
-  if (!user) {
+  if (!user.email) {
     return <Navigate to="/" />;
   }
-  if (!user.admin) {
+  if (user.email && !user.admin) {
     return <Navigate to="../user/profile" />;
   }
 

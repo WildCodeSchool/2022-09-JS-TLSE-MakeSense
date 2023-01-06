@@ -1,39 +1,44 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
-import css from "../../assets/css/container/Login.css";
 
 export default function LoginPage() {
+  const { login } = useAuth();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn("hello");
+    const inputemail = e.target.email;
+    const regex1 = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    const inputpassword = e.target.password;
+    const regex2 =
+      /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-    const email = document.getElementById("email");
-    const regex1 =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (regex1.test(inputemail.value)) {
+      if (regex2.test(inputpassword.value)) {
+        const email = inputemail.value;
+        const password = inputpassword.value;
+        const body = { email, password };
 
-    if (regex1.test(email.value)) {
-      // console.warn("youpi");
-    } else {
-      // console.warn("Email is not valid");
-    }
-
-    const password = document.getElementById("password");
-    const regex2 = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-    if (regex2.test(password)) {
-      // console.log("youpi");
-    } else {
-      // console.log("Password is not valid");
+        const sendForm = async () => {
+          const reslogin = await api.apipostmysql(
+            `${import.meta.env.VITE_BACKEND_URL}/login`,
+            body
+          );
+          const cookieValue = await document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("makesense_access_token="))
+            ?.split("=")[1];
+          const jsonadmin = await reslogin.json();
+          login({
+            admin: jsonadmin.admin,
+            email,
+          });
+        };
+        sendForm();
+      }
     }
   };
-
-  // if (emailControl() && passwordControl()) {
-  //   window.localStorage.setItem("formValues", JSON.stringify(input));
-  // } else {
-  //   showError(input, "Some informations are incorrect");
-  // }
 
   return (
     <div className="wrapper">
@@ -41,16 +46,19 @@ export default function LoginPage() {
         <h1>Log In</h1>
         <form className="form" onSubmit={handleSubmit}>
           <input
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             margin="normal"
             placeholder="Email"
             required
             id="email"
             name="email"
-            type="text"
+            type="email"
             label="Email Address"
             autoComplete="email"
           />
+          <span className="form__error">email erroné</span>
           <input
+            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
             margin="normal"
             placeholder="Password"
             required
@@ -60,6 +68,11 @@ export default function LoginPage() {
             type="password"
             autoComplete="current-password"
           />
+          <span className="form__error">
+            Format : <br />
+            Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
+            caractere spécial
+          </span>
           <button type="submit">Loging In</button>
           <div>
             <Link to="/register">Don't have an account? Sign Up</Link>
