@@ -14,9 +14,9 @@ export default function LoginPage() {
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
     if (regex1.test(email.value)) {
-      // console.warn("youpi");
+      console.warn("youpi");
     } else {
-      // console.warn("Email is not valid");
+      console.warn("Email is not valid");
     }
 
     const password = document.getElementById("password");
@@ -28,12 +28,6 @@ export default function LoginPage() {
       // console.log("Password is not valid");
     }
   };
-
-  // if (emailControl() && passwordControl()) {
-  //   window.localStorage.setItem("formValues", JSON.stringify(input));
-  // } else {
-  //   showError(input, "Some informations are incorrect");
-  // }
 
   return (
     <div className="wrapper">
