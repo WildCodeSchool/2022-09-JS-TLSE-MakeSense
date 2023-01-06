@@ -3,9 +3,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
+// eslint-disable-next-line react/prop-types
 export default function DatePick({ id }) {
   const [date, setDate] = useState(new Date());
-  //setAddLangForm({ ...AddLangForm, [event.target.id]: event.target.value });
+  // setAddLangForm({ ...AddLangForm, [event.target.id]: event.target.value });
   // const [calendar, setCalendar] = useState({ date1: "date" });
   // setCal({ ...cal, [refInput.current.input.id]: d });
 
@@ -24,4 +25,4 @@ export default function DatePick({ id }) {
       />
     </div>
   );
-};
+}

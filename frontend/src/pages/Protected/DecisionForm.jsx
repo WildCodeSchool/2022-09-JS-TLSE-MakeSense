@@ -41,9 +41,7 @@ function DecisionForm() {
 
   // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
   function Field({ name, content }) {
-
-    console.log(divTest)
-
+    // console.warn(divTest);
 
     const onEditorStateChange = (editorState) => {
       setValue(content, editorState);
