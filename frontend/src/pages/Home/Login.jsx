@@ -2,6 +2,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import { Text } from "../../contexts/Language";
+import "../../assets/css/App.css";
+import PointExclamation from "../../assets/img/point_exclamation.svg";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -21,6 +23,7 @@ function LoginPage() {
     <div className="wrapper">
       <div className="login">
         <h1>Log In</h1>
+        <img src={PointExclamation} alt="point_exclamation" />
 
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="email">Enter your email: </label>

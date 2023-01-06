@@ -66,3 +66,10 @@ body {
 button {
   font-size: calc(10px + 2vmin);
 }
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: "Yanone Kaffeesatz";
+  background-color: gainsboro;
+}
