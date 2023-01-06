@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Impacted, Expert } from "@components/form/Concerned";
+import Concerned from "@components/form/Concerned";
 import { USERS } from "@components/form/usersMock";
 // imports WYSIWYG
 import ReactQuill from "react-quill";
@@ -35,11 +35,15 @@ function DecisionForm() {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const [impacted, setImpacted] = useState([]);
+  const [experts, setExpert] = useState([]);
+
+  const onSubmit = (data, e) => {
+    setValue("impacted", impacted);
+    setValue("experts", experts);
     console.warn(data);
   };
 
@@ -92,7 +96,6 @@ function DecisionForm() {
               type="text"
               name="title"
               id="title"
-              required
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("title")}
             />
@@ -109,8 +112,18 @@ function DecisionForm() {
         <button type="button">Passer aux concernés</button>
         <fieldset>
           <legend>Définir les concernés et les experts</legend>
-          <Impacted table={USERS} name="concernés" />
-          <Expert table={USERS} name="experts" />
+          <Concerned
+            table={USERS}
+            name="concernés"
+            type={impacted}
+            updateType={setImpacted}
+          />
+          <Concerned
+            table={USERS}
+            name="experts"
+            type={experts}
+            updateType={setExpert}
+          />
         </fieldset>
         <button type="button">Définir le calendrier</button>
         <fieldset>
