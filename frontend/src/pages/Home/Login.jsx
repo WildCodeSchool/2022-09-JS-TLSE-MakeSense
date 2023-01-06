@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
+import "@assets/css/container/home/Login.css"
 
 export default function LoginPage() {
   const { login } = useAuth();
