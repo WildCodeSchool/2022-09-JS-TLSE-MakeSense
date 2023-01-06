@@ -28,6 +28,7 @@ function Impacted({ table, name }) {
   };
 
   const handleAddition = (tag) => {
+    // eslint-disable-next-line no-param-reassign
     tag.type = name;
     setImpacted([...impacted, tag]);
   };
@@ -70,6 +71,7 @@ function Expert({ table, name }) {
   };
 
   const handleAddition = (tag) => {
+    // eslint-disable-next-line no-param-reassign
     tag.type = name;
     setExpert([...experts, tag]);
   };

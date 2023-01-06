@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-// import calendrier
-import ReactDatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { useEffect, useState, useRef } from "react";
 // import WYSIWYG
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -9,8 +6,10 @@ import "react-quill/dist/quill.snow.css";
 import { useForm } from "react-hook-form";
 // import CSS
 import "../../assets/css/header/AppBar.css";
+import "../../assets/css/form/form.css";
 import { Impacted, Expert } from "@components/form/Concerned";
 import { USERS } from "@components/form/usersMock";
+import DatePick from "@components/form/DatePicker";
 
 const modules = {
   toolbar: [
@@ -27,18 +26,6 @@ const modules = {
   ],
 };
 
-function DatePick() {
-  const [date, setDate] = useState(new Date());
-  const onChange = (thedate) => {
-    setDate(thedate);
-    // eslint-disable-next-line no-restricted-syntax
-    console.log(thedate);
-  };
-  return (
-    <ReactDatePicker selected={date} onChange={onChange} selectsRange inline />
-  );
-}
-
 function DecisionForm() {
   const {
     register,
@@ -49,19 +36,20 @@ function DecisionForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.warn(data);
   };
 
   // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
   function Field({ name, content }) {
-    useEffect(() => {
-      register(content);
-    }, [onSubmit]);
+
+    console.log(divTest)
+
 
     const onEditorStateChange = (editorState) => {
       setValue(content, editorState);
     };
 
+    // outil de Léon : tinyMCE (il faut s'inscrire)
     return (
       <div>
         <label htmlFor="email">{name}</label>
@@ -74,6 +62,8 @@ function DecisionForm() {
       </div>
     );
   }
+
+  const divTest = useRef(null);
 
   return (
     <div>
@@ -98,7 +88,6 @@ function DecisionForm() {
           <Field name="Contexte autour de la décision" content="context" />
           <Field name="Bénéfices" content="pros" />
           <Field name="Inconvénients" content="cons" />
-          <input type="submit" value="Poster ma décision ! Youpiiiii" />
         </fieldset>
         {
           // button pass to next
@@ -112,23 +101,24 @@ function DecisionForm() {
         <button type="button">Définir le calendrier</button>
         <fieldset>
           <legend>Définir le calendrier</legend>
-          <select name="pets" id="pet-select">
-            <option value="">-- Choisir les prochaines dates --</option>
-            <option value="opinion">Fin de la prise des avis</option>
-            <option value="first-decision">
-              Fin de la première prise de décision
-            </option>
-            <option value="conflict">
-              Fin du conflit sur première décision
-            </option>
-            <option value="definitive-decision">Décision définitive</option>
-          </select>
-          <DatePick />
-          <input type="checkbox" />
-          <p>Ne pas définir de date pour cette étape</p>
-          <div>
+          <div className="datepicker" ref={divTest}>
+            <p>Fin de la prise des avis</p>
+            <DatePick id="opinion" />
+          </div>
+          <div className="datepicker">
+            <p>Fin de la première décision</p>
+            <DatePick id="firstDecision" />
+          </div>
+          <div className="datepicker">
+            <p>Fin du conflit sur la première décision</p>
+            <DatePick id="endConflict" />
+          </div>
+          <div className="datepicker">
+            <p>Décision définitive</p>
+            <DatePick id="finaleDecision" />
           </div>
         </fieldset>
+        <input type="submit" value="Poster ma décision ! Youpiiiii" />
       </form>
     </div>
   );

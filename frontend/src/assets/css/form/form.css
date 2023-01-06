@@ -1,0 +1,6 @@
+.datepicker {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  justify-content: flex-end;
+}
