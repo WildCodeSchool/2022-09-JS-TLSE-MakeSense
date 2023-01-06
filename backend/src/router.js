@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const usersControllers = require("./controllers/usersControllers");
 const langControllers = require("./controllers/langControllers");
+const decisionsControllers = require("./controllers/decisionsControllers");
 const { validateUser } = require("./midleware/validator");
 const {
   hashPassword,
@@ -16,6 +17,7 @@ router.get("/lang", langControllers.langlist);
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
+router.post("/decisions", decisionsControllers.add);
 
 router.use(verifyToken);
 

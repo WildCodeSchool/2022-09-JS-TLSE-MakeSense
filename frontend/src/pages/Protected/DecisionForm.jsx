@@ -13,6 +13,7 @@ import "../../assets/css/form/form.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import api from "@services/api";
 
 // set options WYSIWYG
 const modules = {
@@ -41,11 +42,20 @@ function DecisionForm() {
   const [impacted, setImpacted] = useState([]);
   const [experts, setExpert] = useState([]);
 
-  const onSubmit = (data, e) => {
+  function onSubmit(data) {
     setValue("impacted", impacted);
     setValue("experts", experts);
-    console.warn(data);
-  };
+    const body = {
+      content: JSON.stringify(data),
+      status: 1,
+      id_user_creator: 9,
+    };
+    return api
+      .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+      .then((json) => {
+        return json;
+      });
+  }
 
   // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
   function Field({ name, content }) {
