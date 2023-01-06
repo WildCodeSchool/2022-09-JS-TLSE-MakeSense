@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
-import { Text, LanguageContext } from "../../contexts/Language";
+import { Text } from "../../contexts/Language";
 import "../../assets/css/header/AppBar.css";
 import logo from "../../assets/img/logo-makesense.png";
 
@@ -44,7 +44,7 @@ function AppBar({ menu }) {
             <div key={`bean${page.label}`} className="bean" />
           </div>
         ))}
-        {!!user && (
+        {!!user.email && (
           <button type="button" key="logout" onClick={logout}>
             <Text tid="logout" />
           </button>

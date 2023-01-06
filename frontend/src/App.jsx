@@ -1,6 +1,5 @@
 import "./assets/css/App.css";
 import { useRoutes } from "react-router-dom";
-
 import { Suspense, useContext } from "react";
 import Loader from "@services/Loader";
 import { FolderContext } from "./contexts/Folder";
@@ -48,6 +47,7 @@ function App() {
   });
   /// On rajoute les components dans les sous-routes
   const element = useRoutes(routes);
+
   return element;
 }
 export default App;

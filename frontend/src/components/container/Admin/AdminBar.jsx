@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../../../contexts/Language";
-import "../../../assets/css/container/Admin/AdminBar.css";
+import "../../../assets/css/container/admin/AdminBar.css";
 
 function AdminBar({ menuadmin }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -20,9 +20,10 @@ function AdminBar({ menuadmin }) {
 
   return (
     <div className="wrapper">
-      <div className="menu">
+      <div className="menuadmin">
         {menuadmin?.map((page, index) => (
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
+            <div key={`bean${page.label}`} className="bean" />
             <button
               type="button"
               key={page.label}
@@ -33,7 +34,6 @@ function AdminBar({ menuadmin }) {
             >
               <Text tid={page.label} />
             </button>
-            <div key={`bean${page.label}`} className="bean" />
           </div>
         ))}
       </div>
