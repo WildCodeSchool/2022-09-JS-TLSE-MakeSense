@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Concerned from "@components/form/Concerned";
 import { USERS } from "@components/form/usersMock";
 // imports WYSIWYG
@@ -45,6 +45,9 @@ function DecisionForm() {
   function onSubmit(data) {
     setValue("impacted", impacted);
     setValue("experts", experts);
+    setDecisionForm(true);
+    setConcernedForm(null);
+    setCalendarForm(null);
     const body = {
       content: JSON.stringify(data),
       status: 1,
@@ -66,7 +69,7 @@ function DecisionForm() {
     // outil de Léon : tinyMCE (il faut s'inscrire)
     return (
       <div>
-        <label htmlFor="email">{name}</label>
+        <label>{name}</label>
         <ReactQuill
           theme="snow"
           modules={modules}
@@ -93,12 +96,27 @@ function DecisionForm() {
     );
   }
 
+  const [decisionForm, setDecisionForm] = useState(true);
+  const [concernedForm, setConcernedForm] = useState(null);
+  const [calendarForm, setCalendarForm] = useState(null);
+
+  const passToConcerned = (e) => {
+    e.preventDefault();
+    setDecisionForm(!decisionForm);
+    setConcernedForm(!concernedForm);
+  };
+  const passToCalendar = (e) => {
+    e.preventDefault();
+    setConcernedForm(!concernedForm);
+    setCalendarForm(!calendarForm);
+  };
+
   return (
     <div>
       <h1>Déposer une décision</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset>
-          <legend>Décrire tous les éléments de sa décision</legend>
+        <fieldset className={decisionForm ? '' : "onBlur"}>
+          <legend className="hello">Décrire tous les éléments de sa décision</legend>
           <div>
             <label htmlFor="title">Titre</label>
             <br />
@@ -108,6 +126,7 @@ function DecisionForm() {
               id="title"
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("title")}
+              required
             />
           </div>
           <Field name="Description de la décision" content="description" />
@@ -116,11 +135,9 @@ function DecisionForm() {
           <Field name="Bénéfices" content="pros" />
           <Field name="Inconvénients" content="cons" />
         </fieldset>
-        {
-          // button pass to next
-        }
-        <button type="button">Passer aux concernés</button>
-        <fieldset>
+        {calendarForm ? null : <button type="button" className="buttonForm" onClick={passToConcerned}>{decisionForm ? "Passer à l'étape suivante" : "Revenir à l'étape précédente"}</button>}
+
+        <fieldset className={concernedForm ? '' : "onBlur"}>
           <legend>Définir les concernés et les experts</legend>
           <Concerned
             table={USERS}
@@ -135,8 +152,10 @@ function DecisionForm() {
             updateType={setExpert}
           />
         </fieldset>
-        <button type="button">Définir le calendrier</button>
-        <fieldset>
+        {decisionForm ? null : <button type="button" className="buttonForm" onClick={passToCalendar}>{concernedForm ? "Passer à l'étape suivante" : "Revenir à l'étape précédente"}</button>}
+
+
+        <fieldset className={calendarForm ? '' : "onBlur"}>
           <legend>Définir le calendrier</legend>
           <div className="datepicker">
             <p>Fin de la prise des avis</p>
@@ -155,7 +174,8 @@ function DecisionForm() {
             <Calendar id="finaleDecision" />
           </div>
         </fieldset>
-        <input type="submit" value="Poster ma décision ! Youpiiiii" />
+
+        <input type="submit" className="buttonForm" value="Poster ma décision ! Youpiiiii" />
       </form>
     </div>
   );

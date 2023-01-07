@@ -25,16 +25,21 @@ div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
 
 /* Styles for selected tags */
 div.ReactTags__selected span.ReactTags__tag {
-  border: 1px solid #ddd;
-  background: #eee;
-  display: inline-block;
-  padding: 5px;
-  margin: 5px 5px 5px 0;
-  border-radius: 2px;
+  background-color: var(--color-primary);
+  color: var(--color-default-inverse);
+  margin-bottom: var(--space-m);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-s);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  font-weight: var(--font-weight-extrabold);
+  padding: 0.35em 0.625em;
+  border: 2px solid var(--color);
+  transition: all .2s ease;
 }
 
 div.ReactTags__selected a.ReactTags__remove {
-  color: #aaa;
   margin-left: 5px;
   cursor: pointer;
   border: none;

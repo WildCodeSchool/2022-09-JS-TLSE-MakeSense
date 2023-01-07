@@ -4,3 +4,45 @@
   align-items: baseline;
   justify-content: flex-end;
 }
+
+fieldset {
+  border: none;
+}
+
+input {
+  padding: 0.8rem;
+  border-radius: var(--border-radius-m);
+  box-shadow: inset 0 0 0 1px var(--border-color-softer);
+  background: var(--background-color-input);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-m);
+  position: relative;
+  display: block;
+  font-family: var(--font-text);
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+label {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-m);
+  position: relative;
+  display: block;
+  margin-bottom: 0.4em;
+  font-weight: var(--font-weight-extrabold);
+}
+
+.onBlur {
+  filter: blur(3px);
+}
+
+.buttonForm {
+  width: 100%;
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-m);
+  min-width: 178px;
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverse);
+}
