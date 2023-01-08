@@ -9,7 +9,7 @@ const { validateUser } = require("./midleware/validator");
 const {
   hashPassword,
   verifyPassword,
-  verifyToken,
+  // verifyToken,
 } = require("./midleware/Password");
 const scriptfs = require("./scripts/fs");
 
@@ -22,7 +22,7 @@ router.post("/decisions", decisionsControllers.add);
 
 router.get("/decisions", decisionsControllers.browse);
 router.get("/decisionpage/:id", decisionsControllers.read);
-router.use(verifyToken);
+// router.use(verifyToken);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
