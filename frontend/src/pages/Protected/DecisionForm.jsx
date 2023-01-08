@@ -41,6 +41,9 @@ function DecisionForm() {
 
   const [impacted, setImpacted] = useState([]);
   const [experts, setExpert] = useState([]);
+  const [decisionForm, setDecisionForm] = useState(true);
+  const [concernedForm, setConcernedForm] = useState(null);
+  const [calendarForm, setCalendarForm] = useState(null);
 
   function onSubmit(data) {
     setValue("impacted", impacted);
@@ -96,10 +99,6 @@ function DecisionForm() {
     );
   }
 
-  const [decisionForm, setDecisionForm] = useState(true);
-  const [concernedForm, setConcernedForm] = useState(null);
-  const [calendarForm, setCalendarForm] = useState(null);
-
   const passToConcerned = (e) => {
     e.preventDefault();
     setDecisionForm(!decisionForm);
@@ -115,8 +114,10 @@ function DecisionForm() {
     <div>
       <h1>Déposer une décision</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className={decisionForm ? '' : "onBlur"}>
-          <legend className="hello">Décrire tous les éléments de sa décision</legend>
+        <fieldset className={decisionForm ? "" : "onBlur"}>
+          <legend className="hello">
+            Décrire tous les éléments de sa décision
+          </legend>
           <div>
             <label htmlFor="title">Titre</label>
             <br />
@@ -135,9 +136,19 @@ function DecisionForm() {
           <Field name="Bénéfices" content="pros" />
           <Field name="Inconvénients" content="cons" />
         </fieldset>
-        {calendarForm ? null : <button type="button" className="buttonForm" onClick={passToConcerned}>{decisionForm ? "Passer à l'étape suivante" : "Revenir à l'étape précédente"}</button>}
+        {calendarForm ? null : (
+          <button
+            type="button"
+            className="buttonForm"
+            onClick={passToConcerned}
+          >
+            {decisionForm
+              ? "Passer à l'étape suivante"
+              : "Revenir à l'étape précédente"}
+          </button>
+        )}
 
-        <fieldset className={concernedForm ? '' : "onBlur"}>
+        <fieldset className={concernedForm ? "" : "onBlur"}>
           <legend>Définir les concernés et les experts</legend>
           <Concerned
             table={USERS}
@@ -152,10 +163,15 @@ function DecisionForm() {
             updateType={setExpert}
           />
         </fieldset>
-        {decisionForm ? null : <button type="button" className="buttonForm" onClick={passToCalendar}>{concernedForm ? "Passer à l'étape suivante" : "Revenir à l'étape précédente"}</button>}
+        {decisionForm ? null : (
+          <button type="button" className="buttonForm" onClick={passToCalendar}>
+            {concernedForm
+              ? "Passer à l'étape suivante"
+              : "Revenir à l'étape précédente"}
+          </button>
+        )}
 
-
-        <fieldset className={calendarForm ? '' : "onBlur"}>
+        <fieldset className={calendarForm ? "" : "onBlur"}>
           <legend>Définir le calendrier</legend>
           <div className="datepicker">
             <p>Fin de la prise des avis</p>
@@ -175,7 +191,11 @@ function DecisionForm() {
           </div>
         </fieldset>
 
-        <input type="submit" className="buttonForm" value="Poster ma décision ! Youpiiiii" />
+        <input
+          type="submit"
+          className="buttonForm"
+          value="Poster ma décision ! Youpiiiii"
+        />
       </form>
     </div>
   );

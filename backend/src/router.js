@@ -5,7 +5,6 @@ const usersControllers = require("./controllers/usersControllers");
 const decisionsControllers = require("./controllers/decisionsControllers");
 
 const langControllers = require("./controllers/langControllers");
-const decisionsControllers = require("./controllers/decisionsControllers");
 const { validateUser } = require("./midleware/validator");
 const {
   hashPassword,
@@ -22,6 +21,7 @@ router.post("/register", validateUser, hashPassword, usersControllers.add);
 router.post("/decisions", decisionsControllers.add);
 
 router.get("/decisions", decisionsControllers.browse);
+router.get("/decisionpage/:id", decisionsControllers.read);
 router.use(verifyToken);
 
 router.get("/users", usersControllers.browse);
