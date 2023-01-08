@@ -31,7 +31,7 @@ export default function HomeLayout() {
   }
 
   return (
-    <div className="container">
+    <main className="container">
       <header>
         <AppBar menu={menu} />
       </header>
@@ -39,6 +39,6 @@ export default function HomeLayout() {
       <footer>
         <FooterBar />
       </footer>
-    </div>
+    </main>
   );
 }

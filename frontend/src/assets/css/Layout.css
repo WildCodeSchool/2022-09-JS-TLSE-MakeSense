@@ -30,3 +30,20 @@ form fieldset {
 form fieldset label {
   font-size: 1.5rem;
 }
+
+.admin-wrapper {
+  display: grid;
+  grid-template-columns: [menu-admin] 1fr [admin-tools-containe] 4fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas: "menu-admin admin-tools-container";
+}
+
+.admin-tools-container {
+  grid-area: admin-tools-container;
+}
+
+.menu-admin {
+  grid-area: menu-admin;
+}

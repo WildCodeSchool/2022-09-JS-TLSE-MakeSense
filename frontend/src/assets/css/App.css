@@ -312,3 +312,11 @@ h1 {
   line-height: var(--line-height-xs);
   font-weight: var(--font-weight-black);
 }
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: "Yanone Kaffeesatz";
+  background-color: gainsboro;
+}

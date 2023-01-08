@@ -2,11 +2,9 @@ import PropTypes from "prop-types";
 
 function BasicPage({ title }) {
   return (
-    <main>
-      <div className="wrapper">
-        <h1>{title}</h1>
-      </div>
-    </main>
+    <div className="wrapper">
+      <h1>{title}</h1>
+    </div>
   );
 }
 export default BasicPage;
