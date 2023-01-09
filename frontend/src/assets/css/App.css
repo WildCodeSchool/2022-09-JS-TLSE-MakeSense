@@ -306,3 +306,10 @@ button {
   transition: background-color 0.2s, border-color 0.2s;
   text-align: center;
 }
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: "Yanone Kaffeesatz";
+  background-color: gainsboro;
+}
