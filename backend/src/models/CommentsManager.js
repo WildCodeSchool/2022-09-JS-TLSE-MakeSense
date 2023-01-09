@@ -5,6 +5,14 @@ class CommentsManager extends AbstractManager {
     super({ table: "comments" });
   }
 
+  findAll() {
+    return this.connection.query(`select * from  ${this.table}`);
+  }
+
+  findAllWithLimit() {
+    return this.connection.query(`select * from  ${this.table} LIMIT 5;`);
+  }
+
   insert(comments) {
     return this.connection.query(
       `insert into ${this.table}(text, id_user_writer, id_decision) values (?, ?, ?);`,

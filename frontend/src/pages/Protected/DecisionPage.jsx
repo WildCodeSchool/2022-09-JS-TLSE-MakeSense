@@ -9,6 +9,7 @@ function Decisions() {
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
+
   const id = 4;
 
   const getDecisions = async () => {
@@ -114,10 +115,7 @@ function Decisions() {
                 }}
               />
             </details>
-            <details>
-              <summary>Avis</summary>
-              <CommentSection id={id} />
-            </details>
+            <CommentSection id={id} />
           </div>
         </div>
         <div>

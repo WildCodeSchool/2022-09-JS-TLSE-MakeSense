@@ -25,6 +25,7 @@ router.get("/decisions", decisionsControllers.browse);
 router.get("/decisionpage/:id", decisionsControllers.read);
 
 router.post("/comments", commentsControllers.add);
+router.get("/comments", commentsControllers.browse);
 // router.use(verifyToken);
 
 router.get("/users", usersControllers.browse);

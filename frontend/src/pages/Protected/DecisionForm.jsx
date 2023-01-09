@@ -72,7 +72,7 @@ function DecisionForm() {
     // outil de Léon : tinyMCE (il faut s'inscrire)
     return (
       <div>
-        <label>{name} et bonjour !</label>
+        <label>{name}</label>
         <ReactQuill
           theme="snow"
           modules={modules}

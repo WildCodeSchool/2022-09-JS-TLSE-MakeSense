@@ -12,6 +12,18 @@ const browse = (req, res) => {
     });
 };
 
+const browseWithLimit = (req, res) => {
+  models.comments
+    .findAllWithLimit()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.comments
     .find(req.params.id)
@@ -86,4 +98,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  browseWithLimit,
 };
