@@ -56,10 +56,11 @@ function CommentSection({ id }) {
           onChange={(event) => setContentComment(event.target.value)}
           required
         />
+        <br />
         <button type="submit">Donner mon avis</button>
       </form>
-      <Comments comments={comments} page={page} limit={limit} />
       <Pagination totalPages={totalPages} handleClick={handleClick} />
+      <Comments comments={comments} page={page} limit={limit} />
     </details>
   ) : (
     <div>Loading...</div>

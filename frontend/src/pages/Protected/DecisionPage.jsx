@@ -9,7 +9,6 @@ function Decisions() {
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
-
   const id = 4;
 
   const getDecisions = async () => {
@@ -49,8 +48,6 @@ function Decisions() {
   useEffect(() => {
     getUsers();
   }, [decisions]);
-
-  // const JSONKeys = Object.getOwnPropertyNames(JSON.parse(datas.content));
 
   return (
     isLoaded && (
