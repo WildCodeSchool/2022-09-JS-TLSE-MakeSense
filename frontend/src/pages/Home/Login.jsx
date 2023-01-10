@@ -2,13 +2,7 @@ import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
-<<<<<<< HEAD
 import "@assets/css/container/home/Login.css";
-=======
-import { Text } from "../../contexts/Language";
-import "../../assets/css/App.css";
-import PointExclamation from "../../assets/img/point_exclamation.svg";
->>>>>>> ab4bca9ad9d5f886ae6e0b5e072e5500dc9814a1
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -51,14 +45,7 @@ export default function LoginPage() {
     <div className="wrapper">
       <div className="login">
         <h1>Log In</h1>
-<<<<<<< HEAD
         <form className="form" onSubmit={handleSubmit}>
-=======
-        <img src={PointExclamation} alt="point_exclamation" />
-
-        <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="email">Enter your email: </label>
->>>>>>> ab4bca9ad9d5f886ae6e0b5e072e5500dc9814a1
           <input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             margin="normal"
