@@ -4,9 +4,10 @@ import Card from "./Card";
 
 // eslint-disable-next-line react/prop-types
 function SearchBar({ datas }) {
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
 
   function handleChange(event) {
+    event.preventDefault();
     setSearchTerm(event.target.value);
   }
 
@@ -14,6 +15,8 @@ function SearchBar({ datas }) {
     <div>
       <div className="searchBar">
         <input
+          key="searchbar"
+          id="searchbar"
           name="searchbar"
           type="text"
           value={searchTerm}
