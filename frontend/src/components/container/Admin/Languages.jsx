@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
-import LanguagesScss from "../../../assets/css/container/Admin/Language.scss";
+import "@assets/css/container/Admin/Language.scss";
 
 function LangSettings() {
   const { dictionary, userLanguage } = useContext(LanguageContext);

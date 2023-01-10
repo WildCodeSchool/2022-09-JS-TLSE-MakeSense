@@ -1,12 +1,12 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import AdminBar from "@components/container/admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
-import AdminBar from "./container/admin/AdminBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.scss";
+import "@assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
