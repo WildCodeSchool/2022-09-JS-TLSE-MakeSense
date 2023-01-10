@@ -1,24 +1,8 @@
 .searchBar {
   display: flex;
   justify-content: center;
+  margin: 1rem;
 }
-
-.searchBar.form.input {
-  flex: 1;
-  height: 40px;
-  border: none;
-  border-radius: 5px 0 0 5px;
-  font-size: 16px;
-  padding: 0 10px;
-  outline: none;
-}
-.searchBar.button {
-  height: 40px;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  background-color: #333;
-  color: #fff;
-  font-size: 16px;
-  padding: 0 20px;
-  cursor: pointer;
+.searchBar.input {
+  width: 100rem;
 }
