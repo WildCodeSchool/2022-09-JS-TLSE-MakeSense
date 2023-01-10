@@ -1,9 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
-import { Text, LanguageContext } from "../../contexts/Language";
+import { Text } from "../../contexts/Language";
+import "../../assets/css/App.css";
+import PointExclamation from "../../assets/img/point_exclamation.svg";
 
-function RegisterPage() {
+function LoginPage() {
   const { login } = useAuth();
 
   // Clic du Submit //
@@ -13,41 +15,20 @@ function RegisterPage() {
     login({
       email: data.get("email"),
       password: data.get("password"),
+      admin: data.get("admin"),
     });
   };
 
   return (
     <div className="wrapper">
-      <div className="register">
-        <h1>
-          <Text tid="register" />
-        </h1>
+      <div className="login">
+        <h1>Log In</h1>
+        <img src={PointExclamation} alt="point_exclamation" />
 
         <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="firstname">Prénom: </label>
+          <label htmlFor="email">Enter your email: </label>
           <input
-            margin="normal"
-            required
-            name="firstname"
-            label="Firstname"
-            type="firstname"
-            id="firstname"
-            autoComplete="current-firstname"
-          />
-          <br />
-          <label htmlFor="lastname">Nom de famille: </label>
-          <input
-            margin="normal"
-            required
-            name="lastname"
-            label="Lastname"
-            type="lastname"
-            id="lastname"
-            autoComplete="current-lastname"
-          />
-          <br />
-          <label htmlFor="email">Email: </label>
-          <input
+            // eslint-disable-next-line react/no-unknown-property
             margin="normal"
             required
             id="email"
@@ -56,8 +37,9 @@ function RegisterPage() {
             autoComplete="email"
           />
           <br />
-          <label htmlFor="password">Mot de passe: </label>
+          <label htmlFor="password">Enter your password: </label>
           <input
+            // eslint-disable-next-line react/no-unknown-property
             margin="normal"
             required
             name="password"
@@ -67,12 +49,24 @@ function RegisterPage() {
             autoComplete="current-password"
           />
           <br />
-          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Register
-          </button>
+          <label htmlFor="admin">Are you admin ?</label>
+          <input
+            // eslint-disable-next-line react/no-unknown-property
+            margin="normal"
+            required
+            name="admin"
+            label="Admin"
+            type="checkbox"
+            id="admin"
+          />
+          <br />
+          <button type="submit">Login In</button>
+          <div>
+            <Link to="/register">Don't have an account? Sign Up</Link>
+          </div>
         </form>
       </div>
     </div>
   );
 }
-export default RegisterPage;
+export default LoginPage;

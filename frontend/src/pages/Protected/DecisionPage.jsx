@@ -8,14 +8,17 @@ function Decisions() {
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
-  const id = 4;
+  const id = 24;
 
   const getDecisions = async () => {
+    // get the decision
     const callDecisions = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/decisionpage/${id}`
     );
     setDecisions(callDecisions);
   };
+
+  // get users (writer, impacted, experts) by id
   const getUsers = async () => {
     const callUserById = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
@@ -23,21 +26,22 @@ function Decisions() {
         10
       )}`
     );
-    const callImpactedById = await api.apigetmysql(
-      `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
-        JSON.parse(decisions.content).impacted[0].id,
-        10
-      )}`
-    );
-    const callExpertById = await api.apigetmysql(
-      `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
-        JSON.parse(decisions.content).experts[0].id,
-        10
-      )}`
-    );
+    // const callImpactedById = await api.apigetmysql(
+    //   `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
+    //     JSON.parse(decisions.content).impacted[0].id,
+    //     10
+    //   )}`
+    // );
+    // const callExpertById = await api.apigetmysql(
+    //   `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
+    //     JSON.parse(decisions.content).experts[0].id,
+    //     10
+    //   )}`
+    // );
+
     setUser(callUserById);
-    setImpacted(callImpactedById);
-    setExpert(callExpertById);
+    setImpacted(JSON.parse(decisions.content).impacted);
+    setExpert(JSON.parse(decisions.content).experts);
     setIsLoaded(true);
   };
 
@@ -47,8 +51,6 @@ function Decisions() {
   useEffect(() => {
     getUsers();
   }, [decisions]);
-
-  // const JSONKeys = Object.getOwnPropertyNames(JSON.parse(datas.content));
 
   return (
     isLoaded && (
@@ -143,11 +145,15 @@ function Decisions() {
           />
           <h3>Personnes impactées</h3>
           <div>
-            {impacted.firstname} {impacted.lastname}
+            {impacted.map((person) => (
+              <div>{person.text}</div>
+            ))}
           </div>
           <h3>Personnes expertes</h3>
           <div>
-            {expert.firstname} {expert.lastname}
+            {expert.map((person) => (
+              <div>{person.text}</div>
+            ))}
           </div>
         </div>
       </div>
