@@ -1,12 +1,12 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
-import AdminBar from "./container/Admin/AdminBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.css";
+import "@assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
@@ -53,29 +53,34 @@ export default function AdminLayout() {
       menuadmin = [...menuadmin, addmenuadmin];
     });
 
-  if (!user) {
+  if (!user.email) {
     return <Navigate to="/" />;
   }
-  if (!user.admin) {
+  if (user.email && !user.admin) {
     return <Navigate to="../user/profile" />;
   }
 
   return (
     <main className="container">
-      <header>
+      <header className="header">
         <AppBar menu={menu} />
       </header>
-      <div className="admin-wrapper">
-        <div className="menu-admin">
-          <AdminBar menuadmin={menuadmin} />
-        </div>
-        <div className="admin-tools-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Loader foldername="/components/container/Admin" filename={tools} />
-          </Suspense>
+      <div className="content">
+        <div className="admin-wrapper">
+          <div className="menu-admin">
+            <AdminBar menuadmin={menuadmin} />
+          </div>
+          <div className="admin-tools-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Loader
+                foldername="components/container/Admin"
+                filename={tools}
+              />
+            </Suspense>
+          </div>
         </div>
       </div>
-      <footer>
+      <footer className="footer">
         <FooterBar />
       </footer>
     </main>

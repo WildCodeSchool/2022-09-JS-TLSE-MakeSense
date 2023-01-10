@@ -10,10 +10,12 @@
     "fix": "prettier --write . && eslint --fix --ext .jsx ."
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.4.4",
+    "sass": "^1.57.1",
     "template-fullstack": "file:.."
   },
   "devDependencies": {

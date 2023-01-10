@@ -44,7 +44,7 @@ function AppBar({ menu }) {
             <div key={`bean${page.label}`} className="bean" />
           </div>
         ))}
-        {!!user && (
+        {!!user.email && (
           <button type="button" key="logout" onClick={logout}>
             <Text tid="logout" />
           </button>

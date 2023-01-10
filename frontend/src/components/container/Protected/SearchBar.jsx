@@ -10,8 +10,15 @@ function SearchBar({ datas }) {
   }
 
   return (
-    <form>
-      <input type="text" value={searchTerm} onChange={handleChange} />
+    <div>
+      <div className="searchBar">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleChange}
+          placeholder="Search..."
+        />
+      </div>
       <div>
         {
           // eslint-disable-next-line react/prop-types
@@ -25,7 +32,7 @@ function SearchBar({ datas }) {
             ))
         }
       </div>
-    </form>
+    </div>
   );
 }
 export default SearchBar;
