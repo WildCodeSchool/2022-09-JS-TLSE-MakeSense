@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
 import "../../assets/css/decisionPage.css";
+import CommentSection from "@components/header/CommentSection";
 
 function Decisions() {
   const [decisions, setDecisions] = useState(null);
@@ -115,10 +116,7 @@ function Decisions() {
                 }}
               />
             </details>
-            <details>
-              <summary>Avis</summary>
-              <div>Les avis</div>
-            </details>
+            <CommentSection id={id} />
           </div>
         </div>
         <div>

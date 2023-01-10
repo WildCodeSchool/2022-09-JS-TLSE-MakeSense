@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const usersControllers = require("./controllers/usersControllers");
 const decisionsControllers = require("./controllers/decisionsControllers");
+const commentsControllers = require("./controllers/commentsControllers");
 
 const langControllers = require("./controllers/langControllers");
 const { validateUser } = require("./midleware/validator");
@@ -18,10 +19,13 @@ router.get("/lang", langControllers.langlist);
 router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
-router.post("/decisions", decisionsControllers.add);
 
+router.post("/decisions", decisionsControllers.add);
 router.get("/decisions", decisionsControllers.browse);
 router.get("/decisionpage/:id", decisionsControllers.read);
+
+router.post("/comments", commentsControllers.add);
+router.get("/comments", commentsControllers.browse);
 // router.use(verifyToken);
 
 router.get("/users", usersControllers.browse);
