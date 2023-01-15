@@ -28,7 +28,6 @@ function LoginPage() {
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="email">Enter your email: </label>
           <input
-            margin="normal"
             required
             id="email"
             label="Email Address"
@@ -38,7 +37,6 @@ function LoginPage() {
           <br />
           <label htmlFor="password">Enter your password: </label>
           <input
-            margin="normal"
             required
             name="password"
             label="Password"
@@ -49,7 +47,6 @@ function LoginPage() {
           <br />
           <label htmlFor="admin">Are you admin ?</label>
           <input
-            margin="normal"
             required
             name="admin"
             label="Admin"
@@ -58,9 +55,7 @@ function LoginPage() {
           />
           <br />
 
-          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Login In
-          </button>
+          <button type="submit">Login In</button>
           <div>
             <Link to="/register">Don't have an account? Sign Up</Link>
           </div>

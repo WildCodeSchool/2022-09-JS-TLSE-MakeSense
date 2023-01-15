@@ -36,15 +36,33 @@ function DecisionForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      context: "",
+      utility: "",
+      pros: "",
+      cons: "",
+      impacted: [],
+      experts: [],
+      firstDate: "",
+      dateOpinion: "",
+      dateFirstDecision: "",
+      dateEndConflict: "",
+      dateFinaleDecision: "",
+    },
+  });
 
   const [users, setUsers] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [impacted, setImpacted] = useState([]);
   const [experts, setExpert] = useState([]);
-  const [decisionForm, setDecisionForm] = useState(true);
-  const [concernedForm, setConcernedForm] = useState(null);
-  const [calendarForm, setCalendarForm] = useState(null);
+  const [firstDate, setFirstDate] = useState(new Date());
+  const [dateOpinion, setDateOpinion] = useState(new Date());
+  const [dateFirstDecision, setDateFirstDecision] = useState(new Date());
+  const [dateEndConflict, setDateEndConflict] = useState(new Date());
+  const [dateFinaleDecision, setDateFinaleDecision] = useState(new Date());
 
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
@@ -60,74 +78,25 @@ function DecisionForm() {
   function onSubmit(data) {
     setValue("impacted", impacted);
     setValue("experts", experts);
-    setDecisionForm(true);
-    setConcernedForm(null);
-    setCalendarForm(null);
-    const body = {
-      content: JSON.stringify(data),
-      status: 1,
-      id_user_creator: 9,
-    };
-    return api
-      .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-      .then((json) => {
-        return json;
-      });
+    console.warn(data);
+    // const body = {
+    //   content: JSON.stringify(data),
+    //   status: 1,
+    //   id_user_creator: 9,
+    // };
+    // return api
+    //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+    //   .then((json) => {
+    //     return json;
+    //   });
   }
-
-  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
-  function Field({ name, content }) {
-    const onEditorStateChange = (editorState) => {
-      setValue(content, editorState);
-    };
-
-    // outil de Léon : tinyMCE (il faut s'inscrire)
-    return (
-      <div>
-        <label>{name}</label>
-        <ReactQuill
-          theme="snow"
-          modules={modules}
-          value={undefined}
-          onChange={onEditorStateChange}
-        />
-      </div>
-    );
-  }
-
-  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
-  function Calendar({ id }) {
-    const [date, setDate] = useState(new Date());
-
-    const handleChange = (d) => {
-      setDate(d);
-      setValue(id, format(d, "dd-MM-yyyy"));
-    };
-
-    return (
-      <div>
-        <DatePicker selected={date} onChange={handleChange} id={id} />
-      </div>
-    );
-  }
-
-  const passToConcerned = (e) => {
-    e.preventDefault();
-    setDecisionForm(!decisionForm);
-    setConcernedForm(!concernedForm);
-  };
-  const passToCalendar = (e) => {
-    e.preventDefault();
-    setConcernedForm(!concernedForm);
-    setCalendarForm(!calendarForm);
-  };
 
   return (
     isLoaded && (
       <div>
         <h1>Déposer une décision</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset className={decisionForm ? "" : "onBlur"}>
+          <fieldset>
             <legend className="hello">
               Décrire tous les éléments de sa décision
             </legend>
@@ -143,25 +112,64 @@ function DecisionForm() {
                 required
               />
             </div>
-            <Field name="Description de la décision" content="description" />
-            <Field name="Utilité pour l'organisation" content="utility" />
-            <Field name="Contexte autour de la décision" content="context" />
-            <Field name="Bénéfices" content="pros" />
-            <Field name="Inconvénients" content="cons" />
+            <div>
+              <label htmlFor="description">Description de la décision</label>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={undefined}
+                onChange={(editorState) => {
+                  setValue("description", editorState);
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="utility">Utilité pour l'organisation</label>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={undefined}
+                onChange={(editorState) => {
+                  setValue("utility", editorState);
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="context">Contexte autour de la décision</label>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={undefined}
+                onChange={(editorState) => {
+                  setValue("context", editorState);
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="pros">Bénéfices</label>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={undefined}
+                onChange={(editorState) => {
+                  setValue("pros", editorState);
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="cons">Inconvénients</label>
+              <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={undefined}
+                onChange={(editorState) => {
+                  setValue("cons", editorState);
+                }}
+              />
+            </div>
           </fieldset>
-          {calendarForm ? null : (
-            <button
-              type="button"
-              className="buttonForm"
-              onClick={passToConcerned}
-            >
-              {decisionForm
-                ? "Passer à l'étape suivante"
-                : "Revenir à l'étape précédente"}
-            </button>
-          )}
 
-          <fieldset className={concernedForm ? "" : "onBlur"}>
+          <fieldset>
             <legend>Définir les concernés et les experts</legend>
             <Concerned
               table={users}
@@ -176,35 +184,63 @@ function DecisionForm() {
               updateType={setExpert}
             />
           </fieldset>
-          {decisionForm ? null : (
-            <button
-              type="button"
-              className="buttonForm"
-              onClick={passToCalendar}
-            >
-              {concernedForm
-                ? "Passer à l'étape suivante"
-                : "Revenir à l'étape précédente"}
-            </button>
-          )}
 
-          <fieldset className={calendarForm ? "" : "onBlur"}>
+          <fieldset>
             <legend>Définir le calendrier</legend>
             <div className="datepicker">
+              <p>Date de dépôt de la décision</p>
+              <DatePicker
+                selected={firstDate}
+                minDate={firstDate}
+                onChange={(d) => {
+                  setFirstDate(d);
+                  setValue("firstDate", format(d, "dd-MM-yyyy"));
+                }}
+              />
+            </div>
+            <div className="datepicker">
               <p>Fin de la prise des avis</p>
-              <Calendar id="opinion" />
+              <DatePicker
+                selected={dateOpinion}
+                minDate={firstDate}
+                onChange={(d) => {
+                  setDateOpinion(d);
+                  setValue("dateOpinion", format(d, "dd-MM-yyyy"));
+                }}
+              />
             </div>
             <div className="datepicker">
               <p>Fin de la première décision</p>
-              <Calendar id="firstDecision" />
+              <DatePicker
+                selected={dateFirstDecision}
+                minDate={dateOpinion}
+                onChange={(d) => {
+                  setDateFirstDecision(d);
+                  setValue("dateFirstDecision", format(d, "dd-MM-yyyy"));
+                }}
+              />
             </div>
             <div className="datepicker">
               <p>Fin du conflit sur la première décision</p>
-              <Calendar id="endConflict" />
+              <DatePicker
+                selected={dateEndConflict}
+                minDate={dateFirstDecision}
+                onChange={(d) => {
+                  setDateEndConflict(d);
+                  setValue("dateEndConflict", format(d, "dd-MM-yyyy"));
+                }}
+              />
             </div>
             <div className="datepicker">
               <p>Décision définitive</p>
-              <Calendar id="finaleDecision" />
+              <DatePicker
+                selected={dateFinaleDecision}
+                minDate={dateEndConflict}
+                onChange={(d) => {
+                  setDateFinaleDecision(d);
+                  setValue("dateFinaleDecision", format(d, "dd-MM-yyyy"));
+                }}
+              />
             </div>
           </fieldset>
 
