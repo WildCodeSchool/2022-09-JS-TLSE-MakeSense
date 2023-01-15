@@ -43,13 +43,22 @@ function DecisionForm() {
     utility: Joi.string().min(1).message("Utility is required").required(),
     pros: Joi.string().min(1).message("Pros are required").required(),
     cons: Joi.string().min(1).message("Cons are required").required(),
-    // impacted: Joi.array().items(Joi.string()),
-    // experts: Joi.array(),
-    firstDate: Joi.string().min(10).message("Date is required"),
-    dateOpinion: Joi.string().min(10).message("Date is required"),
-    dateFirstDecision: Joi.string().min(10).message("Date is required"),
-    dateEndConflict: Joi.string().min(10).message("Date is required"),
-    dateFinaleDecision: Joi.string().min(10).message("Date is required"),
+    impacted: Joi.array().min(0).message("not working"),
+    experts: Joi.array().min(0).message("not working"),
+    firstDate: Joi.string().min(10).message("Date is required").required(),
+    dateOpinion: Joi.string().min(10).message("Date is required").required(),
+    dateFirstDecision: Joi.string()
+      .min(10)
+      .message("Date is required")
+      .required(),
+    dateEndConflict: Joi.string()
+      .min(10)
+      .message("Date is required")
+      .required(),
+    dateFinaleDecision: Joi.string()
+      .min(10)
+      .message("Date is required")
+      .required(),
   });
 
   const [users, setUsers] = useState();
@@ -75,8 +84,8 @@ function DecisionForm() {
       utility: "",
       pros: "",
       cons: "",
-      // impacted: [],
-      // experts: [],
+      impacted: [],
+      experts: [],
       firstDate: "",
       dateOpinion: "",
       dateFirstDecision: "",
@@ -96,6 +105,10 @@ function DecisionForm() {
   useEffect(() => {
     getUsers();
   }, [isLoaded]);
+  useEffect(() => {
+    setValue("impacted", impacted);
+    setValue("experts", experts);
+  }, [impacted, experts]);
 
   function onSubmit(data) {
     setValue("impacted", impacted);
@@ -188,7 +201,7 @@ function DecisionForm() {
                 theme="snow"
                 modules={modules}
                 value={undefined}
-                onChange={(editorState) => {
+                onChange={(editorState, e) => {
                   setValue("cons", editorState);
                 }}
               />
@@ -204,7 +217,7 @@ function DecisionForm() {
               type={impacted}
               updateType={setImpacted}
             />
-            {/* <p>{errors.impacted?.message}</p> */}
+            <p>{errors.impacted?.message}</p>
 
             <Concerned
               table={users}
@@ -212,9 +225,8 @@ function DecisionForm() {
               type={experts}
               updateType={setExpert}
             />
-            {/* <p>{errors.experts?.message}</p> */}
+            <p>{errors.experts?.message}</p>
           </fieldset>
-
           <fieldset>
             <legend>Définir le calendrier</legend>
             <div className="datepicker">
@@ -279,7 +291,6 @@ function DecisionForm() {
               <p>{errors.dateFinaleDecision?.message}</p>
             </div>
           </fieldset>
-
           <input
             type="submit"
             className="buttonForm"
