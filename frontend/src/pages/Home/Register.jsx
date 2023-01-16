@@ -1,50 +1,73 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import { Text, LanguageContext } from "../../contexts/Language";
+import "@assets/css/container/home/Login.css";
 
 function RegisterPage() {
   const { login } = useAuth();
-
   // Clic du Submit //
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    login({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    const inputemail = e.target.email;
+    const inputEmail = e.target.email;
     const regex1 = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-    const inputpassword = e.target.password;
+    const inputPassword = e.target.password;
     const regex2 =
       /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-    if (regex1.test(e.target.email)) {
-      if (regex2.test(e.target.password)) {
-        const email = inputemail.value;
-        const password = inputpassword.value;
-        const body = { email, password };
-
-        const sendForm = async () => {
-          const reslogin = await api.apipostmysql(
-            `${import.meta.env.VITE_BACKEND_URL}/login`,
-            body
-          );
-          // console.log(password);
-          // const cookieValue = await document.cookie
-          //   .split("; ")
-          //   .find((row) => row.startsWith("makesense_access_token="))
-          //   ?.split("=")[1];
-          // const jsonadmin = await reslogin.json();
-          // login({
-          //   admin: jsonadmin.admin,
-          //   email,
-          // });
-        };
-        sendForm();
-      }
+    if (regex1.test(inputEmail.value) && regex2.test(inputPassword.value)) {
+      const email = inputEmail.value;
+      const password = inputPassword.value;
+      const firstname = e.target.firstname.value;
+      const lastname = e.target.lastname.value;
+      const body = {
+        firstname,
+        lastname,
+        email,
+        password,
+        serviceId: null,
+        admin: 0,
+      };
+      // console.log(body);
+      const sendForm = async () => {
+        const resRegister = await api.apipostmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/register`,
+          body
+        );
+        // console.log(resRegister);
+        const cookieValue = await document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("makesense_access_token="))
+          ?.split("=")[1];
+      };
+      sendForm();
+    } else if (
+      regex1.test(inputEmail.value) === !true ||
+      regex2.test(inputPassword.value) === !true
+    ) {
+      const email = inputEmail.value;
+      const password = inputPassword.value;
+      const firstname = e.target.firstname.value;
+      const lastname = e.target.lastname.value;
+      const body = {
+        firstname,
+        lastname,
+        email,
+        password,
+        serviceId: null,
+        admin: 0,
+      };
+      // const dontSendForm = async () =>
+      //   await api.apipostmysql(
+      //     `${import.meta.env.VITE_BACKEND_URL}/register`,
+      //     body
+      //   );
+      // console.log(inputPassword.value);
+      alert("The password and/or the email are incorrect");
+      // dontSendForm();
+      // navigate("/register");
     }
   };
 
@@ -55,7 +78,7 @@ function RegisterPage() {
           <Text tid="register" />
         </h1>
 
-        <form onSubmit={handleSubmit} noValidate>
+        <form noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">Prénom: </label>
           <input
             margin="normal"
@@ -101,9 +124,7 @@ function RegisterPage() {
             autoComplete="current-password"
           />
           <br />
-          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Register
-          </button>
+          <button type="submit">Register</button>
         </form>
       </div>
     </div>
