@@ -45,7 +45,9 @@ function DecisionForm() {
     dateFinaleDecision: Joi.date().required(),
   });
 
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [usersAndGroups, setUsersAndGroups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [form, setForm] = useState({
     title: "",
@@ -68,11 +70,16 @@ function DecisionForm() {
       `${import.meta.env.VITE_BACKEND_URL}/users`
     );
     setUsers(callAllUsers);
+    const callAllGroups = await api.apigetmysql(
+      `${import.meta.env.VITE_BACKEND_URL}/groups`
+    );
+    setGroups(callAllGroups);
     setIsLoaded(true);
   };
 
   useEffect(() => {
     getUsers();
+    setUsersAndGroups(users.concat(groups));
   }, [isLoaded]);
 
   function handleSubmit(e) {
@@ -168,14 +175,14 @@ function DecisionForm() {
 
           <legend>Définir les concernés et les experts</legend>
           <Concerned
-            table={users}
+            table={usersAndGroups}
             name="concernés"
             type={form.impacted}
             updateType={(event) => setForm({ ...form, impacted: event })}
           />
 
           <Concerned
-            table={users}
+            table={usersAndGroups}
             name="experts"
             type={form.experts}
             updateType={(event) => setForm({ ...form, experts: event })}
