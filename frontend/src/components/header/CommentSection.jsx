@@ -31,7 +31,7 @@ function CommentSection({ id, comments, setComments }) {
         `${import.meta.env.VITE_BACKEND_URL}/comments/${id}`
       );
       setComments(callComments);
-      // eslint-disable-next-line no-unused-expressions, react/prop-types
+      // eslint-disable-next-line no-unused-expressions
       comments && setTotalPages(Math.ceil(comments.length / limit));
       setIsLoaded(true);
     };

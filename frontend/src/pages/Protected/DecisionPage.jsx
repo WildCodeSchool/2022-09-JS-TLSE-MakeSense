@@ -110,21 +110,27 @@ function Decisions() {
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).firstDecision,
+            __html: JSON.parse(decisions.content).firstDecision.substring(
+              0,
+              10
+            ),
           }}
         />
         <h3>Fin de la période de conflit</h3>
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).endConflict,
+            __html: JSON.parse(decisions.content).endConflict.substring(0, 10),
           }}
         />
         <h3>Décision finale</h3>
         <div
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).finaleDecision,
+            __html: JSON.parse(decisions.content).finaleDecision.substring(
+              0,
+              10
+            ),
           }}
         />
         <h3>Personnes impactées</h3>
