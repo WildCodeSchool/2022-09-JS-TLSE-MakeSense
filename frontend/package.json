@@ -19,6 +19,7 @@
     "react-day-picker": "^8.4.1",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.41.3",
+    "react-joi": "^1.3.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.4",
     "react-tag-input": "^6.8.1",
