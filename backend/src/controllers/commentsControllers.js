@@ -12,11 +12,15 @@ const browse = (req, res) => {
     });
 };
 
-const browseWithLimit = (req, res) => {
+const browseWithDecisionId = (req, res) => {
   models.comments
-    .findAllWithLimit()
+    .find(req.params.id)
     .then(([rows]) => {
-      res.send(rows);
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -94,9 +98,9 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseWithDecisionId,
   read,
   edit,
   add,
   destroy,
-  browseWithLimit,
 };

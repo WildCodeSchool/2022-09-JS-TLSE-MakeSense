@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "@services/api";
 import "../../assets/css/decisionPage.css";
 import CommentSection from "@components/header/CommentSection";
+import { useLocation } from "react-router-dom";
 
 function Decisions() {
   const [decisions, setDecisions] = useState(null);
@@ -11,7 +12,9 @@ function Decisions() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
 
-  const id = 29;
+  const location = useLocation();
+
+  const id = 24;
 
   useEffect(() => {
     const getAllApis = async () => {

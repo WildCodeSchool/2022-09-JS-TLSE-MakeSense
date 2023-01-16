@@ -28,7 +28,7 @@ function CommentSection({ id, comments, setComments }) {
   useEffect(() => {
     const getComments = async () => {
       const callComments = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/comments`
+        `${import.meta.env.VITE_BACKEND_URL}/comments/${id}`
       );
       setComments(callComments);
       // eslint-disable-next-line no-unused-expressions, react/prop-types

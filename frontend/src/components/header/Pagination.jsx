@@ -4,12 +4,14 @@ function Pagination({ totalPages, handleClick }) {
   const pages = keys.map((num) => num + 1);
   return (
     <div>
-      {pages.map((num) => (
-        // eslint-disable-next-line react/button-has-type
-        <button key={num} onClick={() => handleClick(num)}>
-          {num}
-        </button>
-      ))}
+      {pages > 1
+        ? pages.map((num) => (
+            // eslint-disable-next-line react/button-has-type
+            <button key={num} onClick={() => handleClick(num)}>
+              {num}
+            </button>
+          ))
+        : null}
     </div>
   );
 }
