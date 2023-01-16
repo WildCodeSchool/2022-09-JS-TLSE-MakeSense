@@ -10,6 +10,7 @@ import "../../assets/css/form/form.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";
+import Joi from "joi";
 
 function DecisionForm() {
   // set options WYSIWYG
@@ -27,6 +28,22 @@ function DecisionForm() {
       ["clean"],
     ],
   };
+
+  const decisionSchema = Joi.object({
+    title: Joi.string().min(5).max(250).message("Title is required").required(),
+    description: Joi.string().min(5).required(),
+    context: Joi.string().min(5).required(),
+    utility: Joi.string().min(5).required(),
+    pros: Joi.string().min(5).required(),
+    cons: Joi.string().min(5).required(),
+    impacted: Joi.array().min(0),
+    experts: Joi.array().min(0),
+    firstDate: Joi.date().required(),
+    dateOpinion: Joi.date().required(),
+    dateFirstDecision: Joi.date().required(),
+    dateEndConflict: Joi.date().required(),
+    dateFinaleDecision: Joi.date().required(),
+  });
 
   const [users, setUsers] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -60,8 +77,17 @@ function DecisionForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const options = {
+      abortEarly: false,
+    };
+    const result = decisionSchema.validate(form, options);
+    if (result.error) {
+      console.warn("il y a une erreur");
+      return <div />;
+    }
+    console.warn("il n'y a pas d'erreur");
     const body = {
-      content: JSON.stringify(form),
+      content: JSON.stringify(result.value),
       status: 1,
       id_user_creator: 9,
     };
