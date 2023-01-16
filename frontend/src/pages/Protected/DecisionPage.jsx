@@ -9,6 +9,8 @@ function Decisions() {
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [comments, setComments] = useState();
+
   const id = 29;
 
   useEffect(() => {
@@ -93,7 +95,11 @@ function Decisions() {
               }}
             />
           </details>
-          <CommentSection id={id} />
+          <CommentSection
+            id={id}
+            comments={comments}
+            setComments={setComments}
+          />
         </div>
       </div>
       <div>

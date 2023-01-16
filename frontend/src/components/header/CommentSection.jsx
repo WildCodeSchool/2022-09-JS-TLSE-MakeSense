@@ -4,10 +4,8 @@ import "../../assets/css/decisionPage.css";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 
-// eslint-disable-next-line react/prop-types
-function CommentSection({ id }) {
+function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [comments, setComments] = useState();
   const [contentComment, setContentComment] = useState();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -33,7 +31,8 @@ function CommentSection({ id }) {
         `${import.meta.env.VITE_BACKEND_URL}/comments`
       );
       setComments(callComments);
-      setTotalPages(Math.ceil(comments.length / limit));
+      // eslint-disable-next-line no-unused-expressions, react/prop-types
+      comments && setTotalPages(Math.ceil(comments.length / limit));
       setIsLoaded(true);
     };
 
@@ -44,7 +43,7 @@ function CommentSection({ id }) {
     setPage(num);
   };
 
-  return isLoaded ? (
+  return comments ? (
     <details>
       <summary>Avis ({comments.length})</summary>
       <form onSubmit={handleSubmit}>
