@@ -40,7 +40,6 @@ function Concerned({ table, name, type, updateType }) {
         handleDelete={handleDelete}
         handleAddition={handleAddition}
         inputFieldPosition="top"
-        // minQueryLength={3}
         maxLength={91}
         allowDragDrop={false}
         placeholder="Recherche une personne concernée"

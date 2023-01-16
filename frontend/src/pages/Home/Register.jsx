@@ -26,7 +26,6 @@ function RegisterPage() {
         <form onSubmit={handleSubmit} noValidate>
           <label htmlFor="firstname">Prénom: </label>
           <input
-            margin="normal"
             required
             name="firstname"
             label="Firstname"
@@ -37,7 +36,6 @@ function RegisterPage() {
           <br />
           <label htmlFor="lastname">Nom de famille: </label>
           <input
-            margin="normal"
             required
             name="lastname"
             label="Lastname"
@@ -48,7 +46,6 @@ function RegisterPage() {
           <br />
           <label htmlFor="email">Email: </label>
           <input
-            margin="normal"
             required
             id="email"
             label="Email Address"
@@ -58,7 +55,6 @@ function RegisterPage() {
           <br />
           <label htmlFor="password">Mot de passe: </label>
           <input
-            margin="normal"
             required
             name="password"
             label="Password"
@@ -67,9 +63,7 @@ function RegisterPage() {
             autoComplete="current-password"
           />
           <br />
-          <button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Register
-          </button>
+          <button type="submit">Register</button>
         </form>
       </div>
     </div>
