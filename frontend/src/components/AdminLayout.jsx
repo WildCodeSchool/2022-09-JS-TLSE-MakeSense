@@ -20,6 +20,13 @@ export default function AdminLayout() {
     ? new URLSearchParams(URLParam).get("tools")
     : "Dashboard";
 
+  if (!user.email) {
+    return <Navigate to="/" />;
+  }
+  if (user.email && !user.admin) {
+    return <Navigate to="../user/profile" />;
+  }
+
   // Creation pages
   let menu = [];
   Object.keys(pages.Protected).forEach((item) => {
@@ -38,6 +45,7 @@ export default function AdminLayout() {
     };
     menu = [...menu, addmenu];
   });
+
   // Creation menuadmin
   let menuadmin = [];
   Object.keys(components.container.Admin)
@@ -52,13 +60,6 @@ export default function AdminLayout() {
       };
       menuadmin = [...menuadmin, addmenuadmin];
     });
-
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
-  if (user.email && !user.admin) {
-    return <Navigate to="../user/profile" />;
-  }
 
   return (
     <main className="container">
