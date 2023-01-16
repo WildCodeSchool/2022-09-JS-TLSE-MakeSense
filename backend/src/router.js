@@ -22,6 +22,7 @@ router.post("/readfs", scriptfs.readallfiles);
 router.post("/login", usersControllers.login, verifyPassword);
 router.post("/register", validateUser, hashPassword, usersControllers.add);
 router.get("/decisions", decisionsControllers.browse);
+
 router.use(verifyToken);
 
 router.get("/users", usersControllers.browse);

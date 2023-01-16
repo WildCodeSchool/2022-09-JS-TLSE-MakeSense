@@ -9,7 +9,7 @@ import "../assets/css/Layout.scss";
 
 export default function ProtectedLayout() {
   const { pages, components } = useContext(FolderContext);
-  const { user, logout, login } = useAuth();
+  const { user } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 

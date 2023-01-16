@@ -45,7 +45,7 @@ function AppBar({ menu }) {
           </div>
         ))}
         {!!user.email && (
-          <button type="button" key="logout" onClick={logout}>
+          <button type="button" key="logout" onClick={() => logout()}>
             <Text tid="logout" />
           </button>
         )}
