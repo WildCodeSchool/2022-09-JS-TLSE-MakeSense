@@ -1,5 +1,5 @@
 import { useContext, Suspense } from "react";
-import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
@@ -11,7 +11,6 @@ import Loader from "../services/Loader";
 
 export default function AdminLayout() {
   const { user } = useAuth();
-  const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 

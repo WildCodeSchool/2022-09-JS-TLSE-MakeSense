@@ -1,18 +1,18 @@
 import { useState, useMemo, useEffect } from "react";
-import Concerned from "@components/form/Concerned";
+import Concerned from "@components/container/Protected/Decisions/form/Concerned";
 // imports WYSIWYG
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 // imports CSS
-import "../../assets/css/header/AppBar.css";
-import "../../assets/css/form/form.css";
+import "../../../../assets/css/header/AppBar.css";
+import "../../../../assets/css/form/form.css";
 // imports DatePicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";
 import Joi from "joi";
 
-function DecisionForm() {
+function DecisionsForm() {
   // set options WYSIWYG
   const modules = {
     toolbar: [
@@ -249,4 +249,4 @@ function DecisionForm() {
     )
   );
 }
-export default DecisionForm;
+export default DecisionsForm;
