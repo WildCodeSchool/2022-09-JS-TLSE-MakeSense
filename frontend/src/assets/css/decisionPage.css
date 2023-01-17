@@ -1,0 +1,15 @@
+.decisionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  margin: auto;
+}
+
+.decisionDetailsContainer {
+  width: 60vw;
+}
+
+summary {
+  border-bottom: 1px solid lightgray;
+}

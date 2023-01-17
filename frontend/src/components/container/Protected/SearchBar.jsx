@@ -35,7 +35,10 @@ function SearchBar({ datas }) {
                 .replace(/\p{Diacritic}/gu, "")
                 .toLocaleLowerCase()
                 .includes(
-                  searchTerm.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase()
+                  searchTerm
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
                 )
             )
             .map((data) => (

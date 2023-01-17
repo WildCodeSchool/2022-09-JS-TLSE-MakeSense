@@ -280,16 +280,14 @@ body {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 button {
-  border-top-left-radius: var(--border-radius-m);
-  border-top-right-radius: var(--border-radius-m);
-  border-bottom-left-radius: var(--border-radius-m);
-  border-bottom-right-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-m);
   font-family: inherit;
   font-size: inherit;
   cursor: pointer;
@@ -306,6 +304,15 @@ button {
   transition: background-color 0.2s, border-color 0.2s;
   text-align: center;
 }
+
+h1 {
+  color: var(--color-text);
+  margin-bottom: var(--space-m);
+  font-size: var(--font-size-xxxxxl);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-black);
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
