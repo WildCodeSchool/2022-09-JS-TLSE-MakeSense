@@ -62,7 +62,12 @@ function CommentSection({ id, comments, setComments }) {
       <Comments comments={comments} page={page} limit={limit} />
     </details>
   ) : (
-    <div>Loading...</div>
+    <div>
+      <details>
+        <summary>Avis (0)</summary>
+        <div>Il n'y a pas encore d'avis sur cette décision.</div>
+      </details>
+    </div>
   );
 }
 
