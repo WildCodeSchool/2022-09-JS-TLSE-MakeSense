@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
     const checkuser = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
     );
-    setUser({ admin: checkuser.admin, email: checkuser.email, id: id });
+    setUser({ admin: checkuser.admin, email: checkuser.email, id });
   };
   // reconnexion peuple user
   if (

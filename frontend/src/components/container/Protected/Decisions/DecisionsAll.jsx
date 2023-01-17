@@ -60,8 +60,8 @@ function DecisionsAll() {
               .map((data) => (
                 <button
                   type="button"
-                  key="key"
-                  id="8"
+                  key={data.id}
+                  id={data.id}
                   onClick={() => {
                     navigate(`/user/decisions?comp=Page&id=${data.id}`);
                   }}
