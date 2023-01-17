@@ -1,3 +1,11 @@
+summary {
+  border-bottom: 1px solid lightgray;
+}
+
+details {
+  margin-bottom: var(--space-l);
+}
+
 .decisionContainer {
   display: flex;
   flex-direction: row;
@@ -10,6 +18,11 @@
   width: 60vw;
 }
 
-summary {
-  border-bottom: 1px solid lightgray;
+.comment {
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-m);
+}
+
+.commentInfoSection {
+  margin-bottom: var(--space-m);
 }
