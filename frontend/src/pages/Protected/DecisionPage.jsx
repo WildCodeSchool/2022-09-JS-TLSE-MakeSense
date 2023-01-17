@@ -16,6 +16,7 @@ function Decisions() {
     );
     setDecisions(callDecisions);
   };
+
   const getUsers = async () => {
     const callUserById = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users/${parseInt(
@@ -44,6 +45,7 @@ function Decisions() {
   useEffect(() => {
     getDecisions();
   }, [isLoaded]);
+  
   useEffect(() => {
     getUsers();
   }, [decisions]);
