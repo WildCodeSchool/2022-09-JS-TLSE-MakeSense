@@ -5,13 +5,18 @@ import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.css";
+import "../assets/css/Layout.scss";
 
 export default function HomeLayout() {
   const { pages, components } = useContext(FolderContext);
-  const { user } = useAuth();
+  const { user, checkToken } = useAuth();
   const outlet = useOutlet();
   const { Text, dictionary } = useContext(LanguageContext);
+
+  // Si connecté redirige vers profile page
+  if (user.email) {
+    return <Navigate to="/user" replace />;
+  }
 
   // Creation pages
   let menu = [];
@@ -25,18 +30,13 @@ export default function HomeLayout() {
     menu = [...menu, addmenu];
   });
 
-  // Si connecté redirige vers profile page
-  if (user) {
-    return <Navigate to="/user/profile" replace />;
-  }
-
   return (
     <main className="container">
-      <header>
+      <header className="header">
         <AppBar menu={menu} />
       </header>
-      {outlet}
-      <footer>
+      <div className="content">{outlet}</div>
+      <footer className="footer">
         <FooterBar />
       </footer>
     </main>

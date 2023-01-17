@@ -23,6 +23,7 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.4",
     "react-tag-input": "^6.8.1",
+    "sass": "^1.57.1",
     "template-fullstack": "file:.."
   },
   "devDependencies": {
