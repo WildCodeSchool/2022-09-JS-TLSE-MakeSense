@@ -1,12 +1,9 @@
 import { useState, useMemo, useEffect } from "react";
 import Concerned from "@components/form/Concerned";
-// imports WYSIWYG
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-// imports CSS
 import "../../assets/css/header/AppBar.css";
 import "../../assets/css/form/form.css";
-// imports DatePicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";

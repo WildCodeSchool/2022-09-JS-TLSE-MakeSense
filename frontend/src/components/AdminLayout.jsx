@@ -1,6 +1,6 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/admin/AdminBar";
+import AdminBar from "@components/container/admin/adminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
