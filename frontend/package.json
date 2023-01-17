@@ -10,6 +10,8 @@
     "fix": "prettier --write . && eslint --fix --ext .jsx ."
   },
   "dependencies": {
+    "html-react-parser": "^3.0.8",
+    "jsonwebtoken": "^9.0.0",
     "@hookform/resolvers": "^2.9.10",
     "date-fns": "^2.29.3",
     "joi": "^17.7.0",
