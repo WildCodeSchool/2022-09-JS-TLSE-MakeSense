@@ -1,6 +1,25 @@
 import "@assets/css/container/admin/profile.css";
+import api from "@services/api";
+import Register from "@pages/Home/Register";
+import { React, useContext, useState, useEffect } from "react";
+
+const userId = 24;
 
 export default function ProfilePage() {
+  const [userFirstName, setUserFistName] = useState();
+  const [userLastName, setUserLastName] = useState();
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
+
+  useEffect(() => {
+    const getUser = async () => {
+      // get the user
+      const callUserById = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/${userId}`
+      );
+    };
+  }, []);
+
   return (
     <>
       <h1>Mon profil</h1>

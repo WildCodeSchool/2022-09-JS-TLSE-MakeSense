@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@makesenseorg/design-system": "^1.16.3",
+    "antd": "^5.1.5",
     "argon2": "^0.30.2",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^8.5.1",
