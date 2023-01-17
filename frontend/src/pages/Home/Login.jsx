@@ -20,7 +20,6 @@ export default function LoginPage() {
         const email = inputemail.value;
         const password = inputpassword.value;
         const body = { email, password };
-
         const sendForm = async () => {
           const reslogin = await api.apipostmysql(
             `${import.meta.env.VITE_BACKEND_URL}/login`,
@@ -70,11 +69,11 @@ export default function LoginPage() {
           <span className="form__error">
             Format : <br />
             Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
-            caractere spécial
+            caractère spécial
           </span>
           <button type="submit">Loging In</button>
           <div>
-            <Link to="/register">Don't have an account? Sign Up</Link>
+            <Link to="/register">Don't have an account yet? Sign Up</Link>
           </div>
         </form>
       </div>
