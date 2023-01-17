@@ -106,45 +106,68 @@ function Decisions() {
         </div>
       </div>
       <div>
-        <h3>Première décision prise</h3>
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).firstDecision.substring(
-              0,
-              10
-            ),
-          }}
-        />
-        <h3>Fin de la période de conflit</h3>
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).endConflict.substring(0, 10),
-          }}
-        />
-        <h3>Décision finale</h3>
-        <div
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: JSON.parse(decisions.content).finaleDecision.substring(
-              0,
-              10
-            ),
-          }}
-        />
-        <h3>Personnes impactées</h3>
-        <div>
-          {impacted.map((person) => (
-            <div key={person.id}>{person.text}</div>
-          ))}
-        </div>
-        <h3>Personnes expertes</h3>
-        <div>
-          {expert.map((person) => (
-            <div key={person.id}>{person.text}</div>
-          ))}
-        </div>
+        {JSON.parse(decisions.content).firstDecision ? (
+          <>
+            <h3>Première décision prise</h3>
+            <div
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: JSON.parse(decisions.content).firstDecision.substring(
+                  0,
+                  10
+                ),
+              }}
+            />
+          </>
+        ) : null}
+        {JSON.parse(decisions.content).endConflict ? (
+          <>
+            <h3>Fin de la période de conflit</h3>
+            <div
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: JSON.parse(decisions.content).firstDecision.substring(
+                  0,
+                  10
+                ),
+              }}
+            />
+          </>
+        ) : null}
+        {JSON.parse(decisions.content).finaleDecision ? (
+          <>
+            <h3>Décision finale</h3>
+            <div
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: JSON.parse(decisions.content).firstDecision.substring(
+                  0,
+                  10
+                ),
+              }}
+            />
+          </>
+        ) : null}
+        {impacted.length > 0 ? (
+          <>
+            <h3>Personnes impactées</h3>
+            <div>
+              {impacted.map((person) => (
+                <div key={person.id}>{person.text}</div>
+              ))}
+            </div>
+          </>
+        ) : null}
+        {expert.length > 0 ? (
+          <>
+            <h3>Personnes expertes</h3>
+            <div>
+              {expert.map((person) => (
+                <div key={person.id}>{person.text}</div>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   ) : (
