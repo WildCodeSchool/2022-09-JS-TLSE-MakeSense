@@ -26,10 +26,28 @@ function LoginPage() {
         <img src={PointExclamation} alt="point_exclamation" />
 
         <form onSubmit={handleSubmit} noValidate>
-          <label htmlFor="email">Enter your email: </label>
+          <label htmlFor="firstname">Prénom: </label>
           <input
-            // eslint-disable-next-line react/no-unknown-property
-            margin="normal"
+            required
+            name="firstname"
+            label="Firstname"
+            type="firstname"
+            id="firstname"
+            autoComplete="current-firstname"
+          />
+          <br />
+          <label htmlFor="lastname">Nom de famille: </label>
+          <input
+            required
+            name="lastname"
+            label="Lastname"
+            type="lastname"
+            id="lastname"
+            autoComplete="current-lastname"
+          />
+          <br />
+          <label htmlFor="email">Email: </label>
+          <input
             required
             id="email"
             label="Email Address"
@@ -39,8 +57,6 @@ function LoginPage() {
           <br />
           <label htmlFor="password">Enter your password: </label>
           <input
-            // eslint-disable-next-line react/no-unknown-property
-            margin="normal"
             required
             name="password"
             label="Password"
@@ -49,21 +65,8 @@ function LoginPage() {
             autoComplete="current-password"
           />
           <br />
-          <label htmlFor="admin">Are you admin ?</label>
-          <input
-            // eslint-disable-next-line react/no-unknown-property
-            margin="normal"
-            required
-            name="admin"
-            label="Admin"
-            type="checkbox"
-            id="admin"
-          />
-          <br />
-          <button type="submit">Login In</button>
-          <div>
-            <Link to="/register">Don't have an account? Sign Up</Link>
-          </div>
+
+          <button type="submit">Register</button>
         </form>
       </div>
     </div>

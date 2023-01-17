@@ -1,10 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway");
-
-:root {
-  --main-bg-color: #196c84;
-  font-family: Raleway, Helvetica, Arial, sans-serif;
-}
-
 header {
   background-color: var(--main-bg-color);
   padding: 10px;
@@ -12,9 +5,30 @@ header {
 
 .container {
   display: grid;
-  /* grid-template-rows: 10% 85% 5%; */
-  height: 100vh;
+  grid-template-rows: minmax(20px, 60px) max-content minmax(20px, 60px);
   gap: 0px 0px;
+  justify-content: stretch;
+  align-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.content {
+  align-self: start;
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+.footer {
+  background-color: var(--main-bg-color);
+  padding: 10px;
+  justify-self: stretch;
+  align-self: end;
+  grid-area: 3 / 1 / 4 / 2;
 }
 
 form {
@@ -40,10 +54,10 @@ form fieldset label {
   grid-template-areas: "menu-admin admin-tools-container";
 }
 
-.admin-tools-container {
-  grid-area: admin-tools-container;
-}
-
 .menu-admin {
   grid-area: menu-admin;
+}
+
+.admin-tools-container {
+  grid-area: admin-tools-container;
 }

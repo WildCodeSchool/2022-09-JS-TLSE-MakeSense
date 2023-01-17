@@ -21,6 +21,9 @@ function Decisions() {
   return (
     isLoaded && (
       <div>
+        <div className="titre">
+          <h1>Décisions</h1>
+        </div>
         <div className="searchBar">
           <SearchBar datas={datas} />
         </div>

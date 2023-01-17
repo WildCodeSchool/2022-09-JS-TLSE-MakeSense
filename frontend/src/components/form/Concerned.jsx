@@ -15,7 +15,9 @@ function Concerned({ table, name, type, updateType }) {
   const suggestions = table.map((user) => {
     return {
       id: user.id.toString(),
-      text: `${user.firstname} ${user.lastname}`,
+      text: user.firstname
+        ? `${user.firstname} ${user.lastname}`
+        : `${user.name}`,
     };
   });
 
@@ -40,7 +42,6 @@ function Concerned({ table, name, type, updateType }) {
         handleDelete={handleDelete}
         handleAddition={handleAddition}
         inputFieldPosition="top"
-        // minQueryLength={3}
         maxLength={91}
         allowDragDrop={false}
         placeholder="Recherche une personne concernée"

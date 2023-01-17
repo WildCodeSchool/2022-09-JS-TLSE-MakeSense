@@ -1,58 +1,100 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Concerned from "@components/form/Concerned";
-import { USERS } from "@components/form/usersMock";
 // imports WYSIWYG
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-// import to get datas on submit
-import { useForm } from "react-hook-form";
 // imports CSS
 import "../../assets/css/header/AppBar.css";
 import "../../assets/css/form/form.css";
 // imports DatePicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
 import api from "@services/api";
-
-// set options WYSIWYG
-const modules = {
-  toolbar: [
-    [{ header: [1, 2, false] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link"],
-    ["clean"],
-  ],
-};
+import Joi from "joi";
 
 function DecisionForm() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  // set options WYSIWYG
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+      ["clean"],
+    ],
+  };
 
-  const [impacted, setImpacted] = useState([]);
-  const [experts, setExpert] = useState([]);
-  const [decisionForm, setDecisionForm] = useState(true);
-  const [concernedForm, setConcernedForm] = useState(null);
-  const [calendarForm, setCalendarForm] = useState(null);
+  const decisionSchema = Joi.object({
+    title: Joi.string().min(5).max(250).message("Title is required").required(),
+    description: Joi.string().min(5).required(),
+    context: Joi.string().min(5).required(),
+    utility: Joi.string().min(5).required(),
+    pros: Joi.string().min(5).required(),
+    cons: Joi.string().min(5).required(),
+    impacted: Joi.array().min(0),
+    experts: Joi.array().min(0),
+    firstDate: Joi.date().required(),
+    dateOpinion: Joi.date().required(),
+    dateFirstDecision: Joi.date().required(),
+    dateEndConflict: Joi.date().required(),
+    dateFinaleDecision: Joi.date().required(),
+  });
 
-  function onSubmit(data) {
-    setValue("impacted", impacted);
-    setValue("experts", experts);
-    setDecisionForm(true);
-    setConcernedForm(null);
-    setCalendarForm(null);
+  const [users, setUsers] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [usersAndGroups, setUsersAndGroups] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    utility: "",
+    context: "",
+    pros: "",
+    cons: "",
+    impacted: [],
+    experts: [],
+    firstDate: new Date(),
+    dateOpinion: new Date(),
+    dateFirstDecision: new Date(),
+    dateEndConflict: new Date(),
+    dateFinaleDecision: new Date(),
+  });
+
+  const getUsers = async () => {
+    const callAllUsers = await api.apigetmysql(
+      `${import.meta.env.VITE_BACKEND_URL}/users`
+    );
+    setUsers(callAllUsers);
+    const callAllGroups = await api.apigetmysql(
+      `${import.meta.env.VITE_BACKEND_URL}/groups`
+    );
+    setGroups(callAllGroups);
+    setIsLoaded(true);
+  };
+
+  useEffect(() => {
+    getUsers();
+    setUsersAndGroups(users.concat(groups));
+  }, [isLoaded]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const options = {
+      abortEarly: false,
+    };
+    const result = decisionSchema.validate(form, options);
+    if (result.error) {
+      console.warn("il y a une erreur");
+      return <div />;
+    }
+    console.warn("il n'y a pas d'erreur");
     const body = {
-      content: JSON.stringify(data),
+      content: JSON.stringify(result.value),
       status: 1,
       id_user_creator: 9,
     };
@@ -63,7 +105,7 @@ function DecisionForm() {
       });
   }
 
-  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
+// eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
   function Field({ name, content }) {
     const onEditorStateChange = (editorState) => {
       setValue(content, editorState);
@@ -111,93 +153,147 @@ function DecisionForm() {
   };
 
   return (
-    <div>
-      <h1>Déposer une décision</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <fieldset className={decisionForm ? "" : "onBlur"}>
+    isLoaded && (
+      <div>
+        <h1>Déposer une décision</h1>
+        <form onSubmit={handleSubmit}>
           <legend className="hello">
             Décrire tous les éléments de sa décision
           </legend>
-          <div>
-            <label htmlFor="title">Titre</label>
-            <br />
-            <input
-              type="text"
-              name="title"
-              id="title"
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("title")}
-              required
-            />
-          </div>
-          <Field name="Description de la décision" content="description" />
-          <Field name="Utilité pour l'organisation" content="utility" />
-          <Field name="Contexte autour de la décision" content="context" />
-          <Field name="Bénéfices" content="pros" />
-          <Field name="Inconvénients" content="cons" />
-        </fieldset>
-        {calendarForm ? null : (
-          <button
-            type="button"
-            className="buttonForm"
-            onClick={passToConcerned}
-          >
-            {decisionForm
-              ? "Passer à l'étape suivante"
-              : "Revenir à l'étape précédente"}
-          </button>
-        )}
+          <label htmlFor="title">Titre</label>
+          <br />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value={form.title}
+            onChange={(event) => {
+              setForm({ ...form, [event.target.name]: event.target.value });
+            }}
+          />
+          <label htmlFor="description">Description de la décision</label>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            name="description"
+            value={form.description}
+            onChange={(event) => {
+              setForm({ ...form, description: event });
+            }}
+          />
+          <label htmlFor="utility">Utilité pour l'organisation</label>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            name="utility"
+            value={form.utility}
+            onChange={(event) => {
+              setForm({ ...form, utility: event });
+            }}
+          />
+          <label htmlFor="context">Contexte autour de la décision</label>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            name="context"
+            value={form.context}
+            onChange={(event) => {
+              setForm({ ...form, context: event });
+            }}
+          />
+          <label htmlFor="pros">Bénéfices</label>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            value={form.pros}
+            onChange={(event) => {
+              setForm({ ...form, pros: event });
+            }}
+          />
+          <label htmlFor="cons">Inconvénients</label>
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            value={form.cons}
+            onChange={(event) => {
+              setForm({ ...form, cons: event });
+            }}
+          />
 
-        <fieldset className={concernedForm ? "" : "onBlur"}>
           <legend>Définir les concernés et les experts</legend>
           <Concerned
-            table={USERS}
+            table={usersAndGroups}
             name="concernés"
-            type={impacted}
-            updateType={setImpacted}
+            type={form.impacted}
+            updateType={(event) => setForm({ ...form, impacted: event })}
           />
+
           <Concerned
-            table={USERS}
+            table={usersAndGroups}
             name="experts"
-            type={experts}
-            updateType={setExpert}
+            type={form.experts}
+            updateType={(event) => setForm({ ...form, experts: event })}
           />
-        </fieldset>
-        {decisionForm ? null : (
-          <button type="button" className="buttonForm" onClick={passToCalendar}>
-            {concernedForm
-              ? "Passer à l'étape suivante"
-              : "Revenir à l'étape précédente"}
+          <fieldset>
+            <legend>Définir le calendrier</legend>
+            <div className="datepicker">
+              <p>Date de dépôt de la décision</p>
+              <DatePicker
+                selected={form.firstDate}
+                minDate={form.firstDate}
+                maxDate={form.firstDate}
+                onChange={(d) => {
+                  setForm({ ...form, firstDate: d });
+                }}
+              />
+            </div>
+            <div className="datepicker">
+              <p>Fin de la prise des avis</p>
+              <DatePicker
+                selected={form.dateOpinion}
+                minDate={form.firstDate}
+                onChange={(d) => {
+                  setForm({ ...form, dateOpinion: d });
+                }}
+              />
+            </div>
+            <div className="datepicker">
+              <p>Fin de la première décision</p>
+              <DatePicker
+                selected={form.dateFirstDecision}
+                minDate={form.dateOpinion}
+                onChange={(d) => {
+                  setForm({ ...form, dateFirstDecision: d });
+                }}
+              />
+            </div>
+            <div className="datepicker">
+              <p>Fin du conflit sur la première décision</p>
+              <DatePicker
+                selected={form.dateEndConflict}
+                minDate={form.dateFirstDecision}
+                onChange={(d) => {
+                  setForm({ ...form, dateEndConflict: d });
+                }}
+              />
+            </div>
+            <div className="datepicker">
+              <p>Décision définitive</p>
+              <DatePicker
+                selected={form.dateFinaleDecision}
+                minDate={form.dateEndConflict}
+                onChange={(d) => {
+                  setForm({ ...form, dateFinaleDecision: d });
+                }}
+              />
+            </div>
+          </fieldset>
+          <button type="submit" className="buttonForm">
+            Poster ma décision
           </button>
-        )}
-
-        <fieldset className={calendarForm ? "" : "onBlur"}>
-          <legend>Définir le calendrier</legend>
-          <div className="datepicker">
-            <p>Fin de la prise des avis</p>
-            <Calendar id="opinion" />
-          </div>
-          <div className="datepicker">
-            <p>Fin de la première décision</p>
-            <Calendar id="firstDecision" />
-          </div>
-          <div className="datepicker">
-            <p>Fin du conflit sur la première décision</p>
-            <Calendar id="endConflict" />
-          </div>
-          <div className="datepicker">
-            <p>Décision définitive</p>
-            <Calendar id="finaleDecision" />
-          </div>
-        </fieldset>
-
-        <input
-          type="submit"
-          className="buttonForm"
-          value="Poster ma décision ! Youpiiiii"
-        />
-      </form>
-    </div>
+        </form>
+      </div>
+    )
   );
 }
 export default DecisionForm;
