@@ -45,7 +45,7 @@ function Decisions() {
   useEffect(() => {
     getDecisions();
   }, [isLoaded]);
-  
+
   useEffect(() => {
     getUsers();
   }, [decisions]);
