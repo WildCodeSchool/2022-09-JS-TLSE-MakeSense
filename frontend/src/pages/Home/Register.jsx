@@ -1,16 +1,14 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Navigate, redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
-import { Text, LanguageContext } from "../../contexts/Language";
+import { Text } from "../../contexts/Language";
 import "@assets/css/container/home/Login.css";
 
 function RegisterPage() {
   const { login } = useAuth();
-  // Clic du Submit //
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
     const inputEmail = e.target.email;
     const regex1 = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     const inputPassword = e.target.password;
@@ -30,17 +28,22 @@ function RegisterPage() {
         serviceId: null,
         admin: 0,
       };
-      // console.log(body);
       const sendForm = async () => {
         const resRegister = await api.apipostmysql(
           `${import.meta.env.VITE_BACKEND_URL}/register`,
           body
         );
-        // console.log(resRegister);
-        const cookieValue = await document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("makesense_access_token="))
-          ?.split("=")[1];
+        if (resRegister.status === 201) {
+          const body2 = { email, password };
+          const reslogin = await api.apipostmysql(
+            `${import.meta.env.VITE_BACKEND_URL}/login`,
+            body2
+          );
+          login({
+            admin: 0,
+            email,
+          });
+        }
       };
       sendForm();
     } else if (
@@ -59,15 +62,6 @@ function RegisterPage() {
         serviceId: null,
         admin: 0,
       };
-      // const dontSendForm = async () =>
-      //   await api.apipostmysql(
-      //     `${import.meta.env.VITE_BACKEND_URL}/register`,
-      //     body
-      //   );
-      // console.log(inputPassword.value);
-      alert("The password and/or the email are incorrect");
-      // dontSendForm();
-      // navigate("/register");
     }
   };
 
