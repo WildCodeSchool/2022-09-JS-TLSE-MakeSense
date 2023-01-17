@@ -12,6 +12,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState({
     admin: null,
     email: null,
+    id: null,
   });
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export function AuthProvider({ children }) {
     const checkuser = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
     );
-    setUser({ admin: checkuser.admin, email: checkuser.email });
+    setUser({ admin: checkuser.admin, email: checkuser.email, id: id });
   };
   // reconnexion peuple user
   if (
