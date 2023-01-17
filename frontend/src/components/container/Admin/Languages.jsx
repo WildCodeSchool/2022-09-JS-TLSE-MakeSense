@@ -50,7 +50,7 @@ function LangSettings() {
   }, []);
 
   return IsLoaded ? (
-    <div className="wrapper">
+    <div className="comp-admin-wrapper">
       <h1>
         <Text tid="language" />
       </h1>

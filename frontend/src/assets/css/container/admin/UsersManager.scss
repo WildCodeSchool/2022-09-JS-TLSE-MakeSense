@@ -1,0 +1,11 @@
+.rowUser {
+  display: flex;
+  border-radius: 5px;
+  width: 100%;
+}
+.user-admin-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  row-gap: 0.8rem;
+}

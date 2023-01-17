@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
     );
     setUser({ admin: checkuser.admin, email: checkuser.email, id });
   };
+
   // reconnexion peuple user
   if (
     !user.email &&

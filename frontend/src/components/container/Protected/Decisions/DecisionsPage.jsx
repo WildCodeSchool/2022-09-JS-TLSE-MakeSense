@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
-import "@assets/css/decisionPage.css";
+import "@assets/css/container/protected/DecisionPage.css";
 import CommentSection from "@components/header/CommentSection";
 import { useLocation } from "react-router-dom";
 
