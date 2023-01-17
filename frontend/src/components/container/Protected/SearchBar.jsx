@@ -30,7 +30,16 @@ function SearchBar({ datas }) {
           datas
             // eslint-disable-next-line react/prop-types
             .filter((data) =>
-              JSON.parse(data.content).title.includes(searchTerm)
+              JSON.parse(data.content)
+                .title.normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchTerm
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                )
             )
             .map((data) => (
               <Card key={data.id} data={data} />

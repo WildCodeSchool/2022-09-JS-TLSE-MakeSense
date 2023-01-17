@@ -5,7 +5,7 @@ import api from "../../services/api";
 import { Text } from "../../contexts/Language";
 import "@assets/css/container/home/Login.css";
 
-function RegisterPage() {
+function LoginPage() {
   const { login } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,15 +67,12 @@ function RegisterPage() {
 
   return (
     <div className="wrapper">
-      <div className="register">
-        <h1>
-          <Text tid="register" />
-        </h1>
+      <div className="login">
+        <h1>Log In</h1>
 
         <form noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">Prénom: </label>
           <input
-            margin="normal"
             required
             name="firstname"
             label="Firstname"
@@ -86,7 +83,6 @@ function RegisterPage() {
           <br />
           <label htmlFor="lastname">Nom de famille: </label>
           <input
-            margin="normal"
             required
             name="lastname"
             label="Lastname"
@@ -98,7 +94,6 @@ function RegisterPage() {
           <label htmlFor="email">Email: </label>
           <input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            margin="normal"
             required
             id="email"
             label="Email Address"
@@ -106,10 +101,9 @@ function RegisterPage() {
             autoComplete="email"
           />
           <br />
-          <label htmlFor="password">Mot de passe: </label>
+          <label htmlFor="password">Enter your password: </label>
           <input
             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-            margin="normal"
             required
             name="password"
             label="Password"
@@ -124,4 +118,4 @@ function RegisterPage() {
     </div>
   );
 }
-export default RegisterPage;
+export default LoginPage;

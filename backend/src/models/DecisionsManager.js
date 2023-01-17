@@ -7,15 +7,8 @@ class DecisionsManager extends AbstractManager {
 
   insert(decisions) {
     return this.connection.query(
-      `insert into ${this.table}(lastname, firstname, email, password, serviceId, admin) values (?, ?, ?, ?, ?, ?);`,
-      [
-        decisions.lastname,
-        decisions.firstname,
-        decisions.email,
-        decisions.hashedPassword,
-        decisions.serviceId,
-        decisions.admin,
-      ]
+      `insert into ${this.table}(content, status, id_user_creator) values (?, ?, ?);`,
+      [decisions.content, decisions.status, decisions.id_user_creator]
     );
   }
 
@@ -25,17 +18,10 @@ class DecisionsManager extends AbstractManager {
     ]);
   }
 
-  readForLogin(decisions) {
+  updateContent(decisions) {
     return this.connection.query(
-      `select * from ${this.table} where email = ?;`,
-      [decisions.email]
-    );
-  }
-
-  update(decisions) {
-    return this.connection.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [decisions.title, decisions.id]
+      `update ${this.table} set content = ? where id = ?`,
+      [decisions.content, decisions.id]
     );
   }
 }

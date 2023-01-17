@@ -47,7 +47,6 @@ export default function LoginPage() {
         <form className="form" onSubmit={handleSubmit}>
           <input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            margin="normal"
             placeholder="Email"
             required
             id="email"
@@ -59,7 +58,6 @@ export default function LoginPage() {
           <span className="form__error">email erroné</span>
           <input
             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-            margin="normal"
             placeholder="Password"
             required
             id="password"
