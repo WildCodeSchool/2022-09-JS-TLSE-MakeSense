@@ -1,4 +1,6 @@
 import "./assets/css/App.css";
+import LoginPage from "@pages/Home/Login";
+import RegisterPage from "@pages/Home/Register";
 import { useRoutes } from "react-router-dom";
 import { Suspense, useContext } from "react";
 import Loader from "@services/Loader";

@@ -1,8 +1,0 @@
-.searchBar {
-  display: flex;
-  justify-content: center;
-  margin: 1rem;
-}
-.searchBar.input {
-  width: 100rem;
-}

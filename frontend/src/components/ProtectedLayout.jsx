@@ -8,8 +8,8 @@ import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.scss";
 
 export default function ProtectedLayout() {
-  const { pages, components } = useContext(FolderContext);
-  const { user, logout, login } = useAuth();
+  const { pages } = useContext(FolderContext);
+  const { user } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 

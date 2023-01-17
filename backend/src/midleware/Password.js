@@ -24,7 +24,7 @@ const verifyPassword = (req, res) => {
     .verify(req.user.password, req.body.password)
     .then((isVerified) => {
       if (isVerified) {
-        const payload = { sub: req.user.id };
+        const payload = { sub: req.user.id, role: req.user.admin };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
@@ -34,7 +34,7 @@ const verifyPassword = (req, res) => {
           .cookie("makesense_access_token", `Bearer ${token}`, {
             expires: new Date(Date.now() + 1 * 3600000), // cookie will be removed after 1 hours
           })
-          .json({ admin: req.user.admin });
+          .json({ admin: req.user.admin, id: req.user.id });
       } else {
         res.status(401).send("Réfléchis encore !");
       }

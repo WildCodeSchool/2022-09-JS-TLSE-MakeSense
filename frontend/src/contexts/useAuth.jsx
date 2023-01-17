@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import api from "../services/api";
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -11,16 +12,32 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState({
     admin: null,
     email: null,
+    id: null,
   });
   const navigate = useNavigate();
 
+  const checkToken = async (id) => {
+    const checkuser = await api.apigetmysql(
+      `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
+    );
+    setUser({ admin: checkuser.admin, email: checkuser.email, id: id });
+  };
+  // reconnexion peuple user
+  if (
+    !user.email &&
+    document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("makesense_access_token="))
+      ?.split("=Bearer%20")[1];
+    const payload = JSON.parse(window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g)));
+    checkToken(payload.sub);
+  }
+
   const login = async (data) => {
     setUser(data);
-    if (data.admin === "on") {
-      navigate("/admin/dashboard", { replace: true });
-    } else {
-      navigate("/user/profile", { replace: true });
-    }
+    navigate("/user/profile", { replace: true });
   };
 
   const logout = () => {

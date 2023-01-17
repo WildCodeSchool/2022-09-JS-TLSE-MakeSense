@@ -1,17 +1,16 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/Admin/AdminBar";
+import AdminBar from "./container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "@assets/css/Layout.scss";
+import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
   const { user } = useAuth();
-  const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 
@@ -19,6 +18,13 @@ export default function AdminLayout() {
   const tools = new URLSearchParams(URLParam).get("tools")
     ? new URLSearchParams(URLParam).get("tools")
     : "Dashboard";
+
+  if (!user.email) {
+    return <Navigate to="/" />;
+  }
+  if (user.email && !user.admin) {
+    return <Navigate to="../user/profile" />;
+  }
 
   // Creation pages
   let menu = [];
@@ -38,6 +44,7 @@ export default function AdminLayout() {
     };
     menu = [...menu, addmenu];
   });
+
   // Creation menuadmin
   let menuadmin = [];
   Object.keys(components.container.Admin)
@@ -52,13 +59,6 @@ export default function AdminLayout() {
       };
       menuadmin = [...menuadmin, addmenuadmin];
     });
-
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
-  if (user.email && !user.admin) {
-    return <Navigate to="../user/profile" />;
-  }
 
   return (
     <main className="container">
