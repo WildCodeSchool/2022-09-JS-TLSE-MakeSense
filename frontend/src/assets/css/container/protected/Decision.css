@@ -10,6 +10,7 @@
 
 .Card {
   margin: 1rem;
+  display: inline;
 }
 .Card .body {
   background-color: teal;
@@ -18,3 +19,14 @@
 .titre {
   text-align: center;
 }
+
+/* Decision ALL */
+.searchBar {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+.searchBar.input {
+  width: 100rem;
+}
+/* Fin decision All */

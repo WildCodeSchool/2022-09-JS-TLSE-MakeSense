@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
-import "../../assets/css/decisionPage.css";
+import "@assets/css/decisionPage.css";
 import CommentSection from "@components/header/CommentSection";
 import { useLocation } from "react-router-dom";
 
-function Decisions() {
+function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
   const [user, setUser] = useState();
   const [impacted, setImpacted] = useState();
@@ -12,9 +12,10 @@ function Decisions() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
 
-  const location = useLocation();
-
-  const id = 24;
+  const URLParam = useLocation().search;
+  const id = new URLSearchParams(URLParam).get("id")
+    ? new URLSearchParams(URLParam).get("id")
+    : "";
 
   useEffect(() => {
     const getAllApis = async () => {
@@ -171,7 +172,7 @@ function Decisions() {
       </div>
     </div>
   ) : (
-    <div>Is loading</div>
+    <div>Is loading...</div>
   );
 }
-export default Decisions;
+export default DecisionsPage;

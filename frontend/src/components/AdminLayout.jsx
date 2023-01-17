@@ -6,12 +6,11 @@ import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "@assets/css/Layout.scss";
+import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
   const { user } = useAuth();
-  const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 

@@ -1,34 +1,39 @@
 import "../../assets/css/container/protected/Decision.css";
-import { useEffect, useState } from "react";
-import api from "@services/api";
-import SearchBar from "../../components/container/Protected/SearchBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "@services/Loader";
+import { Suspense } from "react";
 
 function Decisions() {
-  const [datas, setDatas] = useState();
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const getDatas = async () => {
-      const decisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions`
-      );
-      setDatas(decisions);
-      setIsLoaded(true);
-    };
-    getDatas(); // lance la fonction getDatas
-  }, [isLoaded]);
+  const navigate = useNavigate();
+  const URLParam = useLocation().search;
+  const comp = new URLSearchParams(URLParam).get("comp")
+    ? new URLSearchParams(URLParam).get("comp")
+    : "All";
 
   return (
-    isLoaded && (
-      <div>
-        <div className="titre">
-          <h1>Décisions</h1>
-        </div>
-        <div className="searchBar">
-          <SearchBar datas={datas} />
-        </div>
+    <div>
+      <div className="titre">
+        <h1>Décisions</h1>
+        <button
+          type="button"
+          key="key"
+          id="8"
+          onClick={() => {
+            navigate(`/user/decisions?comp=Form`);
+          }}
+        >
+          Form
+        </button>
       </div>
-    )
+      <div className="searchBar">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Loader
+            foldername="components/container/Protected/Decisions"
+            filename={`Decisions${comp}`}
+          />
+        </Suspense>
+      </div>
+    </div>
   );
 }
 export default Decisions;
