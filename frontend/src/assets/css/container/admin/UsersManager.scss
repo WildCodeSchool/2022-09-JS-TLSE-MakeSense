@@ -1,11 +1,13 @@
-.rowUser {
-  display: flex;
-  border-radius: 5px;
-  width: 100%;
+.rowUser{
+    display: flex;
+    border: solid 1px black;
+    border-radius: 5px;
+    width: 90%;
 }
-.user-admin-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  row-gap: 0.8rem;
+.user-admin-wrapper{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 0.8rem;
 }
