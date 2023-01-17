@@ -30,7 +30,7 @@ function api() {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
-         Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(body), // body data type must match "Content-Type" header

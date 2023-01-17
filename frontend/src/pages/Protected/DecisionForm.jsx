@@ -105,53 +105,6 @@ function DecisionForm() {
       });
   }
 
-// eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
-  function Field({ name, content }) {
-    const onEditorStateChange = (editorState) => {
-      setValue(content, editorState);
-    };
-
-    // outil de Léon : tinyMCE (il faut s'inscrire)
-    return (
-      <div>
-        <label>{name}</label>
-        <ReactQuill
-          theme="snow"
-          modules={modules}
-          value={undefined}
-          onChange={onEditorStateChange}
-        />
-      </div>
-    );
-  }
-
-  // eslint-disable-next-line react/prop-types, react/no-unstable-nested-components
-  function Calendar({ id }) {
-    const [date, setDate] = useState(new Date());
-
-    const handleChange = (d) => {
-      setDate(d);
-      setValue(id, format(d, "dd-MM-yyyy"));
-    };
-
-    return (
-      <div>
-        <DatePicker selected={date} onChange={handleChange} id={id} />
-      </div>
-    );
-  }
-
-  const passToConcerned = (e) => {
-    e.preventDefault();
-    setDecisionForm(!decisionForm);
-    setConcernedForm(!concernedForm);
-  };
-  const passToCalendar = (e) => {
-    e.preventDefault();
-    setConcernedForm(!concernedForm);
-    setCalendarForm(!calendarForm);
-  };
-
   return (
     isLoaded && (
       <div>

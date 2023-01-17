@@ -20,7 +20,7 @@ function Decisions() {
     const getAllApis = async () => {
       // get the decision
       const callDecisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisionpage/${id}`
+        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
       setDecisions(callDecisions);
       const callUserById = await api.apigetmysql(
