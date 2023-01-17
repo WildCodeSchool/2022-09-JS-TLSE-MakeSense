@@ -1,22 +1,30 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import AdminBar from "./container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
-import AdminBar from "./container/Admin/AdminBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.css";
+import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 
 export default function AdminLayout() {
   const { user } = useAuth();
-  const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 
   const URLParam = useLocation().search;
-  const tools = new URLSearchParams(URLParam).get("tools") ? new URLSearchParams(URLParam).get("tools") : "Dashboard";
+  const tools = new URLSearchParams(URLParam).get("tools")
+    ? new URLSearchParams(URLParam).get("tools")
+    : "Dashboard";
+
+  if (!user.email) {
+    return <Navigate to="/" />;
+  }
+  if (user.email && !user.admin) {
+    return <Navigate to="../user/profile" />;
+  }
 
   // Creation pages
   let menu = [];
@@ -36,6 +44,7 @@ export default function AdminLayout() {
     };
     menu = [...menu, addmenu];
   });
+
   // Creation menuadmin
   let menuadmin = [];
   Object.keys(components.container.Admin)
@@ -51,29 +60,27 @@ export default function AdminLayout() {
       menuadmin = [...menuadmin, addmenuadmin];
     });
 
-  if (!user) {
-    return <Navigate to="/" />;
-  }
-  if (!user.admin) {
-    return <Navigate to="../user/profile" />;
-  }
-
   return (
     <main className="container">
-      <header>
+      <header className="header">
         <AppBar menu={menu} />
       </header>
-      <div className="admin-wrapper">
-        <div className="menu-admin">
-          <AdminBar menuadmin={menuadmin} />
-        </div>
-        <div className="admin-tools-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Loader foldername="/components/container/Admin" filename={tools} />
-          </Suspense>
+      <div className="content">
+        <div className="admin-wrapper">
+          <div className="menu-admin">
+            <AdminBar menuadmin={menuadmin} />
+          </div>
+          <div className="admin-tools-container">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Loader
+                foldername="components/container/Admin"
+                filename={tools}
+              />
+            </Suspense>
+          </div>
         </div>
       </div>
-      <footer>
+      <footer className="footer">
         <FooterBar />
       </footer>
     </main>

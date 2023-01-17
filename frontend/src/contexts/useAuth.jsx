@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import useLocalStorage from "../hooks/useLocalStorage";
+import api from "../services/api";
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -9,20 +9,40 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage("user", null);
+  const [user, setUser] = useState({
+    admin: null,
+    email: null,
+  });
   const navigate = useNavigate();
+
+  const checkToken = async (id) => {
+    const checkuser = await api.apigetmysql(
+      `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
+    );
+    setUser({ admin: checkuser.admin, email: checkuser.email });
+  };
+  // reconnexion peuple user
+  if (
+    !user.email &&
+    document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("makesense_access_token="))
+      ?.split("=Bearer%20")[1];
+    const payload = JSON.parse(window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g)));
+    checkToken(payload.sub);
+  }
 
   const login = async (data) => {
     setUser(data);
-    if (data.admin === "on") {
-      navigate("/admin/dashboard", { replace: true });
-    } else {
-      navigate("/user/profile", { replace: true });
-    }
+    navigate("/user/profile", { replace: true });
   };
 
   const logout = () => {
-    setUser(null);
+    document.cookie =
+      "makesense_access_token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    setUser("user", null);
     navigate("/", { replace: true });
   };
 

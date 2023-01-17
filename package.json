@@ -23,12 +23,15 @@
     "@makesenseorg/design-system": "^1.16.3",
     "argon2": "^0.30.2",
     "dotenv": "^16.0.3",
-    "joi": "^17.7.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-sass": "^8.0.0",
+    "react-datepicker": "^4.8.0",
+    "react-quill": "^2.0.0",
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.4",
+    "saas": "^1.0.0",
+    "sass": "^1.57.1",
     "sass-loader": "^13.2.0"
   }
 }

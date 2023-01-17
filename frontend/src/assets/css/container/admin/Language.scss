@@ -1,0 +1,32 @@
+button {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  // color: var(--color-primary-inverse);
+}
+
+.wrapper-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 2% 2% 0 2%;
+}
+
+.key {
+  width: auto;
+}
+.inputs-keys {
+  border: 1px solid black;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1%;
+}
+.div-input {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 1%;
+}
