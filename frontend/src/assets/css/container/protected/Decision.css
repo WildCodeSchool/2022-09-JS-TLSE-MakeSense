@@ -10,6 +10,7 @@
 
 .Card {
   margin: 1rem;
+  display: inline;
 }
 .Card .body {
   background-color: teal;
