@@ -10,7 +10,7 @@ function UsersManager() {
   useEffect(() => {
     const getAllapi = async () => {
       const allusers = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/users`
+        `${import.meta.env.VITE_BACKEND_URL}/groups`
       );
       setAllUsers(allusers);
       SetIsLoaded(true);
@@ -26,7 +26,7 @@ function UsersManager() {
 
   return IsLoaded ? (
     <div className="user-admin-wrapper">
-      <h1>Users Management</h1>
+      <h1>Groups Management</h1>
       <div className="SearchBarUsers">
         <input
           key="searchbarusers"
@@ -40,27 +40,7 @@ function UsersManager() {
       </div>
       {AllUsers.filter(
         (data) =>
-          data.lastname
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            ) ||
-          data.firstname
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            ) ||
-          data.email
+          data.name
             .normalize("NFD")
             .replace(/\p{Diacritic}/gu, "")
             .toLocaleLowerCase()
@@ -73,8 +53,7 @@ function UsersManager() {
       ).map((data) => (
         <div className="rowUser">
           <div>
-            lastname:{data.lastname} firstname:{data.firstname} email:
-            {data.email}
+            name:{data.name}
           </div>
           <div> Bouton modifier </div>
         </div>
