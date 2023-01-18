@@ -1,26 +1,54 @@
 import "@assets/css/container/admin/profile.css";
 import api from "@services/api";
 import Register from "@pages/Home/Register";
-import { React, useContext, useState, useEffect } from "react";
-
-const userId = 24;
+import { React, useNavigate, useState, useEffect } from "react";
+import { id } from "date-fns/locale";
+import { useAuth } from "../../contexts/useAuth";
 
 export default function ProfilePage() {
-  const [userFirstName, setUserFistName] = useState();
+  const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userPassword, setUserPassword] = useState();
+  const [data, setData] = useState();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const getUser = async () => {
-      // get the user
-      const callUserById = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/users/${userId}`
+    const getUserData = async () => {
+      const getUser = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}`
       );
+      setData(getUser);
+      setIsLoaded(true);
+      setUserEmail(user.email);
+      setUserFirstName(user.firstname);
+      setUserLastName(user.lastname);
+      setUserPassword(user.password);
     };
+    getUserData(); // lance la fonction getUserData
   }, []);
 
-  return (
+  const handleClick = (event) => {
+    event.preventDefault();
+    const body = {
+      lastname: userLastName,
+      firstname: userFirstName,
+      email: userEmail,
+      hashedPassword: userPassword,
+    };
+
+    const updateUserData = async () => {
+      const updateUser = await api.apiputmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}`,
+        body
+      );
+    };
+    updateUserData();
+  };
+
+  return isLoaded ? (
     <>
       <h1>Mon profil</h1>
       <div className="profileLayout">
@@ -33,18 +61,64 @@ export default function ProfilePage() {
             <summary>Informations personnelles</summary>
             <div>
               <div>Email</div>
-              <div>Email du user</div>
-              <button type="button">Modifier l'email</button>
+              <div>Email du user: {data.email} </div>
+              {showInput && (
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  defaultValue={userEmail}
+                  onChange={(event) => setUserEmail(event.target.value)}
+                />
+              )}
             </div>
             <div>
               <div>Nom</div>
-              <div>Nom du user</div>
-              <button type="button">Modifier le nom</button>
+              <div>Nom du user: {data.lastname}</div>
+              {showInput && (
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  defaultValue={userLastName}
+                  onChange={(event) => setUserLastName(event.target.value)}
+                />
+              )}
+              <div>Prénom</div>
+              <div>Prénom du user: {data.firstname}</div>
+              {showInput && (
+                <input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  defaultValue={userFirstName}
+                  onChange={(event) => setUserFirstName(event.target.value)}
+                />
+              )}
             </div>
             <div>
               <div>Mot de passe</div>
-              <button type="button">Modifier le mot de passe</button>
+              {showInput && (
+                <input
+                  type="password"
+                  id="passwword"
+                  name="password"
+                  defaultValue={userPassword}
+                  onChange={(event) => setUserPassword(event.target.value)}
+                />
+              )}
             </div>
+            {showInput && (
+              <button type="button" onClick={handleClick}>
+                Valider mes informations personnelles
+              </button>
+            )}
+            <button type="button" onClick={() => setShowInput(!showInput)}>
+              {" "}
+              {showInput
+                ? "Revenir à mon profil"
+                : "Modifier mes informations personnelles"}
+            </button>
           </details>
           <details>
             <summary>Mes groupes</summary>
@@ -54,5 +128,7 @@ export default function ProfilePage() {
         </div>
       </div>
     </>
+  ) : (
+    <div>Is loading</div>
   );
 }
