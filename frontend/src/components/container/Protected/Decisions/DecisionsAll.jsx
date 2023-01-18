@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import api from "@services/api";
 import { useNavigate } from "react-router-dom";
-import Card from "../Card";
+import Card from "./Card";
 
 // eslint-disable-next-line react/prop-types
 function DecisionsAll() {
   const navigate = useNavigate();
   const [datas, setDatas] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [StatusSelect, setStatusSelect] = useState(null);
+  const [DureeSelect, setDureeSelect] = useState(null);
 
   useEffect(() => {
+    // Options query
+    let duree;
+    let status;
+
+    /* eslint-disable no-unused-expressions */
+    StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
+    DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
+
     const getDatas = async () => {
       const decisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions`
+        `${import.meta.env.VITE_BACKEND_URL}/decisions?${status}&${duree}`
       );
       setDatas(decisions);
       setIsLoaded(true);
@@ -25,6 +35,19 @@ function DecisionsAll() {
     event.preventDefault();
     setSearchTerm(event.target.value);
   }
+
+  const HandlerStatus = (event) => {
+    setStatusSelect(event.target.value !== "" ? event.target.value : null);
+    setIsLoaded(false);
+  };
+  const HandlerDuree = (event) => {
+    if (DureeSelect === event.target.value) {
+      setDureeSelect(null);
+    } else {
+      setDureeSelect(event.target.value !== "" ? event.target.value : null);
+    }
+    setIsLoaded(false);
+  };
 
   return (
     isLoaded && (
@@ -39,6 +62,53 @@ function DecisionsAll() {
             onChange={handleChange}
             placeholder="Search..."
           />
+          <select
+            value={StatusSelect || ""}
+            id="select-status"
+            onChange={HandlerStatus}
+          >
+            <option value="">--Please choose an option--</option>
+            <option value="1">commencée</option>
+            <option value="2">1rst décision prise</option>
+            <option value="3">1rst décision conflit</option>
+            <option value="4">définitive</option>
+            <option value="5">non aboutie</option>
+            <option value="6">terminée</option>
+          </select>
+        </div>
+        <div>
+          <button
+            type="button"
+            value="1"
+            onClick={HandlerDuree}
+            className={DureeSelect === "1" ? "active" : ""}
+          >
+            {`<24H`}
+          </button>
+          <button
+            type="button"
+            value="7"
+            onClick={HandlerDuree}
+            className={DureeSelect === "7" ? "active" : ""}
+          >
+            {`<Semaine`}
+          </button>
+          <button
+            type="button"
+            value="31"
+            onClick={HandlerDuree}
+            className={DureeSelect === "31" ? "active" : ""}
+          >
+            {`<Mois`}
+          </button>
+          <button
+            type="button"
+            value="93"
+            onClick={HandlerDuree}
+            className={DureeSelect === "93" ? "active" : ""}
+          >
+            {`<3Mois`}
+          </button>
         </div>
         <div>
           {
@@ -60,8 +130,8 @@ function DecisionsAll() {
               .map((data) => (
                 <button
                   type="button"
-                  key="key"
-                  id="8"
+                  key={data.id}
+                  id={data.id}
                   onClick={() => {
                     navigate(`/user/decisions?comp=Page&id=${data.id}`);
                   }}

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { WithContext as ReactTags } from "react-tag-input";
 import "../../../../../assets/css/form/formConcerned.css";
 

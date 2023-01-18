@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
-import "@assets/css/decisionPage.css";
+import "@assets/css/container/protected/DecisionPage.css";
 import CommentSection from "@components/header/CommentSection";
 import { useLocation } from "react-router-dom";
+import Spinner from "@components/Spinner";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
-  const [user, setUser] = useState();
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,12 +24,6 @@ function DecisionsPage() {
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
       setDecisions(callDecisions);
-      const callUserById = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/users/${
-          callDecisions.id_user_creator
-        }`
-      );
-      setUser(callUserById);
       setImpacted(JSON.parse(callDecisions.content).impacted);
       setExpert(JSON.parse(callDecisions.content).experts);
       setIsLoaded(true);
@@ -43,7 +37,7 @@ function DecisionsPage() {
         <div>
           <h1>{JSON.parse(decisions.content).title}</h1>
           <div>
-            Par {user.firstname} {user.lastname}
+            Par {decisions.firstname} {decisions.lastname}
           </div>
           <div>
             Date de création : {decisions.date_created.substring(0, 10)}
@@ -172,7 +166,7 @@ function DecisionsPage() {
       </div>
     </div>
   ) : (
-    <div>Is loading...</div>
+    <Spinner />
   );
 }
 export default DecisionsPage;

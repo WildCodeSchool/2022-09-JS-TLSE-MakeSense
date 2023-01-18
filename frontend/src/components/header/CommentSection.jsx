@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
-import "../../assets/css/decisionPage.css";
+import "../../assets/css/container/protected/DecisionPage.css";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [contentComment, setContentComment] = useState();
   const [page, setPage] = useState(1);
+  const [contentComment, setContentComment] = useState();
   const [totalPages, setTotalPages] = useState(0);
   const [limit, setLimit] = useState(5); // décalage
 
@@ -18,6 +18,7 @@ function CommentSection({ id, comments, setComments }) {
       id_user_writer: 9,
       id_decision: id,
     };
+    setContentComment("");
     return api
       .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/comments`, body)
       .then((json) => {
@@ -33,11 +34,11 @@ function CommentSection({ id, comments, setComments }) {
       setComments(callComments);
       // eslint-disable-next-line no-unused-expressions
       comments && setTotalPages(Math.ceil(comments.length / limit));
+
       setIsLoaded(true);
     };
-
     getComments();
-  }, [isLoaded]);
+  }, [isLoaded, contentComment]);
 
   const handleClick = (num) => {
     setPage(num);
@@ -54,6 +55,8 @@ function CommentSection({ id, comments, setComments }) {
           value={contentComment}
           onChange={(event) => setContentComment(event.target.value)}
           required
+          rows="4"
+          cols="100"
         />
         <br />
         <button type="submit">Donner mon avis</button>
@@ -66,6 +69,20 @@ function CommentSection({ id, comments, setComments }) {
       <details>
         <summary>Avis (0)</summary>
         <div>Il n'y a pas encore d'avis sur cette décision.</div>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            name="comments"
+            id="comments"
+            placeholder="I have something to say"
+            value={contentComment}
+            onChange={(event) => setContentComment(event.target.value)}
+            required
+            rows="4"
+            cols="100"
+          />
+          <br />
+          <button type="submit">Donner mon avis</button>
+        </form>
       </details>
     </div>
   );

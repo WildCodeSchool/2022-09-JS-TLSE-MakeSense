@@ -1,6 +1,6 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/admin/AdminBar";
+import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
@@ -8,6 +8,7 @@ import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
+import Spinner from "./Spinner";
 
 export default function AdminLayout() {
   const { user } = useAuth();
@@ -19,6 +20,11 @@ export default function AdminLayout() {
     ? new URLSearchParams(URLParam).get("tools")
     : "Dashboard";
 
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    return <Navigate to="/login" />;
+  }
   if (!user.email) {
     return <Navigate to="/" />;
   }
@@ -71,7 +77,7 @@ export default function AdminLayout() {
             <AdminBar menuadmin={menuadmin} />
           </div>
           <div className="admin-tools-container">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Loader
                 foldername="components/container/Admin"
                 filename={tools}
