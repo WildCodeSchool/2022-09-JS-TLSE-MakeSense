@@ -19,6 +19,11 @@ export default function AdminLayout() {
     ? new URLSearchParams(URLParam).get("tools")
     : "Dashboard";
 
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    return <Navigate to="/login" />;
+  }
   if (!user.email) {
     return <Navigate to="/" />;
   }

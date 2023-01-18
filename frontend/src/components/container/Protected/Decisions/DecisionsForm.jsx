@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";
 import Concerned from "./form/Concerned";
+import { useAuth } from "../../../../contexts/useAuth";
 
 function DecisionsForm() {
   // set options WYSIWYG
@@ -25,6 +26,8 @@ function DecisionsForm() {
       ["clean"],
     ],
   };
+
+  const { user } = useAuth();
 
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
@@ -93,7 +96,7 @@ function DecisionsForm() {
     const body = {
       content: JSON.stringify(result.value),
       status: 1,
-      id_user_creator: 9,
+      id_user_creator: user.id,
     };
     return api
       .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
