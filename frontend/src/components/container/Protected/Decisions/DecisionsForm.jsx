@@ -49,6 +49,7 @@ function DecisionsForm() {
   const [groups, setGroups] = useState([]);
   const [usersAndGroups, setUsersAndGroups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errors, setErrors] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -82,27 +83,29 @@ function DecisionsForm() {
     setUsersAndGroups(users.concat(groups));
   }, [isLoaded]);
 
+  // eslint-disable-next-line consistent-return
   function handleSubmit(e) {
     e.preventDefault();
+    setErrors("");
     const options = {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
     if (result.error) {
-      console.warn("il y a une erreur");
-      return <div />;
+      setErrors(result.error.details);
+    } else {
+      console.warn("il n'y a pas d'erreur");
+      const body = {
+        content: JSON.stringify(result.value),
+        status: 1,
+        id_user_creator: user.id,
+      };
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .then((json) => {
+          return json;
+        });
     }
-    console.warn("il n'y a pas d'erreur");
-    const body = {
-      content: JSON.stringify(result.value),
-      status: 1,
-      id_user_creator: user.id,
-    };
-    return api
-      .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-      .then((json) => {
-        return json;
-      });
   }
 
   return (
@@ -244,6 +247,10 @@ function DecisionsForm() {
           <button type="submit" className="buttonForm">
             Poster ma décision
           </button>
+          {errors &&
+            errors.map((error) => (
+              <div key={error.context.key}>{error.message}</div>
+            ))}
         </form>
       </div>
     )
