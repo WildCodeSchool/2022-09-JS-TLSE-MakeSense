@@ -1,8 +1,10 @@
 const models = require("../models");
 
 const browse = (req, res) => {
+  const status = req.query.status ? req.query.status : "0";
+  const duree = req.query.duree ? req.query.duree : "0";
   models.decisions
-    .findAll()
+    .readfilter(status, duree)
     .then(([rows]) => {
       res.send(rows);
     })
