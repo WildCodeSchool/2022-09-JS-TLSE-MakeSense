@@ -68,7 +68,7 @@ function LoginPage() {
   return (
     <div className="wrapper">
       <div className="login">
-        <h1>Log In</h1>
+        <h1>Register</h1>
 
         <form noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">Prénom: </label>

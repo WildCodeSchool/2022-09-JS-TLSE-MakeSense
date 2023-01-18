@@ -19,9 +19,9 @@ class UsersManager extends AbstractManager {
     );
   }
 
-  read(users) {
+  find(id) {
     return this.connection.query(`select * from ${this.table} where id = ?`, [
-      users.id,
+      id,
     ]);
   }
 
@@ -34,8 +34,14 @@ class UsersManager extends AbstractManager {
 
   update(users) {
     return this.connection.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [users.title, users.id]
+      `update ${this.table} set firstname = ?, lastname = ? , email = ?, password = ? where id = ?`,
+      [
+        users.firstname,
+        users.lastname,
+        users.email,
+        users.hashedPassword,
+        users.id,
+      ]
     );
   }
 }
