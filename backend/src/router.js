@@ -29,6 +29,7 @@ router.use(verifyToken);
 router.get("/decisions", decisionsControllers.browse);
 router.get("/decisions/:id", decisionsControllers.read);
 router.post("/decisions", decisionsControllers.add);
+router.put("/decisions/status/:id/:status", decisionsControllers.statusedit);
 
 router.post("/comments", commentsControllers.add);
 router.get("/comments/:id", commentsControllers.browseWithDecisionId);

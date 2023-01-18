@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
+import { HiPencilSquare } from "react-icons/hi2";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/UsersManager.scss";
@@ -52,7 +53,7 @@ function UsersManager() {
       ).map((data) => (
         <div className="rowUser">
           <div>name:{data.name}</div>
-          <div> Bouton modifier </div>
+          <HiPencilSquare />
         </div>
       ))}
     </div>
