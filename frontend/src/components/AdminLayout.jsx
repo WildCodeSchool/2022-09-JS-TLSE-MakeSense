@@ -76,7 +76,13 @@ export default function AdminLayout() {
             <AdminBar menuadmin={menuadmin} />
           </div>
           <div className="admin-tools-container">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="spinner-container">
+                  <div className="lds-dual-ring" />
+                </div>
+              }
+            >
               <Loader
                 foldername="components/container/Admin"
                 filename={tools}
