@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "@services/api";
 import { useNavigate } from "react-router-dom";
-import Card from "../Card";
+import Card from "./Card";
 
 // eslint-disable-next-line react/prop-types
 function DecisionsAll() {
