@@ -107,7 +107,9 @@ function LangSettings() {
       </form>
     </div>
   ) : (
-    <div>isLoading...</div>
+    <div className="spinner-container">
+      <div className="lds-dual-ring" />
+    </div>
   );
 }
 export default LangSettings;
