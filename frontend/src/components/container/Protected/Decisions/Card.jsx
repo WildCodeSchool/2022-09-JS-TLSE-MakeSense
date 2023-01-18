@@ -1,5 +1,5 @@
 import React from "react";
-import "@assets/css/container/protected/Decision.css";
+import "@assets/css/container/protected/Decision.scss";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 

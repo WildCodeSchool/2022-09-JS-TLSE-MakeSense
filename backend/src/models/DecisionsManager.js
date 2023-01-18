@@ -25,6 +25,23 @@ class DecisionsManager extends AbstractManager {
     ]);
   }
 
+  readfilter(status, duree) {
+    let durees = "";
+    let operator = "=";
+    if (status === "0") {
+      operator = ">=";
+      // eslint-disable-next-line no-unused-expressions, no-param-reassign
+      status = "1";
+    }
+    if (duree !== "0") {
+      durees = `AND DATE(date_created) >= CURDATE() - INTERVAL ${duree} DAY`;
+    }
+    return this.connection.query(
+      `select * from ${this.table} WHERE status ${operator} ? ${durees};`,
+      [status]
+    );
+  }
+
   updateContent(decisions) {
     return this.connection.query(
       `update ${this.table} set content = ? where id = ?`,
