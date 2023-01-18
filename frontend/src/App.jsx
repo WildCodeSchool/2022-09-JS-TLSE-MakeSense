@@ -21,7 +21,7 @@ function App() {
         {
           path: `${files.toLocaleLowerCase()}`,
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="lds-dual-ring" />}>
               <Loader foldername={`pages/${folder}`} filename={files} />
             </Suspense>
           ),
@@ -38,7 +38,7 @@ function App() {
           .replace("home", "")
           .replace("protected", "user")}`,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="lds-dual-ring" />}>
             <Loader foldername="components" filename={`${folder}Layout`} />
           </Suspense>
         ),

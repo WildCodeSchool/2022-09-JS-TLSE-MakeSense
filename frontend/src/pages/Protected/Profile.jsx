@@ -129,6 +129,8 @@ export default function ProfilePage() {
       </div>
     </>
   ) : (
-    <div>Is loading</div>
+    <div className="spinner-container">
+      <div className="lds-dual-ring" />
+    </div>
   );
 }

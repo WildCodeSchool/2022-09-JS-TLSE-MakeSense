@@ -81,7 +81,9 @@ function UsersManager() {
       ))}
     </div>
   ) : (
-    <div>isLoading...</div>
+    <div className="spinner-container">
+      <div className="lds-dual-ring" />
+    </div>
   );
 }
 export default UsersManager;
