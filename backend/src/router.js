@@ -37,7 +37,7 @@ router.get("/groups", groupsControllers.browse);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
-router.put("/users/:id", usersControllers.edit);
+router.put("/users/:id", validateUser, hashPassword, usersControllers.edit);
 router.delete("/users/:id", usersControllers.destroy);
 
 module.exports = router;
