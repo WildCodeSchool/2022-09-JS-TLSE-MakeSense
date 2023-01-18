@@ -13,6 +13,17 @@ export default function ProtectedLayout() {
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
+  // Si pas de cookies go login
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    return <Navigate to="/login" />;
+  }
+  // Si NON connecté redirige vers Home
+  if (!user.email) {
+    return <Navigate to="/" />;
+  }
+
   // Creation pages
   let menu = [];
   Object.keys(pages.Protected).forEach((item) => {
@@ -34,11 +45,6 @@ export default function ProtectedLayout() {
       };
       menu = [...menu, addmenu];
     });
-
-  // Si NON connecté redirige vers Home
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <main className="container">
