@@ -1,6 +1,6 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useOutlet, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/admin/AdminBar";
+import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
@@ -19,6 +19,11 @@ export default function AdminLayout() {
     ? new URLSearchParams(URLParam).get("tools")
     : "Dashboard";
 
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    return <Navigate to="/login" />;
+  }
   if (!user.email) {
     return <Navigate to="/" />;
   }

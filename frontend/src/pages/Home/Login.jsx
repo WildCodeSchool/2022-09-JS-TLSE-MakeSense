@@ -33,6 +33,7 @@ export default function LoginPage() {
           login({
             admin: jsonadmin.admin,
             email,
+            id: jsonadmin.id,
           });
         };
         sendForm();
