@@ -38,23 +38,20 @@ function UsersManager() {
           placeholder="Search..."
         />
       </div>
-      {AllUsers.filter(
-        (data) =>
-          data.name
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            )
+      {AllUsers.filter((data) =>
+        data.name
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .toLocaleLowerCase()
+          .includes(
+            searchTerm
+              .normalize("NFD")
+              .replace(/\p{Diacritic}/gu, "")
+              .toLocaleLowerCase()
+          )
       ).map((data) => (
         <div className="rowUser">
-          <div>
-            name:{data.name}
-          </div>
+          <div>name:{data.name}</div>
           <div> Bouton modifier </div>
         </div>
       ))}
