@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
+import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/Language.scss";
@@ -107,9 +108,7 @@ function LangSettings() {
       </form>
     </div>
   ) : (
-    <div className="spinner-container">
-      <div className="lds-dual-ring" />
-    </div>
+    <Spinner />
   );
 }
 export default LangSettings;

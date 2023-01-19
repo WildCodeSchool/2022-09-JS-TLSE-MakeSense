@@ -4,13 +4,14 @@ import RegisterPage from "@pages/Home/Register";
 import { useRoutes } from "react-router-dom";
 import { Suspense, useContext } from "react";
 import Loader from "@services/Loader";
+import Spinner from "@components/Spinner";
 import { FolderContext } from "./contexts/Folder";
 import ErrorPage from "./pages/Error";
 
 function App() {
   const { pages, components } = useContext(FolderContext);
 
-  // // Array pour les routes du dossier pages
+  /// / Array pour les routes du dossier pages
   let routes = [];
   Object.values(pages).forEach((element, index) => {
     let childrenroutes = [];
@@ -21,7 +22,7 @@ function App() {
         {
           path: `${files.toLocaleLowerCase()}`,
           element: (
-            <Suspense fallback={<div className="lds-dual-ring" />}>
+            <Suspense fallback={<Spinner />}>
               <Loader foldername={`pages/${folder}`} filename={files} />
             </Suspense>
           ),
@@ -38,7 +39,7 @@ function App() {
           .replace("home", "")
           .replace("protected", "user")}`,
         element: (
-          <Suspense fallback={<div className="lds-dual-ring" />}>
+          <Suspense fallback={<Spinner />}>
             <Loader foldername="components" filename={`${folder}Layout`} />
           </Suspense>
         ),

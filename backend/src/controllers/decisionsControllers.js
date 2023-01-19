@@ -32,13 +32,28 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const decisions = req.body;
-
   // TODO validations (length, format...)
-
   decisions.id = parseInt(req.params.id, 10);
-
   models.decisions
     .update(decisions)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const statusedit = (req, res) => {
+  const { id } = req.params;
+  const { status } = req.params;
+  models.decisions
+    .updatestatus(id, status)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -86,6 +101,7 @@ module.exports = {
   browse,
   read,
   edit,
+  statusedit,
   add,
   destroy,
 };

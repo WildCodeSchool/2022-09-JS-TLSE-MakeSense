@@ -28,10 +28,12 @@ function DecisionsForm() {
     ],
   };
 
+  // get user logged in from Context
   const { user } = useAuth();
 
   const navigate = useNavigate();
 
+  // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
     description: Joi.string().min(5).required(),
@@ -46,6 +48,7 @@ function DecisionsForm() {
     dateFinaleDecision: Joi.date().greater(new Date()).required(),
   });
 
+  // states for form
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [impacted, setImpacted] = useState([]);
