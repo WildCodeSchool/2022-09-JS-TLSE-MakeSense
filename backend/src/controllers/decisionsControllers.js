@@ -50,11 +50,8 @@ const login = (req, res, next) => {
 
 const edit = (req, res) => {
   const decisions = req.body;
-
   // TODO validations (length, format...)
-
   decisions.id = parseInt(req.params.id, 10);
-
   models.decisions
     .update(decisions)
     .then(([result]) => {
@@ -71,11 +68,10 @@ const edit = (req, res) => {
 };
 
 const statusedit = (req, res) => {
-  const decisions = req.body;
-  // TODO validations (length, format...)
-  decisions.id = parseInt(req.params.id, 10);
+  const { id } = req.params;
+  const { status } = req.params;
   models.decisions
-    .update(decisions)
+    .updatestatus(id, status)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
