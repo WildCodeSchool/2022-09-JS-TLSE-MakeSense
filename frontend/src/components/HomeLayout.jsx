@@ -35,7 +35,9 @@ export default function HomeLayout() {
       <header className="header">
         <AppBar menu={menu} />
       </header>
+
       <div className="content">{outlet}</div>
+
       <footer className="footer">
         <FooterBar />
       </footer>
