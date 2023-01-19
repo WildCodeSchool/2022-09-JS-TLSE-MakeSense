@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { HiPencilSquare } from "react-icons/hi2";
 import Spinner from "@components/Spinner";
-import { HiPencilSquare } from "react-icons/hi2";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/UsersManager.scss";
@@ -74,7 +73,7 @@ function UsersManager() {
                 .toLocaleLowerCase()
             )
       ).map((data) => (
-        <div className="rowUser">
+        <div key={data.id} className="rowUser">
           <div>
             lastname:{data.lastname}
             <br />
