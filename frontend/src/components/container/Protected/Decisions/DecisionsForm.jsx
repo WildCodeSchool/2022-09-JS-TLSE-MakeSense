@@ -32,6 +32,8 @@ function DecisionsForm() {
 
   const navigate = useNavigate();
 
+  let idDecision;
+
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
     description: Joi.string().min(5).required(),
@@ -39,8 +41,6 @@ function DecisionsForm() {
     utility: Joi.string().min(5).required(),
     pros: Joi.string().min(5).required(),
     cons: Joi.string().min(5).required(),
-    impacted: Joi.array().min(0),
-    experts: Joi.array().min(0),
     firstDate: Joi.date().required(),
     dateOpinion: Joi.date().greater(new Date()).required(),
     dateFirstDecision: Joi.date().greater(new Date()).required(),
@@ -50,6 +50,8 @@ function DecisionsForm() {
 
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [impacted, setImpacted] = useState([]);
+  const [experts, setExperts] = useState([]);
   const [usersAndGroups, setUsersAndGroups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
@@ -61,8 +63,6 @@ function DecisionsForm() {
     context: "",
     pros: "",
     cons: "",
-    impacted: [],
-    experts: [],
     firstDate: new Date(),
     dateOpinion: new Date(),
     dateFirstDecision: new Date(),
@@ -88,8 +88,10 @@ function DecisionsForm() {
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    // handle errors
     setErrors("");
     const options = {
       abortEarly: false,
@@ -104,12 +106,45 @@ function DecisionsForm() {
         status: 1,
         id_user_creator: user.id,
       };
+      const sendForm = async () => {
+        const postDecision = await api.apipostmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/decisions`,
+          body
+        );
+        idDecision = await postDecision.json();
+      };
+      sendForm();
+      // handle impacted and experts
+      // if (impacted.length > 0) {
+      //   console.log("il y a des impactés");
+      //   impacted.forEach((impac) => {
+      //     console.log(idDecision)
+      //     // const body = {
+      //     //   id_user_expert: impac.id,
+      //     //   id_decision: impac.id,
+      //     // }
+      //     // return api
+      //     //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+      //     //   .then((json) => {
+      //     //     return json;
+      //     //   });
+      //   })
+      // }
+      // if (experts.length > 0) {
+      //   console.log("il y a des experts");
+      //   experts.forEach((expert) => {
+      //     console.log(expert)
+      //     // const body = {
+
+      //     // }
+      //     // return api
+      //     //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+      //     //   .then((json) => {
+      //     //     return json;
+      //     //   });
+      //   })
+      // }
       setIsSubmit(true);
-      return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-        .then((json) => {
-          return json;
-        });
     }
   }
 
@@ -271,15 +306,15 @@ function DecisionsForm() {
           <Concerned
             table={usersAndGroups}
             name="concernés"
-            type={form.impacted}
-            updateType={(event) => setForm({ ...form, impacted: event })}
+            type={impacted}
+            updateType={(event) => setImpacted(event)}
           />
 
           <Concerned
             table={usersAndGroups}
             name="experts"
-            type={form.experts}
-            updateType={(event) => setForm({ ...form, experts: event })}
+            type={experts}
+            updateType={(event) => setExperts(event)}
           />
           <fieldset>
             <legend>Définir le calendrier</legend>

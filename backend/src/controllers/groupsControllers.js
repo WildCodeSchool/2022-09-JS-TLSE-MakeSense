@@ -56,7 +56,7 @@ const add = (req, res) => {
   models.groups
     .insert(groups)
     .then(([result]) => {
-      res.location(`/groupss/${result.insertId}`).sendStatus(201);
+      res.location(`/groups/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);

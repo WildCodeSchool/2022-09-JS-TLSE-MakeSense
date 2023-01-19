@@ -30,24 +30,6 @@ const read = (req, res) => {
     });
 };
 
-const login = (req, res, next) => {
-  models.decisions
-    .readForLogin(req.body)
-    .then(([decisions]) => {
-      if (decisions[0] != null) {
-        // eslint-disable-next-line prefer-destructuring
-        req.user = decisions[0];
-        next();
-      } else {
-        res.status(401).send("This mail doesn't exist in our database");
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error retrieving data from database");
-    });
-};
-
 const edit = (req, res) => {
   const decisions = req.body;
 
@@ -76,7 +58,7 @@ const add = (req, res) => {
   models.decisions
     .insert(decisions)
     .then(([result]) => {
-      res.location(`/decisions/${result.insertId}`).sendStatus(201);
+      res.json({ id: result.insertId }).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -106,5 +88,4 @@ module.exports = {
   edit,
   add,
   destroy,
-  login,
 };
