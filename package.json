@@ -29,6 +29,7 @@
     "mysql2": "^2.3.3",
     "node-sass": "^8.0.0",
     "react-datepicker": "^4.8.0",
+    "react-icons": "^4.7.1",
     "react-quill": "^2.0.0",
     "react-router": "^6.7.0",
     "react-router-dom": "^6.7.0",
