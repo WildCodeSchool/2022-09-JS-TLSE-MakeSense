@@ -2,7 +2,8 @@ import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
-import "@assets/css/container/home/Login.css";
+// eslint-disable-next-line import/no-unresolved
+import "@assets/css/container/home/login.css";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -45,6 +46,7 @@ export default function LoginPage() {
     <div className="wrapper">
       <div className="login">
         <h1>Log In</h1>
+        <img src="logo" alt="logo" />
         <form className="form" onSubmit={handleSubmit}>
           <input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -72,7 +74,7 @@ export default function LoginPage() {
             Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
             caractère spécial
           </span>
-          <button type="submit">Loging In</button>
+          <button type="submit">Submit</button>
           <div>
             <Link to="/register">Don't have an account yet? Sign Up</Link>
           </div>
