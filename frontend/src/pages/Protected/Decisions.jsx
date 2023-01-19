@@ -1,6 +1,7 @@
 import "../../assets/css/container/protected/Decision.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "@services/Loader";
+import Spinner from "@components/Spinner";
 import { Suspense } from "react";
 
 function Decisions() {
@@ -26,7 +27,7 @@ function Decisions() {
         </button>
       </div>
       <div className="searchBar">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
           <Loader
             foldername="components/container/Protected/Decisions"
             filename={`Decisions${comp}`}

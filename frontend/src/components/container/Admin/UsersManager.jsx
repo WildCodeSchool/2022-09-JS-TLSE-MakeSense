@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
+import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/UsersManager.scss";
@@ -81,9 +82,7 @@ function UsersManager() {
       ))}
     </div>
   ) : (
-    <div className="spinner-container">
-      <div className="lds-dual-ring" />
-    </div>
+    <Spinner />
   );
 }
 export default UsersManager;
