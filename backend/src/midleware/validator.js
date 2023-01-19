@@ -11,7 +11,6 @@ const userSchema = Joi.object({
 
 const validateUser = (req, res, next) => {
   const { lastname, firstname, email, password, serviceId, admin } = req.body;
-
   const { error } = userSchema.validate(
     { lastname, firstname, email, password, serviceId, admin },
     { abortEarly: false }
