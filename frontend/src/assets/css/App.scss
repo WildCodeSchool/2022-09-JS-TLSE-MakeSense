@@ -310,6 +310,16 @@ button {
   transition: background-color 0.2s, border-color 0.2s;
   text-align: center;
 }
+button.active {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverse);
+}
+button:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverse);
+}
 
 h1 {
   color: var(--color-text);
