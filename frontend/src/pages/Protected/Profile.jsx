@@ -10,11 +10,13 @@ export default function ProfilePage() {
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
   const [userEmail, setUserEmail] = useState();
-  const [userPassword, setUserPassword] = useState();
+  const [userPassword, setUserPassword] = useState("");
   const [data, setData] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const [update, setUpdate] = useState(false);
   const { user } = useAuth();
+  let serviceId = null;
 
   useEffect(() => {
     const getUserData = async () => {
@@ -23,21 +25,23 @@ export default function ProfilePage() {
       );
       setData(getUser);
       setIsLoaded(true);
-      setUserEmail(user.email);
-      setUserFirstName(user.firstname);
-      setUserLastName(user.lastname);
-      setUserPassword(user.password);
+      setUserEmail(getUser.email);
+      setUserFirstName(getUser.firstname);
+      setUserLastName(getUser.lastname);
+      serviceId = getUser.serviceId ? getUser.serviceId : null;
     };
     getUserData(); // lance la fonction getUserData
-  }, []);
+  }, [update]);
 
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const body = {
-      lastname: userLastName,
       firstname: userFirstName,
+      lastname: userLastName,
       email: userEmail,
-      hashedPassword: userPassword,
+      password: userPassword,
+      serviceId,
+      admin: user.admin,
     };
 
     const updateUserData = async () => {
@@ -45,6 +49,9 @@ export default function ProfilePage() {
         `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}`,
         body
       );
+      if (updateUser.status === 204) {
+        setUpdate(true);
+      }
     };
     updateUserData();
   };
@@ -65,6 +72,7 @@ export default function ProfilePage() {
               <div>Email du user: {data.email} </div>
               {showInput && (
                 <input
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                   type="email"
                   id="email"
                   name="email"
@@ -101,16 +109,18 @@ export default function ProfilePage() {
               <div>Mot de passe</div>
               {showInput && (
                 <input
+                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   type="password"
                   id="passwword"
                   name="password"
                   defaultValue={userPassword}
                   onChange={(event) => setUserPassword(event.target.value)}
+                  required
                 />
               )}
             </div>
             {showInput && (
-              <button type="button" onClick={handleClick}>
+              <button type="button" onClick={handleSubmit}>
                 Valider mes informations personnelles
               </button>
             )}

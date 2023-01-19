@@ -19,23 +19,23 @@ function AdminBar({ menuadmin }) {
   };
 
   return (
-      <div className="menuadmin">
-        {menuadmin?.map((page, index) => (
-          <div className="wrapper-menu" key={`wrapper-${page.label}`}>
-            <div key={`bean${page.label}`} className="bean" />
-            <button
-              type="button"
-              key={page.label}
-              id={page.label}
-              onClick={() => {
-                handleCloseNavMenu(page.path);
-              }}
-            >
-              <Text tid={page.label} />
-            </button>
-          </div>
-        ))}
-      </div>
+    <div className="menuadmin">
+      {menuadmin?.map((page, index) => (
+        <div className="wrapper-menu" key={`wrapper-${page.label}`}>
+          <div key={`bean${page.label}`} className="bean" />
+          <button
+            type="button"
+            key={page.label}
+            id={page.label}
+            onClick={() => {
+              handleCloseNavMenu(page.path);
+            }}
+          >
+            <Text tid={page.label} />
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }
 export default AdminBar;
