@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import PropTypes from "prop-types";
+import Spinner from "@components/Spinner";
 
 function Loader({ compname, foldername, filename }) {
   const DynamicComponent = lazy(() =>
@@ -7,7 +8,7 @@ function Loader({ compname, foldername, filename }) {
   );
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <DynamicComponent />
     </Suspense>
   );

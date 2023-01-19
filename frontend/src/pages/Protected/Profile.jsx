@@ -3,6 +3,7 @@ import api from "@services/api";
 import Register from "@pages/Home/Register";
 import { React, useNavigate, useState, useEffect } from "react";
 import { id } from "date-fns/locale";
+import Spinner from "@components/Spinner";
 import { useAuth } from "../../contexts/useAuth";
 
 export default function ProfilePage() {
@@ -129,6 +130,6 @@ export default function ProfilePage() {
       </div>
     </>
   ) : (
-    <div>Is loading</div>
+    <Spinner />
   );
 }

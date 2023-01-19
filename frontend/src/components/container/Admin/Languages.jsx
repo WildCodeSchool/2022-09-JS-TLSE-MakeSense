@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
+import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/Language.scss";
@@ -107,7 +108,7 @@ function LangSettings() {
       </form>
     </div>
   ) : (
-    <div>isLoading...</div>
+    <Spinner />
   );
 }
 export default LangSettings;

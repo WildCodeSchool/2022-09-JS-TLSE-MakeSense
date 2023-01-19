@@ -8,6 +8,7 @@ import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
+import Spinner from "./Spinner";
 
 export default function AdminLayout() {
   const { user } = useAuth();
@@ -76,7 +77,7 @@ export default function AdminLayout() {
             <AdminBar menuadmin={menuadmin} />
           </div>
           <div className="admin-tools-container">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Spinner />}>
               <Loader
                 foldername="components/container/Admin"
                 filename={tools}

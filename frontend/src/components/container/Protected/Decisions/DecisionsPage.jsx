@@ -3,6 +3,7 @@ import api from "@services/api";
 import "@assets/css/container/protected/DecisionPage.css";
 import CommentSection from "@components/header/CommentSection";
 import { useLocation } from "react-router-dom";
+import Spinner from "@components/Spinner";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -165,7 +166,7 @@ function DecisionsPage() {
       </div>
     </div>
   ) : (
-    <div>Is loading...</div>
+    <Spinner />
   );
 }
 export default DecisionsPage;
