@@ -32,8 +32,6 @@ function DecisionsForm() {
 
   const navigate = useNavigate();
 
-  let idDecision;
-
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
     description: Joi.string().min(5).required(),
@@ -88,8 +86,37 @@ function DecisionsForm() {
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
+
+    // handle impacted and experts
+    if (impacted.length > 0) {
+      console.warn("il y a des impactés");
+      impacted.forEach((impac) => {
+        const body = {
+          id_user_expert: impac.id,
+        };
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+          .then((json) => {
+            return json;
+          });
+      });
+    }
+    if (experts.length > 0) {
+      console.warn("il y a des experts");
+      experts.forEach((expert) => {
+        console.warn(expert);
+        const body = {
+          id_user_expert: expert.id,
+        };
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
+          .then((json) => {
+            return json;
+          });
+      });
+    }
 
     // handle errors
     setErrors("");
@@ -106,45 +133,12 @@ function DecisionsForm() {
         status: 1,
         id_user_creator: user.id,
       };
-      const sendForm = async () => {
-        const postDecision = await api.apipostmysql(
-          `${import.meta.env.VITE_BACKEND_URL}/decisions`,
-          body
-        );
-        idDecision = await postDecision.json();
-      };
-      sendForm();
-      // handle impacted and experts
-      // if (impacted.length > 0) {
-      //   console.log("il y a des impactés");
-      //   impacted.forEach((impac) => {
-      //     console.log(idDecision)
-      //     // const body = {
-      //     //   id_user_expert: impac.id,
-      //     //   id_decision: impac.id,
-      //     // }
-      //     // return api
-      //     //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-      //     //   .then((json) => {
-      //     //     return json;
-      //     //   });
-      //   })
-      // }
-      // if (experts.length > 0) {
-      //   console.log("il y a des experts");
-      //   experts.forEach((expert) => {
-      //     console.log(expert)
-      //     // const body = {
-
-      //     // }
-      //     // return api
-      //     //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-      //     //   .then((json) => {
-      //     //     return json;
-      //     //   });
-      //   })
-      // }
       setIsSubmit(true);
+      // return api
+      //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+      //   .then((json) => {
+      //     return json;
+      //   });
     }
   }
 
