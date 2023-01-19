@@ -73,7 +73,7 @@ function UsersManager() {
                 .toLocaleLowerCase()
             )
       ).map((data) => (
-        <div className="rowUser">
+        <div key={data.id} className="rowUser">
           <div>
             lastname:{data.lastname}
             <br />
