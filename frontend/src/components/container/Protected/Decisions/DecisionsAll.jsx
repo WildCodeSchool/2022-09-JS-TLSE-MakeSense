@@ -26,17 +26,19 @@ function DecisionsAll() {
         decisions.forEach((dec) => {
           const content = JSON.parse(dec.content);
           const body = {};
-
+          let updateStatus;
           if (content.dateOpinion < new Date()) {
-            const updateStatus = api.apiputmysql(
+            // console.log("date opinion enter");
+            updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/2`,
               body
             );
+            // console.log(updateStatus);
           }
           if (content.dateFirstDecision < new Date()) {
-            const updateStatus = api.apiputmysql(
+            updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/3`,
@@ -44,7 +46,7 @@ function DecisionsAll() {
             );
           }
           if (content.dateEndConflict < new Date()) {
-            const updateStatus = api.apiputmysql(
+            updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/4`,
@@ -52,7 +54,7 @@ function DecisionsAll() {
             );
           }
           if (content.dateFinaleDecision < new Date()) {
-            const updateStatus = api.apiputmysql(
+            updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/5`,
