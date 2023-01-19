@@ -82,7 +82,7 @@ function DecisionsForm() {
 
   useEffect(() => {
     getUsers();
-    setUsersAndGroups(users.concat(groups));
+    setUsersAndGroups(users);
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
@@ -94,7 +94,7 @@ function DecisionsForm() {
       console.warn("il y a des impactés");
       impacted.forEach((impac) => {
         const body = {
-          id_user_expert: impac.id,
+          id_user_impact: impac.id,
         };
         return api
           .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
@@ -134,11 +134,11 @@ function DecisionsForm() {
         id_user_creator: user.id,
       };
       setIsSubmit(true);
-      // return api
-      //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-      //   .then((json) => {
-      //     return json;
-      //   });
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .then((json) => {
+          return json;
+        });
     }
   }
 

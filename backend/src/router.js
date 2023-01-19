@@ -5,7 +5,8 @@ const usersControllers = require("./controllers/usersControllers");
 const decisionsControllers = require("./controllers/decisionsControllers");
 const commentsControllers = require("./controllers/commentsControllers");
 const groupsControllers = require("./controllers/groupsControllers");
-const expertsController = require("./controllers/expertsControllers");
+const expertsControllers = require("./controllers/expertsControllers");
+const impactedControllers = require("./controllers/impactedControllers");
 const langControllers = require("./controllers/langControllers");
 const { validateUser } = require("./midleware/validator");
 const {
@@ -35,7 +36,8 @@ router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
 
-router.post("/experts", expertsController.add);
+router.post("/experts", expertsControllers.add);
+router.post("/impacted", impactedControllers.add);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);

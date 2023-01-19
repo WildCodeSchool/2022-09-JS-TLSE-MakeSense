@@ -1,11 +1,11 @@
 const models = require("../models");
 
 const add = (req, res) => {
-  const exp = req.body;
-  models.decisions_experts
-    .insert(exp)
+  const imp = req.body;
+  models.decisions_impacts
+    .insert(imp)
     .then(([result]) => {
-      res.location(`/experts/${result.insertId}`).sendStatus(201);
+      res.location(`/impacted/${result.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
