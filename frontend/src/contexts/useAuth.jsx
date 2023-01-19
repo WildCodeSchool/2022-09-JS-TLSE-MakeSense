@@ -53,6 +53,7 @@ export function AuthProvider({ children }) {
       user,
       login,
       logout,
+      setUser,
     }),
     [user]
   );

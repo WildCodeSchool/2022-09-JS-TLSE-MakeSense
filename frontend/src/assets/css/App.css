@@ -286,6 +286,12 @@ body {
   }
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 button {
   border-radius: var(--border-radius-m);
   font-family: inherit;
