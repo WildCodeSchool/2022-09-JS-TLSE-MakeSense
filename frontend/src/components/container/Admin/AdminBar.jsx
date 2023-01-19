@@ -19,7 +19,6 @@ function AdminBar({ menuadmin }) {
   };
 
   return (
-    <div className="wrapper">
       <div className="menuadmin">
         {menuadmin?.map((page, index) => (
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
@@ -37,7 +36,6 @@ function AdminBar({ menuadmin }) {
           </div>
         ))}
       </div>
-    </div>
   );
 }
 export default AdminBar;
