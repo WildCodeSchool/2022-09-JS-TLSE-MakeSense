@@ -1,12 +1,14 @@
 import "@assets/css/container/admin/profile.css";
 import api from "@services/api";
 import Register from "@pages/Home/Register";
-import { React, useNavigate, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { id } from "date-fns/locale";
 import Spinner from "@components/Spinner";
 import { useAuth } from "../../contexts/useAuth";
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
   const [userEmail, setUserEmail] = useState();
@@ -54,6 +56,8 @@ export default function ProfilePage() {
       }
     };
     updateUserData();
+    navigate("/user/profile", { replace: true });
+    setShowInput(!showInput);
   };
 
   return isLoaded ? (
