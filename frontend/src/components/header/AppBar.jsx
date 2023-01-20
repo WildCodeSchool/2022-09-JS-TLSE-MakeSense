@@ -31,7 +31,6 @@ function AppBar({ menu }) {
         {menu?.map((page, index) => (
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
             <button
-              className="bg-black"
               type="button"
               key={page.label}
               id={page.label}

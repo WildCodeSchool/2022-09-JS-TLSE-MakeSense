@@ -32,7 +32,7 @@ export default function HomeLayout() {
 
   return (
     <main className="container">
-      <header className="bg-black">
+      <header>
         <AppBar menu={menu} />
       </header>
 
