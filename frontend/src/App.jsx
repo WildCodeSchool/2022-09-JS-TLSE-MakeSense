@@ -1,12 +1,10 @@
-import "./assets/css/App.scss";
-import LoginPage from "@pages/Home/Login";
-import RegisterPage from "@pages/Home/Register";
 import { useRoutes } from "react-router-dom";
 import { Suspense, useContext } from "react";
-import Loader from "@services/Loader";
+import Loader from "./services/Loader";
 import { FolderContext } from "./contexts/Folder";
 import ErrorPage from "./pages/Error";
 import Spinner from "./components/Spinner";
+import "./index.css";
 
 function App() {
   const { pages, components } = useContext(FolderContext);

@@ -1,12 +1,11 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/Admin/AdminBar";
+import AdminBar from "./container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 import Spinner from "./Spinner";
 

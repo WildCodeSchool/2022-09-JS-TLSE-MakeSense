@@ -5,7 +5,6 @@ import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.scss";
 
 export default function ProtectedLayout() {
   const { pages } = useContext(FolderContext);
@@ -53,7 +52,7 @@ export default function ProtectedLayout() {
 
   return (
     <main className="container">
-      <header className="header">
+      <header className="bg-black">
         <AppBar menu={menu} />
       </header>
       <div className="content">{outlet}</div>

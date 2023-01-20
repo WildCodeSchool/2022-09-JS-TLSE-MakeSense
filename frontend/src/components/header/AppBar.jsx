@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text } from "../../contexts/Language";
-import "../../assets/css/header/AppBar.css";
 import logo from "../../assets/img/logo-makesense.png";
 
 function AppBar({ menu }) {
@@ -12,8 +11,6 @@ function AppBar({ menu }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-
-  localStorage.setItem("location", "test");
 
   // Handle (Toogle) Menu Open Close //
   const handleOpenNavMenu = (event) => {
@@ -28,12 +25,13 @@ function AppBar({ menu }) {
 
   // RETURN //
   return (
-    <div className="wrap-header">
+    <div className="">
       <img src={logo} alt="logo" className="logo" />
       <div className="menu">
         {menu?.map((page, index) => (
           <div className="wrapper-menu" key={`wrapper-${page.label}`}>
             <button
+              className="bg-black"
               type="button"
               key={page.label}
               id={page.label}

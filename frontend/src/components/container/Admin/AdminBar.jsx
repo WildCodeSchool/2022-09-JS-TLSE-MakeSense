@@ -2,7 +2,6 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../../../contexts/Language";
-import "@assets/css/container/admin/AdminBar.css";
 
 function AdminBar({ menuadmin, tools }) {
   const [anchorElNav, setAnchorElNav] = useState(null);

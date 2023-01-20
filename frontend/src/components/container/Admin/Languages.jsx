@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
-import "../../../assets/css/container/admin/Language.scss";
-import Spinner from "../../Spinner";
 
 function LangSettings() {
   const navigate = useNavigate();

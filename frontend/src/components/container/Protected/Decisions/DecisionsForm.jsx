@@ -1,16 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../../../../assets/css/header/AppBar.css";
-import "../../../../assets/css/form/form.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
-import "../../../../assets/css/Layout.scss";
 
 function DecisionsForm() {
   // set options WYSIWYG

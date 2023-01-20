@@ -1,5 +1,4 @@
 import { WithContext as ReactTags } from "react-tag-input";
-import "../../../../../assets/css/form/formConcerned.css";
 
 const KeyCodes = {
   comma: 188,

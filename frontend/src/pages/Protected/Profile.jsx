@@ -1,4 +1,3 @@
-import "@assets/css/container/admin/profile.css";
 import api from "@services/api";
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";

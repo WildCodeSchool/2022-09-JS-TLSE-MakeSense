@@ -1,4 +1,3 @@
-import "../../assets/css/container/protected/Decision.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "@services/Loader";
 import { Suspense } from "react";
