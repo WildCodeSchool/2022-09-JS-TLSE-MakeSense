@@ -11,6 +11,12 @@ function DecisionsPage() {
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
+  const [modifDecision, setModifDecision] = useState(false);
+  const [descriptionData, setDescriptionData] = useState();
+  const [contextData, setContextData] = useState();
+  const [utilityData, setUtilityData] = useState();
+  const [advantagesData, setAdvantagesData] = useState();
+  const [inconvenientsData, setInconvenientsData] = useState();
 
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
@@ -30,6 +36,25 @@ function DecisionsPage() {
     };
     getAllApis();
   }, []);
+
+  useEffect(() => {
+    const getDecisionData = async () => {
+      const getDecision = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
+      );
+      setDescriptionData(getDecisionData.description);
+      setContextData(getDecisionData.context);
+      setUtilityData(getDecisionData.utility);
+      setAdvantagesData(getDecisionData.advantages);
+      setInconvenientsData(getDecisionData.inconvenients);
+    };
+    getDecisionData(); // lance la fonction getDecisionData
+  }, []);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setModifDecision(true);
+  };
 
   return isLoaded ? (
     <div className="decisionContainer">
@@ -56,6 +81,13 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).description,
               }}
             />
+            <input
+              type="text"
+              id="description"
+              name="description"
+              defaultValue={decisions.content}
+            />
+            <button type="button">Modifier la descritpion</button>
           </details>
           <details>
             <summary>Contexte</summary>
@@ -65,6 +97,7 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).context,
               }}
             />
+            <button type="button">Modifier le contexte</button>
           </details>
           <details>
             <summary>Utilité</summary>
@@ -74,6 +107,7 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).utility,
               }}
             />
+            <button type="button">Modifier l'utilité</button>
           </details>
           <details>
             <summary>Avantages</summary>
@@ -83,6 +117,7 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).pros,
               }}
             />
+            <button type="button">Modifier les avantages</button>
           </details>
           <details>
             <summary>Inconvénients</summary>
@@ -92,6 +127,7 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).cons,
               }}
             />
+            <button type="button">Modifier les inconvénients</button>
           </details>
           <CommentSection
             id={id}
