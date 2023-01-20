@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import Spinner from "@components/Spinner";
+import Spinner from "../../Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
-import "@assets/css/container/admin/Language.scss";
+import "../../../assets/css/container/admin/Language.scss";
 
 function LangSettings() {
   const { dictionary, userLanguage } = useContext(LanguageContext);

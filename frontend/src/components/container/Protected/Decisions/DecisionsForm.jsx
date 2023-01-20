@@ -7,7 +7,7 @@ import "../../../../assets/css/header/AppBar.css";
 import "../../../../assets/css/form/form.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import api from "@services/api";
+import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
 
@@ -75,11 +75,23 @@ function DecisionsForm() {
     const callAllUsers = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users`
     );
-    setUsers(callAllUsers);
+    const usersWithType = callAllUsers.map((u) => {
+      return {
+        ...u,
+        form: "user",
+      };
+    });
+    setUsers(usersWithType);
     const callAllGroups = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/groups`
     );
-    setGroups(callAllGroups);
+    const groupsWithType = callAllGroups.map((u) => {
+      return {
+        ...u,
+        form: "group",
+      };
+    });
+    setGroups(groupsWithType);
     setIsLoaded(true);
   };
 
@@ -94,7 +106,6 @@ function DecisionsForm() {
 
     // handle impacted and experts
     if (impacted.length > 0) {
-      console.warn("il y a des impactés");
       impacted.forEach((impac) => {
         const body = {
           id_user_impact: impac.id,
@@ -107,7 +118,6 @@ function DecisionsForm() {
       });
     }
     if (experts.length > 0) {
-      console.warn("il y a des experts");
       experts.forEach((expert) => {
         console.warn(expert);
         const body = {

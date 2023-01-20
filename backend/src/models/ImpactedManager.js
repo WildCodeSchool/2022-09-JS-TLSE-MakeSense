@@ -13,9 +13,10 @@ class ExpertsManager extends AbstractManager {
   }
 
   find(id) {
-    return this.connection.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
+    return this.connection.query(
+      `SELECT ${this.table}.id_user_impact, users.id, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_impact = users.id WHERE ${this.table}.id_decision = ?;`,
+      [id]
+    );
   }
 }
 

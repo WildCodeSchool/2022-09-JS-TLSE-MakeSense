@@ -27,7 +27,7 @@ function api() {
       },
       credentials: "include",
     });
-    return await res.json();
+    return res.json();
   };
 
   const apipostmysql = async (url, body) => {
