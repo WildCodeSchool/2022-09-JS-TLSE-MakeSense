@@ -3,7 +3,9 @@ import { Navigate, redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import { Text } from "../../contexts/Language";
+// eslint-disable-next-line import/no-unresolved
 import "@assets/css/container/home/Login.css";
+// eslint-disable-next-line import/order, import/no-unresolved
 import logo from "@assets/img/point_exclamation.svg";
 
 function LoginPage() {
@@ -70,7 +72,7 @@ function LoginPage() {
     <div className="wrapper">
       <div className="login">
         <h1>Register </h1>
-        <img src={logo} alt="logo" width="200px"/>
+        <img src={logo} alt="logo" width="200px" />
 
         <form noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">Prénom: </label>
