@@ -4,8 +4,10 @@ import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 // eslint-disable-next-line import/no-unresolved
 import "@assets/css/container/home/Login.css";
-// eslint-disable-next-line import/order
-import logo from "@assets/img/logo.svg";
+// eslint-disable-next-line import/order, import/no-unresolved
+import logo from "@assets/img/point_exclamation.svg";
+// eslint-disable-next-line import/order, import/no-unresolved
+import connexion from "@assets/img/photo-connexion.svg"
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -47,9 +49,12 @@ export default function LoginPage() {
   return (
     <div className="login-wrapper">
       <div className="login">
-        <h1>Log In !</h1>
-        <img src={logo} alt="logo" />
+       
+        <h1>Log In</h1>
+        <div className="login-layout">
+        <h2>Une décision pleine de sens prise tous ensemble </h2>
         <form className="form" onSubmit={handleSubmit}>
+       <img src={connexion} alt="profil" />
           <input
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             placeholder="Email"
@@ -81,6 +86,9 @@ export default function LoginPage() {
             <Link to="/register">Don't have an account yet? Sign Up</Link>
           </div>
         </form>
+       
+        <img src={logo} alt="logo" width="200px"/>
+        </div>
       </div>
     </div>
   );

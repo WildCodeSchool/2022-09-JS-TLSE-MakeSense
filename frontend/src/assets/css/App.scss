@@ -287,8 +287,8 @@ body {
 }
 input {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+
   padding: 0.8rem;
   border-radius: var(--border-radius-m);
   box-shadow: inset 0 0 0 1px var(--border-color-softer);
@@ -327,7 +327,6 @@ button {
   text-decoration: none !important;
   transition: background-color 0.2s, border-color 0.2s;
   text-align: center;
-  
 }
 button.active {
   border-color: var(--color-primary);
@@ -341,35 +340,68 @@ button:hover {
 }
 
 h1 {
-  color: var(--color-text);
+  display: flex;
+  justify-content: center;
   margin-bottom: var(--space-m);
   font-size: var(--font-size-xxxxxl);
   line-height: var(--line-height-xs);
   font-weight: var(--font-weight-black);
-  font-family: "Yanone Kaffeesatz";
+  
 }
 
 .wrapper {
   display: flex;
-  justify-content: center;
-  font-family: "Yanone Kaffeesatz";
+  justify-content: end;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 100%;
   padding: 20px;
+  background-color: #196c84;
+  width: 113rem;
 }
 
-.form{
-display: flex;
-align-items: center;
-flex-direction: column;
-width: 50%;
+.login-layout {
+  display: flex;
 }
-.login{
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  margin: 198px;
+}
+.login {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color:  rgb(255, 243, 13);
+
+}
+
+.login-wrapper{
+  background-color: #196c84;
+  color:  rgb(255, 243, 13);
+  font-weight: bold;
+}
+label{
+  font-weight: bold;
+
+}
+.titre-login{
+  color:  rgb(255, 243, 13);
+  position: sticky;
+  top: 10px;
+ 
+
+display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: -330px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 }

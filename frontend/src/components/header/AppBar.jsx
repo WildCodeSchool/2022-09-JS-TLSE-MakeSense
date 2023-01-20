@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text } from "../../contexts/Language";
-import "../../assets/css/header/AppBar.css";
+import "../../assets/css/header/AppBar.scss";
 import logo from "../../assets/img/logo-makesense.png";
 
 function AppBar({ menu }) {

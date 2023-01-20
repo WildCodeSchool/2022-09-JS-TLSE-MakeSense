@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useAuth } from "../../contexts/useAuth";
 import { Text, LanguageContext } from "../../contexts/Language";
-import "../../assets/css/header/AppBar.css";
+// eslint-disable-next-line import/no-unresolved
+import "../../assets/css/header/AppBar.scss";
 import logo from "../../assets/img/logo-makesense.png";
 
 function FooterBar() {

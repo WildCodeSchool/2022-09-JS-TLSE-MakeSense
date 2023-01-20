@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import { Text } from "../../contexts/Language";
 import "@assets/css/container/home/Login.css";
+import logo from "@assets/img/point_exclamation.svg";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -68,7 +69,8 @@ function LoginPage() {
   return (
     <div className="wrapper">
       <div className="login">
-        <h1>Register !</h1>
+        <h1>Register </h1>
+        <img src={logo} alt="logo" width="200px"/>
 
         <form noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">Prénom: </label>
