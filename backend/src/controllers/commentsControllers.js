@@ -17,7 +17,7 @@ const browseWithDecisionId = (req, res) => {
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
-        res.status(200).send([]);
+        res.status(200).send(rows);
       } else {
         res.send(rows);
       }

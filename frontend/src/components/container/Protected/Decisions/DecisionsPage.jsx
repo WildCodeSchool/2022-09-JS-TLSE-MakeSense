@@ -52,9 +52,6 @@ function DecisionsPage() {
           </div>
           <div>Mis à jour : {decisions.date_update.substring(0, 10)}</div>
         </div>
-        {
-          // ou utiliser html-react-parser
-        }
         <div>
           <details>
             <summary>Description</summary>
@@ -165,6 +162,7 @@ function DecisionsPage() {
                   {person.firstname} {person.lastname.toUpperCase()}
                 </div>
               ))}
+              {impacted.length > 4 && <div>et autres...</div>}
             </div>
           </>
         )}
@@ -182,6 +180,7 @@ function DecisionsPage() {
                   {person.firstname} {person.lastname.toUpperCase()}
                 </div>
               ))}
+              {expert.length > 4 && <div>et {expert.length - 4} autres...</div>}
             </div>
           </>
         )}

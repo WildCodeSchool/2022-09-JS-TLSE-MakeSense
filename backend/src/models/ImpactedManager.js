@@ -5,16 +5,16 @@ class ExpertsManager extends AbstractManager {
     super({ table: "decisions_impacts" });
   }
 
-  insert(expert) {
+  insert(imp) {
     return this.connection.query(
       `INSERT INTO ${this.table} VALUES((SELECT id FROM decisions ORDER BY id DESC LIMIT 1), ?);`,
-      [expert.id_user_impact]
+      [imp.id_user_impact]
     );
   }
 
   find(id) {
     return this.connection.query(
-      `SELECT ${this.table}.id_user_impact, users.id, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_impact = users.id WHERE ${this.table}.id_decision = ?;`,
+      `SELECT ${this.table}.id_user_impact, users.id, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_impact = users.id WHERE ${this.table}.id_decision = ? LIMIT 5;`,
       [id]
     );
   }

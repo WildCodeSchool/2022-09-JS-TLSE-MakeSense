@@ -27,7 +27,8 @@ function api() {
       },
       credentials: "include",
     });
-    return res.json();
+    // eslint-disable-next-line no-return-await
+    return await res.json();
   };
 
   const apipostmysql = async (url, body) => {

@@ -1,10 +1,10 @@
 const models = require("../models");
 
 const read = (req, res) => {
-  models.decisions_impacts
+  models.decisions_experts
     .find(req.params.id)
     .then(([rows]) => {
-      if (rows[0] == null) {
+      if (rows[0] === undefined) {
         res.status(200).send([]);
       } else {
         res.send(rows);
@@ -19,6 +19,7 @@ const read = (req, res) => {
 const add = (req, res) => {
   const exp = req.body;
   models.decisions_experts
+    // .check(exp)
     .insert(exp)
     .then(([result]) => {
       res.location(`/experts/${result.insertId}`).sendStatus(201);
