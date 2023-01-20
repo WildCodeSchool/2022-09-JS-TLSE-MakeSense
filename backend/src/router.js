@@ -1,4 +1,7 @@
 const express = require("express");
+const multer = require("multer");
+
+const upload = multer({ dest: "../../public/assets/uploads" });
 
 const router = express.Router();
 const usersControllers = require("./controllers/usersControllers");
@@ -35,7 +38,7 @@ router.post("/comments", commentsControllers.add);
 router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
-
+router.post("/profile/avatar", upload.single("avatar"));
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
 router.put("/users/:id", validateUser, hashPassword, usersControllers.edit);
