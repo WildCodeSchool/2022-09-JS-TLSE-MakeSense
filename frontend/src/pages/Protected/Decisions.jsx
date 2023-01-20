@@ -1,8 +1,8 @@
 import "../../assets/css/container/protected/Decision.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "@services/Loader";
-import Spinner from "@components/Spinner";
 import { Suspense } from "react";
+import Spinner from "../../components/Spinner";
 
 function Decisions() {
   const navigate = useNavigate();

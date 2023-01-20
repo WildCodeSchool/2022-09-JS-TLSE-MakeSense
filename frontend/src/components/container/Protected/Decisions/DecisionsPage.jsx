@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Spinner from "../../../Spinner";
 import api from "../../../../services/api";
 import "../../../../assets/css/container/protected/DecisionPage.css";
 import CommentSection from "../../../header/CommentSection";
+import Spinner from "../../../Spinner";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);

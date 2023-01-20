@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
+import "../../../../assets/css/Layout.scss";
 
 function DecisionsForm() {
   // set options WYSIWYG
@@ -119,7 +120,6 @@ function DecisionsForm() {
     }
     if (experts.length > 0) {
       experts.forEach((expert) => {
-        console.warn(expert);
         const body = {
           id_user_expert: expert.id,
         };
