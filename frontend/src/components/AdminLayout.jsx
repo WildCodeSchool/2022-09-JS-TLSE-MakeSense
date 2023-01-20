@@ -1,5 +1,5 @@
 import { useContext, Suspense } from "react";
-import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
@@ -74,7 +74,7 @@ export default function AdminLayout() {
       <div className="content">
         <div className="admin-wrapper">
           <div className="menu-admin">
-            <AdminBar menuadmin={menuadmin} />
+            <AdminBar menuadmin={menuadmin} tools={tools} />
           </div>
           <div className="admin-tools-container">
             <Suspense fallback={<Spinner />}>
