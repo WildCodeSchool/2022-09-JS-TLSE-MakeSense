@@ -1,10 +1,12 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/Language.scss";
 
 function LangSettings() {
+  const navigate = useNavigate();
   const { dictionary, userLanguage } = useContext(LanguageContext);
   const [Alllang, setAlllang] = useState();
   const [LangActive, setLangActive] = useState();
@@ -31,8 +33,8 @@ function LangSettings() {
         body
       );
     };
-
     sendForm();
+    navigate("/admin/dashboard?tools=Languages", { replace: true });
   };
 
   useEffect(() => {

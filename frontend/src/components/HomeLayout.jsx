@@ -8,14 +8,15 @@ import { FolderContext } from "../contexts/Folder";
 import "../assets/css/Layout.scss";
 
 export default function HomeLayout() {
-  const { pages, components } = useContext(FolderContext);
-  const { user, checkToken } = useAuth();
+  const { pages } = useContext(FolderContext);
+  const { user } = useAuth();
   const outlet = useOutlet();
   const { Text, dictionary } = useContext(LanguageContext);
 
+  const location = localStorage.getItem("location");
   // Si connecté redirige vers profile page
   if (user.email) {
-    return <Navigate to="/user" replace />;
+    return <Navigate to={location || "/user/profile"} replace />;
   }
 
   // Creation pages
