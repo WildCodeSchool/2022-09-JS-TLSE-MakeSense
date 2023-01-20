@@ -1,5 +1,5 @@
+import "../assets/css/Layout.scss";
+
 export default function Spinner() {
-  <div className="spinner-container">
-    <div className="lds-dual-ring" />
-  </div>;
+  <span className="loader" />;
 }

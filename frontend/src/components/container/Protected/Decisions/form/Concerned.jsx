@@ -14,6 +14,7 @@ function Concerned({ table, name, type, updateType }) {
   // eslint-disable-next-line react/prop-types
   const suggestions = table.map((user) => {
     return {
+      ...user,
       id: user.id.toString(),
       text: user.firstname
         ? `${user.firstname} ${user.lastname}`

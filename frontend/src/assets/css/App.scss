@@ -286,6 +286,12 @@ body {
   }
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 button {
   border-radius: var(--border-radius-m);
   font-family: inherit;
@@ -303,6 +309,16 @@ button {
   text-decoration: none !important;
   transition: background-color 0.2s, border-color 0.2s;
   text-align: center;
+}
+button.active {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverse);
+}
+button:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverse);
 }
 
 h1 {

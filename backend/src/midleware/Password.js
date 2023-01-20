@@ -32,7 +32,7 @@ const verifyPassword = (req, res) => {
         res
           .status(201)
           .cookie("makesense_access_token", `Bearer ${token}`, {
-            expires: new Date(Date.now() + 1 * 3600000), // cookie will be removed after 1 hours
+            expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
           })
           .json({ admin: req.user.admin, id: req.user.id });
       } else {

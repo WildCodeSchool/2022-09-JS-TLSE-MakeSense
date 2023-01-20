@@ -59,9 +59,3 @@ details {
     transform: rotate(360deg);
   }
 }
-
-.spinner-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}

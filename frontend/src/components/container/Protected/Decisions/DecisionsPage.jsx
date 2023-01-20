@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import api from "@services/api";
-import "@assets/css/container/protected/DecisionPage.css";
-import CommentSection from "@components/header/CommentSection";
 import { useLocation } from "react-router-dom";
-import Spinner from "@components/Spinner";
+import api from "../../../../services/api";
+import "../../../../assets/css/container/protected/DecisionPage.css";
+import CommentSection from "../../../header/CommentSection";
+import Spinner from "../../../Spinner";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -23,9 +23,17 @@ function DecisionsPage() {
       const callDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
+      // get the impacted
+      const callImpacted = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/impacted/${id}`
+      );
+      // get the experts
+      const callExperts = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/experts/${id}`
+      );
       setDecisions(callDecisions);
-      setImpacted(JSON.parse(callDecisions.content).impacted);
-      setExpert(JSON.parse(callDecisions.content).experts);
+      setImpacted(callImpacted);
+      setExpert(callExperts);
       setIsLoaded(true);
     };
     getAllApis();
@@ -44,9 +52,6 @@ function DecisionsPage() {
           </div>
           <div>Mis à jour : {decisions.date_update.substring(0, 10)}</div>
         </div>
-        {
-          // ou utiliser html-react-parser
-        }
         <div>
           <details>
             <summary>Description</summary>
@@ -143,26 +148,42 @@ function DecisionsPage() {
             />
           </>
         ) : null}
-        {impacted.length > 0 ? (
+        {impacted.length === 0 ? (
+          <>
+            <h3>Personnes impactées</h3>
+            <div>Personne n'a été désigné comme étant impacté.</div>
+          </>
+        ) : (
           <>
             <h3>Personnes impactées</h3>
             <div>
               {impacted.map((person) => (
-                <div key={person.id}>{person.text}</div>
+                <div key={person.id}>
+                  {person.firstname} {person.lastname.toUpperCase()}
+                </div>
               ))}
+              {impacted.length > 4 && <div>et autres...</div>}
             </div>
           </>
-        ) : null}
-        {expert.length > 0 ? (
+        )}
+        {expert.length === 0 ? (
+          <>
+            <h3>Personnes expertes</h3>
+            <div>Personne n'a été désigné expert.</div>
+          </>
+        ) : (
           <>
             <h3>Personnes expertes</h3>
             <div>
               {expert.map((person) => (
-                <div key={person.id}>{person.text}</div>
+                <div key={person.id}>
+                  {person.firstname} {person.lastname.toUpperCase()}
+                </div>
               ))}
+              {expert.length > 4 && <div>et {expert.length - 4} autres...</div>}
             </div>
           </>
-        ) : null}
+        )}
       </div>
     </div>
   ) : (
