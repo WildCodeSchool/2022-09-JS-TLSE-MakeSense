@@ -44,27 +44,7 @@ function CommentSection({ id, comments, setComments }) {
     setPage(num);
   };
 
-  return comments ? (
-    <details>
-      <summary>Avis ({comments.length})</summary>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          name="comments"
-          id="comments"
-          placeholder="I have something to say"
-          value={contentComment}
-          onChange={(event) => setContentComment(event.target.value)}
-          required
-          rows="4"
-          cols="100"
-        />
-        <br />
-        <button type="submit">Donner mon avis</button>
-      </form>
-      <Pagination totalPages={totalPages} handleClick={handleClick} />
-      <Comments comments={comments} page={page} limit={limit} />
-    </details>
-  ) : (
+  return comments === undefined ? (
     <div>
       <details>
         <summary>Avis (0)</summary>
@@ -85,6 +65,26 @@ function CommentSection({ id, comments, setComments }) {
         </form>
       </details>
     </div>
+  ) : (
+    <details>
+      <summary>Avis ({comments.length})</summary>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          name="comments"
+          id="comments"
+          placeholder="I have something to say"
+          value={contentComment}
+          onChange={(event) => setContentComment(event.target.value)}
+          required
+          rows="4"
+          cols="100"
+        />
+        <br />
+        <button type="submit">Donner mon avis</button>
+      </form>
+      <Pagination totalPages={totalPages} handleClick={handleClick} />
+      <Comments comments={comments} page={page} limit={limit} />
+    </details>
   );
 }
 

@@ -13,6 +13,8 @@ function AppBar({ menu }) {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
+  localStorage.setItem("location", "test");
+
   // Handle (Toogle) Menu Open Close //
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

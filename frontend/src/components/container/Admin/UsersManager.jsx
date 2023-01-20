@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { HiPencilSquare } from "react-icons/hi2";
-import Spinner from "@components/Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import "@assets/css/container/admin/UsersManager.scss";
+import Spinner from "../../Spinner";
 
 function UsersManager() {
   const [IsLoaded, SetIsLoaded] = useState(false);
