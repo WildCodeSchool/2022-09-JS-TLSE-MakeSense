@@ -1,4 +1,4 @@
-import "./assets/css/App.css";
+import "./assets/css/App.scss";
 import LoginPage from "@pages/Home/Login";
 import RegisterPage from "@pages/Home/Register";
 import { useRoutes } from "react-router-dom";

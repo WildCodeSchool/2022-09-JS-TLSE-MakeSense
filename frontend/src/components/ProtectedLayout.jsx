@@ -9,7 +9,7 @@ import "../assets/css/Layout.scss";
 
 export default function ProtectedLayout() {
   const { pages } = useContext(FolderContext);
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
@@ -17,6 +17,11 @@ export default function ProtectedLayout() {
   if (
     !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
   ) {
+    setUser({
+      admin: null,
+      email: null,
+      id: null,
+    });
     return <Navigate to="/login" />;
   }
   // Si NON connecté redirige vers Home

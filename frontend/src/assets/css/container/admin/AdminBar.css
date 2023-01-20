@@ -1,14 +1,14 @@
 .menuadmin {
   display: flex;
   flex-wrap: nowrap;
+  gap: 0.5rem;
   background-color: white;
   border-radius: 10px;
   flex-direction: column;
+  min-width: 200px;
 }
 
 .menuadmin button {
-  border: none;
-  background-color: transparent;
   padding: 10px;
   font-weight: bold;
   font-size: 1rem;
