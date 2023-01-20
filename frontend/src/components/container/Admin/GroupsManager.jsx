@@ -51,8 +51,10 @@ function UsersManager() {
               .toLocaleLowerCase()
           )
       ).map((data) => (
-        <div className="rowUser">
-          <div>name:{data.name}</div>
+        <div key={data.id} className="rowUser">
+          <div>
+            <Text tid="name" /> : {data.name}
+          </div>
           <HiPencilSquare />
         </div>
       ))}
