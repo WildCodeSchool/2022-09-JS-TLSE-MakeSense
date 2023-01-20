@@ -5,6 +5,42 @@
   justify-content: flex-end;
 }
 
+.field-error {
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+  color: var(--color-danger);
+  margin-top: var(--space-m) / 4;
+}
+
+.modal-overlay {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  opacity: 0.4;
+}
+
+.modal {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: var(--border-radius-l);
+  display: flex;
+  position: fixed;
+  box-shadow: var(--box-shadow-large);
+  flex-direction: column;
+  background: var(--background-color-base);
+  max-width: 100%;
+  z-index: 10000;
+  padding: 1rem;
+  font-size: var(--font-size-xl);
+}
+
 fieldset {
   border: none;
 }

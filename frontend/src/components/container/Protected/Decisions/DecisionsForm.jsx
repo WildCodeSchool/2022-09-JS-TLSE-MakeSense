@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -30,6 +31,8 @@ function DecisionsForm() {
   // get user logged in from Context
   const { user } = useAuth();
 
+  const navigate = useNavigate();
+
   // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
@@ -38,20 +41,22 @@ function DecisionsForm() {
     utility: Joi.string().min(5).required(),
     pros: Joi.string().min(5).required(),
     cons: Joi.string().min(5).required(),
-    impacted: Joi.array().min(0),
-    experts: Joi.array().min(0),
     firstDate: Joi.date().required(),
-    dateOpinion: Joi.date().required(),
-    dateFirstDecision: Joi.date().required(),
-    dateEndConflict: Joi.date().required(),
-    dateFinaleDecision: Joi.date().required(),
+    dateOpinion: Joi.date().greater(new Date()).required(),
+    dateFirstDecision: Joi.date().greater(new Date()).required(),
+    dateEndConflict: Joi.date().greater(new Date()).required(),
+    dateFinaleDecision: Joi.date().greater(new Date()).required(),
   });
 
   // states for form
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [impacted, setImpacted] = useState([]);
+  const [experts, setExperts] = useState([]);
   const [usersAndGroups, setUsersAndGroups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errors, setErrors] = useState();
+  const [isSubmit, setIsSubmit] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -59,8 +64,6 @@ function DecisionsForm() {
     context: "",
     pros: "",
     cons: "",
-    impacted: [],
-    experts: [],
     firstDate: new Date(),
     dateOpinion: new Date(),
     dateFirstDecision: new Date(),
@@ -82,34 +85,90 @@ function DecisionsForm() {
 
   useEffect(() => {
     getUsers();
-    setUsersAndGroups(users.concat(groups));
+    setUsersAndGroups(users);
   }, [isLoaded]);
 
+  // eslint-disable-next-line consistent-return
   function handleSubmit(e) {
     e.preventDefault();
+
+    // handle impacted and experts
+    if (impacted.length > 0) {
+      console.warn("il y a des impactés");
+      impacted.forEach((impac) => {
+        const body = {
+          id_user_impact: impac.id,
+        };
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+          .then((json) => {
+            return json;
+          });
+      });
+    }
+    if (experts.length > 0) {
+      console.warn("il y a des experts");
+      experts.forEach((expert) => {
+        console.warn(expert);
+        const body = {
+          id_user_expert: expert.id,
+        };
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
+          .then((json) => {
+            return json;
+          });
+      });
+    }
+
+    // handle errors
+    setErrors("");
     const options = {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
     if (result.error) {
-      console.warn("il y a une erreur");
-      return <div />;
+      setErrors(result.error.details);
+    } else {
+      console.warn("il n'y a pas d'erreur");
+      const body = {
+        content: JSON.stringify(result.value),
+        status: 1,
+        id_user_creator: user.id,
+      };
+      setIsSubmit(true);
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .then((json) => {
+          return json;
+        });
     }
-    const body = {
-      content: JSON.stringify(result.value),
-      status: 1,
-      id_user_creator: user.id,
-    };
-    return api
-      .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-      .then((json) => {
-        return json;
-      });
   }
 
   return (
     isLoaded && (
       <div>
+        {isSubmit && (
+          <>
+            <button
+              type="button"
+              aria-label="form submit"
+              className="modal-overlay"
+              onClick={() => setIsSubmit(!isSubmit)}
+            />
+            <div className="modal">
+              <h2>Le formulaire a été soumis avec succès !</h2>
+              <button
+                type="submit"
+                onClick={() => {
+                  navigate(`/user/decisions`);
+                }}
+              >
+                Revenir à la page d'accueil
+              </button>
+            </div>
+          </>
+        )}
         <h1>Déposer une décision</h1>
         <form onSubmit={handleSubmit}>
           <legend className="hello">
@@ -126,6 +185,17 @@ function DecisionsForm() {
               setForm({ ...form, [event.target.name]: event.target.value });
             }}
           />
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "title") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <label htmlFor="description">Description de la décision</label>
           <ReactQuill
             theme="snow"
@@ -136,6 +206,17 @@ function DecisionsForm() {
               setForm({ ...form, description: event });
             }}
           />
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "description") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <label htmlFor="utility">Utilité pour l'organisation</label>
           <ReactQuill
             theme="snow"
@@ -146,6 +227,17 @@ function DecisionsForm() {
               setForm({ ...form, utility: event });
             }}
           />
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "utility") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <label htmlFor="context">Contexte autour de la décision</label>
           <ReactQuill
             theme="snow"
@@ -156,6 +248,17 @@ function DecisionsForm() {
               setForm({ ...form, context: event });
             }}
           />
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "context") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <label htmlFor="pros">Bénéfices</label>
           <ReactQuill
             theme="snow"
@@ -165,6 +268,17 @@ function DecisionsForm() {
               setForm({ ...form, pros: event });
             }}
           />
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "pros") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <label htmlFor="cons">Inconvénients</label>
           <ReactQuill
             theme="snow"
@@ -174,20 +288,30 @@ function DecisionsForm() {
               setForm({ ...form, cons: event });
             }}
           />
-
+          {errors &&
+            errors.map((error) => {
+              if (error.path[0] === "cons") {
+                return (
+                  <div key={error.context.key} className="field-error">
+                    Ce champs est requis et doit contenir au moins 5 caractères.
+                  </div>
+                );
+              }
+              return null;
+            })}
           <legend>Définir les concernés et les experts</legend>
           <Concerned
             table={usersAndGroups}
             name="concernés"
-            type={form.impacted}
-            updateType={(event) => setForm({ ...form, impacted: event })}
+            type={impacted}
+            updateType={(event) => setImpacted(event)}
           />
 
           <Concerned
             table={usersAndGroups}
             name="experts"
-            type={form.experts}
-            updateType={(event) => setForm({ ...form, experts: event })}
+            type={experts}
+            updateType={(event) => setExperts(event)}
           />
           <fieldset>
             <legend>Définir le calendrier</legend>
@@ -197,9 +321,7 @@ function DecisionsForm() {
                 selected={form.firstDate}
                 minDate={form.firstDate}
                 maxDate={form.firstDate}
-                onChange={(d) => {
-                  setForm({ ...form, firstDate: d });
-                }}
+                readOnly
               />
             </div>
             <div className="datepicker">
@@ -212,6 +334,17 @@ function DecisionsForm() {
                 }}
               />
             </div>
+            {errors &&
+              errors.map((error) => {
+                if (error.path[0] === "dateOpinion") {
+                  return (
+                    <div key={error.context.key} className="field-error">
+                      Cette date doit être supérieure à la date d'aujourd'hui.
+                    </div>
+                  );
+                }
+                return null;
+              })}
             <div className="datepicker">
               <p>Fin de la première décision</p>
               <DatePicker
@@ -222,6 +355,17 @@ function DecisionsForm() {
                 }}
               />
             </div>
+            {errors &&
+              errors.map((error) => {
+                if (error.path[0] === "dateFirstDecision") {
+                  return (
+                    <div key={error.context.key} className="field-error">
+                      Cette date doit être supérieure à la date d'aujourd'hui..
+                    </div>
+                  );
+                }
+                return null;
+              })}
             <div className="datepicker">
               <p>Fin du conflit sur la première décision</p>
               <DatePicker
@@ -232,6 +376,17 @@ function DecisionsForm() {
                 }}
               />
             </div>
+            {errors &&
+              errors.map((error) => {
+                if (error.path[0] === "dateEndConflict") {
+                  return (
+                    <div key={error.context.key} className="field-error">
+                      Cette date doit être supérieure à la date d'aujourd'hui.
+                    </div>
+                  );
+                }
+                return null;
+              })}
             <div className="datepicker">
               <p>Décision définitive</p>
               <DatePicker
@@ -242,6 +397,17 @@ function DecisionsForm() {
                 }}
               />
             </div>
+            {errors &&
+              errors.map((error) => {
+                if (error.path[0] === "dateFinaleDecision") {
+                  return (
+                    <div key={error.context.key} className="field-error">
+                      Cette date doit être supérieure à la date d'aujourd'hui.
+                    </div>
+                  );
+                }
+                return null;
+              })}
           </fieldset>
           <button type="submit" className="buttonForm">
             Poster ma décision
