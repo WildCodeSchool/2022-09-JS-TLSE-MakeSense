@@ -51,7 +51,7 @@ export default function ProtectedLayout() {
     });
 
   return (
-    <main className="container">
+    <main>
       <header>
         <AppBar menu={menu} />
       </header>

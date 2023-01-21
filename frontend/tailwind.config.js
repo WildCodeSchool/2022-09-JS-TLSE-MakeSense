@@ -16,6 +16,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors: {
+      calypso: "#196C84",
+      calypsoLight: "#218baa",
+      blueDiane: "#0c3944",
+    },
   },
   plugins: [],
 };

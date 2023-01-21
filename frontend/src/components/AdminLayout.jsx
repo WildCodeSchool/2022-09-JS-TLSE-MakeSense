@@ -66,7 +66,7 @@ export default function AdminLayout() {
     });
 
   return (
-    <main className="container">
+    <main>
       <header className="header">
         <AppBar menu={menu} />
       </header>
