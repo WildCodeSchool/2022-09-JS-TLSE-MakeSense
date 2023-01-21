@@ -11,7 +11,6 @@ function DecisionsPage() {
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
-  const [modifDecision, setModifDecision] = useState(false);
   const [descriptionData, setDescriptionData] = useState();
   const [contextData, setContextData] = useState();
   const [utilityData, setUtilityData] = useState();
@@ -43,42 +42,67 @@ function DecisionsPage() {
   }, []);
 
   useEffect(() => {
-    const getDecisionData = async () => {
+    const updateDecisionData = async () => {
       const getDecision = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDescriptionData(getDecisionData.description);
-      setContextData(getDecisionData.context);
-      setUtilityData(getDecisionData.utility);
-      setAdvantagesData(getDecisionData.advantages);
-      setInconvenientsData(getDecisionData.inconvenients);
+      setDescriptionData(getDecision.description);
+      setContextData(getDecision.context);
+      setUtilityData(getDecision.utility);
+      setAdvantagesData(getDecision.pros);
+      setInconvenientsData(getDecision.cons);
     };
-    getDecisionData(); // lance la fonction getDecisionData
+    updateDecisionData(); // lance la fonction getDecisionData
   }, []);
 
   const handleClick1 = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setModifDescription(!modifDescription);
+    if (modifDescription === true) {
+      handleClick1(() => {
+        // updateDecisionData();
+      });
+    }
   };
 
   const handleClick2 = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setModifContext(!modifContext);
+    if (modifContext === true) {
+      handleClick2(() => {
+        // updateDecisionData();
+      });
+    }
   };
 
   const handleClick3 = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setModifUtility(!modifUtility);
+    if (modifUtility === true) {
+      handleClick3(() => {
+        // updateDecisionData();
+      });
+    }
   };
 
   const handleClick4 = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setModifAdvantages(!modifAdvantages);
+    if (modifAdvantages === true) {
+      handleClick4(() => {
+        // updateDecisionData();
+      });
+    }
   };
 
   const handleClick5 = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setModifInconvenients(!modifInconvenients);
+    if (modifInconvenients === true) {
+      handleClick5(() => {
+        // updateDecisionData();
+      });
+    }
   };
 
   return isLoaded ? (
