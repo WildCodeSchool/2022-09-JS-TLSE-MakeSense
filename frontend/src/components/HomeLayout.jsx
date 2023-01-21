@@ -31,8 +31,8 @@ export default function HomeLayout() {
   });
 
   return (
-    <main className="container">
-      <header>
+    <main>
+      <header className="container mx-auto">
         <AppBar menu={menu} />
       </header>
 
