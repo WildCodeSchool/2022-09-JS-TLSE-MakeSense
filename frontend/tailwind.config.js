@@ -16,6 +16,9 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    screen: {
+      mobile: "480px",
+    },
   },
   plugins: [],
 };

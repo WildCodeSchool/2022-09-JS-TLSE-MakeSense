@@ -52,7 +52,7 @@ export default function ProtectedLayout() {
 
   return (
     <main className="container">
-      <header className="bg-black">
+      <header>
         <AppBar menu={menu} />
       </header>
       <div className="content">{outlet}</div>
