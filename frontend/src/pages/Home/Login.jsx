@@ -85,15 +85,14 @@ export default function LoginPage() {
               autoComplete="current-password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             />
-            <span className="form__error">
-              Format : <br />
+            <span className="text-rose-500 text-xs">
               Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
-              caractère spécial
+              caractère spécial.
             </span>
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
             Login to your account
           </button>

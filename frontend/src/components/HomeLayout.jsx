@@ -36,7 +36,9 @@ export default function HomeLayout() {
         <AppBar menu={menu} />
       </header>
 
-      <div className="flex flex-row justify-center items-center">{outlet}</div>
+      <div className="flex flex-row justify-center items-center p-20">
+        {outlet}
+      </div>
 
       <footer className="footer">
         <FooterBar />
