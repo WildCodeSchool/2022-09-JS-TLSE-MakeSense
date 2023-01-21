@@ -27,7 +27,7 @@ function AppBar({ menu }) {
   // RETURN //
   return (
     <>
-      <div className="bg-slate-200 flex flex-row justify-between">
+      <div className="bg-slate-200 flex flex-row justify-between items-center">
         <a
           href="https://makesense.org/"
           className="text-blueDiane hover:text-calypso font-medium text-l px-5"
@@ -36,7 +36,7 @@ function AppBar({ menu }) {
         </a>
         <LanguageSelector />
       </div>
-      <nav className="bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between">
+      <nav className="bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
         <div className="pl-5">
           <a href="/" className="flex items-center">
             <img src={logo} className="h-6 mr-3 sm:h-9" alt="Makesense Logo" />

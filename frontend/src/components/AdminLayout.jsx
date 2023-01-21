@@ -66,7 +66,7 @@ export default function AdminLayout() {
     });
 
   return (
-    <main>
+    <main className="flex flex-col justify-between h-screen">
       <header>
         <AppBar menu={menu} />
       </header>

@@ -51,12 +51,12 @@ export default function ProtectedLayout() {
     });
 
   return (
-    <main>
-      <header>
+    <main className="flex flex-col justify-between h-screen">
+      <header className="">
         <AppBar menu={menu} />
       </header>
-      <div className="content">{outlet}</div>
-      <footer className="footer">
+      <div className="">{outlet}</div>
+      <footer className="">
         <FooterBar />
       </footer>
     </main>

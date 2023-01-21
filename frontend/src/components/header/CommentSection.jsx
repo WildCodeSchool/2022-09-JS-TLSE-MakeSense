@@ -67,17 +67,14 @@ function CommentSection({ id, comments, setComments }) {
   ) : (
     <section aria-labelledby="notes-title">
       <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
-        <div className="divide-y divide-gray-200">
-          <div className="px-4 py-5 sm:px-6">
+        <div>
+          <div className="px-4 pt-5 sm:px-6">
             <h2 id="notes-title" className="text-lg font-medium text-gray-900">
               Avis ({comments.length})
             </h2>
           </div>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="comment" className="sr-only">
-                About
-              </label>
+            <div className="m-10">
               <textarea
                 name="comments"
                 id="comments"
