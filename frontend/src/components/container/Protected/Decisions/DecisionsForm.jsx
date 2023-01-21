@@ -176,250 +176,376 @@ function DecisionsForm() {
             </div>
           </>
         )}
-        <h1>Déposer une décision</h1>
-        <form onSubmit={handleSubmit}>
-          <legend className="hello">
-            Décrire tous les éléments de sa décision
-          </legend>
-          <label htmlFor="title">Titre</label>
-          <br />
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={form.title}
-            onChange={(event) => {
-              setForm({ ...form, [event.target.name]: event.target.value });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "title") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+        <div className="space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            className="sm:rounded-lg mt-8 max-w-7xl mx-auto space-y-6"
+          >
+            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 max-w-7xl mx-auto">
+              <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="md:col-span-1">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Description
+                  </h3>
+                  <p className="mt-1 text-xl text-gray-500">
+                    Décrire ici toutes les informations concernant la
+                    description.
+                  </p>
+                </div>
+                <div className="mt-5 md:mt-0 md:col-span-2">
+                  <div className="">
+                    <div className="">
+                      <div className="my-10">
+                        <label
+                          htmlFor="company-website"
+                          className="block text-xl font-medium text-gray-700"
+                        >
+                          Titre
+                        </label>
+                        <div className="mt-1 flex rounded-md shadow-sm">
+                          <input
+                            type="text"
+                            name="title"
+                            id="title"
+                            value={form.title}
+                            onChange={(event) => {
+                              setForm({
+                                ...form,
+                                [event.target.name]: event.target.value,
+                              });
+                            }}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          />
+                        </div>
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "title") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                      <div className="my-10">
+                        <label htmlFor="description">
+                          Description de la décision
+                        </label>
+                        <ReactQuill
+                          theme="snow"
+                          modules={modules}
+                          name="description"
+                          value={form.description}
+                          onChange={(event) => {
+                            setForm({ ...form, description: event });
+                          }}
+                        />
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "description") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500	"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                      <div className="my-10">
+                        <label htmlFor="utility">
+                          Utilité pour l'organisation
+                        </label>
+                        <ReactQuill
+                          theme="snow"
+                          modules={modules}
+                          name="utility"
+                          value={form.utility}
+                          onChange={(event) => {
+                            setForm({ ...form, utility: event });
+                          }}
+                        />
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "utility") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500	"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                      <div className="my-10">
+                        <label htmlFor="context">
+                          Contexte autour de la décision
+                        </label>
+                        <ReactQuill
+                          theme="snow"
+                          modules={modules}
+                          name="context"
+                          value={form.context}
+                          onChange={(event) => {
+                            setForm({ ...form, context: event });
+                          }}
+                        />
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "context") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500	"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                      <div className="my-10">
+                        <label htmlFor="pros">Bénéfices</label>
+                        <ReactQuill
+                          theme="snow"
+                          modules={modules}
+                          value={form.pros}
+                          onChange={(event) => {
+                            setForm({ ...form, pros: event });
+                          }}
+                        />
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "pros") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500	"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                      <div className="my-10">
+                        <label htmlFor="cons">Inconvénients</label>
+                        <ReactQuill
+                          theme="snow"
+                          modules={modules}
+                          value={form.cons}
+                          onChange={(event) => {
+                            setForm({ ...form, cons: event });
+                          }}
+                        />
+                        {errors &&
+                          errors.map((error) => {
+                            if (error.path[0] === "cons") {
+                              return (
+                                <div
+                                  key={error.context.key}
+                                  className="text-rose-500	"
+                                >
+                                  Ce champs est requis et doit contenir au moins
+                                  5 caractères.
+                                </div>
+                              );
+                            }
+                            return null;
+                          })}
+                      </div>
+                    </div>
                   </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="description">Description de la décision</label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="description"
-            value={form.description}
-            onChange={(event) => {
-              setForm({ ...form, description: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "description") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="utility">Utilité pour l'organisation</label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="utility"
-            value={form.utility}
-            onChange={(event) => {
-              setForm({ ...form, utility: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "utility") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="context">Contexte autour de la décision</label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="context"
-            value={form.context}
-            onChange={(event) => {
-              setForm({ ...form, context: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "context") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="pros">Bénéfices</label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            value={form.pros}
-            onChange={(event) => {
-              setForm({ ...form, pros: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "pros") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="cons">Inconvénients</label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            value={form.cons}
-            onChange={(event) => {
-              setForm({ ...form, cons: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "cons") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <legend>Définir les concernés et les experts</legend>
-          <Concerned
-            table={usersAndGroups}
-            name="concernés"
-            type={impacted}
-            updateType={(event) => setImpacted(event)}
-          />
+                </div>
+              </div>
+            </div>
+            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+              <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="md:col-span-1">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Personnes concernées
+                  </h3>
+                  <p className="mt-1 text-xl text-gray-500">
+                    Désigner les personnes concernées (impactées ou expertes)
+                    par la décision
+                  </p>
+                </div>
+                <div className="mt-5 md:mt-0 md:col-span-2">
+                  <div className="">
+                    <div className="">
+                      <Concerned
+                        table={usersAndGroups}
+                        name="impactés"
+                        type={impacted}
+                        updateType={(event) => setImpacted(event)}
+                      />
 
-          <Concerned
-            table={usersAndGroups}
-            name="experts"
-            type={experts}
-            updateType={(event) => setExperts(event)}
-          />
-          <fieldset>
-            <legend>Définir le calendrier</legend>
-            <div className="datepicker">
-              <p>Date de dépôt de la décision</p>
-              <DatePicker
-                selected={form.firstDate}
-                minDate={form.firstDate}
-                maxDate={form.firstDate}
-                readOnly
-              />
-            </div>
-            <div className="datepicker">
-              <p>Fin de la prise des avis</p>
-              <DatePicker
-                selected={form.dateOpinion}
-                minDate={form.firstDate}
-                onChange={(d) => {
-                  setForm({ ...form, dateOpinion: d });
-                }}
-              />
-            </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateOpinion") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
+                      <Concerned
+                        table={usersAndGroups}
+                        name="experts"
+                        type={experts}
+                        updateType={(event) => setExperts(event)}
+                      />
                     </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>Fin de la première décision</p>
-              <DatePicker
-                selected={form.dateFirstDecision}
-                minDate={form.dateOpinion}
-                onChange={(d) => {
-                  setForm({ ...form, dateFirstDecision: d });
-                }}
-              />
+                  </div>
+                </div>
+              </div>
             </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateFirstDecision") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui..
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>Fin du conflit sur la première décision</p>
-              <DatePicker
-                selected={form.dateEndConflict}
-                minDate={form.dateFirstDecision}
-                onChange={(d) => {
-                  setForm({ ...form, dateEndConflict: d });
-                }}
-              />
+            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+              <div className="md:grid md:grid-cols-3 md:gap-6">
+                <div className="md:col-span-1">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Calendrier
+                  </h3>
+                  <p className="mt-1 text-xl text-gray-500">
+                    Définir le calendrier de la prise de décision
+                  </p>
+                </div>
+                <div className="mt-5 md:mt-0 md:col-span-2">
+                  <div className="datepicker">
+                    <p>Date de dépôt de la décision</p>
+                    <DatePicker
+                      selected={form.firstDate}
+                      minDate={form.firstDate}
+                      maxDate={form.firstDate}
+                      readOnly
+                    />
+                  </div>
+                  <div className="datepicker">
+                    <p>Fin de la prise des avis</p>
+                    <DatePicker
+                      selected={form.dateOpinion}
+                      minDate={form.firstDate}
+                      onChange={(d) => {
+                        setForm({ ...form, dateOpinion: d });
+                      }}
+                    />
+                  </div>
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "dateOpinion") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            Cette date doit être supérieure à la date
+                            d'aujourd'hui.
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                  <div className="datepicker">
+                    <p>Fin de la première décision</p>
+                    <DatePicker
+                      selected={form.dateFirstDecision}
+                      minDate={form.dateOpinion}
+                      onChange={(d) => {
+                        setForm({ ...form, dateFirstDecision: d });
+                      }}
+                    />
+                  </div>
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "dateFirstDecision") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            Cette date doit être supérieure à la date
+                            d'aujourd'hui..
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                  <div className="datepicker">
+                    <p>Fin du conflit sur la première décision</p>
+                    <DatePicker
+                      selected={form.dateEndConflict}
+                      minDate={form.dateFirstDecision}
+                      onChange={(d) => {
+                        setForm({ ...form, dateEndConflict: d });
+                      }}
+                    />
+                  </div>
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "dateEndConflict") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            Cette date doit être supérieure à la date
+                            d'aujourd'hui.
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                  <div className="datepicker">
+                    <p>Décision définitive</p>
+                    <DatePicker
+                      selected={form.dateFinaleDecision}
+                      minDate={form.dateEndConflict}
+                      onChange={(d) => {
+                        setForm({ ...form, dateFinaleDecision: d });
+                      }}
+                    />
+                  </div>
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "dateFinaleDecision") {
+                        return (
+                          <div key={error.context.key} className="field-error">
+                            Cette date doit être supérieure à la date
+                            d'aujourd'hui.
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+              </div>
             </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateEndConflict") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>Décision définitive</p>
-              <DatePicker
-                selected={form.dateFinaleDecision}
-                minDate={form.dateEndConflict}
-                onChange={(d) => {
-                  setForm({ ...form, dateFinaleDecision: d });
-                }}
-              />
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-xl font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Save
+              </button>
             </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateFinaleDecision") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
-                    </div>
-                  );
-                }
-                return null;
-              })}
-          </fieldset>
-          <button type="submit" className="buttonForm">
-            Poster ma décision
-          </button>
-        </form>
+          </form>
+        </div>
       </div>
     )
   );

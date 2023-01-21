@@ -11,3 +11,36 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.tagInputFieldClass {
+  background-color: #f9fafb;
+  padding: 0.625rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.suggestionsClass {
+  background-color: #f9fafb;
+  padding: 0.625rem;
+  border: 1px solid #d1d5db;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.tagClass {
+  color: #196c84;
+  background-color: #88b1be;
+  font-weight: bold;
+  padding: 0.625rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+}
+
+.selectedClass {
+  margin-top: 2rem;
+}

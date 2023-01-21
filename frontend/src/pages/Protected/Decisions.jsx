@@ -12,19 +12,6 @@ function Decisions() {
 
   return (
     <div>
-      <div className="titre">
-        <h1>Décisions</h1>
-        <button
-          type="button"
-          key="key"
-          id="8"
-          onClick={() => {
-            navigate(`/user/decisions?comp=Form`);
-          }}
-        >
-          Form
-        </button>
-      </div>
       <div className="searchBar">
         <Suspense fallback={<Spinner />}>
           <Loader
