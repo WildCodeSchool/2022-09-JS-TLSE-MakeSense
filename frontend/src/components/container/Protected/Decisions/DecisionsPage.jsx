@@ -39,44 +39,6 @@ function DecisionsPage() {
     getAllApis();
   }, []);
 
-  const timeline = [
-    {
-      id: 1,
-      content: "Applied to",
-      target: "Front End Developer",
-      date: "Sep 20",
-      datetime: "2020-09-20",
-    },
-    {
-      id: 2,
-      content: "Advanced to phone screening by",
-      target: "Bethany Blake",
-      date: "Sep 22",
-      datetime: "2020-09-22",
-    },
-    {
-      id: 3,
-      content: "Completed phone screening with",
-      target: "Martha Gardner",
-      date: "Sep 28",
-      datetime: "2020-09-28",
-    },
-    {
-      id: 4,
-      content: "Advanced to interview by",
-      target: "Bethany Blake",
-      date: "Sep 30",
-      datetime: "2020-09-30",
-    },
-    {
-      id: 5,
-      content: "Completed interview with",
-      target: "Katherine Snyder",
-      date: "Oct 4",
-      datetime: "2020-10-04",
-    },
-  ];
-
   return isLoaded ? (
     <div className="min-h-full">
       <main className="py-10">
@@ -296,56 +258,180 @@ function DecisionsPage() {
               setComments={setComments}
             />
           </div>
+          <div className="space-y-6">
+            <section
+              aria-labelledby="timeline-title"
+              className="lg:col-start-3 lg:col-span-1"
+            >
+              <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                <h2
+                  id="timeline-title"
+                  className="text-lg font-medium text-gray-900"
+                >
+                  Timeline
+                </h2>
 
-          <section
-            aria-labelledby="timeline-title"
-            className="lg:col-start-3 lg:col-span-1"
-          >
-            <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-              <h2
-                id="timeline-title"
-                className="text-lg font-medium text-gray-900"
-              >
-                Timeline
-              </h2>
-
-              {/* Activity Feed */}
-              <div className="mt-6 flow-root">
-                <ul className="-mb-8">
-                  {timeline.map((item, itemIdx) => (
-                    <li key={item.id}>
-                      <div className="relative pb-8">
-                        {itemIdx !== timeline.length - 1 ? (
-                          <span
-                            className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        <div className="relative flex space-x-3">
-                          <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                            <div>
-                              <p className="text-sm text-gray-500">
-                                {item.content}{" "}
-                                <a
-                                  href="/"
-                                  className="font-medium text-gray-900"
-                                >
-                                  {item.target}
-                                </a>
-                              </p>
-                            </div>
-                            <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                              <time dateTime={item.datetime}>{item.date}</time>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                {/* Activity Feed */}
+                <ol className="relative border-l border-gray-200 dark:border-gray-700">
+                  <li className="mb-10 ml-4">
+                    <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                    <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                      <div
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{
+                          __html: JSON.parse(
+                            decisions.content
+                          ).firstDate.substring(0, 10),
+                        }}
+                      />
+                    </time>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      Dépôt de la décision
+                    </h3>
+                  </li>
+                  {JSON.parse(decisions.content).dateOpinion ? (
+                    <li className="mb-10 ml-4">
+                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        <div
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: JSON.parse(
+                              decisions.content
+                            ).dateOpinion.substring(0, 10),
+                          }}
+                        />
+                      </time>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Fin de la période pour donner son avis
+                      </h3>
                     </li>
-                  ))}
-                </ul>
+                  ) : null}
+                  {JSON.parse(decisions.content).dateFirstDecision ? (
+                    <li className="mb-10 ml-4">
+                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        <div
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: JSON.parse(
+                              decisions.content
+                            ).dateFirstDecision.substring(0, 10),
+                          }}
+                        />
+                      </time>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Première décision prise
+                      </h3>
+                    </li>
+                  ) : null}
+                  {JSON.parse(decisions.content).dateEndConflict ? (
+                    <li className="mb-10 ml-4">
+                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        <div
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: JSON.parse(
+                              decisions.content
+                            ).dateEndConflict.substring(0, 10),
+                          }}
+                        />
+                      </time>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Fin de la période de conflit
+                      </h3>
+                    </li>
+                  ) : null}
+                  {JSON.parse(decisions.content).finaleDecision ? (
+                    <li className="mb-10 ml-4">
+                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        <div
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: JSON.parse(
+                              decisions.content
+                            ).finaleDecision.substring(0, 10),
+                          }}
+                        />
+                      </time>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        Décision finale
+                      </h3>
+                    </li>
+                  ) : null}
+                </ol>
               </div>
-            </div>
-          </section>
+            </section>
+            <section className="lg:col-start-3 lg:col-span-1">
+              <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                <h2
+                  id="timeline-title"
+                  className="text-lg font-medium text-gray-900"
+                >
+                  Les personnes concernées
+                </h2>
+                {impacted.length === 0 ? (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      Personnes impactées
+                    </h3>
+                    <div>Personne n'a été désigné comme étant impacté.</div>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      Personnes impactées
+                    </h3>
+                    <div className="flex -space-x-2 overflow-hidden">
+                      {impacted.map((person) => (
+                        <div>
+                          <img
+                            key={person.id}
+                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          {person.firstname} {person.lastname.toUpperCase()}
+                        </div>
+                      ))}
+                      {impacted.length > 4 && <div>et autres...</div>}
+                    </div>
+                  </>
+                )}
+                {expert.length === 0 ? (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      Personnes expertes
+                    </h3>
+                    <div>Personne n'a été désigné expert.</div>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      Personnes expertes
+                    </h3>
+                    <div className="flex -space-x-2 overflow-hidden">
+                      {expert.map((person) => (
+                        <div>
+                          <img
+                            key={person.id}
+                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt={`${
+                              person.firstname
+                            } ${person.lastname.toUpperCase()}`}
+                          />
+                        </div>
+                      ))}
+                      {expert.length > 4 && <div>et autres...</div>}
+                    </div>
+                  </>
+                )}
+              </div>
+            </section>
+          </div>
         </div>
       </main>
     </div>
