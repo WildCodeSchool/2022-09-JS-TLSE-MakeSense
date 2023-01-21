@@ -58,13 +58,11 @@ function DecisionsPage() {
 
   const handleClick1 = (event) => {
     event.preventDefault();
-    // setModifDecision(!modifDecision);
     setModifDescription(!modifDescription);
   };
 
   const handleClick2 = (event) => {
     event.preventDefault();
-    // setModifDecision(!modifDecision);
     setModifContext(!modifContext);
   };
 
@@ -117,7 +115,9 @@ function DecisionsPage() {
               />
             )}
             <button type="button" onClick={handleClick1}>
-              Modifier la descritpion
+              {modifDescription
+                ? "Valider la description"
+                : "Modifier la description"}
             </button>
           </details>
           <details>
@@ -137,7 +137,7 @@ function DecisionsPage() {
               />
             )}
             <button type="button" onClick={handleClick2}>
-              Modifier le contexte
+              {modifContext ? "Valider le contexte" : "Modifier le contexte"}
             </button>
           </details>
           <details>
@@ -157,7 +157,7 @@ function DecisionsPage() {
               />
             )}
             <button type="button" onClick={handleClick3}>
-              Modifier l'utilité
+              {modifUtility ? "Valider l'utilité" : "Modifier l'utilité"}
             </button>
           </details>
           <details>
@@ -177,7 +177,9 @@ function DecisionsPage() {
               />
             )}
             <button type="button" onClick={handleClick4}>
-              Modifier les avantages
+              {modifAdvantages
+                ? "Valider les avantages"
+                : "Modifier les avantages"}
             </button>
           </details>
           <details>
@@ -197,7 +199,9 @@ function DecisionsPage() {
               />
             )}
             <button type="button" onClick={handleClick5}>
-              Modifier les inconvénients
+              {modifInconvenients
+                ? "Valider les inconvénients"
+                : "Modifier les inconvénients"}
             </button>
           </details>
           <CommentSection
