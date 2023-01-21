@@ -57,6 +57,16 @@ function DecisionsPage() {
 
   const handleClick1 = (event) => {
     // event.preventDefault();
+    const body = {
+      title: decisions.title,
+      content: {
+        description: decisions.content.description,
+        utility: decisions.content.utility,
+        context: decisions.content.context,
+        pros: decisions.content.pros,
+        cons: decisions.content.cons,
+      },
+    };
     setModifDescription(!modifDescription);
     if (modifDescription === true) {
       handleClick1(() => {
