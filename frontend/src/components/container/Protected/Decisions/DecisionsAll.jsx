@@ -89,107 +89,88 @@ function DecisionsAll() {
 
   return (
     isLoaded && (
-      <div className="protected_layout_decisions">
-        <div className="decisions_filter">
-          <div>
-            <input
-              key="searchbar"
-              id="searchbar"
-              name="searchbar"
-              type="text"
-              value={searchTerm}
-              onChange={handleChange}
-              placeholder="Search..."
-              className="block p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <div>
-            <select
-              value={StatusSelect || ""}
-              id="select-status"
-              onChange={HandlerStatus}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option value="">--Please choose an option--</option>
-              <option value="1">commencée</option>
-              <option value="2">1rst décision prise</option>
-              <option value="3">1rst décision conflit</option>
-              <option value="4">définitive</option>
-              <option value="5">non aboutie</option>
-              <option value="6">terminée</option>
-            </select>
-          </div>
-          <div className="inline-flex rounded-md shadow-sm">
-            <button
-              type="button"
-              value="1"
-              onClick={HandlerDuree}
-              className={
-                DureeSelect === "1"
-                  ? "p-10 first-letter: font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                  : "px-4 py-2first-letter: font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-              }
-            >
-              {`<24H`}
-            </button>
-            <button
-              type="button"
-              value="7"
-              onClick={HandlerDuree}
-              className={
-                DureeSelect === "7"
-                  ? "px-4 py-2first-letter: font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                  : "px-4 py-2first-letter: font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-              }
-            >
-              {`<Semaine`}
-            </button>
-            <button
-              type="button"
-              value="31"
-              onClick={HandlerDuree}
-              // className={DureeSelect === "31" ? "active" : ""}
-              className={
-                DureeSelect === "7"
-                  ? "px-4 py-2first-letter: font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                  : "px-4 py-2first-letter: font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-              }
-            >
-              {`<Mois`}
-            </button>
-            <button
-              type="button"
-              value="93"
-              onClick={HandlerDuree}
-              // className={DureeSelect === "93" ? "active" : ""}
-              className={
-                DureeSelect === "7"
-                  ? "px-4 py-2first-letter: font-medium text-blue-700 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                  : "px-4 py-2first-letter: font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-              }
-            >
-              {`<3Mois`}
-            </button>
-          </div>
-        </div>
-        <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-          <div className="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-nowrap">
-            <div className="ml-4 mt-2">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Job Postings
-              </h3>
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-10 m-10 rounded flex flex-col">
+        <div className="sm:px-4 lg:px-8 rounded flex flex-col">
+          <input
+            key="searchbar"
+            id="searchbar"
+            name="searchbar"
+            type="text"
+            value={searchTerm}
+            onChange={handleChange}
+            placeholder="Search..."
+            className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
+          <div className="flex flex-row w-full justify-between">
+            <div>
+              <select
+                value={StatusSelect || ""}
+                id="select-status"
+                onChange={HandlerStatus}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="">--Please choose an option--</option>
+                <option value="1">commencée</option>
+                <option value="2">1rst décision prise</option>
+                <option value="3">1rst décision conflit</option>
+                <option value="4">définitive</option>
+                <option value="5">non aboutie</option>
+                <option value="6">terminée</option>
+              </select>
             </div>
-            <div className="ml-4 mt-2 flex-shrink-0">
+            <div>
               <button
                 type="button"
-                className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                value="1"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "1"
+                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                }
               >
-                Create new job
+                {`<24H`}
+              </button>
+              <button
+                type="button"
+                value="7"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "7"
+                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                }
+              >
+                {`<Semaine`}
+              </button>
+              <button
+                type="button"
+                value="31"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "31"
+                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                }
+              >
+                {`<Mois`}
+              </button>
+              <button
+                type="button"
+                value="93"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "93"
+                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
+                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                }
+              >
+                {`<3Mois`}
               </button>
             </div>
           </div>
         </div>
-        <div className="flex flew-row flex-wrap">
+        <div className="mx-auto grid grid-cols-3 gap-10">
           {
             // eslint-disable-next-line react/prop-types
             datas
@@ -214,7 +195,7 @@ function DecisionsAll() {
                   onClick={() => {
                     navigate(`/user/decisions?comp=Page&id=${data.id}`);
                   }}
-                  className="bg-black"
+                  className=""
                 >
                   <Card key={data.id} data={data} />
                 </button>

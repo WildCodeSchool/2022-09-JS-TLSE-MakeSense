@@ -5,3 +5,9 @@
 body {
   background-color: #f3f4f6;
 }
+
+.longText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
