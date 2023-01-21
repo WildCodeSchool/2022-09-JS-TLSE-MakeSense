@@ -56,13 +56,30 @@ function DecisionsPage() {
     getDecisionData(); // lance la fonction getDecisionData
   }, []);
 
-  const handleClick = (event) => {
+  const handleClick1 = (event) => {
     event.preventDefault();
-    setModifDecision(true);
+    // setModifDecision(!modifDecision);
     setModifDescription(!modifDescription);
+  };
+
+  const handleClick2 = (event) => {
+    event.preventDefault();
+    // setModifDecision(!modifDecision);
     setModifContext(!modifContext);
+  };
+
+  const handleClick3 = (event) => {
+    event.preventDefault();
     setModifUtility(!modifUtility);
+  };
+
+  const handleClick4 = (event) => {
+    event.preventDefault();
     setModifAdvantages(!modifAdvantages);
+  };
+
+  const handleClick5 = (event) => {
+    event.preventDefault();
     setModifInconvenients(!modifInconvenients);
   };
 
@@ -91,7 +108,7 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).description,
               }}
             />
-            {modifDecision && (
+            {modifDescription && (
               <input
                 type="text"
                 id="description"
@@ -99,7 +116,7 @@ function DecisionsPage() {
                 defaultValue={decisions.content}
               />
             )}
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClick1}>
               Modifier la descritpion
             </button>
           </details>
@@ -114,12 +131,12 @@ function DecisionsPage() {
             {modifContext && (
               <input
                 type="text"
-                id="description"
-                name="description"
+                id="context"
+                name="context"
                 defaultValue={decisions.content}
               />
             )}
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClick2}>
               Modifier le contexte
             </button>
           </details>
@@ -134,12 +151,12 @@ function DecisionsPage() {
             {modifUtility && (
               <input
                 type="text"
-                id="description"
-                name="description"
+                id="utility"
+                name="utility"
                 defaultValue={decisions.content}
               />
             )}
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClick3}>
               Modifier l'utilité
             </button>
           </details>
@@ -154,12 +171,12 @@ function DecisionsPage() {
             {modifAdvantages && (
               <input
                 type="text"
-                id="description"
-                name="description"
+                id="advantages"
+                name="advantages"
                 defaultValue={decisions.content}
               />
             )}
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClick4}>
               Modifier les avantages
             </button>
           </details>
@@ -174,12 +191,12 @@ function DecisionsPage() {
             {modifInconvenients && (
               <input
                 type="text"
-                id="description"
-                name="description"
+                id="inconvenients"
+                name="inconvenients"
                 defaultValue={decisions.content}
               />
             )}
-            <button type="button" onClick={handleClick}>
+            <button type="button" onClick={handleClick5}>
               Modifier les inconvénients
             </button>
           </details>
