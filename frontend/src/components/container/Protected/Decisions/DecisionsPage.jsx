@@ -17,6 +17,11 @@ function DecisionsPage() {
   const [utilityData, setUtilityData] = useState();
   const [advantagesData, setAdvantagesData] = useState();
   const [inconvenientsData, setInconvenientsData] = useState();
+  const [modifDescription, setModifDescription] = useState(false);
+  const [modifContext, setModifContext] = useState(false);
+  const [modifUtility, setModifUtility] = useState(false);
+  const [modifAdvantages, setModifAdvantages] = useState(false);
+  const [modifInconvenients, setModifInconvenients] = useState(false);
 
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
@@ -54,6 +59,11 @@ function DecisionsPage() {
   const handleClick = (event) => {
     event.preventDefault();
     setModifDecision(true);
+    setModifDescription(!modifDescription);
+    setModifContext(!modifContext);
+    setModifUtility(!modifUtility);
+    setModifAdvantages(!modifAdvantages);
+    setModifInconvenients(!modifInconvenients);
   };
 
   return isLoaded ? (
@@ -81,13 +91,17 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).description,
               }}
             />
-            <input
-              type="text"
-              id="description"
-              name="description"
-              defaultValue={decisions.content}
-            />
-            <button type="button">Modifier la descritpion</button>
+            {modifDecision && (
+              <input
+                type="text"
+                id="description"
+                name="description"
+                defaultValue={decisions.content}
+              />
+            )}
+            <button type="button" onClick={handleClick}>
+              Modifier la descritpion
+            </button>
           </details>
           <details>
             <summary>Contexte</summary>
@@ -97,7 +111,17 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).context,
               }}
             />
-            <button type="button">Modifier le contexte</button>
+            {modifContext && (
+              <input
+                type="text"
+                id="description"
+                name="description"
+                defaultValue={decisions.content}
+              />
+            )}
+            <button type="button" onClick={handleClick}>
+              Modifier le contexte
+            </button>
           </details>
           <details>
             <summary>Utilité</summary>
@@ -107,7 +131,17 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).utility,
               }}
             />
-            <button type="button">Modifier l'utilité</button>
+            {modifUtility && (
+              <input
+                type="text"
+                id="description"
+                name="description"
+                defaultValue={decisions.content}
+              />
+            )}
+            <button type="button" onClick={handleClick}>
+              Modifier l'utilité
+            </button>
           </details>
           <details>
             <summary>Avantages</summary>
@@ -117,7 +151,17 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).pros,
               }}
             />
-            <button type="button">Modifier les avantages</button>
+            {modifAdvantages && (
+              <input
+                type="text"
+                id="description"
+                name="description"
+                defaultValue={decisions.content}
+              />
+            )}
+            <button type="button" onClick={handleClick}>
+              Modifier les avantages
+            </button>
           </details>
           <details>
             <summary>Inconvénients</summary>
@@ -127,7 +171,17 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).cons,
               }}
             />
-            <button type="button">Modifier les inconvénients</button>
+            {modifInconvenients && (
+              <input
+                type="text"
+                id="description"
+                name="description"
+                defaultValue={decisions.content}
+              />
+            )}
+            <button type="button" onClick={handleClick}>
+              Modifier les inconvénients
+            </button>
           </details>
           <CommentSection
             id={id}
