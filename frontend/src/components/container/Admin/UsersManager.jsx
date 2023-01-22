@@ -72,6 +72,12 @@ function UsersManager() {
                       scope="col"
                       className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
                     >
+                      Statut
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                    >
                       Edit
                     </th>
                   </tr>
@@ -130,6 +136,9 @@ function UsersManager() {
 
                       <td className="whitespace-nowrap px-3 py-4 text-xl text-gray-500">
                         {data.email}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xl text-gray-500">
+                        {data.admin === 0 ? "Utilisateur" : "Admin"}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
                         <HiPencilSquare />
