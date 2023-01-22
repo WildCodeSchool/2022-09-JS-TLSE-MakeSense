@@ -70,19 +70,12 @@ export default function AdminLayout() {
       <header>
         <AppBar menu={menu} />
       </header>
-      <div className="content">
-        <div className="admin-wrapper">
-          <div className="menu-admin">
-            <AdminBar menuadmin={menuadmin} tools={tools} />
-          </div>
-          <div className="admin-tools-container">
-            <Suspense fallback={<Spinner />}>
-              <Loader
-                foldername="components/container/Admin"
-                filename={tools}
-              />
-            </Suspense>
-          </div>
+      <div className="flex flex-row h-full">
+        <AdminBar menuadmin={menuadmin} tools={tools} />
+        <div className="admin-tools-container">
+          <Suspense fallback={<Spinner />}>
+            <Loader foldername="components/container/Admin" filename={tools} />
+          </Suspense>
         </div>
       </div>
       <footer className="footer">

@@ -20,6 +20,7 @@ module.exports = {
       calypso: "#196C84",
       calypsoLight: "#218baa",
       blueDiane: "#0c3944",
+      broom: "#FFF30D",
     },
   },
   plugins: [],
