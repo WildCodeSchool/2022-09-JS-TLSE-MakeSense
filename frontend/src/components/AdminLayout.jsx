@@ -72,7 +72,7 @@ export default function AdminLayout() {
       </header>
       <div className="flex flex-row h-full">
         <AdminBar menuadmin={menuadmin} tools={tools} />
-        <div className="admin-tools-container">
+        <div className="flex flex-col items-center w-full mt-10">
           <Suspense fallback={<Spinner />}>
             <Loader foldername="components/container/Admin" filename={tools} />
           </Suspense>

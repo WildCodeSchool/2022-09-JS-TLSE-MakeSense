@@ -26,63 +26,123 @@ function UsersManager() {
   }
 
   return IsLoaded ? (
-    <div className="user-admin-wrapper">
-      <h1>Users Management</h1>
-      <div className="SearchBarUsers">
-        <input
-          key="searchbarusers"
-          id="searchbarusers"
-          name="searchbarusers"
-          type="text"
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder="Search..."
-        />
-      </div>
-      {AllUsers.filter(
-        (data) =>
-          data.lastname
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            ) ||
-          data.firstname
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            ) ||
-          data.email
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLocaleLowerCase()
-            .includes(
-              searchTerm
-                .normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-            )
-      ).map((data) => (
-        <div key={data.id} className="rowUser">
-          <div>
-            <Text tid="lastname" /> : {data.lastname}
-            <br />
-            <Text tid="firstname" /> : {data.firstname}
-            <br />
-            <Text tid="email" /> : {data.email}
+    <div className="w-2/3">
+      <h1 className="text-center text-3xl font-bold">
+        Gestion des utilisateurs
+      </h1>
+      <div className="px-4 sm:px-6 lg:px-8 w-full">
+        <div className="sm:flex sm:items-center">
+          <div className="mt-4 sm:flex-none flex flex-col items-center w-full">
+            <input
+              key="searchbarusers"
+              id="searchbarusers"
+              name="searchbarusers"
+              type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              placeholder="Chercher un utilisateur"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg w-1/2 p-2.5 my-5"
+            />
+            <button
+              type="button"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
+            >
+              Add user
+            </button>
           </div>
-          <HiPencilSquare />
         </div>
-      ))}
+      </div>
+      <div className="mt-8 flex flex-col">
+        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                    >
+                      Email
+                    </th>
+                    <th scope="col" className="relative py-3.5 pl-3 pr-4">
+                      Edit
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {AllUsers.filter(
+                    (data) =>
+                      data.lastname
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                        .includes(
+                          searchTerm
+                            .normalize("NFD")
+                            .replace(/\p{Diacritic}/gu, "")
+                            .toLocaleLowerCase()
+                        ) ||
+                      data.firstname
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                        .includes(
+                          searchTerm
+                            .normalize("NFD")
+                            .replace(/\p{Diacritic}/gu, "")
+                            .toLocaleLowerCase()
+                        ) ||
+                      data.email
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                        .includes(
+                          searchTerm
+                            .normalize("NFD")
+                            .replace(/\p{Diacritic}/gu, "")
+                            .toLocaleLowerCase()
+                        )
+                  ).map((data) => (
+                    <tr key={data.id}>
+                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xl sm:pl-6">
+                        <div className="flex items-center">
+                          <div className="h-10 w-10 flex-shrink-0">
+                            <img
+                              className="h-10 w-10 rounded-full"
+                              src=""
+                              alt=""
+                            />
+                          </div>
+                          <div className="ml-4">
+                            <div className="font-medium text-gray-900">
+                              {data.lastname} {data.firstname}
+                            </div>
+                            <div className="text-gray-500">{data.email}</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="whitespace-nowrap px-3 py-4 text-xl text-gray-500">
+                        {data.email}
+                      </td>
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                        <HiPencilSquare />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ) : (
     <Spinner />
