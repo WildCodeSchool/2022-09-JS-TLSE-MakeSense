@@ -108,11 +108,11 @@ function DecisionsForm() {
         const body = {
           id_user_impact: impac.id,
         };
-        // return api
-        //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-        //   .then((json) => {
-        //     return json;
-        //   });
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+          .then((json) => {
+            return json;
+          });
       });
     }
     if (experts.length > 0) {
@@ -120,11 +120,11 @@ function DecisionsForm() {
         const body = {
           id_user_expert: expert.id,
         };
-        // return api
-        //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-        //   .then((json) => {
-        //     return json;
-        //   });
+        return api
+          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
+          .then((json) => {
+            return json;
+          });
       });
     }
 
@@ -144,11 +144,11 @@ function DecisionsForm() {
         id_user_creator: user.id,
       };
       setIsSubmit(true);
-      // return api
-      //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-      //   .then((json) => {
-      //     return json;
-      //   });
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .then((json) => {
+          return json;
+        });
     }
   }
 

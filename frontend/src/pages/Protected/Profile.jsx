@@ -64,13 +64,7 @@ export default function ProfilePage() {
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
           <div className="flex flew-row justify-between">
             <div className="mt-6 flex flex-col lg:flex-row">
-              <div className="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
-                <p
-                  className="text-m font-medium text-gray-700"
-                  aria-hidden="true"
-                >
-                  Photo
-                </p>
+              <div className="mt-10 flex-grow lg:mt-5 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
                 <div className="relative rounded-full overflow-hidden lg:block">
                   <img
                     className="relative rounded-full w-40 h-40"
@@ -100,20 +94,19 @@ export default function ProfilePage() {
                 >
                   First name
                 </label>
-                {!showInput && (
-                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-cl sm:text-m">
-                    {data.firstname}
-                  </div>
-                )}
-                {showInput && (
+                {showInput ? (
                   <input
                     type="text"
                     id="lastname"
                     name="lastname"
                     defaultValue={userFirstName}
                     onChange={(event) => setUserFirstName(event.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-cl sm:text-m"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                   />
+                ) : (
+                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200">
+                    {data.firstname}
+                  </div>
                 )}
               </div>
 
@@ -124,23 +117,21 @@ export default function ProfilePage() {
                 >
                   Last name
                 </label>
-                {!showInput && (
-                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-cl sm:text-m">
-                    {data.lastname}
-                  </div>
-                )}
-                {showInput && (
+                {showInput ? (
                   <input
                     type="text"
                     id="firstname"
                     name="firstname"
                     defaultValue={userLastName}
                     onChange={(event) => setUserLastName(event.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-m"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                   />
+                ) : (
+                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200">
+                    {data.lastname}
+                  </div>
                 )}
               </div>
-
               <div className="col-span-12 sm:col-span-6">
                 <label
                   htmlFor="email"
@@ -148,12 +139,7 @@ export default function ProfilePage() {
                 >
                   Email
                 </label>
-                {!showInput && (
-                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-cl sm:text-m">
-                    {data.email}
-                  </div>
-                )}
-                {showInput && (
+                {showInput ? (
                   <input
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     type="email"
@@ -161,11 +147,14 @@ export default function ProfilePage() {
                     name="email"
                     defaultValue={userEmail}
                     onChange={(event) => setUserEmail(event.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-m"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                   />
+                ) : (
+                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200">
+                    {data.email}
+                  </div>
                 )}
               </div>
-
               <div className="col-span-12 sm:col-span-6">
                 <label
                   htmlFor="password"
@@ -173,12 +162,7 @@ export default function ProfilePage() {
                 >
                   Password
                 </label>
-                {!showInput && (
-                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-cl sm:text-m">
-                    ************
-                  </div>
-                )}
-                {showInput && (
+                {showInput ? (
                   <input
                     pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                     type="password"
@@ -187,8 +171,12 @@ export default function ProfilePage() {
                     defaultValue={userPassword}
                     onChange={(event) => setUserPassword(event.target.value)}
                     required
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-m"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                   />
+                ) : (
+                  <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200">
+                    ●●●●●●●●
+                  </div>
                 )}
               </div>
             </div>
