@@ -57,7 +57,7 @@ function AppBar({ menu }) {
                 onClick={() => {
                   handleCloseNavMenu(page.path);
                 }}
-                className="text-blueDiane hover:text-calypso font-medium text-xl px-5"
+                className="text-blueDiane hover:text-calypso font-bold text-xl px-5"
               >
                 <Text tid={page.label} />
               </button>

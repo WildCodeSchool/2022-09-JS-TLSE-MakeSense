@@ -274,11 +274,7 @@ function DecisionsPage() {
                 {/* Activity Feed */}
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                   <li className="mb-10 ml-4">
-                    {JSON.parse(decisions.content).firstDate > new Date() ? (
-                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
-                    ) : (
-                      <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                    )}
+                    <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                     <time className="mb-1 text-calypso text-m font-bold leading-none">
                       <div
                         // eslint-disable-next-line react/no-danger
@@ -295,11 +291,11 @@ function DecisionsPage() {
                   </li>
                   {JSON.parse(decisions.content).dateOpinion ? (
                     <li className="mb-10 ml-4">
-                      {JSON.parse(decisions.content).dateOpinion >
+                      {new Date(JSON.parse(decisions.content).dateOpinion) >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                      ) : (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
+                      ) : (
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
                       <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
@@ -314,15 +310,17 @@ function DecisionsPage() {
                       <h3 className="text-m font-normal text-gray-900">
                         Deadline pour donner son avis
                       </h3>
+                      <div>Plus que </div>
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
                     <li className="mb-10 ml-4">
-                      {JSON.parse(decisions.content).dateFirstDecision >
-                      new Date() ? (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                      ) : (
+                      {new Date(
+                        JSON.parse(decisions.content).dateFirstDecision
+                      ) > new Date() ? (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
+                      ) : (
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
                       <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
@@ -341,11 +339,11 @@ function DecisionsPage() {
                   ) : null}
                   {JSON.parse(decisions.content).dateEndConflict ? (
                     <li className="mb-10 ml-4">
-                      {JSON.parse(decisions.content).dateEndConflict >
+                      {new Date(JSON.parse(decisions.content).dateEndConflict) >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                      ) : (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
+                      ) : (
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
                       <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
@@ -364,11 +362,12 @@ function DecisionsPage() {
                   ) : null}
                   {JSON.parse(decisions.content).dateFinaleDecision ? (
                     <li className="mb-10 ml-4">
-                      {JSON.parse(decisions.content).dateFinaleDecision >
-                      new Date() ? (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                      ) : (
+                      {new Date(
+                        JSON.parse(decisions.content).dateFinaleDecision
+                      ) > new Date() ? (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
+                      ) : (
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
                       <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
