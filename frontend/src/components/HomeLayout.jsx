@@ -15,7 +15,7 @@ export default function HomeLayout() {
   const location = localStorage.getItem("location");
   // Si connecté redirige vers profile page
   if (user.email) {
-    return <Navigate to={location || "/user/profile"} replace />;
+    return <Navigate to={location || "/user/decisions"} replace />;
   }
 
   // Creation pages

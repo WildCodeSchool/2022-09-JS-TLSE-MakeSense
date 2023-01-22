@@ -28,7 +28,7 @@ export default function AdminLayout() {
     return <Navigate to="/" />;
   }
   if (user.email && !user.admin) {
-    return <Navigate to="../user/profile" />;
+    return <Navigate to="../user/decisions" />;
   }
 
   // Creation pages

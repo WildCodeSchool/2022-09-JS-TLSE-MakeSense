@@ -27,12 +27,9 @@ function UsersManager() {
 
   return IsLoaded ? (
     <div className="w-2/3">
-      <h1 className="text-center text-3xl font-bold">
-        Gestion des utilisateurs
-      </h1>
       <div className="px-4 sm:px-6 lg:px-8 w-full">
         <div className="sm:flex sm:items-center">
-          <div className="mt-4 sm:flex-none flex flex-col items-center w-full">
+          <div className="sm:flex-none flex flex-row justify-between items-center w-full">
             <input
               key="searchbarusers"
               id="searchbarusers"
@@ -71,7 +68,10 @@ function UsersManager() {
                     >
                       Email
                     </th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4">
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                    >
                       Edit
                     </th>
                   </tr>

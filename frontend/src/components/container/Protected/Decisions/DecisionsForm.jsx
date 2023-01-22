@@ -183,7 +183,7 @@ function DecisionsForm() {
           >
             <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 max-w-7xl mx-auto">
               <div className="md:grid md:grid-cols-3 md:gap-6">
-                <div className="md:col-span-1">
+                <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     Description
                   </h3>
@@ -379,7 +379,7 @@ function DecisionsForm() {
             </div>
             <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
               <div className="md:grid md:grid-cols-3 md:gap-6">
-                <div className="md:col-span-1">
+                <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     Personnes concernées
                   </h3>
@@ -411,7 +411,7 @@ function DecisionsForm() {
             </div>
             <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
               <div className="md:grid md:grid-cols-3 md:gap-6">
-                <div className="md:col-span-1">
+                <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     Calendrier
                   </h3>

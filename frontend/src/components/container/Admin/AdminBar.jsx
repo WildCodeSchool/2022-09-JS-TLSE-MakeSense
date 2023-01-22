@@ -21,8 +21,7 @@ function AdminBar({ menuadmin, tools }) {
     <div className="menuadmin">
       <div className="md:flex md:w-64 md:flex-col h-full">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <nav className="bg-gray-50 border-r border-gray-200 pt-5 pb-4 flex flex-col flex-grow overflow-y-auto">
-          <h1 className="text-2xl font-bold px-4">Dashboard</h1>
+        <nav className="bg-gray-50 border-r border-gray-200 pb-4 flex flex-col flex-grow overflow-y-auto">
           <div className="flex-grow mt-5">
             {menuadmin.map((page) => (
               <button

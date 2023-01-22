@@ -27,10 +27,9 @@ function UsersManager() {
 
   return IsLoaded ? (
     <div className="w-2/3">
-      <h1 className="text-center text-3xl font-bold">Gestion des groupes</h1>
       <div className="px-4 sm:px-6 lg:px-8 w-full">
         <div className="sm:flex sm:items-center">
-          <div className="mt-4 sm:flex-none flex flex-col items-center w-full">
+          <div className="sm:flex-none flex flex-row justify-between items-center w-full">
             <input
               key="searchbarusers"
               id="searchbarusers"
@@ -38,7 +37,7 @@ function UsersManager() {
               type="text"
               value={searchTerm}
               onChange={handleChange}
-              placeholder="Chercher un utilisateur"
+              placeholder="Chercher un groupe"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg w-1/2 p-2.5 my-5"
             />
             <button
@@ -69,7 +68,10 @@ function UsersManager() {
                     >
                       Nombre de personnes
                     </th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4">
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                    >
                       Edit
                     </th>
                   </tr>
