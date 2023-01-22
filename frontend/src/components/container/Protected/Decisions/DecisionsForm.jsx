@@ -214,7 +214,7 @@ function DecisionsForm() {
                                 [event.target.name]: event.target.value,
                               });
                             }}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
                           />
                         </div>
                         {errors &&
@@ -420,23 +420,25 @@ function DecisionsForm() {
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                  <div className="datepicker">
-                    <p>Date de dépôt de la décision</p>
+                  <div className="my-5">
+                    <p className="mb-5">Date de dépôt de la décision</p>
                     <DatePicker
                       selected={form.firstDate}
                       minDate={form.firstDate}
                       maxDate={form.firstDate}
                       readOnly
+                      className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
                     />
                   </div>
-                  <div className="datepicker">
-                    <p>Fin de la prise des avis</p>
+                  <div className="my-5">
+                    <p className="mb-5">Fin de la prise des avis</p>
                     <DatePicker
                       selected={form.dateOpinion}
                       minDate={form.firstDate}
                       onChange={(d) => {
                         setForm({ ...form, dateOpinion: d });
                       }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-l w-1/3 rounded-lg p-2.5 focus:outline-2 focus:outline-cyan-800"
                     />
                   </div>
                   {errors &&
@@ -454,14 +456,15 @@ function DecisionsForm() {
                       }
                       return null;
                     })}
-                  <div className="datepicker">
-                    <p>Fin de la première décision</p>
+                  <div className="my-5">
+                    <p className="mb-5">Fin de la première décision</p>
                     <DatePicker
                       selected={form.dateFirstDecision}
                       minDate={form.dateOpinion}
                       onChange={(d) => {
                         setForm({ ...form, dateFirstDecision: d });
                       }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-l w-1/3 rounded-lg p-2.5 focus:outline-2 focus:outline-cyan-800"
                     />
                   </div>
                   {errors &&
@@ -479,14 +482,17 @@ function DecisionsForm() {
                       }
                       return null;
                     })}
-                  <div className="datepicker">
-                    <p>Fin du conflit sur la première décision</p>
+                  <div className="my-5">
+                    <p className="mb-5">
+                      Fin du conflit sur la première décision
+                    </p>
                     <DatePicker
                       selected={form.dateEndConflict}
                       minDate={form.dateFirstDecision}
                       onChange={(d) => {
                         setForm({ ...form, dateEndConflict: d });
                       }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-l w-1/3 rounded-lg p-2.5 focus:outline-2 focus:outline-cyan-800"
                     />
                   </div>
                   {errors &&
@@ -504,14 +510,15 @@ function DecisionsForm() {
                       }
                       return null;
                     })}
-                  <div className="datepicker">
-                    <p>Décision définitive</p>
+                  <div className="my-5">
+                    <p className="mb-5">Décision définitive</p>
                     <DatePicker
                       selected={form.dateFinaleDecision}
                       minDate={form.dateEndConflict}
                       onChange={(d) => {
                         setForm({ ...form, dateFinaleDecision: d });
                       }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-l w-1/3 rounded-lg p-2.5 focus:outline-2 focus:outline-cyan-800"
                     />
                   </div>
                   {errors &&
