@@ -89,8 +89,8 @@ function DecisionsAll() {
 
   return (
     isLoaded && (
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-10 m-10 rounded flex flex-col mt-0">
-        <div className="sm:px-4 lg:px-8 rounded flex flex-col">
+      <div className="max-w-7xl mx-auto px-2 py-10 m-10 rounded flex flex-col mt-0">
+        <div className="rounded flex flex-col items-center">
           <input
             key="searchbar"
             id="searchbar"
@@ -98,24 +98,24 @@ function DecisionsAll() {
             type="text"
             value={searchTerm}
             onChange={handleChange}
-            placeholder="Search..."
-            className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Rechercher une décision..."
+            className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
           />
-          <div className="flex flex-row w-full justify-between">
+          <div className="flex flex-row w-full justify-between p-3">
             <div>
               <select
                 value={StatusSelect || ""}
                 id="select-status"
                 onChange={HandlerStatus}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
               >
-                <option value="">--Please choose an option--</option>
-                <option value="1">commencée</option>
-                <option value="2">1rst décision prise</option>
-                <option value="3">1rst décision conflit</option>
-                <option value="4">définitive</option>
-                <option value="5">non aboutie</option>
-                <option value="6">terminée</option>
+                <option value="">-- Toutes les décisions --</option>
+                <option value="1">Décisions commencées</option>
+                <option value="2">Avis donnés</option>
+                <option value="3">Premières décisions prises</option>
+                <option value="4">Décisions prises définitivement</option>
+                <option value="5">Décisions non abouties</option>
+                <option value="6">Décisions terminées</option>
               </select>
             </div>
             <div>
@@ -125,11 +125,11 @@ function DecisionsAll() {
                 onClick={HandlerDuree}
                 className={
                   DureeSelect === "1"
-                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
                 }
               >
-                {`<24H`}
+                {`< 24H`}
               </button>
               <button
                 type="button"
@@ -137,11 +137,11 @@ function DecisionsAll() {
                 onClick={HandlerDuree}
                 className={
                   DureeSelect === "7"
-                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
                 }
               >
-                {`<Semaine`}
+                {`< 1 semaine`}
               </button>
               <button
                 type="button"
@@ -149,11 +149,11 @@ function DecisionsAll() {
                 onClick={HandlerDuree}
                 className={
                   DureeSelect === "31"
-                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
                 }
               >
-                {`<Mois`}
+                {`< 1 mois`}
               </button>
               <button
                 type="button"
@@ -161,11 +161,11 @@ function DecisionsAll() {
                 onClick={HandlerDuree}
                 className={
                   DureeSelect === "93"
-                    ? "text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"
-                    : "text-calypso bg-white border hover:bg-calypso hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
                 }
               >
-                {`<3Mois`}
+                {`< 3 mois`}
               </button>
             </div>
           </div>
