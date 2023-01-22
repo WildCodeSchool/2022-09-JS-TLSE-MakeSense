@@ -22,8 +22,10 @@ function Card({ data }) {
           ? parseDescription.props.children.substring(0, 25)
           : parseDescription.props.children}
       </p>
-      <div className="flex flex-row justify-between">
-        <div>{data.id_user_creator}</div>
+      <div className="flex flex-row justify-between text-xs text-gray-400 items-baseline">
+        <div>
+          Par {data.firstname} {data.lastname}
+        </div>
         <div className="bg-green-100 text-green-800 text-m font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
           avis
         </div>
