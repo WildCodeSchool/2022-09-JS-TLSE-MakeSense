@@ -14,6 +14,7 @@ export default function ProfilePage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
   let serviceId = null;
 
@@ -50,15 +51,42 @@ export default function ProfilePage() {
       );
       if (updateUser.status === 204) {
         setUpdate(true);
+        setIsSubmit(true);
       }
     };
     updateUserData();
-    navigate("/user/profile", { replace: true });
     setShowInput(!showInput);
   };
 
   return isLoaded ? (
     <>
+      {isSubmit && (
+        <div
+          id="popup-modal"
+          tabIndex="-1"
+          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+        >
+          <div className="w-full max-w-md md:h-auto">
+            <div className="relative bg-white rounded-lg shadow">
+              <div className="p-6 text-center">
+                <h3 className="mb-5 text-lg font-normal text-gray-500">
+                  Les données ont été modifiées avec succès !
+                </h3>
+                <button
+                  data-modal-hide="popup-modal"
+                  type="button"
+                  className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  onClick={() => {
+                    navigate("/user/profile", { replace: true });
+                  }}
+                >
+                  Revenir au profil
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>

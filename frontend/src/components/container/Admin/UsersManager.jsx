@@ -124,7 +124,6 @@ function UsersManager() {
                             <div className="font-medium text-gray-900">
                               {data.lastname} {data.firstname}
                             </div>
-                            <div className="text-gray-500">{data.email}</div>
                           </div>
                         </div>
                       </td>
