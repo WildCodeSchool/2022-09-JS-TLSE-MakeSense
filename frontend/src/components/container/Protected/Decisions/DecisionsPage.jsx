@@ -275,11 +275,11 @@ function DecisionsPage() {
                 <ol className="relative border-l border-gray-200 dark:border-gray-700">
                   <li className="mb-10 ml-4">
                     {JSON.parse(decisions.content).firstDate > new Date() ? (
-                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                     ) : (
-                      <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                      <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                     )}
-                    <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    <time className="mb-1 text-calypso text-m font-bold leading-none">
                       <div
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
@@ -289,19 +289,19 @@ function DecisionsPage() {
                         }}
                       />
                     </time>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      Dépôt de la décision
+                    <h3 className="text-m font-normal text-gray-900">
+                      Prise de décision commencée
                     </h3>
                   </li>
                   {JSON.parse(decisions.content).dateOpinion ? (
                     <li className="mb-10 ml-4">
                       {JSON.parse(decisions.content).dateOpinion >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                      <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
@@ -311,8 +311,8 @@ function DecisionsPage() {
                           }}
                         />
                       </time>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Fin de la période pour donner son avis
+                      <h3 className="text-m font-normal text-gray-900">
+                        Deadline pour donner son avis
                       </h3>
                     </li>
                   ) : null}
@@ -320,11 +320,11 @@ function DecisionsPage() {
                     <li className="mb-10 ml-4">
                       {JSON.parse(decisions.content).dateFirstDecision >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                      <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
@@ -334,20 +334,20 @@ function DecisionsPage() {
                           }}
                         />
                       </time>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      <h5 className="text-m font-normal text-gray-900">
                         Première décision prise
-                      </h3>
+                      </h5>
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateEndConflict ? (
                     <li className="mb-10 ml-4">
                       {JSON.parse(decisions.content).dateEndConflict >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                      <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
@@ -357,31 +357,31 @@ function DecisionsPage() {
                           }}
                         />
                       </time>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Fin de la période de conflit
+                      <h3 className="text-m font-normal text-gray-900">
+                        Deadline pour entrer en conflit
                       </h3>
                     </li>
                   ) : null}
-                  {JSON.parse(decisions.content).finaleDecision ? (
+                  {JSON.parse(decisions.content).dateFinaleDecision ? (
                     <li className="mb-10 ml-4">
-                      {JSON.parse(decisions.content).finaleDecision >
+                      {JSON.parse(decisions.content).dateFinaleDecision >
                       new Date() ? (
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700" />
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       )}
-                      <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                      <time className="mb-1 text-calypso text-m font-bold leading-none">
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
                             __html: JSON.parse(
                               decisions.content
-                            ).finaleDecision.substring(0, 10),
+                            ).dateFinaleDecision.substring(0, 10),
                           }}
                         />
                       </time>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Décision finale
+                      <h3 className="text-m font-normal text-gray-900">
+                        Décision définitive
                       </h3>
                     </li>
                   ) : null}
