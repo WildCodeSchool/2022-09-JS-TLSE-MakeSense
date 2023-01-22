@@ -108,11 +108,11 @@ function DecisionsForm() {
         const body = {
           id_user_impact: impac.id,
         };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
+        // return api
+        //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+        //   .then((json) => {
+        //     return json;
+        //   });
       });
     }
     if (experts.length > 0) {
@@ -120,11 +120,11 @@ function DecisionsForm() {
         const body = {
           id_user_expert: expert.id,
         };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
+        // return api
+        //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
+        //   .then((json) => {
+        //     return json;
+        //   });
       });
     }
 
@@ -144,11 +144,11 @@ function DecisionsForm() {
         id_user_creator: user.id,
       };
       setIsSubmit(true);
-      return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
-        .then((json) => {
-          return json;
-        });
+      // return api
+      //   .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+      //   .then((json) => {
+      //     return json;
+      //   });
     }
   }
 
@@ -156,25 +156,31 @@ function DecisionsForm() {
     isLoaded && (
       <div>
         {isSubmit && (
-          <>
-            <button
-              type="button"
-              aria-label="form submit"
-              className="modal-overlay"
-              onClick={() => setIsSubmit(!isSubmit)}
-            />
-            <div className="modal">
-              <h2>Le formulaire a été soumis avec succès !</h2>
-              <button
-                type="submit"
-                onClick={() => {
-                  navigate(`/user/decisions`);
-                }}
-              >
-                Revenir à la page d'accueil
-              </button>
+          <div
+            id="popup-modal"
+            tabIndex="-1"
+            className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+          >
+            <div className="w-full max-w-md md:h-auto">
+              <div className="relative bg-white rounded-lg shadow">
+                <div className="p-6 text-center">
+                  <h3 className="mb-5 text-lg font-normal text-gray-500">
+                    Le formulaire a été soumis avec succès !
+                  </h3>
+                  <button
+                    data-modal-hide="popup-modal"
+                    type="button"
+                    className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    onClick={() => {
+                      navigate(`/user/decisions`);
+                    }}
+                  >
+                    Revenir aux décisions
+                  </button>
+                </div>
+              </div>
             </div>
-          </>
+          </div>
         )}
         <div className="space-y-6">
           <form
