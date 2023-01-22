@@ -52,7 +52,10 @@ function DecisionsAll() {
               body
             );
           }
-          if (new Date(content.dateFinaleDecision) < new Date()) {
+          if (
+            new Date(content.dateFinaleDecision) <
+            new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
+          ) {
             updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
@@ -110,12 +113,12 @@ function DecisionsAll() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
               >
                 <option value="">-- Toutes les décisions --</option>
-                <option value="1">Décisions commencées</option>
-                <option value="2">Avis donnés</option>
-                <option value="3">Premières décisions prises</option>
-                <option value="4">Décisions prises définitivement</option>
-                <option value="5">Décisions non abouties</option>
-                <option value="6">Décisions terminées</option>
+                <option value="1">En attente d'avis</option>
+                <option value="2">En attente première décision</option>
+                <option value="3">En conflit</option>
+                <option value="3">Décision prise définitivement</option>
+                <option value="5">Décisions archivées</option>
+                <option value="4">Décisions non abouties</option>
               </select>
             </div>
             <div>

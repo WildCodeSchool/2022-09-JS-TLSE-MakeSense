@@ -437,7 +437,7 @@ function DecisionsForm() {
                     />
                   </div>
                   <div className="my-5">
-                    <p className="mb-5">Fin de la prise des avis</p>
+                    <p className="mb-5">Deadline pour donner son avis</p>
                     <DatePicker
                       selected={form.dateOpinion}
                       minDate={form.firstDate}
@@ -463,7 +463,9 @@ function DecisionsForm() {
                       return null;
                     })}
                   <div className="my-5">
-                    <p className="mb-5">Fin de la première décision</p>
+                    <p className="mb-5">
+                      Date de prise de la première décision
+                    </p>
                     <DatePicker
                       selected={form.dateFirstDecision}
                       minDate={form.dateOpinion}
@@ -489,9 +491,7 @@ function DecisionsForm() {
                       return null;
                     })}
                   <div className="my-5">
-                    <p className="mb-5">
-                      Fin du conflit sur la première décision
-                    </p>
+                    <p className="mb-5">Deadline pour entrer en conflit</p>
                     <DatePicker
                       selected={form.dateEndConflict}
                       minDate={form.dateFirstDecision}
@@ -517,7 +517,9 @@ function DecisionsForm() {
                       return null;
                     })}
                   <div className="my-5">
-                    <p className="mb-5">Décision définitive</p>
+                    <p className="mb-5">
+                      Date de la prise de décision définitive
+                    </p>
                     <DatePicker
                       selected={form.dateFinaleDecision}
                       minDate={form.dateEndConflict}
