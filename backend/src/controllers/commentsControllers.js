@@ -4,7 +4,7 @@ const browse = (req, res) => {
   models.comments
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      res.status(204).send(rows);
     })
     .catch((err) => {
       console.error(err);
@@ -17,25 +17,9 @@ const browseWithDecisionId = (req, res) => {
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
-        res.sendStatus(404);
+        res.status(200).send(rows);
       } else {
         res.send(rows);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
-const read = (req, res) => {
-  models.comments
-    .find(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
       }
     })
     .catch((err) => {
@@ -99,7 +83,6 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   browseWithDecisionId,
-  read,
   edit,
   add,
   destroy,

@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import PropTypes from "prop-types";
-import Spinner from "@components/Spinner";
+import Spinner from "../components/Spinner";
 
 function Loader({ compname, foldername, filename }) {
   const DynamicComponent = lazy(() =>

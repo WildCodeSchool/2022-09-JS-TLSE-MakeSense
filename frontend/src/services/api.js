@@ -27,6 +27,7 @@ function api() {
       },
       credentials: "include",
     });
+    // eslint-disable-next-line no-return-await
     return await res.json();
   };
 
