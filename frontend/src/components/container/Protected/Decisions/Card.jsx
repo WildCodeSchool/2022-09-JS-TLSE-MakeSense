@@ -7,7 +7,6 @@ function Card({ data }) {
   const dataContent = JSON.parse(data.content);
   const parseDescription = parse(dataContent.description);
   let decisionStatus;
-  let color;
   if (data.status === 1) {
     decisionStatus = "En attente d'avis";
   } else if (data.status === 2) {
@@ -22,7 +21,7 @@ function Card({ data }) {
     decisionStatus = "Décision non aboutie";
   }
   return (
-    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md">
       <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {dataContent.title}
       </h2>

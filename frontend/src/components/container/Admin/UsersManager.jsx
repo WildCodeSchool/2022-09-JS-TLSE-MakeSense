@@ -26,7 +26,7 @@ function UsersManager() {
   }
 
   return IsLoaded ? (
-    <div className="w-2/3">
+    <div className=" ">
       <div className="px-4 sm:px-6 lg:px-8 w-full">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-none flex flex-row justify-between items-center w-full">
@@ -44,7 +44,7 @@ function UsersManager() {
               type="button"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
             >
-              Add user
+              Ajouter un utilisateur
             </button>
           </div>
         </div>

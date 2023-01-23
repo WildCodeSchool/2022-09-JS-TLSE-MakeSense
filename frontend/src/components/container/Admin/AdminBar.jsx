@@ -18,11 +18,11 @@ function AdminBar({ menuadmin, tools }) {
   };
 
   return (
-    <div className="menuadmin">
-      <div className="md:flex md:w-64 md:flex-col h-full">
+    <div className="">
+      <div className="md:flex md:w-64 md:flex-col static bottom-0">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <nav className="bg-gray-50 border-r border-gray-200 pb-4 flex flex-col flex-grow overflow-y-auto">
-          <div className="flex-grow mt-5">
+        <nav className="pb-4 flex flex-col flex-grow">
+          <div className="flex-grow mt-5 fixed">
             {menuadmin.map((page) => (
               <button
                 className={

@@ -11,6 +11,7 @@ function DecisionsPage() {
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
+
   const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
