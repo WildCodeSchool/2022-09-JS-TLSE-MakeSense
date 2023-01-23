@@ -44,6 +44,12 @@ class UsersManager extends AbstractManager {
       ]
     );
   }
+
+  delete(id) {
+    return this.connection.query(`delete from ${this.table} where id = ?`, [
+      id,
+    ]);
+  }
 }
 
 module.exports = UsersManager;
