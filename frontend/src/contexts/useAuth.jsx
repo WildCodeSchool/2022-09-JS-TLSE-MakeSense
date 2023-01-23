@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
   });
   const navigate = useNavigate();
 
-  const checkToken = async (id) => {
+  const reconnect = async (id) => {
     const checkuser = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
     );
@@ -27,8 +27,9 @@ export function AuthProvider({ children }) {
       email: checkuser.email,
       firstname: checkuser.firstname,
       lastname: checkuser.lastname,
-      id: checkuser.id,
+      id,
     });
+    navigate("/user/profile", { replace: true });
   };
 
   // reconnexion peuple user
@@ -41,7 +42,7 @@ export function AuthProvider({ children }) {
       .find((row) => row.startsWith("makesense_access_token="))
       ?.split("=Bearer%20")[1];
     const payload = JSON.parse(window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g)));
-    checkToken(payload.sub);
+    reconnect(payload.sub);
   }
 
   const login = async (data) => {

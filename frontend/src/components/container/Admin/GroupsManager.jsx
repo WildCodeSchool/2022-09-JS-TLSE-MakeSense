@@ -26,17 +26,20 @@ function UsersManager() {
     });
   };
 
-  const HandlerDeleteGroup = (id) => {
+  function handleDeleteGroup(e) {
+    e.preventDefault();
+    const id = e.currentTarget.value;
     const deletegroup = api.apideletemysql(
       `${import.meta.env.VITE_BACKEND_URL}/groups/${id}`
     );
-    if (deletegroup.status === 201) {
+    if (deletegroup.status === 204) {
       SetIsLoaded(false);
-      navigate(`/admin/dashboard?tools=GroupsManager&mode`, {
+      navigate(`/admin/dashboard?tools=GroupsManager`, {
         replace: true,
       });
     }
-  };
+    SetIsLoaded(false);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -70,7 +73,7 @@ function UsersManager() {
       SetIsLoaded(true);
     };
     getAllapi();
-  }, []);
+  }, [IsLoaded]);
 
   const [searchTerm, setSearchTerm] = useState("");
   function handleChange(event) {
@@ -206,17 +209,15 @@ function UsersManager() {
                             </div>
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
-                            <button
-                              type="button"
-                              onClick={HandlerDeleteGroup(data.id)}
-                            >
+                            <button value={data.id} type="button">
                               <HiPencilSquare />
                             </button>
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
                             <button
                               type="button"
-                              onClick={HandlerDeleteGroup(data.id)}
+                              value={data.id}
+                              onClick={handleDeleteGroup}
                             >
                               <HiOutlineArchiveBoxXMark />
                             </button>
