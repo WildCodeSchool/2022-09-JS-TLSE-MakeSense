@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "@services/api";
 import { useNavigate } from "react-router-dom";
+import { Text } from "../../../../contexts/Language";
 import Card from "./Card";
 import "../../../../assets/css/layout.css";
 
@@ -113,7 +114,9 @@ function DecisionsAll() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
               >
                 <option value="">-- Toutes les décisions --</option>
-                <option value="1">En attente d'avis</option>
+                <option value="1">
+                  <Text tid="waitopinion" />
+                </option>
                 <option value="2">En attente première décision</option>
                 <option value="3">En conflit</option>
                 <option value="3">Décision prise définitivement</option>

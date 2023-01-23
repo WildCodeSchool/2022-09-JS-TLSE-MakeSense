@@ -22,6 +22,7 @@ function LangSettings() {
   );
 
   const HandlerMode = (mode) => {
+    mode.preventDefault();
     setModeSelect(mode.target.value);
     navigate(`/admin/dashboard?tools=Languages&mode=${mode.target.value}`, {
       replace: true,
@@ -29,10 +30,12 @@ function LangSettings() {
   };
 
   const HandlerLang = (event) => {
+    event.preventDefault();
     setAddLangSelect(event.target.value !== "" ? event.target.value : null);
   };
 
   const HandlerKey = (event) => {
+    event.preventDefault();
     setAddLangForm({ ...AddLangForm, [event.target.id]: event.target.value });
   };
 

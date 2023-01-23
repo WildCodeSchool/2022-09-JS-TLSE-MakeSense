@@ -36,6 +36,8 @@ router.post("/comments", commentsControllers.add);
 router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
+router.post("/groups", groupsControllers.add);
+router.delete("/groups/:id", groupsControllers.destroy);
 
 router.post("/impacted", impactedControllers.add);
 router.get("/impacted/:id", impactedControllers.read);

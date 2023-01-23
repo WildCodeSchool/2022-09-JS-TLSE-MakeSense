@@ -63,10 +63,27 @@ function api() {
     return await res;
   };
 
+  const apideletemysql = async (url, body) => {
+    checktoken();
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
+        Authorization: `Bearer ${token}`,
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify(body), // body data type must match "Content-Type" header
+      credentials: "include",
+    });
+    return await res;
+  };
+
   return {
     apigetmysql,
     apipostmysql,
     apiputmysql,
+    apideletemysql,
   };
 }
 
