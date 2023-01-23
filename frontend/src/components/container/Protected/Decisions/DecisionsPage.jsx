@@ -1,26 +1,17 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
+import { useNavigate, useLocation } from "react-router-dom";
 import "@assets/css/container/protected/DecisionPage.css";
 import CommentSection from "@components/header/CommentSection";
-import { useLocation } from "react-router-dom";
 import Spinner from "@components/Spinner";
 
 function DecisionsPage() {
+  const navigate = useNavigate();
   const [decisions, setDecisions] = useState(null);
   const [impacted, setImpacted] = useState();
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
-  const [descriptionData, setDescriptionData] = useState();
-  const [contextData, setContextData] = useState();
-  const [utilityData, setUtilityData] = useState();
-  const [advantagesData, setAdvantagesData] = useState();
-  const [inconvenientsData, setInconvenientsData] = useState();
-  const [modifDescription, setModifDescription] = useState(false);
-  const [modifContext, setModifContext] = useState(false);
-  const [modifUtility, setModifUtility] = useState(false);
-  const [modifAdvantages, setModifAdvantages] = useState(false);
-  const [modifInconvenients, setModifInconvenients] = useState(false);
 
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
@@ -40,80 +31,6 @@ function DecisionsPage() {
     };
     getAllApis();
   }, []);
-
-  useEffect(() => {
-    const updateDecisionData = async () => {
-      const getDecision = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
-      );
-      setDescriptionData(getDecision.description);
-      setContextData(getDecision.context);
-      setUtilityData(getDecision.utility);
-      setAdvantagesData(getDecision.pros);
-      setInconvenientsData(getDecision.cons);
-    };
-    updateDecisionData(); // lance la fonction getDecisionData
-  }, []);
-
-  const handleClick1 = (event) => {
-    // event.preventDefault();
-    const body = {
-      title: decisions.title,
-      content: {
-        description: decisions.content.description,
-        utility: decisions.content.utility,
-        context: decisions.content.context,
-        pros: decisions.content.pros,
-        cons: decisions.content.cons,
-      },
-    };
-    setModifDescription(!modifDescription);
-    if (modifDescription === true) {
-      handleClick1(() => {
-        // updateDecisionData();
-      });
-    }
-  };
-
-  const handleClick2 = (event) => {
-    // event.preventDefault();
-    setModifContext(!modifContext);
-    if (modifContext === true) {
-      handleClick2(() => {
-        // updateDecisionData();
-      });
-    }
-  };
-
-  const handleClick3 = (event) => {
-    // event.preventDefault();
-    setModifUtility(!modifUtility);
-    if (modifUtility === true) {
-      handleClick3(() => {
-        // updateDecisionData();
-      });
-    }
-  };
-
-  const handleClick4 = (event) => {
-    // event.preventDefault();
-    setModifAdvantages(!modifAdvantages);
-    if (modifAdvantages === true) {
-      handleClick4(() => {
-        // updateDecisionData();
-      });
-    }
-  };
-
-  const handleClick5 = (event) => {
-    // event.preventDefault();
-    setModifInconvenients(!modifInconvenients);
-    if (modifInconvenients === true) {
-      handleClick5(() => {
-        // updateDecisionData();
-      });
-    }
-  };
 
   return isLoaded ? (
     <div className="decisionContainer">
@@ -140,19 +57,6 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).description,
               }}
             />
-            {modifDescription && (
-              <input
-                type="text"
-                id="description"
-                name="description"
-                defaultValue={decisions.content}
-              />
-            )}
-            <button type="button" onClick={handleClick1}>
-              {modifDescription
-                ? "Valider la description"
-                : "Modifier la description"}
-            </button>
           </details>
           <details>
             <summary>Contexte</summary>
@@ -162,17 +66,6 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).context,
               }}
             />
-            {modifContext && (
-              <input
-                type="text"
-                id="context"
-                name="context"
-                defaultValue={decisions.content}
-              />
-            )}
-            <button type="button" onClick={handleClick2}>
-              {modifContext ? "Valider le contexte" : "Modifier le contexte"}
-            </button>
           </details>
           <details>
             <summary>Utilité</summary>
@@ -182,17 +75,6 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).utility,
               }}
             />
-            {modifUtility && (
-              <input
-                type="text"
-                id="utility"
-                name="utility"
-                defaultValue={decisions.content}
-              />
-            )}
-            <button type="button" onClick={handleClick3}>
-              {modifUtility ? "Valider l'utilité" : "Modifier l'utilité"}
-            </button>
           </details>
           <details>
             <summary>Avantages</summary>
@@ -202,19 +84,6 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).pros,
               }}
             />
-            {modifAdvantages && (
-              <input
-                type="text"
-                id="advantages"
-                name="advantages"
-                defaultValue={decisions.content}
-              />
-            )}
-            <button type="button" onClick={handleClick4}>
-              {modifAdvantages
-                ? "Valider les avantages"
-                : "Modifier les avantages"}
-            </button>
           </details>
           <details>
             <summary>Inconvénients</summary>
@@ -224,19 +93,6 @@ function DecisionsPage() {
                 __html: JSON.parse(decisions.content).cons,
               }}
             />
-            {modifInconvenients && (
-              <input
-                type="text"
-                id="inconvenients"
-                name="inconvenients"
-                defaultValue={decisions.content}
-              />
-            )}
-            <button type="button" onClick={handleClick5}>
-              {modifInconvenients
-                ? "Valider les inconvénients"
-                : "Modifier les inconvénients"}
-            </button>
           </details>
           <CommentSection
             id={id}
@@ -244,6 +100,17 @@ function DecisionsPage() {
             setComments={setComments}
           />
         </div>
+        <button
+          type="button"
+          key="key"
+          id="8"
+          onClick={() => {
+            navigate(`/user/decisions?comp=Edit`);
+          }}
+        >
+          {" "}
+          Modifier la décision
+        </button>
       </div>
       <div>
         {JSON.parse(decisions.content).firstDecision ? (
