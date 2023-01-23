@@ -28,8 +28,7 @@ class GroupManager extends AbstractManager {
     });
     values = values.substring(1);
     return this.connection.query(
-      `INSERT INTO group_user (id_user, id_group) VALUES ?;`,
-      [values]
+      `INSERT INTO group_user (id_user, id_group) VALUES ${values};`
     );
   }
 

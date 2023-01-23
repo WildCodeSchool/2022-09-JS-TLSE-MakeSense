@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
       email: checkuser.email,
       firstname: checkuser.firstname,
       lastname: checkuser.lastname,
-      id,
+      id: checkuser.id,
     });
   };
 
