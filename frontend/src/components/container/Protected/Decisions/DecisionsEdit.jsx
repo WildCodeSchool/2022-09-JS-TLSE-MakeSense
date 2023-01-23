@@ -73,8 +73,14 @@ function DecisionsForm() {
     dateFinaleDecision: new Date(),
   });
 
-  // state to get the original data
+  // state to get the original data and to update it
   const [decisionsData, setDecisionsData] = useState(null);
+  const [updateData, setUpdateData] = useState(false);
+  const [decisionDescription, setDecisionDescription] = useState();
+  const [decisionContext, setDecisionContext] = useState();
+  const [decisionUtility, setDecisionUtility] = useState();
+  const [decisionPros, setDecisionPros] = useState();
+  const [decisionCons, setDecisionCons] = useState();
 
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
@@ -90,14 +96,20 @@ function DecisionsForm() {
 
   // useEffect to set the original data
   useEffect(() => {
-    const getAllApis = async () => {
-      // get the decision
-      const callDecisionsData = await api.apigetmysql(
+    const getDecisionsData = async () => {
+      // get the original decision
+      const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionsData(callDecisionsData);
+      setDecisionsData(getDecisions);
+      setDecisionDescription(getDecisions.content.description);
+      setDecisionContext(getDecisions.content.context);
+      setDecisionUtility(getDecisions.content.utility);
+      setDecisionPros(getDecisions.content.pros);
+      setDecisionCons(getDecisions.content.cons);
     };
-  });
+    getDecisionsData(); // lance la fonction getDecisionsData
+  }, [updateData]);
 
   useEffect(() => {
     getUsers();
