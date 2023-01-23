@@ -70,7 +70,7 @@ export default function AdminLayout() {
       <header>
         <AppBar menu={menu} />
       </header>
-      <div className="flex flex-row h-full">
+      <div className="flex flex-row h-full overflow-y-scroll">
         <AdminBar menuadmin={menuadmin} tools={tools} />
         <div className="flex flex-col items-center w-full mt-10">
           <Suspense fallback={<Spinner />}>
