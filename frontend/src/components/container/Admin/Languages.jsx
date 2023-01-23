@@ -68,7 +68,7 @@ function LangSettings() {
   }, []);
 
   return IsLoaded ? (
-    <div className="w-2/3">
+    <div className=" ">
       <div className="w-full flex flex-row justify-center m-5">
         <button
           type="button"
