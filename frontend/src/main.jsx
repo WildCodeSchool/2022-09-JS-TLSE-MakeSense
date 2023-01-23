@@ -5,6 +5,7 @@ import { LanguageProvider } from "./contexts/Language";
 import { FolderProvider } from "./contexts/Folder";
 import { AuthProvider } from "./contexts/useAuth";
 import App from "./App";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

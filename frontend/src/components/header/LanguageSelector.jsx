@@ -14,7 +14,11 @@ export default function LanguageSelector() {
   };
 
   return (
-    <select onChange={handleLanguageChange} value={userLanguage}>
+    <select
+      onChange={handleLanguageChange}
+      value={userLanguage}
+      className="border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 m-4"
+    >
       {Object.entries(languageOptions).map(([id, name]) => (
         <option key={id} value={id}>
           {name}

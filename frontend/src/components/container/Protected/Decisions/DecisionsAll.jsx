@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "@services/api";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
+import "../../../../assets/css/layout.css";
 
 // eslint-disable-next-line react/prop-types
 function DecisionsAll() {
@@ -51,7 +52,10 @@ function DecisionsAll() {
               body
             );
           }
-          if (new Date(content.dateFinaleDecision) < new Date()) {
+          if (
+            new Date(content.dateFinaleDecision) <
+            new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
+          ) {
             updateStatus = api.apiputmysql(
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
@@ -88,8 +92,8 @@ function DecisionsAll() {
 
   return (
     isLoaded && (
-      <div>
-        <div className="searchBar">
+      <div className="max-w-7xl mx-auto px-2 py-10 m-10 rounded flex flex-col mt-0">
+        <div className="rounded flex flex-col items-center">
           <input
             key="searchbar"
             id="searchbar"
@@ -97,57 +101,79 @@ function DecisionsAll() {
             type="text"
             value={searchTerm}
             onChange={handleChange}
-            placeholder="Search..."
+            placeholder="Rechercher une décision..."
+            className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
           />
-          <select
-            value={StatusSelect || ""}
-            id="select-status"
-            onChange={HandlerStatus}
-          >
-            <option value="">--Please choose an option--</option>
-            <option value="1">commencée</option>
-            <option value="2">1rst décision prise</option>
-            <option value="3">1rst décision conflit</option>
-            <option value="4">définitive</option>
-            <option value="5">non aboutie</option>
-            <option value="6">terminée</option>
-          </select>
+          <div className="flex flex-row w-full justify-between p-3">
+            <div>
+              <select
+                value={StatusSelect || ""}
+                id="select-status"
+                onChange={HandlerStatus}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+              >
+                <option value="">-- Toutes les décisions --</option>
+                <option value="1">En attente d'avis</option>
+                <option value="2">En attente première décision</option>
+                <option value="3">En conflit</option>
+                <option value="3">Décision prise définitivement</option>
+                <option value="5">Décisions archivées</option>
+                <option value="4">Décisions non abouties</option>
+              </select>
+            </div>
+            <div>
+              <button
+                type="button"
+                value="1"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "1"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
+                }
+              >
+                {`< 24H`}
+              </button>
+              <button
+                type="button"
+                value="7"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "7"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
+                }
+              >
+                {`< 1 semaine`}
+              </button>
+              <button
+                type="button"
+                value="31"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "31"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
+                }
+              >
+                {`< 1 mois`}
+              </button>
+              <button
+                type="button"
+                value="93"
+                onClick={HandlerDuree}
+                className={
+                  DureeSelect === "93"
+                    ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
+                    : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
+                }
+              >
+                {`< 3 mois`}
+              </button>
+            </div>
+          </div>
         </div>
-        <div>
-          <button
-            type="button"
-            value="1"
-            onClick={HandlerDuree}
-            className={DureeSelect === "1" ? "active" : ""}
-          >
-            {`<24H`}
-          </button>
-          <button
-            type="button"
-            value="7"
-            onClick={HandlerDuree}
-            className={DureeSelect === "7" ? "active" : ""}
-          >
-            {`<Semaine`}
-          </button>
-          <button
-            type="button"
-            value="31"
-            onClick={HandlerDuree}
-            className={DureeSelect === "31" ? "active" : ""}
-          >
-            {`<Mois`}
-          </button>
-          <button
-            type="button"
-            value="93"
-            onClick={HandlerDuree}
-            className={DureeSelect === "93" ? "active" : ""}
-          >
-            {`<3Mois`}
-          </button>
-        </div>
-        <div>
+        <div className="mx-auto grid grid-cols-3 gap-10">
           {
             // eslint-disable-next-line react/prop-types
             datas
@@ -172,6 +198,7 @@ function DecisionsAll() {
                   onClick={() => {
                     navigate(`/user/decisions?comp=Page&id=${data.id}`);
                   }}
+                  className=""
                 >
                   <Card key={data.id} data={data} />
                 </button>

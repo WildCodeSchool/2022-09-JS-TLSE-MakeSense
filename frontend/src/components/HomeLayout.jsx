@@ -5,7 +5,6 @@ import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.scss";
 
 export default function HomeLayout() {
   const { pages } = useContext(FolderContext);
@@ -16,7 +15,7 @@ export default function HomeLayout() {
   const location = localStorage.getItem("location");
   // Si connecté redirige vers profile page
   if (user.email) {
-    return <Navigate to={location || "/user/profile"} replace />;
+    return <Navigate to={location || "/user/decisions"} replace />;
   }
 
   // Creation pages
@@ -32,12 +31,14 @@ export default function HomeLayout() {
   });
 
   return (
-    <main className="container">
-      <header className="header">
+    <main className="flex flex-col justify-between h-screen">
+      <header>
         <AppBar menu={menu} />
       </header>
 
-      <div className="content">{outlet}</div>
+      <div className="flex flex-row justify-center items-center p-20">
+        {outlet}
+      </div>
 
       <footer className="footer">
         <FooterBar />

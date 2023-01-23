@@ -3,7 +3,6 @@ import { Navigate, redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import { Text } from "../../contexts/Language";
-import "@assets/css/container/home/Login.css";
 
 function LoginPage() {
   const { login } = useAuth();
@@ -66,53 +65,88 @@ function LoginPage() {
   };
 
   return (
-    <div className="wrapper">
-      <div className="login">
-        <h1>Register</h1>
+    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div className="register">
+        <h1 className="text-xl font-medium text-gray-900 dark:text-white">
+          Register
+        </h1>
 
-        <form noValidate onSubmit={handleSubmit}>
-          <label htmlFor="firstname">Prénom: </label>
-          <input
-            required
-            name="firstname"
-            label="Firstname"
-            type="firstname"
-            id="firstname"
-            autoComplete="current-firstname"
-          />
-          <br />
-          <label htmlFor="lastname">Nom de famille: </label>
-          <input
-            required
-            name="lastname"
-            label="Lastname"
-            type="lastname"
-            id="lastname"
-            autoComplete="current-lastname"
-          />
-          <br />
-          <label htmlFor="email">Email: </label>
-          <input
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            required
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-          />
-          <br />
-          <label htmlFor="password">Enter your password: </label>
-          <input
-            pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-            required
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <br />
-          <button type="submit">Register</button>
+        <form noValidate className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label
+              htmlFor="firstname"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Prénom
+            </label>
+            <input
+              required
+              name="firstname"
+              label="Firstname"
+              type="firstname"
+              id="firstname"
+              autoComplete="current-firstname"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lastname"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Nom de famille
+            </label>
+            <input
+              required
+              name="lastname"
+              label="Lastname"
+              type="lastname"
+              id="lastname"
+              autoComplete="current-lastname"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Email
+            </label>
+            <input
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              required
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Password
+            </label>
+            <input
+              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              required
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Register
+          </button>
         </form>
       </div>
     </div>
