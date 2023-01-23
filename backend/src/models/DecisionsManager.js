@@ -37,7 +37,7 @@ class DecisionsManager extends AbstractManager {
       durees = `AND DATE(date_created) >= CURDATE() - INTERVAL ${duree} DAY`;
     }
     return this.connection.query(
-      `SELECT decisions.id, decisions.content, decisions.status, decisions.id_user_creator, decisions.date_created, decisions.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees};`,
+      `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees};`,
       [status]
     );
   }
