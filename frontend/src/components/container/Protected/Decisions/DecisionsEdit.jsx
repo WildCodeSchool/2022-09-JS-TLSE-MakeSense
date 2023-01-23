@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Joi from "joi";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -10,6 +10,10 @@ import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
 
 function DecisionsForm() {
+  const URLParam = useLocation().search;
+  const id = new URLSearchParams(URLParam).get("id")
+    ? new URLSearchParams(URLParam).get("id")
+    : "";
   // set options WYSIWYG
   const modules = {
     toolbar: [
@@ -69,6 +73,9 @@ function DecisionsForm() {
     dateFinaleDecision: new Date(),
   });
 
+  // state to get the original data
+  const [decisionsData, setDecisionsData] = useState(null);
+
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users`
@@ -80,6 +87,17 @@ function DecisionsForm() {
     setGroups(callAllGroups);
     setIsLoaded(true);
   };
+
+  // useEffect to set the original data
+  useEffect(() => {
+    const getAllApis = async () => {
+      // get the decision
+      const callDecisionsData = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
+      );
+      setDecisionsData(callDecisionsData);
+    };
+  });
 
   useEffect(() => {
     getUsers();
