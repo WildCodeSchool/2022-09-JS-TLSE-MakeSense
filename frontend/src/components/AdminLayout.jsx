@@ -1,12 +1,11 @@
 import { useContext, Suspense } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import AdminBar from "@components/container/Admin/AdminBar";
+import AdminBar from "./container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
 import FooterBar from "./footer/FooterBar";
 import { LanguageContext } from "../contexts/Language";
 import { FolderContext } from "../contexts/Folder";
-import "../assets/css/Layout.scss";
 import Loader from "../services/Loader";
 import Spinner from "./Spinner";
 
@@ -29,7 +28,7 @@ export default function AdminLayout() {
     return <Navigate to="/" />;
   }
   if (user.email && !user.admin) {
-    return <Navigate to="../user/profile" />;
+    return <Navigate to="../user/decisions" />;
   }
 
   // Creation pages
@@ -67,23 +66,16 @@ export default function AdminLayout() {
     });
 
   return (
-    <main className="container">
-      <header className="header">
+    <main className="flex flex-col justify-between h-screen">
+      <header>
         <AppBar menu={menu} />
       </header>
-      <div className="content">
-        <div className="admin-wrapper">
-          <div className="menu-admin">
-            <AdminBar menuadmin={menuadmin} tools={tools} />
-          </div>
-          <div className="admin-tools-container">
-            <Suspense fallback={<Spinner />}>
-              <Loader
-                foldername="components/container/Admin"
-                filename={tools}
-              />
-            </Suspense>
-          </div>
+      <div className="flex flex-row h-full">
+        <AdminBar menuadmin={menuadmin} tools={tools} />
+        <div className="flex flex-col items-center w-full mt-10">
+          <Suspense fallback={<Spinner />}>
+            <Loader foldername="components/container/Admin" filename={tools} />
+          </Suspense>
         </div>
       </div>
       <footer className="footer">

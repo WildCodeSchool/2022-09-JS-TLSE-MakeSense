@@ -40,8 +40,10 @@ router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
 
-router.post("/experts", expertsControllers.add);
 router.post("/impacted", impactedControllers.add);
+router.get("/impacted/:id", impactedControllers.read);
+router.post("/experts", expertsControllers.add);
+router.get("/experts/:id", expertsControllers.read);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);

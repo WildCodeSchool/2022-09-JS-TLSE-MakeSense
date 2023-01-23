@@ -1,5 +1,4 @@
 import { WithContext as ReactTags } from "react-tag-input";
-import "../../../../../assets/css/form/formConcerned.css";
 
 const KeyCodes = {
   comma: 188,
@@ -14,6 +13,7 @@ function Concerned({ table, name, type, updateType }) {
   // eslint-disable-next-line react/prop-types
   const suggestions = table.map((user) => {
     return {
+      ...user,
       id: user.id.toString(),
       text: user.firstname
         ? `${user.firstname} ${user.lastname}`
@@ -33,8 +33,8 @@ function Concerned({ table, name, type, updateType }) {
   };
 
   return (
-    <div>
-      <h3>Les {name}</h3>
+    <div className=" mb-6">
+      <h3 className=" mb-6 text-m">Les {name}</h3>
       <ReactTags
         tags={type}
         suggestions={suggestions}
@@ -46,6 +46,19 @@ function Concerned({ table, name, type, updateType }) {
         allowDragDrop={false}
         placeholder="Recherche une personne concernée"
         allowDeleteFromEmptyInput={false}
+        classNames={{
+          tags: "tagsClass",
+          tagInput: "tagInputClass",
+          tagInputField: "tagInputFieldClass",
+          selected: "selectedClass",
+          tag: "tagClass",
+          remove: "removeClass",
+          suggestions: "suggestionsClass",
+          activeSuggestion: "activeSuggestionClass",
+          editTagInput: "editTagInputClass",
+          editTagInputField: "editTagInputField",
+          clearAll: "clearAllClass",
+        }}
       />
     </div>
   );

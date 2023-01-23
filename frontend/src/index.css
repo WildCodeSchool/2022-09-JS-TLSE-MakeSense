@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f3f4f6;
+  font-family: "Raleway", Helvetica, sans-serif, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+.longText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tagInputFieldClass {
+  background-color: #f9fafb;
+  padding: 0.625rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.suggestionsClass {
+  background-color: #f9fafb;
+  padding: 0.625rem;
+  border: 1px solid #d1d5db;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.tagClass {
+  color: #196c84;
+  background-color: #88b1be;
+  font-weight: bold;
+  padding: 0.625rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  border-radius: 0.25rem;
+  margin-right: 1rem;
+  margin-top: 10px;
+}
+
+.selectedClass {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.removeClass {
+  padding-left: 10px;
+}

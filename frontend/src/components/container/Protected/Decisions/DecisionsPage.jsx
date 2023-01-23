@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
 import { useNavigate, useLocation } from "react-router-dom";
-import "@assets/css/container/protected/DecisionPage.css";
 import CommentSection from "@components/header/CommentSection";
 import Spinner from "@components/Spinner";
 
