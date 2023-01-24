@@ -194,8 +194,7 @@ function DecisionsForm() {
                     Description
                   </h3>
                   <p className="mt-1 text-xl text-gray-500">
-                    Décrire ici toutes les informations concernant la
-                    description.
+                    Décrire ici toutes les informations concernant la décision.
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">

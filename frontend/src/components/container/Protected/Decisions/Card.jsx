@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
-function Card({ data }) {
+function Card({ data, user }) {
   // eslint-disable-next-line react/prop-types
   const dataContent = JSON.parse(data.content);
   const parseDescription = parse(dataContent.description);
@@ -38,7 +38,9 @@ function Card({ data }) {
       </p>
       <div className="flex flex-row justify-between text-xs text-gray-400 items-baseline">
         <div>
-          Par {data.firstname} {data.lastname}
+          {user
+            ? `Par ${user.firstname} ${user.lastname}`
+            : `Par ${data.firstname} ${data.lastname}`}
         </div>
         <div className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-lg">
           avis

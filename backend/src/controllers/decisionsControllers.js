@@ -3,20 +3,9 @@ const models = require("../models");
 const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
+  const userId = req.query.id ? req.query.id : "0";
   models.decisions
-    .readfilter(status, duree)
-    .then(([rows]) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
-const browseWithUserId = (req, res) => {
-  models.decisions
-    .findWithUserId(req.params.id)
+    .readfilter(status, duree, userId)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -116,5 +105,4 @@ module.exports = {
   statusedit,
   add,
   destroy,
-  browseWithUserId,
 };

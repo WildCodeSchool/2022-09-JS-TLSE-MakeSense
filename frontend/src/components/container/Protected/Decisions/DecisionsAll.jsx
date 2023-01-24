@@ -116,9 +116,9 @@ function DecisionsAll() {
                 <option value="1">En attente d'avis</option>
                 <option value="2">En attente première décision</option>
                 <option value="3">En conflit</option>
-                <option value="3">Décision prise définitivement</option>
+                <option value="4">Décision prise définitivement</option>
                 <option value="5">Décisions archivées</option>
-                <option value="4">Décisions non abouties</option>
+                <option value="6">Décisions non abouties</option>
               </select>
             </div>
             <div>

@@ -19,13 +19,15 @@ function DecisionsUser() {
     // Options query
     let duree;
     let status;
-    const userId = user.id;
+    const userId = `id=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
       const decisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions/user/${userId}`
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${userId}`
       );
       if (datas === null) {
         decisions.forEach((dec) => {
@@ -53,17 +55,6 @@ function DecisionsUser() {
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/4`,
-              body
-            );
-          }
-          if (
-            new Date(content.dateFinaleDecision) <
-            new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
-          ) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/5`,
               body
             );
           }
@@ -121,9 +112,9 @@ function DecisionsUser() {
                 <option value="1">En attente d'avis</option>
                 <option value="2">En attente première décision</option>
                 <option value="3">En conflit</option>
-                <option value="3">Décision prise définitivement</option>
+                <option value="4">Décision prise définitivement</option>
                 <option value="5">Décisions archivées</option>
-                <option value="4">Décisions non abouties</option>
+                <option value="6">Décisions non abouties</option>
               </select>
             </div>
             <div>
@@ -205,7 +196,7 @@ function DecisionsUser() {
                   }}
                   className=""
                 >
-                  <Card key={data.id} data={data} />
+                  <Card key={data.id} data={data} user={user} />
                 </button>
               ))
           }
