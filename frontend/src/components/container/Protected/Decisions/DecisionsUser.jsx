@@ -3,25 +3,31 @@ import api from "@services/api";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import "../../../../assets/css/layout.css";
+import { useAuth } from "../../../../contexts/useAuth";
 
 // eslint-disable-next-line react/prop-types
-function DecisionsAll() {
+function DecisionsUser() {
   const navigate = useNavigate();
   const [datas, setDatas] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [StatusSelect, setStatusSelect] = useState(null);
   const [DureeSelect, setDureeSelect] = useState(null);
 
+  const { user } = useAuth();
+
   useEffect(() => {
     // Options query
     let duree;
     let status;
+    const userId = `id=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
       const decisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions?${status}&${duree}`
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${userId}`
       );
       if (datas === null) {
         decisions.forEach((dec) => {
@@ -52,17 +58,6 @@ function DecisionsAll() {
               body
             );
           }
-          if (
-            new Date(content.dateFinaleDecision) <
-            new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
-          ) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/5`,
-              body
-            );
-          }
         });
       }
       setDatas(decisions);
@@ -81,6 +76,7 @@ function DecisionsAll() {
     setStatusSelect(event.target.value !== "" ? event.target.value : null);
     setIsLoaded(false);
   };
+
   const HandlerDuree = (event) => {
     if (DureeSelect === event.target.value) {
       setDureeSelect(null);
@@ -200,7 +196,7 @@ function DecisionsAll() {
                   }}
                   className=""
                 >
-                  <Card key={data.id} data={data} />
+                  <Card key={data.id} data={data} user={user} />
                 </button>
               ))
           }
@@ -209,4 +205,4 @@ function DecisionsAll() {
     )
   );
 }
-export default DecisionsAll;
+export default DecisionsUser;

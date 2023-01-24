@@ -26,7 +26,7 @@ function UsersManager() {
   }
 
   return IsLoaded ? (
-    <div className=" ">
+    <div className="w-2/3">
       <div className="px-4 sm:px-6 lg:px-8 w-full">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-none flex flex-row justify-between items-center w-full">
