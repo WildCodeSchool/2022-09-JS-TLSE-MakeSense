@@ -58,7 +58,7 @@ const verifyToken = (req, res, next) => {
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch (err) {
-    console.error(err);
+    console.error("Erreur de verification Token:", err);
     res.clearCookie("makesense_access_token").sendStatus(401);
   }
 };

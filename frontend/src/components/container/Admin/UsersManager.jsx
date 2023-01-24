@@ -44,7 +44,7 @@ function UsersManager() {
               type="button"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
             >
-              Add user
+              Ajouter un utilisateur
             </button>
           </div>
         </div>
