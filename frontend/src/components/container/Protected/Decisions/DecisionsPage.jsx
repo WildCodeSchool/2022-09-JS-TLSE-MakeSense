@@ -323,7 +323,6 @@ function DecisionsPage() {
                       <h3 className="text-m font-normal text-gray-900">
                         Deadline pour donner son avis
                       </h3>
-                      <div>Plus que </div>
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
@@ -427,9 +426,13 @@ function DecisionsPage() {
                             key={person.id}
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
+                            alt={`${
+                              person.firstname
+                            } ${person.lastname.toUpperCase()}`}
+                            title={`${
+                              person.firstname
+                            } ${person.lastname.toUpperCase()}`}
                           />
-                          {person.firstname} {person.lastname.toUpperCase()}
                         </div>
                       ))}
                       {impacted.length > 4 && <div>et autres...</div>}
@@ -456,6 +459,9 @@ function DecisionsPage() {
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt={`${
+                              person.firstname
+                            } ${person.lastname.toUpperCase()}`}
+                            title={`${
                               person.firstname
                             } ${person.lastname.toUpperCase()}`}
                           />

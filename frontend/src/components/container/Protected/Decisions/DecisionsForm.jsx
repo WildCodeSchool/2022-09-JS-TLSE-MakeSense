@@ -95,38 +95,12 @@ function DecisionsForm() {
 
   useEffect(() => {
     getUsers();
-    setUsersAndGroups(users);
+    setUsersAndGroups(users.concat(groups));
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
   function handleSubmit(e) {
     e.preventDefault();
-
-    // handle impacted and experts
-    if (impacted.length > 0) {
-      impacted.forEach((impac) => {
-        const body = {
-          id_user_impact: impac.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    if (experts.length > 0) {
-      experts.forEach((expert) => {
-        const body = {
-          id_user_expert: expert.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
 
     // handle errors
     setErrors("");
@@ -150,6 +124,32 @@ function DecisionsForm() {
           return json;
         });
     }
+  }
+
+  // handle impacted and experts
+  if (impacted.length > 0) {
+    impacted.forEach((impac) => {
+      const body = {
+        id_user_impact: impac.id,
+      };
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
+        .then((json) => {
+          return json;
+        });
+    });
+  }
+  if (experts.length > 0) {
+    experts.forEach((expert) => {
+      const body = {
+        id_user_expert: expert.id,
+      };
+      return api
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
+        .then((json) => {
+          return json;
+        });
+    });
   }
 
   return (
