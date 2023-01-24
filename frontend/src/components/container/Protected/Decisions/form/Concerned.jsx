@@ -44,6 +44,7 @@ function Concerned({ table, name, type, updateType }) {
         inputFieldPosition="top"
         maxLength={91}
         allowDragDrop={false}
+        renderSuggestion={false}
         placeholder="Recherche une personne concernée"
         allowDeleteFromEmptyInput={false}
         classNames={{
