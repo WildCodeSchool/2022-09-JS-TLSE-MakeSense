@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "@services/api";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
+import { useAuth } from "../../contexts/useAuth";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -9,12 +10,13 @@ function CommentSection({ id, comments, setComments }) {
   const [contentComment, setContentComment] = useState();
   const [totalPages, setTotalPages] = useState(0);
   const [limit, setLimit] = useState(5); // décalage
+  const { user } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const body = {
       text: contentComment,
-      id_user_writer: 9,
+      id_user_writer: user.id,
       id_decision: id,
     };
     setContentComment("");
@@ -60,7 +62,12 @@ function CommentSection({ id, comments, setComments }) {
             cols="100"
           />
           <br />
-          <button type="submit">Donner mon avis</button>
+          <button
+            type="submit"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Donner mon avis
+          </button>
         </form>
       </details>
     </div>
@@ -86,6 +93,12 @@ function CommentSection({ id, comments, setComments }) {
                 className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
               />
             </div>
+            <button
+              type="submit"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Donner mon avis
+            </button>
           </form>
           <div className="flex flex-row justify-center">
             <Pagination totalPages={totalPages} handleClick={handleClick} />
