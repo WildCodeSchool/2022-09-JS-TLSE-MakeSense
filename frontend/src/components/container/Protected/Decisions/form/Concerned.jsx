@@ -45,6 +45,7 @@ function Concerned({ table, name, type, updateType }) {
         maxLength={91}
         allowDragDrop={false}
         renderSuggestion={false}
+        autofocus={false}
         placeholder="Recherche une personne concernée"
         allowDeleteFromEmptyInput={false}
         classNames={{
