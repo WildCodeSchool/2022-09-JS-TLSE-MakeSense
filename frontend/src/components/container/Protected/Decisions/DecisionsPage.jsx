@@ -472,7 +472,7 @@ function DecisionsPage() {
       </main>
     </div>
   ) : (
-    <div>Is loading</div>
+    <Spinner />
   );
 }
 
