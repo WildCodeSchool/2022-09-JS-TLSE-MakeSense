@@ -45,66 +45,42 @@ function CommentSection({ id, comments, setComments }) {
     setPage(num);
   };
 
-  return comments === undefined ? (
-    <div>
-      <details>
-        <summary>Avis (0)</summary>
-        <div>Il n'y a pas encore d'avis sur cette décision.</div>
+  return (
+    <section aria-labelledby="notes-title">
+      <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden p-10">
+        <div className="">
+          <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+            Avis ({comments.length})
+          </h2>
+        </div>
         <form onSubmit={handleSubmit}>
-          <textarea
-            name="comments"
-            id="comments"
-            placeholder="I have something to say"
-            value={contentComment}
-            onChange={(event) => setContentComment(event.target.value)}
-            required
-            rows="4"
-            cols="100"
-          />
-          <br />
+          <div className="m-10">
+            <textarea
+              name="comments"
+              id="comments"
+              rows={3}
+              placeholder="Ajouter un commentaire"
+              value={contentComment}
+              onChange={(event) => setContentComment(event.target.value)}
+              required
+              className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
+            />
+          </div>
           <button
             type="submit"
-            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-10"
           >
             Donner mon avis
           </button>
         </form>
-      </details>
-    </div>
-  ) : (
-    <section aria-labelledby="notes-title">
-      <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
-        <div>
-          <div className="px-4 pt-5 sm:px-6">
-            <h2 id="notes-title" className="text-lg font-medium text-gray-900">
-              Avis ({comments.length})
-            </h2>
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div className="m-10">
-              <textarea
-                name="comments"
-                id="comments"
-                rows={3}
-                placeholder="Ajouter un commentaire"
-                value={contentComment}
-                onChange={(event) => setContentComment(event.target.value)}
-                required
-                className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
-              />
+        {comments.length > 0 && (
+          <>
+            <div className="flex flex-row justify-center">
+              <Pagination totalPages={totalPages} handleClick={handleClick} />
             </div>
-            <button
-              type="submit"
-              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-            >
-              Donner mon avis
-            </button>
-          </form>
-          <div className="flex flex-row justify-center">
-            <Pagination totalPages={totalPages} handleClick={handleClick} />
-          </div>
-          <Comments comments={comments} page={page} limit={limit} />
-        </div>
+            <Comments comments={comments} page={page} limit={limit} />
+          </>
+        )}
       </div>
     </section>
   );
