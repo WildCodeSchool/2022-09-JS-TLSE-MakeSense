@@ -1,5 +1,4 @@
 function api() {
-  console.log("un appel api en plus");
 
   let token;
   const checktoken = () => {
@@ -23,7 +22,6 @@ function api() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
         Authorization: `Bearer ${token}`,
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
       credentials: "include",
     });
@@ -39,7 +37,6 @@ function api() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
         Authorization: `Bearer ${token}`,
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
@@ -55,7 +52,6 @@ function api() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
         Authorization: `Bearer ${token}`,
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
@@ -71,7 +67,6 @@ function api() {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
         Authorization: `Bearer ${token}`,
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
