@@ -28,6 +28,7 @@ router.post("/register", validateUser, hashPassword, usersControllers.add);
 router.use(verifyToken);
 
 router.get("/decisions", decisionsControllers.browse);
+router.get("/decisions/user/:id", decisionsControllers.browseWithUserId);
 router.get("/decisions/:id", decisionsControllers.read);
 router.post("/decisions", decisionsControllers.add);
 router.put("/decisions/status/:id/:status", decisionsControllers.statusedit);

@@ -12,6 +12,13 @@ class DecisionsManager extends AbstractManager {
     );
   }
 
+  findWithUserId(id) {
+    return this.connection.query(
+      `SELECT * FROM ${this.table} WHERE id_user_creator = ?;`,
+      [id]
+    );
+  }
+
   insert(decisions) {
     return this.connection.query(
       `insert into ${this.table}(content, status, id_user_creator) values (?, ?, ?);`,
