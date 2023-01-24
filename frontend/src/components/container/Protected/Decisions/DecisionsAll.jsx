@@ -3,6 +3,8 @@ import api from "@services/api";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import "../../../../assets/css/layout.css";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { Text, LanguageContext } from "../../../contexts/Language";
 
 // eslint-disable-next-line react/prop-types
 function DecisionsAll() {

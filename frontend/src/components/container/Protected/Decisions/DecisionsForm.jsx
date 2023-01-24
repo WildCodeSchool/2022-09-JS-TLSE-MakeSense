@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { Text, LanguageContext } from "../../../contexts/Language";
 
 function DecisionsForm() {
   // set options WYSIWYG
@@ -165,7 +167,7 @@ function DecisionsForm() {
               <div className="relative bg-white rounded-lg shadow">
                 <div className="p-6 text-center">
                   <h3 className="mb-5 text-lg font-normal text-gray-500">
-                    Le formulaire a été soumis avec succès !
+                    <Text tid="theformhasbeensubmittedsuccessfully!" />
                   </h3>
                   <button
                     data-modal-hide="popup-modal"
@@ -175,7 +177,7 @@ function DecisionsForm() {
                       navigate(`/user/decisions`);
                     }}
                   >
-                    Revenir aux décisions
+                    <Text tid="backtodecision" />
                   </button>
                 </div>
               </div>
@@ -191,11 +193,10 @@ function DecisionsForm() {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    Description
+                    <Text tid="description" />
                   </h3>
                   <p className="mt-1 text-xl text-gray-500">
-                    Décrire ici toutes les informations concernant la
-                    description.
+                    <Text tid="describeherealltheinformationconcerningthedescription" />
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
@@ -206,7 +207,7 @@ function DecisionsForm() {
                           htmlFor="company-website"
                           className="block text-xl font-medium text-gray-700"
                         >
-                          Titre
+                          <Text tid="title" />
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
                           <input
@@ -231,8 +232,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -241,7 +241,7 @@ function DecisionsForm() {
                       </div>
                       <div className="my-10">
                         <label htmlFor="description">
-                          Description de la décision
+                          <Text tid="description" />
                         </label>
                         <ReactQuill
                           theme="snow"
@@ -260,8 +260,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500	"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -270,7 +269,7 @@ function DecisionsForm() {
                       </div>
                       <div className="my-10">
                         <label htmlFor="utility">
-                          Utilité pour l'organisation
+                          <Text tid="usefulnessfortheorganization" />
                         </label>
                         <ReactQuill
                           theme="snow"
@@ -289,8 +288,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500	"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -299,7 +297,7 @@ function DecisionsForm() {
                       </div>
                       <div className="my-10">
                         <label htmlFor="context">
-                          Contexte autour de la décision
+                          <Text tid="contextaroundthedecision" />
                         </label>
                         <ReactQuill
                           theme="snow"
@@ -318,8 +316,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500	"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -327,7 +324,9 @@ function DecisionsForm() {
                           })}
                       </div>
                       <div className="my-10">
-                        <label htmlFor="pros">Bénéfices</label>
+                        <label htmlFor="pros">
+                          <Text tid="benefits" />
+                        </label>
                         <ReactQuill
                           theme="snow"
                           modules={modules}
@@ -344,8 +343,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500	"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -353,7 +351,9 @@ function DecisionsForm() {
                           })}
                       </div>
                       <div className="my-10">
-                        <label htmlFor="cons">Inconvénients</label>
+                        <label htmlFor="cons">
+                          <Text tid="disadvantages" />
+                        </label>
                         <ReactQuill
                           theme="snow"
                           modules={modules}
@@ -370,8 +370,7 @@ function DecisionsForm() {
                                   key={error.context.key}
                                   className="text-rose-500	"
                                 >
-                                  Ce champs est requis et doit contenir au moins
-                                  5 caractères.
+                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                                 </div>
                               );
                             }
@@ -387,11 +386,10 @@ function DecisionsForm() {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    Personnes concernées
+                    <Text tid="peopleconcerned" />
                   </h3>
                   <p className="mt-1 text-xl text-gray-500">
-                    Désigner les personnes concernées (impactées ou expertes)
-                    par la décision
+                    <Text tid="designatethepeopleconcerned" />
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
@@ -419,15 +417,17 @@ function DecisionsForm() {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    Calendrier
+                    <Text tid="calendar" />
                   </h3>
                   <p className="mt-1 text-xl text-gray-500">
-                    Définir le calendrier de la prise de décision
+                    <Text tid="Set decision-making timeline" />
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
                   <div className="my-5">
-                    <p className="mb-5">Date de dépôt de la décision</p>
+                    <p className="mb-5">
+                      <Text tid="dateoffilingofthedecision" />
+                    </p>
                     <DatePicker
                       selected={form.firstDate}
                       minDate={form.firstDate}
@@ -437,7 +437,9 @@ function DecisionsForm() {
                     />
                   </div>
                   <div className="my-5">
-                    <p className="mb-5">Deadline pour donner son avis</p>
+                    <p className="mb-5">
+                      <Text tid="deadlinetogivefeedback" />
+                    </p>
                     <DatePicker
                       selected={form.dateOpinion}
                       minDate={form.firstDate}
@@ -455,8 +457,7 @@ function DecisionsForm() {
                             key={error.context.key}
                             className="text-rose-500	"
                           >
-                            Cette date doit être supérieure à la date
-                            d'aujourd'hui.
+                            <Text tid="thisdatemustbegreaterthanthedateoftoday" />
                           </div>
                         );
                       }
@@ -464,7 +465,7 @@ function DecisionsForm() {
                     })}
                   <div className="my-5">
                     <p className="mb-5">
-                      Date de prise de la première décision
+                      <Text tid="dateofirstdecision" />
                     </p>
                     <DatePicker
                       selected={form.dateFirstDecision}
@@ -483,15 +484,16 @@ function DecisionsForm() {
                             key={error.context.key}
                             className="text-rose-500	"
                           >
-                            Cette date doit être supérieure à la date
-                            d'aujourd'hui..
+                            <Text tid="thisdatemustbegreaterthanthedateoftoday" />
                           </div>
                         );
                       }
                       return null;
                     })}
                   <div className="my-5">
-                    <p className="mb-5">Deadline pour entrer en conflit</p>
+                    <p className="mb-5">
+                      <Text tid="deadlinetoenterdispute" />
+                    </p>
                     <DatePicker
                       selected={form.dateEndConflict}
                       minDate={form.dateFirstDecision}
@@ -509,8 +511,7 @@ function DecisionsForm() {
                             key={error.context.key}
                             className="text-rose-500	"
                           >
-                            Cette date doit être supérieure à la date
-                            d'aujourd'hui.
+                            <Text tid="thisdatemustbegreaterthanthedateoftoday" />
                           </div>
                         );
                       }
@@ -518,7 +519,7 @@ function DecisionsForm() {
                     })}
                   <div className="my-5">
                     <p className="mb-5">
-                      Date de la prise de décision définitive
+                      <Text tid="Date of final decision" />
                     </p>
                     <DatePicker
                       selected={form.dateFinaleDecision}
@@ -534,8 +535,7 @@ function DecisionsForm() {
                       if (error.path[0] === "dateFinaleDecision") {
                         return (
                           <div key={error.context.key} className="field-error">
-                            Cette date doit être supérieure à la date
-                            d'aujourd'hui.
+                            <Text tid="thisdatemustbegreaterthanthedateoftoday" />
                           </div>
                         );
                       }
@@ -553,13 +553,13 @@ function DecisionsForm() {
                   navigate(`/user`);
                 }}
               >
-                Cancel
+                <Text tid="cancel" />
               </button>
               <button
                 type="submit"
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
               >
-                Save
+                <Text tid="save" />
               </button>
             </div>
           </form>
