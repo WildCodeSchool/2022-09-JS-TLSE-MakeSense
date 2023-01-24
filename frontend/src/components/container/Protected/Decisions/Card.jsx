@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 
-function Card({ data }) {
+function Card({ data, user }) {
   // eslint-disable-next-line react/prop-types
   const dataContent = JSON.parse(data.content);
   const parseDescription = parse(dataContent.description);
   let decisionStatus;
-  let color;
   if (data.status === 1) {
     decisionStatus = "En attente d'avis";
   } else if (data.status === 2) {
@@ -22,7 +21,7 @@ function Card({ data }) {
     decisionStatus = "Décision non aboutie";
   }
   return (
-    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md">
       <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {dataContent.title}
       </h2>
@@ -39,7 +38,9 @@ function Card({ data }) {
       </p>
       <div className="flex flex-row justify-between text-xs text-gray-400 items-baseline">
         <div>
-          Par {data.firstname} {data.lastname}
+          {user
+            ? `Par ${user.firstname} ${user.lastname}`
+            : `Par ${data.firstname} ${data.lastname}`}
         </div>
         <div className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-lg">
           avis

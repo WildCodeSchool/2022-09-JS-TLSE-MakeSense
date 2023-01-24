@@ -1,6 +1,5 @@
 import { useEffect, useState, Fragment } from "react";
-import { useLocation } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
 import CommentSection from "../../../header/CommentSection";
@@ -14,7 +13,9 @@ function DecisionsPage() {
   const [expert, setExpert] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
+  const [contentComment, setContentComment] = useState();
 
+  const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
@@ -258,6 +259,17 @@ function DecisionsPage() {
                       </div>
                     </div>
                   </details>
+                  <button
+                    className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    type="button"
+                    key="key"
+                    id="8"
+                    onClick={() => {
+                      navigate(`/user/decisions?comp=Edit`);
+                    }}
+                  >
+                    Modifier la décision
+                  </button>
                 </div>
               </div>
             </section>

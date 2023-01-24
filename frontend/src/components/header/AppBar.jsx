@@ -73,7 +73,7 @@ function AppBar({ menu }) {
                 navigate(`/user/decisions?comp=Form`);
               }}
             >
-              Ajouter une décision
+              <Text tid="add" />
             </button>
             <div className="flex flex-col items-end mx-4">
               <button
@@ -107,12 +107,16 @@ function AppBar({ menu }) {
                   </div>
                   <ul className="py-1" aria-labelledby="user-menu-button">
                     <li>
-                      <a
-                        href="/"
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate(`/user/decisions?comp=User`);
+                          setUserMenu(false);
+                        }}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
                         Mes décisions
-                      </a>
+                      </button>
                     </li>
                     {!!user.email && (
                       <li>

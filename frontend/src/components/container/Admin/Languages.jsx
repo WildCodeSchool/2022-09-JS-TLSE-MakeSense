@@ -23,6 +23,7 @@ function LangSettings() {
   );
 
   const HandlerMode = (mode) => {
+    mode.preventDefault();
     setModeSelect(mode.target.value);
     navigate(`/admin/dashboard?tools=Languages&mode=${mode.target.value}`, {
       replace: true,
@@ -30,10 +31,12 @@ function LangSettings() {
   };
 
   const HandlerLang = (event) => {
+    event.preventDefault();
     setAddLangSelect(event.target.value !== "" ? event.target.value : null);
   };
 
   const HandlerKey = (event) => {
+    event.preventDefault();
     setAddLangForm({ ...AddLangForm, [event.target.id]: event.target.value });
   };
 
@@ -68,7 +71,7 @@ function LangSettings() {
   }, []);
 
   return IsLoaded ? (
-    <div className="w-2/3">
+    <div className=" ">
       <div className="w-full flex flex-row justify-center m-5">
         <button
           type="button"

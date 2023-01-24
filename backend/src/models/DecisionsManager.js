@@ -25,7 +25,8 @@ class DecisionsManager extends AbstractManager {
     ]);
   }
 
-  readfilter(status, duree) {
+  readfilter(status, duree, userId) {
+    let andUser = "";
     let durees = "";
     let operator = "=";
     if (status === "0") {
@@ -36,8 +37,11 @@ class DecisionsManager extends AbstractManager {
     if (duree !== "0") {
       durees = `AND DATE(date_created) >= CURDATE() - INTERVAL ${duree} DAY`;
     }
+    if (userId !== "0") {
+      andUser = `AND ${this.table}.id_user_creator = ${userId}`;
+    }
     return this.connection.query(
-      `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees};`,
+      `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`,
       [status]
     );
   }
@@ -54,6 +58,12 @@ class DecisionsManager extends AbstractManager {
       `update ${this.table} set content = ? where id = ?`,
       [decisions.content, decisions.id]
     );
+  }
+
+  delete(id) {
+    return this.connection.query(`delete from ${this.table} where id = ?`, [
+      id,
+    ]);
   }
 }
 

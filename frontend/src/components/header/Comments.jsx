@@ -4,11 +4,6 @@ function Comments({ comments, page, limit }) {
   return (
     <div>
       <div className="divide-y divide-gray-200">
-        <div className="px-4 py-5 sm:px-6">
-          <h2 id="notes-title" className="text-lg font-medium text-gray-900">
-            Commentaires
-          </h2>
-        </div>
         <div className="px-4 py-6 sm:px-6">
           <ul className="space-y-8">
             {selectedComments.map((comment) => (

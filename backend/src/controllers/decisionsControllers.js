@@ -3,8 +3,9 @@ const models = require("../models");
 const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
+  const userId = req.query.id ? req.query.id : "0";
   models.decisions
-    .readfilter(status, duree)
+    .readfilter(status, duree, userId)
     .then(([rows]) => {
       res.send(rows);
     })
