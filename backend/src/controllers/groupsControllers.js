@@ -30,11 +30,8 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const groups = req.body;
-
   // TODO validations (length, format...)
-
   groups.id = parseInt(req.params.id, 10);
-
   models.groups
     .update(groups)
     .then(([result]) => {
@@ -52,15 +49,22 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const groups = req.body;
-
   models.groups
     .insert(groups)
     .then(([result]) => {
-      res.location(`/groups/${result.insertId}`).sendStatus(201);
+      models.groups
+        .insertusergroup(result.insertId, groups.users)
+        .then(() => {
+          res.location(`/admin/dashboard`).sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.json(`Error when add users on group : ${err}`).sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res.json(`Error when add group : ${err}`).sendStatus(500);
     });
 };
 

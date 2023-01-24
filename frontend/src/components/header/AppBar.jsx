@@ -73,7 +73,7 @@ function AppBar({ menu }) {
                 navigate(`/user/decisions?comp=Form`);
               }}
             >
-              Ajouter une décision
+              <Text tid="add" />
             </button>
             <div className="flex flex-col items-end mx-4">
               <button
