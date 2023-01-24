@@ -1,5 +1,4 @@
 function api() {
-
   let token;
   const checktoken = () => {
     if (
