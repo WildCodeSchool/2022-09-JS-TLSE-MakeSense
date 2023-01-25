@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../../../assets/css/layout.css";
 import ShowUserDecisions from "./ShowUserDecisions";
+import ShowUserConcerned from "./ShowUserConcerned";
+import ShowUserComment from "./ShowUserComment";
 
 // eslint-disable-next-line react/prop-types
 function DecisionsUser() {
@@ -8,7 +10,7 @@ function DecisionsUser() {
 
   // eslint-disable-next-line eqeqeq
   return (
-    <div className="max-w-7xl mx-auto px-2 py-10 m-10 rounded flex flex-col mt-0">
+    <div className="max-w-7xl mx-auto px-2 py-10 rounded flex flex-col mt-0">
       <div className="mx-auto">
         <div className="w-full flex flex-row justify-center m-5">
           <button
@@ -37,6 +39,8 @@ function DecisionsUser() {
           </button>
         </div>
         <div>{tab === "mine" && <ShowUserDecisions />}</div>
+        <div>{tab === "concerned" && <ShowUserConcerned />}</div>
+        <div>{tab === "comment" && <ShowUserComment />}</div>
       </div>
     </div>
   );
