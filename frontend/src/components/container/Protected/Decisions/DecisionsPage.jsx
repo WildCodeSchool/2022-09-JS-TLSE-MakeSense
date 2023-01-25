@@ -5,7 +5,7 @@ import api from "../../../../services/api";
 import CommentSection from "../../../header/CommentSection";
 import Spinner from "../../../Spinner";
 // eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../contexts/Language";
+import { Text, LanguageContext } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -263,9 +263,10 @@ function DecisionsPage() {
                     className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     type="button"
                     key="key"
-                    id="8"
+                    value="edit"
+                    id={decisions.id}
                     onClick={() => {
-                      navigate(`/user/decisions?comp=Edit`);
+                      navigate(`/user/decisions?comp=Edit&id=${decisions.id}`);
                     }}
                   >
                     Modifier la décision
@@ -331,7 +332,6 @@ function DecisionsPage() {
                       <h3 className="text-m font-normal text-gray-900">
                         <Text tid="deadline" />
                       </h3>
-
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
