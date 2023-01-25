@@ -20,10 +20,17 @@ function UsersManager() {
   );
 
   const HandlerMode = (mode) => {
-    setModeSelect(mode.target.value);
-    navigate(`/admin/dashboard?tools=GroupsManager&mode=${mode.target.value}`, {
-      replace: true,
-    });
+    setModeSelect(mode.currentTarget.value);
+    navigate(
+      `/admin/dashboard?tools=GroupsManager&mode=${
+        mode.currentTarget.value === "edit"
+          ? `${mode.currentTarget.value}&id=${mode.currentTarget.id}`
+          : mode.currentTarget.value
+      }`,
+      {
+        replace: true,
+      }
+    );
   };
 
   function handleDeleteGroup(e) {
@@ -214,8 +221,14 @@ function UsersManager() {
                               </div>
                             </div>
                           </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
-                            <button value={data.id} type="button">
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                            <button
+                              key={data.id}
+                              id={data.id}
+                              type="button"
+                              value="edit"
+                              onClick={HandlerMode}
+                            >
                               <HiPencilSquare />
                             </button>
                           </td>

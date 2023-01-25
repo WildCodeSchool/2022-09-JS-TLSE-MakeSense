@@ -74,6 +74,7 @@ function LangSettings() {
     <div className=" ">
       <div className="w-full flex flex-row justify-center m-5">
         <button
+          key="edit"
           type="button"
           value="edit"
           onClick={HandlerMode}
@@ -86,6 +87,7 @@ function LangSettings() {
           <Text tid="modify" />
         </button>
         <button
+          key="add"
           type="button"
           value="add"
           onClick={HandlerMode}
@@ -98,6 +100,7 @@ function LangSettings() {
           <Text tid="add" />
         </button>
         <button
+          key="delete"
           type="button"
           value="delete"
           onClick={HandlerMode}

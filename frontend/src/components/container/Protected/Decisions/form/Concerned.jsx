@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { WithContext as ReactTags } from "react-tag-input";
 
 const KeyCodes = {

@@ -13,7 +13,6 @@ export default function ProfilePage() {
   const [data, setData] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [update, setUpdate] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
   let serviceId = null;
@@ -24,14 +23,14 @@ export default function ProfilePage() {
         `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}`
       );
       setData(getUser);
-      setIsLoaded(true);
       setUserEmail(getUser.email);
       setUserFirstName(getUser.firstname);
       setUserLastName(getUser.lastname);
       serviceId = getUser.serviceId ? getUser.serviceId : null;
+      setIsLoaded(true);
     };
     getUserData(); // lance la fonction getUserData
-  }, [update]);
+  }, [isLoaded]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,8 +49,8 @@ export default function ProfilePage() {
         body
       );
       if (updateUser.status === 204) {
-        setUpdate(true);
         setIsSubmit(true);
+        setIsLoaded(false);
       }
     };
     updateUserData();
