@@ -19,7 +19,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.decisions
-    .find(req.params.id)
+    .finddec(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);

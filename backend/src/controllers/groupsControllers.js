@@ -14,12 +14,12 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.groups
-    .find(req.params.id)
+    .findgroup(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        res.send(rows);
       }
     })
     .catch((err) => {

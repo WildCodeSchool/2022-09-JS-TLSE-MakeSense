@@ -2,7 +2,7 @@ const models = require("../models");
 
 const read = (req, res) => {
   models.decisions_impacts
-    .find(req.params.id)
+    .findimpacted(req.params.id)
     .then(([rows]) => {
       if (rows[0] === undefined) {
         res.status(200).send([]);

@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const browseWithDecisionId = (req, res) => {
   models.comments
-    .find(req.params.id)
+    .findcomment(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.status(200).send(rows);
