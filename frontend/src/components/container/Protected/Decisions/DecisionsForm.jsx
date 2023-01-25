@@ -8,8 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function DecisionsForm() {
   // set options WYSIWYG

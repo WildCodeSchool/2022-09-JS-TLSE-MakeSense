@@ -4,8 +4,7 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
 import CommentSection from "../../../header/CommentSection";
 import Spinner from "../../../Spinner";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);

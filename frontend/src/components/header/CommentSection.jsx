@@ -4,8 +4,7 @@ import api from "@services/api";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 import { useAuth } from "../../contexts/useAuth";
-// eslint-disable-next-line import/extensions
-import { Text, LanguageContext } from "../../../contexts/Language";
+import { Text } from "../../contexts/Language";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);

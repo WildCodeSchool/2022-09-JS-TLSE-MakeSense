@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text } from "../../../../contexts/Language";
+import { Text } from "../../contexts/Language";
 
 function ErrorPage({ title }) {
   return (
