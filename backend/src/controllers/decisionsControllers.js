@@ -4,8 +4,10 @@ const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
+  const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const userComment = req.query.idUserComment ? req.query.idUserComment : "0";
   models.decisions
-    .readfilter(status, duree, userId)
+    .readfilter(status, duree, userId, userConcerned, userComment)
     .then(([rows]) => {
       res.send(rows);
     })

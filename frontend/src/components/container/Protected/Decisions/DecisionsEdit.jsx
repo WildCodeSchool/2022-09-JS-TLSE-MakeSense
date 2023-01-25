@@ -9,12 +9,15 @@ import api from "@services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
 import { Text } from "../../../../contexts/Language";
+import DecisionsPage from "./DecisionsPage";
 
 function DecisionsForm() {
+  const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
-    : "";
+    : navigate("/user/decisions");
+
   // set options WYSIWYG
   const modules = {
     toolbar: [
@@ -34,8 +37,6 @@ function DecisionsForm() {
   // get user logged in from Context
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
   // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
@@ -52,6 +53,13 @@ function DecisionsForm() {
   });
 
   // states for form
+  const [updateData, setUpdateData] = useState(false);
+  const [decisionTitle, setDecisionTitle] = useState();
+  const [decisionDescription, setDecisionDescription] = useState();
+  const [decisionContext, setDecisionContext] = useState();
+  const [decisionUtility, setDecisionUtility] = useState();
+  const [decisionPros, setDecisionPros] = useState();
+  const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [impacted, setImpacted] = useState([]);
@@ -60,6 +68,7 @@ function DecisionsForm() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -73,9 +82,6 @@ function DecisionsForm() {
     dateEndConflict: new Date(),
     dateFinaleDecision: new Date(),
   });
-
-  // state to get the original data
-  const [decisionsData, setDecisionsData] = useState(null);
 
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
@@ -91,14 +97,20 @@ function DecisionsForm() {
 
   // useEffect to set the original data
   useEffect(() => {
-    const getAllApis = async () => {
-      // get the decision
-      const callDecisionsData = await api.apigetmysql(
+    const getDecisionsData = async () => {
+      // get the original decision
+      const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionsData(callDecisionsData);
+      setDecisionDescription(JSON.parse(getDecisions.content).description);
+      setDecisionContext(JSON.parse(getDecisions.content).context);
+      setDecisionUtility(JSON.parse(getDecisions.content).utility);
+      setDecisionPros(JSON.parse(getDecisions.content).pros);
+      setDecisionCons(JSON.parse(getDecisions.content).cons);
+      setData(getDecisions);
     };
-  });
+    getDecisionsData(); // lance la fonction getDecisionsData
+  }, [updateData]);
 
   useEffect(() => {
     getUsers();
@@ -224,7 +236,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            value={form.description}
+            defaultValue={JSON.parse(data.content).description}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -247,7 +259,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            value={form.utility}
+            defaultValue={JSON.parse(data.content).utility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -270,7 +282,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            value={form.context}
+            defaultValue={JSON.parse(data.content).context}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -292,7 +304,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.pros}
+            defaultValue={JSON.parse(data.content).pros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -314,7 +326,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.cons}
+            defaultValue={JSON.parse(data.content).cons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
@@ -455,7 +467,7 @@ function DecisionsForm() {
               })}
           </fieldset>
           <button type="submit" className="buttonForm">
-            <Text tid="postmydecision" />
+            Poster ma décision
           </button>
         </form>
       </div>

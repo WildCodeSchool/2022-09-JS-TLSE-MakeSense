@@ -1,4 +1,3 @@
-import logo from "../../assets/img/logo-makesense.png";
 import { Text } from "../../contexts/Language";
 
 function FooterBar() {
@@ -11,4 +10,3 @@ function FooterBar() {
   );
 }
 export default FooterBar;
-

@@ -22,7 +22,7 @@ function Card({ data, user }) {
     decisionStatus = "Décision non aboutie";
   }
   return (
-    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md">
+    <div className="col-span-1 bg-white block max-w-sm p-10 m-5 border border-gray-200 rounded-lg shadow-md">
       <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {dataContent.title}
       </h2>
