@@ -10,10 +10,12 @@ import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
 
 function DecisionsForm() {
+  const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
-    : "";
+    : navigate("/user/decisions");
+
   // set options WYSIWYG
   const modules = {
     toolbar: [
@@ -32,8 +34,6 @@ function DecisionsForm() {
 
   // get user logged in from Context
   const { user } = useAuth();
-
-  const navigate = useNavigate();
 
   // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
@@ -229,7 +229,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            value={form.description}
+            value={decisionDescription}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -250,7 +250,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            value={form.utility}
+            value={decisionUtility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -271,7 +271,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            value={form.context}
+            value={decisionContext}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -291,7 +291,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.pros}
+            value={decisionPros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -311,7 +311,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.cons}
+            defaultValue={decisionCons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
@@ -437,8 +437,11 @@ function DecisionsForm() {
                 return null;
               })}
           </fieldset>
-          <button type="submit" className="buttonForm">
-            Poster ma décision
+          <button
+            type="submit"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Valider les modifications
           </button>
         </form>
       </div>
