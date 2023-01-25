@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiPencilSquare, HiOutlineXMark } from "react-icons/hi2";
+import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
 import { Text, LanguageContext } from "../../../contexts/Language";
@@ -187,7 +187,7 @@ function DecisionsPage() {
                               type="button"
                               onClick={() => handleDelete(decision.id)}
                             >
-                              <HiOutlineXMark />
+                              <HiOutlineArchiveBoxXMark />
                             </button>
                           </td>
                         </tr>
