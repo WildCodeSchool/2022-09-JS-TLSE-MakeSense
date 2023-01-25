@@ -164,19 +164,19 @@ function UsersManager() {
                           scope="col"
                           className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                         >
-                          Nom
+                          <Text tid="name" />
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Nombre de personnes
+                          <Text tid="numberofpersons" />
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Edit
+                          <Text tid="edit" />
                         </th>
                         <th
                           scope="col"
