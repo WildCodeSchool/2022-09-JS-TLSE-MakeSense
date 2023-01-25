@@ -142,7 +142,7 @@ function UsersManager() {
                 value={searchTerm}
                 onChange={handleChange}
                 placeholder="Chercher un utilisateur"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg w-1/2 p-2.5 my-5"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg w-1/2 p-2.5 my-5"
               />
               <button
                 type="button"
@@ -162,25 +162,25 @@ function UsersManager() {
                     <tr>
                       <th
                         scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
+                        className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                       >
                         Name
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
                         Email
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
                         Statut
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
                         Edit
                       </th>
@@ -221,7 +221,7 @@ function UsersManager() {
                           )
                     ).map((data) => (
                       <tr key={data.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xl sm:pl-6">
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                           <div className="flex items-center">
                             <div className="h-10 w-10 flex-shrink-0">
                               <img
@@ -238,13 +238,13 @@ function UsersManager() {
                           </div>
                         </td>
 
-                        <td className="whitespace-nowrap px-3 py-4 text-xl text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
                           {data.email}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-xl text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
                           {data.admin === 0 ? "Utilisateur" : "Admin"}
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
                           <button
                             type="button"
                             onClick={() => {

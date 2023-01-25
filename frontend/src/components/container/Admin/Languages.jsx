@@ -74,6 +74,7 @@ function LangSettings() {
     <div className=" ">
       <div className="w-full flex flex-row justify-center m-5">
         <button
+          key="edit"
           type="button"
           value="edit"
           onClick={HandlerMode}
@@ -86,6 +87,7 @@ function LangSettings() {
           <Text tid="modify" />
         </button>
         <button
+          key="add"
           type="button"
           value="add"
           onClick={HandlerMode}
@@ -98,6 +100,7 @@ function LangSettings() {
           <Text tid="add" />
         </button>
         <button
+          key="delete"
           type="button"
           value="delete"
           onClick={HandlerMode}
@@ -199,13 +202,13 @@ function LangSettings() {
                     <tr>
                       <th
                         scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
+                        className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                       >
                         Langage
                       </th>
                       <th
                         scope="col"
-                        className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
                         Delete
                       </th>
@@ -214,7 +217,7 @@ function LangSettings() {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {LangActive.map((lang) => (
                       <tr key={lang.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xl sm:pl-6">
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                           <div className="flex items-center">
                             <div className="ml-4">
                               <div className="font-medium text-gray-900">
@@ -223,7 +226,7 @@ function LangSettings() {
                             </div>
                           </div>
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
                           <HiPencilSquare />
                         </td>
                       </tr>
