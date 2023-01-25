@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
+import DecisionsPage from "./DecisionsPage";
 
 function DecisionsForm() {
   const navigate = useNavigate();
@@ -51,6 +52,13 @@ function DecisionsForm() {
   });
 
   // states for form
+  const [updateData, setUpdateData] = useState(false);
+  const [decisionTitle, setDecisionTitle] = useState();
+  const [decisionDescription, setDecisionDescription] = useState();
+  const [decisionContext, setDecisionContext] = useState();
+  const [decisionUtility, setDecisionUtility] = useState();
+  const [decisionPros, setDecisionPros] = useState();
+  const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [impacted, setImpacted] = useState([]);
@@ -73,15 +81,6 @@ function DecisionsForm() {
     dateFinaleDecision: new Date(),
   });
 
-  // state to get the original data and to update it
-  const [decisionsData, setDecisionsData] = useState(null);
-  const [updateData, setUpdateData] = useState(false);
-  const [decisionDescription, setDecisionDescription] = useState();
-  const [decisionContext, setDecisionContext] = useState();
-  const [decisionUtility, setDecisionUtility] = useState();
-  const [decisionPros, setDecisionPros] = useState();
-  const [decisionCons, setDecisionCons] = useState();
-
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users`
@@ -101,13 +100,13 @@ function DecisionsForm() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionsData(getDecisions);
       setDecisionDescription(getDecisions.content.description);
       setDecisionContext(getDecisions.content.context);
       setDecisionUtility(getDecisions.content.utility);
       setDecisionPros(getDecisions.content.pros);
       setDecisionCons(getDecisions.content.cons);
     };
+    // console.log(id);
     getDecisionsData(); // lance la fonction getDecisionsData
   }, [updateData]);
 
@@ -229,7 +228,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            value={decisionDescription}
+            defaultValue={decisionDescription}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
