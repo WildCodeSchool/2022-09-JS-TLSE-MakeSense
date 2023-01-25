@@ -67,6 +67,7 @@ function DecisionsForm() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -100,13 +101,13 @@ function DecisionsForm() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionDescription(getDecisions.content.description);
-      setDecisionContext(getDecisions.content.context);
-      setDecisionUtility(getDecisions.content.utility);
-      setDecisionPros(getDecisions.content.pros);
-      setDecisionCons(getDecisions.content.cons);
+      setDecisionDescription(JSON.parse(getDecisions.content).description);
+      setDecisionContext(JSON.parse(getDecisions.content).context);
+      setDecisionUtility(JSON.parse(getDecisions.content).utility);
+      setDecisionPros(JSON.parse(getDecisions.content).pros);
+      setDecisionCons(JSON.parse(getDecisions.content).cons);
+      setData(getDecisions);
     };
-    // console.log(id);
     getDecisionsData(); // lance la fonction getDecisionsData
   }, [updateData]);
 
@@ -228,7 +229,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            defaultValue={decisionDescription}
+            defaultValue={JSON.parse(data.content).description}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -249,7 +250,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            value={decisionUtility}
+            defaultValue={JSON.parse(data.content).utility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -270,7 +271,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            value={decisionContext}
+            defaultValue={JSON.parse(data.content).context}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -290,7 +291,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={decisionPros}
+            defaultValue={JSON.parse(data.content).pros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -310,7 +311,7 @@ function DecisionsForm() {
           <ReactQuill
             theme="snow"
             modules={modules}
-            defaultValue={decisionCons}
+            defaultValue={JSON.parse(data.content).cons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
