@@ -19,6 +19,28 @@ class DecisionsManager extends AbstractManager {
     );
   }
 
+  insertuserimpact(iddecisionsinserted, usersimpact) {
+    let values = "";
+    usersimpact?.forEach((el) => {
+      values += `, (${iddecisionsinserted}, ${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_impacts VALUES ${values};`
+    );
+  }
+
+  insertuserexpert(iddecisionsinserted, usersexpert) {
+    let values = "";
+    usersexpert?.forEach((el) => {
+      values += `, (${iddecisionsinserted},${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_experts VALUES ${values};`
+    );
+  }
+
   read(decisions) {
     return this.connection.query(`select * from ${this.table} where id = ?`, [
       decisions.id,

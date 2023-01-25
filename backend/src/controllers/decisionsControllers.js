@@ -70,15 +70,48 @@ const statusedit = (req, res) => {
 
 const add = (req, res) => {
   const decisions = req.body;
-
   models.decisions
     .insert(decisions)
     .then(([result]) => {
-      res.location(`/decisions/${result.insertId}`).sendStatus(201);
+      try {
+        return result.insertId;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.users_impact.length) {
+          models.decisions.insertuserimpact(
+            iddecisionsinserted,
+            decisions.users_impact
+          );
+        }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.users_expert.length) {
+          models.decisions.insertuserexpert(
+            iddecisionsinserted,
+            decisions.users_expert
+          );
+        }
+        return res.sendStatus(201);
+      } catch (error) {
+        throw new Error(error);
+      }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res
+        .json(
+          `Error when add decision with impacteds and experts users: ${err}`
+        )
+        .sendStatus(500);
     });
 };
 

@@ -21,6 +21,7 @@ function UsersManager() {
 
   const HandlerMode = (mode) => {
     setModeSelect(mode.currentTarget.value);
+    SetIsLoaded(false);
     navigate(
       `/admin/dashboard?tools=GroupsManager&mode=${
         mode.currentTarget.value === "edit"

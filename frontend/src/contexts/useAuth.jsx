@@ -35,13 +35,17 @@ export function AuthProvider({ children }) {
         window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g))
       );
       LoadUser(payload.sub).then((returnuser) => {
-        setUser({
-          admin: returnuser.admin,
-          email: returnuser.email,
-          firstname: returnuser.firstname,
-          lastname: returnuser.lastname,
-          id: returnuser.id,
-        });
+        if (returnuser.status === 401) {
+          navigate("/", { replace: true });
+        } else {
+          setUser({
+            admin: returnuser.admin,
+            email: returnuser.email,
+            firstname: returnuser.firstname,
+            lastname: returnuser.lastname,
+            id: returnuser.id,
+          });
+        }
         setIsLoaded(true);
       });
     } else {
