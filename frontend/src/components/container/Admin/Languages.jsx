@@ -201,13 +201,13 @@ function LangSettings() {
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
                       >
-                        Langage
+                        <Text tid="language" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
                       >
-                        Delete
+                        <Text tid="delete" />
                       </th>
                     </tr>
                   </thead>

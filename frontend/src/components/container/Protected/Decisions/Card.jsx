@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import { Text } from "../../../../contexts/Language";
 
 function Card({ data, user }) {
   // eslint-disable-next-line react/prop-types
@@ -43,7 +44,7 @@ function Card({ data, user }) {
             : `Par ${data.firstname} ${data.lastname}`}
         </div>
         <div className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-lg">
-          avis
+          <Text tid="notice" />
         </div>
       </div>
     </div>

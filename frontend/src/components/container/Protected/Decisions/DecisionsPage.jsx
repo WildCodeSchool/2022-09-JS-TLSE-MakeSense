@@ -59,7 +59,8 @@ function DecisionsPage() {
                     {JSON.parse(decisions.content).title}
                   </h2>
                   <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    Par {decisions.firstname} {decisions.lastname}
+                    <Text tid="through" /> {decisions.firstname}{" "}
+                    {decisions.lastname}
                   </p>
                 </div>
                 <div
@@ -154,7 +155,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Utilité</span>
+                      <span>
+                        <Text tid="usefulnessfortheorganization" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -230,7 +233,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Inconvénients</span>
+                      <span>
+                        <Text tid="disadvantages" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -268,7 +273,7 @@ function DecisionsPage() {
                       navigate(`/user/decisions?comp=Edit`);
                     }}
                   >
-                    Modifier la décision
+                    <Text tid="modify" />
                   </button>
                 </div>
               </div>
@@ -331,9 +336,6 @@ function DecisionsPage() {
                       <h3 className="text-m font-normal text-gray-900">
                         <Text tid="deadline" />
                       </h3>
-                      <div>
-                        <Text tid="Morethan" />
-                      </div>
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
@@ -444,7 +446,11 @@ function DecisionsPage() {
                           {person.firstname} {person.lastname.toUpperCase()}
                         </div>
                       ))}
-                      {impacted.length > 4 && <div>et autres...</div>}
+                      {impacted.length > 4 && (
+                        <div>
+                          <Text tid="andothers" />
+                        </div>
+                      )}
                     </div>
                   </>
                 )}

@@ -44,7 +44,7 @@ function UsersManager() {
               type="button"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
             >
-              Ajouter un utilisateur
+              <Text tid="add" />
             </button>
           </div>
         </div>
@@ -60,25 +60,25 @@ function UsersManager() {
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
                     >
-                      Name
+                      <Text tid="name" />
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
                     >
-                      Email
+                      <Text tid="email" />
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
                     >
-                      Statut
+                      <Text tid="statut" />
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
                     >
-                      Edit
+                      <Text tid="edit" />
                     </th>
                   </tr>
                 </thead>
