@@ -7,7 +7,7 @@ class ExpertsManager extends AbstractManager {
 
   insert(imp) {
     return this.connection.query(
-      `INSERT INTO ${this.table} VALUES((SELECT id FROM decisions ORDER BY id DESC LIMIT 1), ?);`,
+      `INSERT IGNORE INTO ${this.table} VALUES((SELECT id FROM decisions ORDER BY id DESC LIMIT 1), ?);`,
       [imp.id_user_impact]
     );
   }

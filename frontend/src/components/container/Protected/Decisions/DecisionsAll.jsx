@@ -176,7 +176,7 @@ function DecisionsAll() {
             </div>
           </div>
         </div>
-        <div className="mx-auto grid grid-cols-3 gap-10">
+        <div className="mx-auto grid grid-cols-3">
           {
             // eslint-disable-next-line react/prop-types
             datas

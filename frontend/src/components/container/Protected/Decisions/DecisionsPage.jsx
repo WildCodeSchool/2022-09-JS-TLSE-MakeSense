@@ -4,8 +4,7 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
 import CommentSection from "../../../header/CommentSection";
 import Spinner from "../../../Spinner";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -331,7 +330,6 @@ function DecisionsPage() {
                       <h3 className="text-m font-normal text-gray-900">
                         <Text tid="deadline" />
                       </h3>
-
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
