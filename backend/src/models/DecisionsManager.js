@@ -47,7 +47,7 @@ class DecisionsManager extends AbstractManager {
     ]);
   }
 
-  readfilter(status, duree, userId) {
+  readfilter(status, duree, userId, userConcerned, userComment) {
     let andUser = "";
     let durees = "";
     let operator = "=";
@@ -62,10 +62,15 @@ class DecisionsManager extends AbstractManager {
     if (userId !== "0") {
       andUser = `AND ${this.table}.id_user_creator = ${userId}`;
     }
-    return this.connection.query(
-      `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`,
-      [status]
-    );
+    let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`;
+    if (userConcerned !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userConcerned} UNION SELECT decisions_experts.id_decision FROM decisions_experts WHERE decisions_experts.id_user_expert = ${userConcerned} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    }
+    if (userComment !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    }
+
+    return this.connection.query(queryContent, [status]);
   }
 
   updatestatus(id, status) {
