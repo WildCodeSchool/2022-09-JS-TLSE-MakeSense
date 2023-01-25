@@ -93,7 +93,7 @@ function UsersManager() {
           >
             <Text tid="list" />
           </button>
-          <div className="w-2/3">
+          <div className="">
             <div className="px-4 sm:px-6 lg:px-8 w-full">
               <div className="sm:flex sm:items-center">
                 <form onSubmit={handleSubmit}>
@@ -121,7 +121,7 @@ function UsersManager() {
         </>
       )}
       {ModeSelect === "list" && (
-        <div className="w-2/3">
+        <div className="">
           <div className="px-4 sm:px-6 lg:px-8 w-full">
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-none flex flex-row justify-between items-center w-full">
@@ -133,7 +133,7 @@ function UsersManager() {
                   value={searchTerm}
                   onChange={handleChange}
                   placeholder="Chercher un groupe"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg w-1/2 p-2.5 my-5"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg w-1/2 p-2.5 my-5"
                 />
                 <button
                   type="button"
@@ -155,21 +155,27 @@ function UsersManager() {
                       <tr>
                         <th
                           scope="col"
-                          className="py-3.5 pl-4 pr-3 text-left text-xl font-semibold text-gray-900 sm:pl-6"
+                          className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                         >
                           Nom
                         </th>
                         <th
                           scope="col"
-                          className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
                           Nombre de personnes
                         </th>
                         <th
                           scope="col"
-                          className="px-3 py-3.5 text-left text-xl font-semibold text-gray-900"
+                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
                           Edit
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                        >
+                          Delete
                         </th>
                       </tr>
                     </thead>
@@ -187,7 +193,7 @@ function UsersManager() {
                           )
                       ).map((data) => (
                         <tr key={data.id}>
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xl sm:pl-6">
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                             <div className="flex items-center">
                               <div className="h-10 w-10 flex-shrink-0">
                                 <img
@@ -201,19 +207,19 @@ function UsersManager() {
                               </div>
                             </div>
                           </td>
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-xl sm:pl-6">
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                             <div className="flex items-center">
                               <div className="h-10 w-10 flex-shrink-0">
                                 <div className="text-gray-500">...</div>
                               </div>
                             </div>
                           </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
                             <button value={data.id} type="button">
                               <HiPencilSquare />
                             </button>
                           </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
                             <button
                               type="button"
                               value={data.id}
