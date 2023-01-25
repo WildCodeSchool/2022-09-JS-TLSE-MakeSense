@@ -1,0 +1,38 @@
+.wrap-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.logo {
+  width: 200px;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.menu button {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.bean {
+  display: inline-block;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  content: "";
+  border-radius: 0.25rem;
+  background-color: var(--main-bg-color);
+  width: 0.8rem;
+  height: 0.4rem;
+}

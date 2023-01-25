@@ -4,6 +4,8 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
 import CommentSection from "../../../header/CommentSection";
 import Spinner from "../../../Spinner";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { Text, LanguageContext } from "../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -74,7 +76,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Description</span>
+                      <span>
+                        <Text tid="description" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -111,7 +115,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Contexte</span>
+                      <span>
+                        <Text tid="context" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -185,7 +191,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Avantages</span>
+                      <span>
+                        <Text tid="avantages" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -281,7 +289,7 @@ function DecisionsPage() {
                   id="timeline-title"
                   className="text-lg font-medium text-gray-900"
                 >
-                  Timeline
+                  <Text tid="timeline" />
                 </h2>
 
                 {/* Activity Feed */}
@@ -299,7 +307,7 @@ function DecisionsPage() {
                       />
                     </time>
                     <h3 className="text-m font-normal text-gray-900">
-                      Prise de décision commencée
+                      <Text tid="decisionmakingstarted" />
                     </h3>
                   </li>
                   {JSON.parse(decisions.content).dateOpinion ? (
@@ -321,8 +329,9 @@ function DecisionsPage() {
                         />
                       </time>
                       <h3 className="text-m font-normal text-gray-900">
-                        Deadline pour donner son avis
+                        <Text tid="deadline" />
                       </h3>
+
                     </li>
                   ) : null}
                   {JSON.parse(decisions.content).dateFirstDecision ? (
@@ -345,7 +354,7 @@ function DecisionsPage() {
                         />
                       </time>
                       <h5 className="text-m font-normal text-gray-900">
-                        Première décision prise
+                        <Text tid="firstdecision" />
                       </h5>
                     </li>
                   ) : null}
@@ -368,7 +377,7 @@ function DecisionsPage() {
                         />
                       </time>
                       <h3 className="text-m font-normal text-gray-900">
-                        Deadline pour entrer en conflit
+                        <Text tid="deadlinetoenterdispute" />
                       </h3>
                     </li>
                   ) : null}
@@ -392,7 +401,7 @@ function DecisionsPage() {
                         />
                       </time>
                       <h3 className="text-m font-normal text-gray-900">
-                        Décision définitive
+                        <Text tid="finaldecision" />
                       </h3>
                     </li>
                   ) : null}
@@ -405,19 +414,21 @@ function DecisionsPage() {
                   id="timeline-title"
                   className="text-lg font-medium text-gray-900"
                 >
-                  Les personnes concernées
+                  <Text tid="peopleconcerned" />
                 </h2>
                 {impacted.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      Personnes impactées
+                      <Text tid="designatethepeopleconcerned" />
                     </h3>
-                    <div>Personne n'a été désigné comme étant impacté.</div>
+                    <div>
+                      <Text tid="noonehasbeennamedasimpacted" />
+                    </div>
                   </>
                 ) : (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      Personnes impactées
+                      <Text tid="designatethepeopleconcerned" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
                       {impacted.map((person) => (
@@ -442,14 +453,16 @@ function DecisionsPage() {
                 {expert.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      Personnes expertes
+                      <Text tid="designatethepeopleconcerned" />
                     </h3>
-                    <div>Personne n'a été désigné expert.</div>
+                    <div>
+                      <Text tid="noonehasbeenappointedasanexpert" />
+                    </div>
                   </>
                 ) : (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      Personnes expertes
+                      <Text tid="designatethepeopleconcerned" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
                       {expert.map((person) => (
@@ -467,7 +480,11 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {expert.length > 4 && <div>et autres...</div>}
+                      {expert.length > 4 && (
+                        <div>
+                          <Text tid="andothers" />
+                        </div>
+                      )}
                     </div>
                   </>
                 )}
