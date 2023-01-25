@@ -1,7 +1,7 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import api from "../services/api";
+import { LoadUser } from "./functions/ReconnectApi";
 
 const AuthContext = createContext();
 export const useAuth = () => {
@@ -9,6 +9,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState({
     admin: null,
     email: null,
@@ -18,32 +19,35 @@ export function AuthProvider({ children }) {
   });
   const navigate = useNavigate();
 
-  const reconnect = async (id) => {
-    const checkuser = await api.apigetmysql(
-      `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
-    );
-    setUser({
-      admin: checkuser.admin,
-      email: checkuser.email,
-      firstname: checkuser.firstname,
-      lastname: checkuser.lastname,
-      id,
-    });
-    navigate("/user/profile", { replace: true });
-  };
-
-  // reconnexion peuple user
-  if (
-    !user.email &&
-    document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
-  ) {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("makesense_access_token="))
-      ?.split("=Bearer%20")[1];
-    const payload = JSON.parse(window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g)));
-    reconnect(payload.sub);
-  }
+  useEffect(() => {
+    // reconnexion peuple user
+    if (
+      !user.email &&
+      document.cookie.match(
+        /^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/
+      )
+    ) {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("makesense_access_token="))
+        ?.split("=Bearer%20")[1];
+      const payload = JSON.parse(
+        window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g))
+      );
+      LoadUser(payload.sub).then((returnuser) => {
+        setUser({
+          admin: returnuser.admin,
+          email: returnuser.email,
+          firstname: returnuser.firstname,
+          lastname: returnuser.lastname,
+          id: returnuser.id,
+        });
+        setIsLoaded(true);
+      });
+    } else {
+      setIsLoaded(true);
+    }
+  }, []);
 
   const login = async (data) => {
     setUser(data);
@@ -67,7 +71,11 @@ export function AuthProvider({ children }) {
     [user]
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {isLoaded && children}
+    </AuthContext.Provider>
+  );
 }
 
 AuthProvider.propTypes = {
