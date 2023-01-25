@@ -41,7 +41,7 @@ function AppBar({ menu }) {
           <button
             type="button"
             onClick={() => {
-              navigate(`/user`);
+              navigate(`/user/decisions`);
             }}
           >
             <img src={logo} className="h-6 mr-3 sm:h-9" alt="Makesense Logo" />
