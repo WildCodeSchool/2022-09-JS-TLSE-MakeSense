@@ -101,6 +101,7 @@ function DecisionsForm() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
+      setDecisionTitle(JSON.parse(getDecisions.content).title);
       setDecisionDescription(JSON.parse(getDecisions.content).description);
       setDecisionContext(JSON.parse(getDecisions.content).context);
       setDecisionUtility(JSON.parse(getDecisions.content).utility);
@@ -166,11 +167,38 @@ function DecisionsForm() {
       };
       setIsSubmit(true);
       return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions/`, body)
         .then((json) => {
           return json;
         });
     }
+    const handleSubmitNewDecision = (event) => {
+      event.preventDefault();
+      const body = {
+        title: JSON.parse(data.content).title,
+        description: JSON.parse(data.content).description,
+        utility: JSON.parse(data.content).utility,
+        context: JSON.parse(data.content).context,
+        pros: JSON.parse(data.content).pros,
+        cons: JSON.parse(data.content).cons,
+        firstDate: new Date(),
+        dateOpinion: new Date(),
+        dateFirstDecision: new Date(),
+        dateEndConflict: new Date(),
+        dateFinaleDecision: new Date(),
+      };
+
+      const updateUserData = async () => {
+        const updateUser = await api.apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/decisions`,
+          body
+        );
+        if (updateUser.status === 204) {
+          setIsSubmit(true);
+        }
+      };
+      updateUserData();
+    };
   }
 
   return (
@@ -208,7 +236,7 @@ function DecisionsForm() {
             type="text"
             name="title"
             id="title"
-            value={form.title}
+            defaultValue={JSON.parse(data.content).title}
             onChange={(event) => {
               setForm({ ...form, [event.target.name]: event.target.value });
             }}
@@ -439,6 +467,7 @@ function DecisionsForm() {
           </fieldset>
           <button
             type="submit"
+            onSubmit={handleSubmit}
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           >
             Valider les modifications
