@@ -1,3 +1,5 @@
+import { Text } from "../../../../contexts/Language";
+
 function Comments({ comments, page, limit }) {
   const startIndex = (page - 1) * limit;
   const selectedComments = comments.slice(startIndex, startIndex + limit);
@@ -27,7 +29,8 @@ function Comments({ comments, page, limit }) {
                     </div>
                     <div className="mt-2 text-sm space-x-2">
                       <span className="text-gray-500 font-medium">
-                        Posté le {comment.date_creation.substring(0, 10)} à{" "}
+                        <Text tid="postedthe" />{" "}
+                        {comment.date_creation.substring(0, 10)} à{" "}
                         {comment.date_creation.substring(11, 13)}h
                         {comment.date_creation.substring(14, 16)}
                       </span>

@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Text } from "../../contexts/Language";
 
 function ErrorPage({ title }) {
   return (
@@ -7,7 +8,9 @@ function ErrorPage({ title }) {
         <h1>{title}</h1>
       </div>
       <div>
-        <p>Il y a eu une erreur lors du chargement du composant !</p>
+        <p>
+          <Text tid="therewasanerrorloadingthecomponent!" />
+        </p>
       </div>
     </main>
   );
