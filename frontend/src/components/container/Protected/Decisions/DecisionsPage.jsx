@@ -2,10 +2,9 @@ import { useEffect, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
-import CommentSection from "../../../header/CommentSection";
+import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -59,7 +58,8 @@ function DecisionsPage() {
                     {JSON.parse(decisions.content).title}
                   </h2>
                   <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    Par {decisions.firstname} {decisions.lastname}
+                    <Text tid="through" /> {decisions.firstname}{" "}
+                    {decisions.lastname}
                   </p>
                 </div>
                 <div
@@ -154,7 +154,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Utilité</span>
+                      <span>
+                        <Text tid="usefulnessfortheorganization" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -230,7 +232,9 @@ function DecisionsPage() {
                       aria-expanded="true"
                       aria-controls="accordion-flush-body-1"
                     >
-                      <span>Inconvénients</span>
+                      <span>
+                        <Text tid="disadvantages" />
+                      </span>
                       <svg
                         data-accordion-icon
                         className="w-6 h-6 rotate-180 shrink-0"
@@ -269,7 +273,7 @@ function DecisionsPage() {
                       navigate(`/user/decisions?comp=Edit&id=${decisions.id}`);
                     }}
                   >
-                    Modifier la décision
+                    <Text tid="modify" />
                   </button>
                 </div>
               </div>
@@ -446,7 +450,11 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {impacted.length > 4 && <div>et autres...</div>}
+                      {impacted.length > 4 && (
+                        <div>
+                          <Text tid="andothers" />
+                        </div>
+                      )}
                     </div>
                   </>
                 )}

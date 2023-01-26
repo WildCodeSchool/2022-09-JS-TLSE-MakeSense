@@ -39,11 +39,10 @@ router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
 router.post("/groups", groupsControllers.add);
+router.get("/groups/:id", groupsControllers.read);
 router.delete("/groups/:id", groupsControllers.destroy);
 
-router.post("/impacted", impactedControllers.add);
 router.get("/impacted/:id", impactedControllers.read);
-router.post("/experts", expertsControllers.add);
 router.get("/experts/:id", expertsControllers.read);
 
 router.get("/users", usersControllers.browse);

@@ -16,11 +16,21 @@ function UsersManager() {
   const [ModeSelect, setModeSelect] = useState(
     new URLSearchParams(URLParam).get("mode")
       ? new URLSearchParams(URLParam).get("mode")
-      : "list"
+      : `list`
   );
+  const idedit = new URLSearchParams(URLParam).get("id")
+    ? new URLSearchParams(URLParam).get("id")
+    : "";
+  if (ModeSelect === "edit" && !idedit) {
+    setModeSelect("list");
+    navigate(`/admin/dashboard?tools=GroupsManager&mode=list`, {
+      replace: true,
+    });
+  }
 
   const HandlerMode = (mode) => {
     setModeSelect(mode.currentTarget.value);
+    SetIsLoaded(false);
     navigate(
       `/admin/dashboard?tools=GroupsManager&mode=${
         mode.currentTarget.value === "edit"
@@ -73,7 +83,7 @@ function UsersManager() {
         `${import.meta.env.VITE_BACKEND_URL}/users`
       );
       const allgroups = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/groups`
+        `${import.meta.env.VITE_BACKEND_URL}/groups/${idedit}`
       );
       setAllUsers(allusers);
       setAllGroups(allgroups);
@@ -90,7 +100,7 @@ function UsersManager() {
 
   return IsLoaded ? (
     <div className="comp-admin-wrapper">
-      {ModeSelect === "add" && (
+      {(ModeSelect === "add" || ModeSelect === "edit") && (
         <>
           <button
             type="button"
@@ -164,19 +174,19 @@ function UsersManager() {
                           scope="col"
                           className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                         >
-                          Nom
+                          <Text tid="name" />
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Nombre de personnes
+                          <Text tid="numberofpersons" />
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Edit
+                          <Text tid="edit" />
                         </th>
                         <th
                           scope="col"
@@ -251,6 +261,9 @@ function UsersManager() {
           </div>
         </div>
       )}
+      {ModeSelect !== "list" &&
+        ModeSelect !== "edit" &&
+        ModeSelect !== "add" && <div>Tu me prends pour qui ?</div>}
     </div>
   ) : (
     <Spinner />

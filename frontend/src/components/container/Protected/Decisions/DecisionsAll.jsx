@@ -113,15 +113,29 @@ function DecisionsAll() {
                 onChange={HandlerStatus}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
               >
-                <option value="">-- Toutes les décisions --</option>
+                <option value="">
+                  {" "}
+                  <Text tid="alldecision" />
+                </option>
                 <option value="1">
                   <Text tid="waitopinion" />
                 </option>
-                <option value="2">En attente première décision</option>
-                <option value="3">En conflit</option>
-                <option value="4">Décision prise définitivement</option>
-                <option value="5">Décisions archivées</option>
-                <option value="6">Décisions non abouties</option>
+                <option value="2">
+                  {" "}
+                  <Text tid="awaitingfirstdecision" />
+                </option>
+                <option value="3">
+                  <Text tid="inconflict" />
+                </option>
+                <option value="4">
+                  <Text tid="finaldecision" />
+                </option>
+                <option value="5">
+                  <Text tid="archiveddecisions" />
+                </option>
+                <option value="6">
+                  <Text tid="unsuccessfuldecisions" />
+                </option>
               </select>
             </div>
             <div>
@@ -176,7 +190,7 @@ function DecisionsAll() {
             </div>
           </div>
         </div>
-        <div className="mx-auto grid grid-cols-3 gap-10">
+        <div className="mx-auto grid grid-cols-3">
           {
             // eslint-disable-next-line react/prop-types
             datas

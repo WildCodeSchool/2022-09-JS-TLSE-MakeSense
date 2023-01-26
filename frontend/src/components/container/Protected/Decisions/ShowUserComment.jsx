@@ -6,7 +6,7 @@ import { useAuth } from "../../../../contexts/useAuth";
 import { Text } from "../../../../contexts/Language";
 import Spinner from "../../../Spinner";
 
-export default function ShowUserDecisions() {
+export default function ShowUserComment() {
   const [datas, setDatas] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +21,7 @@ export default function ShowUserDecisions() {
     // Options query
     let duree;
     let status;
-    const userId = `id=${user.id}`;
+    const userComment = `idUserComment=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
@@ -29,7 +29,7 @@ export default function ShowUserDecisions() {
       const decisions = await api.apigetmysql(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/decisions?${status}&${duree}&${userId}`
+        }/decisions?${status}&${duree}&${userComment}`
       );
       if (datas === null) {
         decisions.forEach((dec) => {
@@ -108,29 +108,13 @@ export default function ShowUserDecisions() {
               onChange={HandlerStatus}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
             >
-              <option value="">
-                {" "}
-                <Text tid="alldecision" />
-              </option>
-              <option value="1">
-                <Text tid="waitopinion" />
-              </option>
-              <option value="2">
-                {" "}
-                <Text tid="awaitingfirstdecision" />
-              </option>
-              <option value="3">
-                <Text tid="inconflict" />
-              </option>
-              <option value="4">
-                <Text tid="finaldecision" />
-              </option>
-              <option value="5">
-                <Text tid="archiveddecisions" />
-              </option>
-              <option value="6">
-                <Text tid="unsuccessfuldecisions" />
-              </option>
+              <option value="">-- Toutes les décisions --</option>
+              <option value="1">En attente d'avis</option>
+              <option value="2">En attente première décision</option>
+              <option value="3">En conflit</option>
+              <option value="4">Décision prise définitivement</option>
+              <option value="5">Décisions archivées</option>
+              <option value="6">Décisions non abouties</option>
             </select>
           </div>
           <div>

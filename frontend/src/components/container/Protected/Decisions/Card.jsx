@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import { Text } from "../../../../contexts/Language";
 
 function Card({ data, user }) {
   // eslint-disable-next-line react/prop-types
@@ -21,7 +22,7 @@ function Card({ data, user }) {
     decisionStatus = "Décision non aboutie";
   }
   return (
-    <div className="col-span-1 bg-white block max-w-sm p-10 border border-gray-200 rounded-lg shadow-md">
+    <div className="col-span-1 bg-white block max-w-sm p-10 m-5 border border-gray-200 rounded-lg shadow-md">
       <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {dataContent.title}
       </h2>
@@ -43,7 +44,7 @@ function Card({ data, user }) {
             : `Par ${data.firstname} ${data.lastname}`}
         </div>
         <div className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-lg">
-          avis
+          <Text tid="notice" />
         </div>
       </div>
     </div>

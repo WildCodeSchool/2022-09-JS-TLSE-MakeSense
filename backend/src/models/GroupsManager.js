@@ -5,14 +5,11 @@ class GroupManager extends AbstractManager {
     super({ table: "groups" });
   }
 
-  find(id) {
-    return this.connection.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
-  }
-
-  findAll() {
-    return this.connection.query(`SELECT * FROM ${this.table}`);
+  findgroup(id) {
+    return this.connection.query(
+      `SELECT * FROM ${this.table} INNER JOIN group_user ON group_user.id_group = ? WHERE ${this.table}.id = ?`,
+      [id, id]
+    );
   }
 
   insert(body) {

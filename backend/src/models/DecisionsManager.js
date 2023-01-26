@@ -5,7 +5,7 @@ class DecisionsManager extends AbstractManager {
     super({ table: "decisions" });
   }
 
-  find(id) {
+  finddec(id) {
     return this.connection.query(
       `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_creator = users.id where ${this.table}.id = ?`,
       [id]
@@ -19,13 +19,35 @@ class DecisionsManager extends AbstractManager {
     );
   }
 
+  insertuserimpact(iddecisionsinserted, usersimpact) {
+    let values = "";
+    usersimpact?.forEach((el) => {
+      values += `, (${iddecisionsinserted}, ${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_impacts VALUES ${values};`
+    );
+  }
+
+  insertuserexpert(iddecisionsinserted, usersexpert) {
+    let values = "";
+    usersexpert?.forEach((el) => {
+      values += `, (${iddecisionsinserted},${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_experts VALUES ${values};`
+    );
+  }
+
   read(decisions) {
     return this.connection.query(`select * from ${this.table} where id = ?`, [
       decisions.id,
     ]);
   }
 
-  readfilter(status, duree, userId) {
+  readfilter(status, duree, userId, userConcerned, userComment) {
     let andUser = "";
     let durees = "";
     let operator = "=";
@@ -40,10 +62,15 @@ class DecisionsManager extends AbstractManager {
     if (userId !== "0") {
       andUser = `AND ${this.table}.id_user_creator = ${userId}`;
     }
-    return this.connection.query(
-      `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`,
-      [status]
-    );
+    let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`;
+    if (userConcerned !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userConcerned} UNION SELECT decisions_experts.id_decision FROM decisions_experts WHERE decisions_experts.id_user_expert = ${userConcerned} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    }
+    if (userComment !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    }
+
+    return this.connection.query(queryContent, [status]);
   }
 
   updatestatus(id, status) {
@@ -58,12 +85,6 @@ class DecisionsManager extends AbstractManager {
       `update ${this.table} set content = ? where id = ?`,
       [decisions.content, decisions.id]
     );
-  }
-
-  delete(id) {
-    return this.connection.query(`delete from ${this.table} where id = ?`, [
-      id,
-    ]);
   }
 }
 

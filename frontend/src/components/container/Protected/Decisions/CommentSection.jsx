@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "@services/api";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
-import { useAuth } from "../../contexts/useAuth";
+import { useAuth } from "../../../../contexts/useAuth";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);

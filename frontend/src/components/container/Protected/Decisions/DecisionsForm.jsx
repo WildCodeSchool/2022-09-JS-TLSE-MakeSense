@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import ReactQuill from "react-quill";
@@ -8,8 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "../../../../services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Text, LanguageContext } from "../../../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function DecisionsForm() {
   // set options WYSIWYG
@@ -65,10 +64,10 @@ function DecisionsForm() {
     pros: "",
     cons: "",
     firstDate: new Date(),
-    dateOpinion: new Date(),
-    dateFirstDecision: new Date(),
-    dateEndConflict: new Date(),
-    dateFinaleDecision: new Date(),
+    dateOpinion: new Date().setDate(new Date().getDate() + 1),
+    dateFirstDecision: new Date().setDate(new Date().getDate() + 1),
+    dateEndConflict: new Date().setDate(new Date().getDate() + 1),
+    dateFinaleDecision: new Date().setDate(new Date().getDate() + 1),
   });
 
   const getUsers = async () => {
@@ -101,9 +100,8 @@ function DecisionsForm() {
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
     // handle errors
     setErrors("");
     const options = {
@@ -113,11 +111,12 @@ function DecisionsForm() {
     if (result.error) {
       setErrors(result.error.details);
     } else {
-      console.warn("il n'y a pas d'erreur");
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
         id_user_creator: user.id,
+        users_impact: impacted,
+        users_expert: experts,
       };
       setIsSubmit(true);
       return api

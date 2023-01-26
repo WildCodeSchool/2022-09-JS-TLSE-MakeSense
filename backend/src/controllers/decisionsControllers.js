@@ -4,8 +4,10 @@ const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
+  const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const userComment = req.query.idUserComment ? req.query.idUserComment : "0";
   models.decisions
-    .readfilter(status, duree, userId)
+    .readfilter(status, duree, userId, userConcerned, userComment)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -17,7 +19,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.decisions
-    .find(req.params.id)
+    .finddec(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -70,15 +72,48 @@ const statusedit = (req, res) => {
 
 const add = (req, res) => {
   const decisions = req.body;
-
   models.decisions
     .insert(decisions)
     .then(([result]) => {
-      res.location(`/decisions/${result.insertId}`).sendStatus(201);
+      try {
+        return result.insertId;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.users_impact.length) {
+          models.decisions.insertuserimpact(
+            iddecisionsinserted,
+            decisions.users_impact
+          );
+        }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.users_expert.length) {
+          models.decisions.insertuserexpert(
+            iddecisionsinserted,
+            decisions.users_expert
+          );
+        }
+        return res.sendStatus(201);
+      } catch (error) {
+        throw new Error(error);
+      }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      res
+        .json(
+          `Error when add decision with impacteds and experts users: ${err}`
+        )
+        .sendStatus(500);
     });
 };
 
