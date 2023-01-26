@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiPencilSquare, HiOutlineXMark } from "react-icons/hi2";
+import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
+import { Text, LanguageContext } from "../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -51,7 +52,7 @@ function DecisionsPage() {
             <div className="relative bg-white rounded-lg shadow">
               <div className="p-6 text-center">
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  La décision a bien été supprimée
+                  <Text tid="thedecisionhasbeenremoved" />
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -61,7 +62,7 @@ function DecisionsPage() {
                     setIsSubmit(false);
                   }}
                 >
-                  Revenir aux décisions
+                  <Text tid="backtodecisions" />
                 </button>
               </div>
             </div>
@@ -96,37 +97,37 @@ function DecisionsPage() {
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                       >
-                        Titre
+                        <Text tid="title" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Auteur
+                        <Text tid="author" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Statut
+                        <Text tid="Statut" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Date de dépôt
+                        <Text tid="depositdate" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Edit
+                        <Text tid="edit" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Delete
+                        <Text tid="delete" />
                       </th>
                     </tr>
                   </thead>
@@ -186,7 +187,7 @@ function DecisionsPage() {
                               type="button"
                               onClick={() => handleDelete(decision.id)}
                             >
-                              <HiOutlineXMark />
+                              <HiOutlineArchiveBoxXMark />
                             </button>
                           </td>
                         </tr>

@@ -8,12 +8,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import api from "@services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
+import { Text } from "../../../../contexts/Language";
+import DecisionsPage from "./DecisionsPage";
 
 function DecisionsForm() {
+  const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
-    : "";
+    : navigate("/user/decisions");
+
   // set options WYSIWYG
   const modules = {
     toolbar: [
@@ -33,8 +37,6 @@ function DecisionsForm() {
   // get user logged in from Context
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
   // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
@@ -51,6 +53,13 @@ function DecisionsForm() {
   });
 
   // states for form
+  const [updateData, setUpdateData] = useState(false);
+  const [decisionTitle, setDecisionTitle] = useState();
+  const [decisionDescription, setDecisionDescription] = useState();
+  const [decisionContext, setDecisionContext] = useState();
+  const [decisionUtility, setDecisionUtility] = useState();
+  const [decisionPros, setDecisionPros] = useState();
+  const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [impacted, setImpacted] = useState([]);
@@ -59,6 +68,7 @@ function DecisionsForm() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -72,9 +82,6 @@ function DecisionsForm() {
     dateEndConflict: new Date(),
     dateFinaleDecision: new Date(),
   });
-
-  // state to get the original data
-  const [decisionsData, setDecisionsData] = useState(null);
 
   const getUsers = async () => {
     const callAllUsers = await api.apigetmysql(
@@ -90,14 +97,20 @@ function DecisionsForm() {
 
   // useEffect to set the original data
   useEffect(() => {
-    const getAllApis = async () => {
-      // get the decision
-      const callDecisionsData = await api.apigetmysql(
+    const getDecisionsData = async () => {
+      // get the original decision
+      const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionsData(callDecisionsData);
+      setDecisionDescription(JSON.parse(getDecisions.content).description);
+      setDecisionContext(JSON.parse(getDecisions.content).context);
+      setDecisionUtility(JSON.parse(getDecisions.content).utility);
+      setDecisionPros(JSON.parse(getDecisions.content).pros);
+      setDecisionCons(JSON.parse(getDecisions.content).cons);
+      setData(getDecisions);
     };
-  });
+    getDecisionsData(); // lance la fonction getDecisionsData
+  }, [updateData]);
 
   useEffect(() => {
     getUsers();
@@ -173,22 +186,26 @@ function DecisionsForm() {
               onClick={() => setIsSubmit(!isSubmit)}
             />
             <div className="modal">
-              <h2>Le formulaire a été soumis avec succès !</h2>
+              <h2>
+                <Text tid="theformhasbeensubmittedsuccessfully!" />
+              </h2>
               <button
                 type="submit"
                 onClick={() => {
                   navigate(`/user/decisions`);
                 }}
               >
-                Revenir à la page d'accueil
+                <Text tid="home" />
               </button>
             </div>
           </>
         )}
-        <h1>Déposer une décision</h1>
+        <h1>
+          <Text tid="fileadecision" />
+        </h1>
         <form onSubmit={handleSubmit}>
           <legend className="hello">
-            Décrire tous les éléments de sa décision
+            <Text tid="describealltheelementsofhisdecision" />
           </legend>
           <label htmlFor="title">Titre</label>
           <br />
@@ -206,18 +223,20 @@ function DecisionsForm() {
               if (error.path[0] === "title") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <label htmlFor="description">Description de la décision</label>
+          <label htmlFor="description">
+            <Text tid="description" />
+          </label>
           <ReactQuill
             theme="snow"
             modules={modules}
             name="description"
-            value={form.description}
+            defaultValue={JSON.parse(data.content).description}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -227,18 +246,20 @@ function DecisionsForm() {
               if (error.path[0] === "description") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <label htmlFor="utility">Utilité pour l'organisation</label>
+          <label htmlFor="utility">
+            <Text tid="usefulnessfortheorganization" />
+          </label>
           <ReactQuill
             theme="snow"
             modules={modules}
             name="utility"
-            value={form.utility}
+            defaultValue={JSON.parse(data.content).utility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -248,18 +269,20 @@ function DecisionsForm() {
               if (error.path[0] === "utility") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <label htmlFor="context">Contexte autour de la décision</label>
+          <label htmlFor="context">
+            <Text tid="contextaroundthedecision" />
+          </label>
           <ReactQuill
             theme="snow"
             modules={modules}
             name="context"
-            value={form.context}
+            defaultValue={JSON.parse(data.content).context}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -269,17 +292,19 @@ function DecisionsForm() {
               if (error.path[0] === "context") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <label htmlFor="pros">Bénéfices</label>
+          <label htmlFor="pros">
+            <Text tid="benefits" />
+          </label>
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.pros}
+            defaultValue={JSON.parse(data.content).pros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -289,17 +314,19 @@ function DecisionsForm() {
               if (error.path[0] === "pros") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <label htmlFor="cons">Inconvénients</label>
+          <label htmlFor="cons">
+            <Text tid="disadvantages" />
+          </label>
           <ReactQuill
             theme="snow"
             modules={modules}
-            value={form.cons}
+            defaultValue={JSON.parse(data.content).cons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
@@ -309,13 +336,15 @@ function DecisionsForm() {
               if (error.path[0] === "cons") {
                 return (
                   <div key={error.context.key} className="field-error">
-                    Ce champs est requis et doit contenir au moins 5 caractères.
+                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
                   </div>
                 );
               }
               return null;
             })}
-          <legend>Définir les concernés et les experts</legend>
+          <legend>
+            <Text tid="designatethepeopleconcerned" />
+          </legend>
           <Concerned
             table={usersAndGroups}
             name="concernés"
@@ -330,9 +359,13 @@ function DecisionsForm() {
             updateType={(event) => setExperts(event)}
           />
           <fieldset>
-            <legend>Définir le calendrier</legend>
+            <legend>
+              <Text tid="setschedule" />
+            </legend>
             <div className="datepicker">
-              <p>Date de dépôt de la décision</p>
+              <p>
+                <Text tid="dateoffilingofthedecision" />
+              </p>
               <DatePicker
                 selected={form.firstDate}
                 minDate={form.firstDate}
@@ -341,7 +374,9 @@ function DecisionsForm() {
               />
             </div>
             <div className="datepicker">
-              <p>Fin de la prise des avis</p>
+              <p>
+                <Text tid="endoftakingopinions" />
+              </p>
               <DatePicker
                 selected={form.dateOpinion}
                 minDate={form.firstDate}
@@ -355,14 +390,16 @@ function DecisionsForm() {
                 if (error.path[0] === "dateOpinion") {
                   return (
                     <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
+                      <Text tid="thisdatemustbegreaterthantodaysdate" />
                     </div>
                   );
                 }
                 return null;
               })}
             <div className="datepicker">
-              <p>Fin de la première décision</p>
+              <p>
+                <Text tid="endofthefirstdecision" />
+              </p>
               <DatePicker
                 selected={form.dateFirstDecision}
                 minDate={form.dateOpinion}
@@ -376,14 +413,16 @@ function DecisionsForm() {
                 if (error.path[0] === "dateFirstDecision") {
                   return (
                     <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui..
+                      <Text tid="thisdatemustbegreaterthantodaysdate" />
                     </div>
                   );
                 }
                 return null;
               })}
             <div className="datepicker">
-              <p>Fin du conflit sur la première décision</p>
+              <p>
+                <Text tid="endoftheconflictonthefirstdecision" />
+              </p>
               <DatePicker
                 selected={form.dateEndConflict}
                 minDate={form.dateFirstDecision}
@@ -397,14 +436,16 @@ function DecisionsForm() {
                 if (error.path[0] === "dateEndConflict") {
                   return (
                     <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
+                      <Text tid="thisdatemustbegreaterthantodaysdate" />
                     </div>
                   );
                 }
                 return null;
               })}
             <div className="datepicker">
-              <p>Décision définitive</p>
+              <p>
+                <Text tid="finaldecision" />
+              </p>
               <DatePicker
                 selected={form.dateFinaleDecision}
                 minDate={form.dateEndConflict}
@@ -418,7 +459,7 @@ function DecisionsForm() {
                 if (error.path[0] === "dateFinaleDecision") {
                   return (
                     <div key={error.context.key} className="field-error">
-                      Cette date doit être supérieure à la date d'aujourd'hui.
+                      <Text tid="thisdatemustbegreaterthantodaysdate" />
                     </div>
                   );
                 }
