@@ -1,4 +1,4 @@
-import { Text } from "../../contexts/Language";
+import { Text } from "../../../../contexts/Language";
 
 function Comments({ comments, page, limit }) {
   const startIndex = (page - 1) * limit;

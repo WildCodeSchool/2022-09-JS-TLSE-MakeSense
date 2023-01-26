@@ -5,7 +5,7 @@ class DecisionsManager extends AbstractManager {
     super({ table: "decisions" });
   }
 
-  find(id) {
+  finddec(id) {
     return this.connection.query(
       `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_creator = users.id where ${this.table}.id = ?`,
       [id]
@@ -16,6 +16,28 @@ class DecisionsManager extends AbstractManager {
     return this.connection.query(
       `insert into ${this.table}(content, status, id_user_creator) values (?, ?, ?);`,
       [decisions.content, decisions.status, decisions.id_user_creator]
+    );
+  }
+
+  insertuserimpact(iddecisionsinserted, usersimpact) {
+    let values = "";
+    usersimpact?.forEach((el) => {
+      values += `, (${iddecisionsinserted}, ${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_impacts VALUES ${values};`
+    );
+  }
+
+  insertuserexpert(iddecisionsinserted, usersexpert) {
+    let values = "";
+    usersexpert?.forEach((el) => {
+      values += `, (${iddecisionsinserted},${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_experts VALUES ${values};`
     );
   }
 
@@ -63,12 +85,6 @@ class DecisionsManager extends AbstractManager {
       `update ${this.table} set content = ? where id = ?`,
       [decisions.content, decisions.id]
     );
-  }
-
-  delete(id) {
-    return this.connection.query(`delete from ${this.table} where id = ?`, [
-      id,
-    ]);
   }
 }
 

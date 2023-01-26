@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
-import CommentSection from "../../../header/CommentSection";
+import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
 import { Text } from "../../../../contexts/Language";
 
