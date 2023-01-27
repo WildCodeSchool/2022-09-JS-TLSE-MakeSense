@@ -12,6 +12,20 @@ class GroupManager extends AbstractManager {
     );
   }
 
+  findImpactedWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.name FROM ${this.table} INNER JOIN decisions_g_impacts ON decisions_g_impacts.id_g_impact = ${this.table}.id AND decisions_g_impacts.id_decision = ? LIMIT 5;`,
+      [id]
+    );
+  }
+
+  findExpertsWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.name FROM ${this.table} INNER JOIN decisions_g_experts ON decisions_g_experts.id_g_expert = ${this.table}.id AND decisions_g_experts.id_decision = ? LIMIT 5;`,
+      [id]
+    );
+  }
+
   insert(body) {
     return this.connection.query(`INSERT INTO ${this.table}(name) VALUES(?);`, [
       body.name,

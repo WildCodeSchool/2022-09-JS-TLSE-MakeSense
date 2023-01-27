@@ -41,6 +41,28 @@ class DecisionsManager extends AbstractManager {
     );
   }
 
+  insertGroupImpact(iddecisionsinserted, groupsImpact) {
+    let values = "";
+    groupsImpact?.forEach((el) => {
+      values += `, (${iddecisionsinserted}, ${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_g_impacts VALUES ${values};`
+    );
+  }
+
+  insertGroupExpert(iddecisionsinserted, groupsExperts) {
+    let values = "";
+    groupsExperts?.forEach((el) => {
+      values += `, (${iddecisionsinserted},${el.id})`;
+    });
+    values = values.substring(1);
+    return this.connection.query(
+      `INSERT INTO decisions_g_experts VALUES ${values};`
+    );
+  }
+
   read(decisions) {
     return this.connection.query(`select * from ${this.table} where id = ?`, [
       decisions.id,
@@ -71,6 +93,13 @@ class DecisionsManager extends AbstractManager {
     }
 
     return this.connection.query(queryContent, [status]);
+  }
+
+  update(decision) {
+    return this.connection.query(
+      `update ${this.table} set content = ?, date_update = NOW() where id = ?`,
+      [decision.content, decision.id]
+    );
   }
 
   updatestatus(id, status) {

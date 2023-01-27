@@ -8,8 +8,10 @@ import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
-  const [impacted, setImpacted] = useState();
-  const [expert, setExpert] = useState();
+  const [usersImpacted, setUsersImpacted] = useState([]);
+  const [usersExperts, setUsersExperts] = useState([]);
+  const [groupsImpacted, setGroupsImpacted] = useState([]);
+  const [groupsExperts, setGroupsExperts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
   const [contentComment, setContentComment] = useState();
@@ -26,17 +28,27 @@ function DecisionsPage() {
       const callDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      // get the impacted
-      const callImpacted = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/impacted/${id}`
+      // get the users impacted
+      const callUserImpacted = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/impacted/users/${id}`
       );
-      // get the experts
-      const callExperts = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/experts/${id}`
+      // get the users experts
+      const callUserExperts = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/experts/users/${id}`
+      );
+      // get the groups impacted
+      const callGroupsImpacted = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/impacted/groups/${id}`
+      );
+      // get the groups experts
+      const callGroupsExperts = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/experts/groups/${id}`
       );
       setDecisions(callDecisions);
-      setImpacted(callImpacted);
-      setExpert(callExperts);
+      setUsersImpacted(callUserImpacted);
+      setUsersExperts(callUserExperts);
+      setGroupsImpacted(callGroupsImpacted);
+      setGroupsExperts(callGroupsExperts);
       setIsLoaded(true);
     };
     getAllApis();
@@ -420,7 +432,7 @@ function DecisionsPage() {
                 >
                   <Text tid="peopleconcerned" />
                 </h2>
-                {impacted.length === 0 ? (
+                {usersImpacted.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="designatethepeopleconcerned" />
@@ -435,7 +447,7 @@ function DecisionsPage() {
                       <Text tid="designatethepeopleconcerned" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {impacted.map((person) => (
+                      {usersImpacted.map((person) => (
                         <div>
                           <img
                             key={person.id}
@@ -450,7 +462,7 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {impacted.length > 4 && (
+                      {usersImpacted.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>
@@ -458,7 +470,7 @@ function DecisionsPage() {
                     </div>
                   </>
                 )}
-                {expert.length === 0 ? (
+                {usersExperts.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="designatethepeopleconcerned" />
@@ -473,7 +485,7 @@ function DecisionsPage() {
                       <Text tid="designatethepeopleconcerned" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {expert.map((person) => (
+                      {usersExperts.map((person) => (
                         <div>
                           <img
                             key={person.id}
@@ -488,7 +500,85 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {expert.length > 4 && (
+                      {usersExperts.length > 4 && (
+                        <div>
+                          <Text tid="andothers" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            </section>
+            <section className="lg:col-start-3 lg:col-span-1">
+              <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                <h2
+                  id="timeline-title"
+                  className="text-lg font-medium text-gray-900"
+                >
+                  <Text tid="groupsconcerned" />
+                </h2>
+                {groupsImpacted.length === 0 ? (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      <Text tid="groupsimpacted" />
+                    </h3>
+                    <div>
+                      <Text tid="noonehasbeennamedasimpacted" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      <Text tid="groupsimpacted" />
+                    </h3>
+                    <div className="flex -space-x-2 overflow-hidden">
+                      {groupsImpacted.map((group) => (
+                        <div>
+                          <img
+                            key={group.id}
+                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt={group.name}
+                            title={group.name}
+                          />
+                        </div>
+                      ))}
+                      {groupsImpacted.length > 4 && (
+                        <div>
+                          <Text tid="andothers" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+                {groupsExperts.length === 0 ? (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      <Text tid="groupsexperts" />
+                    </h3>
+                    <div>
+                      <Text tid="noonehasbeenappointedasanexpert" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-lg text-gray-900">
+                      <Text tid="designatethepeopleconcerned" />
+                    </h3>
+                    <div className="flex -space-x-2 overflow-hidden">
+                      {groupsExperts.map((group) => (
+                        <div>
+                          <img
+                            key={group.id}
+                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt={group.name}
+                            title={group.name}
+                          />
+                        </div>
+                      ))}
+                      {groupsExperts.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>

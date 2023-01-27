@@ -41,16 +41,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
       <div className="login">
-        <h1 className="text-xl font-medium text-gray-900 dark:text-white">
-          Log In
-        </h1>
+        <h1 className="text-xl font-medium text-gray-900">Log In</h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Your email
             </label>
@@ -63,14 +61,14 @@ export default function LoginPage() {
               type="email"
               label="Email Address"
               autoComplete="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
             <span className="form__error">email erroné</span>
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
               Your password
             </label>
@@ -83,7 +81,7 @@ export default function LoginPage() {
               label="Password"
               type="password"
               autoComplete="current-password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
             <span className="text-rose-500 text-xs">
               Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
@@ -96,12 +94,9 @@ export default function LoginPage() {
           >
             Login to your account
           </button>
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+          <div className="text-sm font-medium text-gray-500">
             Not registered?{" "}
-            <span
-              href="#"
-              className="text-blue-700 hover:underline dark:text-blue-500"
-            >
+            <span href="#" className="text-blue-700 hover:underline">
               {" "}
               <Link to="/register">Don't have an account yet? Sign Up</Link>
             </span>

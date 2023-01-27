@@ -50,9 +50,10 @@ function DecisionsForm() {
   // states for form
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
-  const [impacted, setImpacted] = useState([]);
-  const [experts, setExperts] = useState([]);
-  const [usersAndGroups, setUsersAndGroups] = useState([]);
+  const [usersImpacted, setUsersImpacted] = useState([]);
+  const [usersExperts, setUsersExperts] = useState([]);
+  const [groupsImpacted, setGroupsImpacted] = useState([]);
+  const [groupsExperts, setGroupsExperts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
@@ -74,29 +75,16 @@ function DecisionsForm() {
     const callAllUsers = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/users`
     );
-    const usersWithType = callAllUsers.map((u) => {
-      return {
-        ...u,
-        form: "user",
-      };
-    });
-    setUsers(usersWithType);
+    setUsers(callAllUsers);
     const callAllGroups = await api.apigetmysql(
       `${import.meta.env.VITE_BACKEND_URL}/groups`
     );
-    const groupsWithType = callAllGroups.map((u) => {
-      return {
-        ...u,
-        form: "group",
-      };
-    });
-    setGroups(groupsWithType);
+    setGroups(callAllGroups);
     setIsLoaded(true);
   };
 
   useEffect(() => {
     getUsers();
-    setUsersAndGroups(users.concat(groups));
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
@@ -115,8 +103,10 @@ function DecisionsForm() {
         content: JSON.stringify(result.value),
         status: 1,
         id_user_creator: user.id,
-        users_impact: impacted,
-        users_expert: experts,
+        users_impact: usersImpacted,
+        users_expert: usersExperts,
+        groups_impact: groupsImpacted,
+        groups_expert: groupsExperts,
       };
       setIsSubmit(true);
       return api
@@ -125,32 +115,6 @@ function DecisionsForm() {
           return json;
         });
     }
-  }
-
-  // handle impacted and experts
-  if (impacted.length > 0) {
-    impacted.forEach((impac) => {
-      const body = {
-        id_user_impact: impac.id,
-      };
-      return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-        .then((json) => {
-          return json;
-        });
-    });
-  }
-  if (experts.length > 0) {
-    experts.forEach((expert) => {
-      const body = {
-        id_user_expert: expert.id,
-      };
-      return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-        .then((json) => {
-          return json;
-        });
-    });
   }
 
   return (
@@ -392,20 +356,35 @@ function DecisionsForm() {
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
+                  <div className="mr-4">
+                    <Concerned
+                      table={users}
+                      name="personnes impactées"
+                      type={usersImpacted}
+                      updateType={(event) => setUsersImpacted(event)}
+                    />
+
+                    <Concerned
+                      table={users}
+                      name="personnes expertes"
+                      type={usersExperts}
+                      updateType={(event) => setUsersExperts(event)}
+                    />
+                  </div>
                   <div className="">
                     <div className="">
                       <Concerned
-                        table={usersAndGroups}
-                        name="impactés"
-                        type={impacted}
-                        updateType={(event) => setImpacted(event)}
+                        table={groups}
+                        name="groupes impactés"
+                        type={groupsImpacted}
+                        updateType={(event) => setGroupsImpacted(event)}
                       />
 
                       <Concerned
-                        table={usersAndGroups}
-                        name="experts"
-                        type={experts}
-                        updateType={(event) => setExperts(event)}
+                        table={groups}
+                        name="groupes experts"
+                        type={groupsExperts}
+                        updateType={(event) => setGroupsExperts(event)}
                       />
                     </div>
                   </div>

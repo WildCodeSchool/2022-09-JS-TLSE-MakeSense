@@ -37,6 +37,7 @@ const edit = (req, res) => {
   const decisions = req.body;
   // TODO validations (length, format...)
   decisions.id = parseInt(req.params.id, 10);
+
   models.decisions
     .update(decisions)
     .then(([result]) => {
@@ -100,6 +101,32 @@ const add = (req, res) => {
           models.decisions.insertuserexpert(
             iddecisionsinserted,
             decisions.users_expert
+          );
+        }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.groups_impact.length) {
+          models.decisions.insertGroupImpact(
+            iddecisionsinserted,
+            decisions.groups_impact
+          );
+        }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.groups_expert.length) {
+          models.decisions.insertGroupExpert(
+            iddecisionsinserted,
+            decisions.groups_expert
           );
         }
         return res.sendStatus(201);

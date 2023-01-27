@@ -12,6 +12,30 @@ const browse = (req, res) => {
     });
 };
 
+const browseImpactedWithDecisionId = (req, res) => {
+  models.groups
+    .findImpactedWithDecisionId(req.params.id)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const browseExpertsWithDecisionId = (req, res) => {
+  models.groups
+    .findExpertsWithDecisionId(req.params.id)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.groups
     .findgroup(req.params.id)
@@ -90,4 +114,6 @@ module.exports = {
   edit,
   add,
   destroy,
+  browseImpactedWithDecisionId,
+  browseExpertsWithDecisionId,
 };
