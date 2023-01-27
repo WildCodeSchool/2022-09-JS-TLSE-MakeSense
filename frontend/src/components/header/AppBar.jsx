@@ -97,6 +97,32 @@ function AppBar({ menu }) {
                       <button
                         type="button"
                         onClick={() => {
+                          navigate(`/user/decisions`);
+                          setUserMenu(false);
+                        }}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Décisions
+                      </button>
+                    </li>
+                    {user.admin === 1 ? (
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigate(`/admin/dashboard`);
+                            setUserMenu(false);
+                          }}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Tableau de bord
+                        </button>
+                      </li>
+                    ) : null}
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => {
                           navigate(`/user/decisions?comp=Profil`);
                           setUserMenu(false);
                         }}
