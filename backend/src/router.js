@@ -47,6 +47,7 @@ router.get(
   groupsControllers.browseExpertsWithDecisionId
 );
 router.post("/groups", groupsControllers.add);
+router.put("/groups/:id", groupsControllers.edit);
 router.get("/groups/:id", groupsControllers.read);
 router.delete("/groups/:id", groupsControllers.destroy);
 
