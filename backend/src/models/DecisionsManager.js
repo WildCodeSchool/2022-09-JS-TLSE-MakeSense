@@ -97,10 +97,10 @@ class DecisionsManager extends AbstractManager {
       queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userConcerned} UNION SELECT decisions_experts.id_decision FROM decisions_experts WHERE decisions_experts.id_user_expert = ${userConcerned} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
     }
     if (groupImpacted !== "0") {
-      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status FROM ${this.table} INNER JOIN decisions_g_impacts ON ${this.table}.id = decisions_g_impacts.id_decision INNER JOIN groups ON groups.id = decisions_g_impacts.id_g_impact INNER JOIN group_user ON group_user.id_group = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_impacts ON ${this.table}.id = decisions_g_impacts.id_decision INNER JOIN groups ON groups.id = decisions_g_impacts.id_g_impact INNER JOIN group_user ON group_user.id_group = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
     }
     if (groupExpert !== "0") {
-      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status FROM ${this.table} INNER JOIN decisions_g_experts ON ${this.table}.id = decisions_g_experts.id_decision INNER JOIN groups ON groups.id = decisions_g_experts.id_g_expert INNER JOIN group_user ON group_user.id_group = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_experts ON ${this.table}.id = decisions_g_experts.id_decision INNER JOIN groups ON groups.id = decisions_g_experts.id_g_expert INNER JOIN group_user ON group_user.id_group = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
     }
     if (userComment !== "0") {
       queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decision) AND status ${operator} ? ${durees};`;

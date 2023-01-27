@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+// eslint-disable-next-line import/no-cycle
 import { LoadUser } from "./functions/ReconnectApi";
 
 const AuthContext = createContext();
