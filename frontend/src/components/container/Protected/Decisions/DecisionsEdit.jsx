@@ -11,7 +11,7 @@ import { useAuth } from "../../../../contexts/useAuth";
 import { Text } from "../../../../contexts/Language";
 import DecisionsPage from "./DecisionsPage";
 
-function DecisionsForm() {
+function DecisionsEdit() {
   const navigate = useNavigate();
   const URLParam = useLocation().search;
   const id = new URLSearchParams(URLParam).get("id")
@@ -54,12 +54,6 @@ function DecisionsForm() {
 
   // states for form
   const [updateData, setUpdateData] = useState(false);
-  const [decisionTitle, setDecisionTitle] = useState();
-  const [decisionDescription, setDecisionDescription] = useState();
-  const [decisionContext, setDecisionContext] = useState();
-  const [decisionUtility, setDecisionUtility] = useState();
-  const [decisionPros, setDecisionPros] = useState();
-  const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [usersImpacted, setUsersImpacted] = useState([]);
@@ -74,12 +68,12 @@ function DecisionsForm() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [data, setData] = useState();
   const [form, setForm] = useState({
-    title: { decisionTitle },
-    description: { decisionDescription },
-    utility: { decisionUtility },
-    context: { decisionContext },
-    pros: { decisionPros },
-    cons: { decisionCons },
+    title: "",
+    description: "",
+    utility: "",
+    context: "",
+    pros: "",
+    cons: "",
     firstDate: new Date(),
     dateOpinion: new Date(),
     dateFirstDecision: new Date(),
@@ -106,19 +100,13 @@ function DecisionsForm() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      setDecisionTitle(JSON.parse(getDecisions.content).title);
-      setDecisionDescription(JSON.parse(getDecisions.content).description);
-      setDecisionContext(JSON.parse(getDecisions.content).context);
-      setDecisionUtility(JSON.parse(getDecisions.content).utility);
-      setDecisionPros(JSON.parse(getDecisions.content).pros);
-      setDecisionCons(JSON.parse(getDecisions.content).cons);
       setForm({
-        title: { decisionTitle },
-        description: { decisionDescription },
-        utility: { decisionUtility },
-        context: { decisionContext },
-        pros: { decisionPros },
-        cons: { decisionCons },
+        title: JSON.parse(getDecisions.content).title,
+        description: JSON.parse(getDecisions.content).description,
+        utility: JSON.parse(getDecisions.content).context,
+        context: JSON.parse(getDecisions.content).utility,
+        pros: JSON.parse(getDecisions.content).pros,
+        cons: JSON.parse(getDecisions.content).cons,
         firstDate: new Date(JSON.parse(getDecisions.content).firstDate),
         dateOpinion: new Date(JSON.parse(getDecisions.content).dateOpinion),
         dateFirstDecision: new Date(
@@ -229,7 +217,7 @@ function DecisionsForm() {
             type="text"
             name="title"
             id="title"
-            defaultValue={decisionTitle}
+            defaultValue={form.title}
             onChange={(event) => {
               setForm({ ...form, [event.target.name]: event.target.value });
             }}
@@ -252,7 +240,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            defaultValue={decisionDescription}
+            defaultValue={form.description}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -275,7 +263,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            defaultValue={decisionUtility}
+            defaultValue={form.utility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -298,7 +286,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            defaultValue={decisionContext}
+            defaultValue={form.context}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -321,7 +309,7 @@ function DecisionsForm() {
             theme="snow"
             name="pros"
             modules={modules}
-            defaultValue={decisionPros}
+            defaultValue={form.pros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -344,7 +332,7 @@ function DecisionsForm() {
             theme="snow"
             name="cons"
             modules={modules}
-            defaultValue={decisionCons}
+            defaultValue={form.cons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
@@ -489,11 +477,11 @@ function DecisionsForm() {
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onSubmit={handleSubmitNewData}
           >
-            <Text tid="validatemydecision" />
+            Valider ma décision
           </button>
         </form>
       </div>
     )
   );
 }
-export default DecisionsForm;
+export default DecisionsEdit;
