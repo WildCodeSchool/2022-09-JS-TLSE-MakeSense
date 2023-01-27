@@ -103,6 +103,32 @@ const add = (req, res) => {
             decisions.users_expert
           );
         }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.groups_impact.length) {
+          models.decisions.insertGroupImpact(
+            iddecisionsinserted,
+            decisions.groups_impact
+          );
+        }
+        return iddecisionsinserted;
+      } catch (error) {
+        throw new Error(error);
+      }
+    })
+    .then((iddecisionsinserted) => {
+      try {
+        if (decisions.groups_expert.length) {
+          models.decisions.insertGroupExpert(
+            iddecisionsinserted,
+            decisions.groups_expert
+          );
+        }
         return res.sendStatus(201);
       } catch (error) {
         throw new Error(error);
