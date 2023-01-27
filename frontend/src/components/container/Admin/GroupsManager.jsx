@@ -99,7 +99,7 @@ function UsersManager() {
   }
 
   return IsLoaded ? (
-    <div className="comp-admin-wrapper">
+    <div className="w-2/3">
       {(ModeSelect === "add" || ModeSelect === "edit") && (
         <>
           <button
@@ -110,7 +110,7 @@ function UsersManager() {
           >
             <Text tid="list" />
           </button>
-          <div className="">
+          <div className="w-2/3">
             <div className="px-4 sm:px-6 lg:px-8 w-full">
               <div className="sm:flex sm:items-center">
                 <form onSubmit={handleSubmit}>

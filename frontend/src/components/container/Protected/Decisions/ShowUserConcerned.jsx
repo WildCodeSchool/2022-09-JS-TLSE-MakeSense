@@ -7,7 +7,15 @@ import { Text } from "../../../../contexts/Language";
 import Spinner from "../../../Spinner";
 
 export default function ShowUserConcerned() {
-  const [datas, setDatas] = useState(null);
+  const [decisionsWhereUserImpacted, setDecisionsWhereUserImpacted] = useState(
+    []
+  );
+  const [decisionsWhereUserExpert, setDecisionsWhereUserExpert] = useState([]);
+  const [decisionsWhereGroupImpacted, setDecisionsWhereGroupImpacted] =
+    useState([]);
+  const [decisionsWhereGroupExpert, setDecisionsWhereGroupExpert] = useState(
+    []
+  );
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [StatusSelect, setStatusSelect] = useState(null);
@@ -21,48 +29,38 @@ export default function ShowUserConcerned() {
     // Options query
     let duree;
     let status;
-    const userConcerned = `idConcerned=${user.id}`;
+    const userImpacted = `idImpacted=${user.id}`;
+    const userExpert = `idExpert=${user.id}`;
+    const groupImpacted = `idUserInGroupImpacted=${user.id}`;
+    const groupExpert = `idUserInGroupExpert=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
-      const decisions = await api.apigetmysql(
+      const getDecisionsWhereUserImpacted = await api.apigetmysql(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/decisions?${status}&${duree}&${userConcerned}`
+        }/decisions?${status}&${duree}&${userImpacted}`
       );
-      if (datas === null) {
-        decisions.forEach((dec) => {
-          const content = JSON.parse(dec.content);
-          const body = {};
-          let updateStatus;
-          if (new Date(content.dateOpinion) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/2`,
-              body
-            );
-          }
-          if (new Date(content.dateFirstDecision) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/3`,
-              body
-            );
-          }
-          if (new Date(content.dateEndConflict) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/4`,
-              body
-            );
-          }
-        });
-      }
-      setDatas(decisions);
+      const getDecisionsWhereUserExpert = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${userExpert}`
+      );
+      const getDecisionsWhereGroupImpacted = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${groupImpacted}`
+      );
+      const getDecisionsWhereGroupExpert = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${groupExpert}`
+      );
+      setDecisionsWhereUserImpacted(getDecisionsWhereUserImpacted);
+      setDecisionsWhereUserExpert(getDecisionsWhereUserExpert);
+      setDecisionsWhereGroupImpacted(getDecisionsWhereGroupImpacted);
+      setDecisionsWhereGroupExpert(getDecisionsWhereGroupExpert);
       setIsLoaded(true);
     };
     getDatas(); // lance la fonction getDatas
@@ -87,7 +85,10 @@ export default function ShowUserConcerned() {
     setIsLoaded(false);
   };
 
-  return datas ? (
+  return decisionsWhereUserImpacted.length ||
+    decisionsWhereUserExpert.length ||
+    decisionsWhereGroupImpacted.length ||
+    decisionsWhereGroupExpert.length ? (
     <>
       <div className="rounded flex flex-col items-center">
         <input
@@ -100,7 +101,7 @@ export default function ShowUserConcerned() {
           placeholder="Rechercher une décision..."
           className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
         />
-        <div className="flex flex-row w-full justify-between p-3">
+        <div className="flex flex-row w-full justify-between p-3 my-10">
           <div>
             <select
               value={StatusSelect || ""}
@@ -169,36 +170,169 @@ export default function ShowUserConcerned() {
           </div>
         </div>
       </div>
-      {
-        // eslint-disable-next-line react/prop-types
-        datas
-          // eslint-disable-next-line react/prop-types
-          .filter((data) =>
-            JSON.parse(data.content)
-              .title.normalize("NFD")
-              .replace(/\p{Diacritic}/gu, "")
-              .toLocaleLowerCase()
-              .includes(
-                searchTerm
-                  .normalize("NFD")
+      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Les décisions où je suis directement impacté
+      </h1>
+      {decisionsWhereUserImpacted.length ? (
+        <div>
+          {
+            // eslint-disable-next-line react/prop-types
+            decisionsWhereUserImpacted
+              // eslint-disable-next-line react/prop-types
+              .filter((data) =>
+                JSON.parse(data.content)
+                  .title.normalize("NFD")
                   .replace(/\p{Diacritic}/gu, "")
                   .toLocaleLowerCase()
+                  .includes(
+                    searchTerm
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toLocaleLowerCase()
+                  )
               )
-          )
-          .map((data) => (
-            <button
-              type="button"
-              key={data.id}
-              id={data.id}
-              onClick={() => {
-                navigate(`/user/decisions?comp=Page&id=${data.id}`);
-              }}
-              className=""
-            >
-              <Card key={data.id} data={data} user={user} />
-            </button>
-          ))
-      }
+              .map((data) => (
+                <button
+                  type="button"
+                  key={data.id}
+                  id={data.id}
+                  onClick={() => {
+                    navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                  }}
+                  className=""
+                >
+                  <Card key={data.id} data={data} user={user} />
+                </button>
+              ))
+          }
+        </div>
+      ) : (
+        <div className="my-5">Il n'y a pas de décision.</div>
+      )}
+      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Les décisions où je suis expert
+      </h1>
+      {decisionsWhereUserExpert.length ? (
+        <div>
+          {
+            // eslint-disable-next-line react/prop-types
+            decisionsWhereUserExpert
+              // eslint-disable-next-line react/prop-types
+              .filter((data) =>
+                JSON.parse(data.content)
+                  .title.normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+                  .includes(
+                    searchTerm
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toLocaleLowerCase()
+                  )
+              )
+              .map((data) => (
+                <button
+                  type="button"
+                  key={data.id}
+                  id={data.id}
+                  onClick={() => {
+                    navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                  }}
+                  className=""
+                >
+                  <Card key={data.id} data={data} user={user} />
+                </button>
+              ))
+          }
+        </div>
+      ) : (
+        <div className="my-5">Il n'y a pas de décision.</div>
+      )}
+      {decisionsWhereGroupImpacted.length ? (
+        <div>
+          <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Les décisions qui impactent mes groupes
+          </h1>
+          {decisionsWhereGroupImpacted.length &&
+            // eslint-disable-next-line react/prop-types
+            decisionsWhereGroupImpacted
+              // eslint-disable-next-line react/prop-types
+              .filter((decision) =>
+                JSON.parse(decision.content)
+                  .title.normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+                  .includes(
+                    searchTerm
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toLocaleLowerCase()
+                  )
+              )
+              .map((decision) => (
+                <button
+                  type="button"
+                  key={decision.id}
+                  id={decision.id}
+                  onClick={() => {
+                    navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+                  }}
+                >
+                  <Card
+                    key={decision.id}
+                    data={decision}
+                    user={user}
+                    statut="groupes impactés"
+                  />
+                </button>
+              ))}
+        </div>
+      ) : (
+        <div className="my-5">Il n'y a pas de décision.</div>
+      )}
+      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Les décisions qui ont besoin de l'expertise de mes groupes
+      </h1>
+      {decisionsWhereGroupExpert.length ? (
+        <div>
+          {
+            // eslint-disable-next-line react/prop-types
+            decisionsWhereGroupExpert
+              // eslint-disable-next-line react/prop-types
+              .filter((decision) =>
+                JSON.parse(decision.content)
+                  .title.normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+                  .includes(
+                    searchTerm
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toLocaleLowerCase()
+                  )
+              )
+              .map((decision) => (
+                <button
+                  type="button"
+                  key={decision.id}
+                  id={decision.id}
+                  onClick={() => {
+                    navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+                  }}
+                >
+                  <Card
+                    key={decision.id}
+                    data={decision}
+                    user={user}
+                    statut="groupes experts"
+                  />
+                </button>
+              ))
+          }
+        </div>
+      ) : (
+        <div className="my-5">Il n'y a pas de décision.</div>
+      )}
     </>
   ) : (
     <Spinner />

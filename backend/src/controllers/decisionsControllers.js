@@ -4,10 +4,26 @@ const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
-  const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const userImpacted = req.query.idImpacted ? req.query.idImpacted : "0";
+  const userExpert = req.query.idExpert ? req.query.idExpert : "0";
+  const groupImpacted = req.query.idUserInGroupImpacted
+    ? req.query.idUserInGroupImpacted
+    : "0";
+  const groupExpert = req.query.idUserInGroupExpert
+    ? req.query.idUserInGroupExpert
+    : "0";
   const userComment = req.query.idUserComment ? req.query.idUserComment : "0";
   models.decisions
-    .readfilter(status, duree, userId, userConcerned, userComment)
+    .readfilter(
+      status,
+      duree,
+      userId,
+      userImpacted,
+      userExpert,
+      groupImpacted,
+      groupExpert,
+      userComment
+    )
     .then(([rows]) => {
       res.send(rows);
     })
