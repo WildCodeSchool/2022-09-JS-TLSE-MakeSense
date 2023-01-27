@@ -37,7 +37,7 @@ const edit = (req, res) => {
   const decisions = req.body;
   // TODO validations (length, format...)
   decisions.id = parseInt(req.params.id, 10);
-  // console.log(decisions);
+
   models.decisions
     .update(decisions)
     .then(([result]) => {

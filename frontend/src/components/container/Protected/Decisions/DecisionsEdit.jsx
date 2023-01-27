@@ -62,6 +62,10 @@ function DecisionsForm() {
   const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [usersImpacted, setUsersImpacted] = useState([]);
+  const [usersExperts, setUsersExperts] = useState([]);
+  const [groupsImpacted, setGroupsImpacted] = useState([]);
+  const [groupsExperts, setGroupsExperts] = useState([]);
   const [impacted, setImpacted] = useState([]);
   const [experts, setExperts] = useState([]);
   const [usersAndGroups, setUsersAndGroups] = useState([]);
@@ -70,12 +74,12 @@ function DecisionsForm() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [data, setData] = useState();
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    utility: "",
-    context: "",
-    pros: "",
-    cons: "",
+    title: { decisionTitle },
+    description: { decisionDescription },
+    utility: { decisionUtility },
+    context: { decisionContext },
+    pros: { decisionPros },
+    cons: { decisionCons },
     firstDate: new Date(),
     dateOpinion: new Date(),
     dateFirstDecision: new Date(),
@@ -108,6 +112,25 @@ function DecisionsForm() {
       setDecisionUtility(JSON.parse(getDecisions.content).utility);
       setDecisionPros(JSON.parse(getDecisions.content).pros);
       setDecisionCons(JSON.parse(getDecisions.content).cons);
+      setForm({
+        title: { decisionTitle },
+        description: { decisionDescription },
+        utility: { decisionUtility },
+        context: { decisionContext },
+        pros: { decisionPros },
+        cons: { decisionCons },
+        firstDate: new Date(JSON.parse(getDecisions.content).firstDate),
+        dateOpinion: new Date(JSON.parse(getDecisions.content).dateOpinion),
+        dateFirstDecision: new Date(
+          JSON.parse(getDecisions.content).dateFirstDecision
+        ),
+        dateEndConflict: new Date(
+          JSON.parse(getDecisions.content).dateEndConflict
+        ),
+        dateFinaleDecision: new Date(
+          JSON.parse(getDecisions.content).dateFinaleDecision
+        ),
+      });
       setData(getDecisions);
     };
     getDecisionsData(); // lance la fonction getDecisionsData
@@ -121,41 +144,13 @@ function DecisionsForm() {
   // eslint-disable-next-line consistent-return
   function handleSubmitNewData(e) {
     e.preventDefault();
-    // handle impacted and experts
-    if (impacted.length > 0) {
-      console.warn("il y a des impactés");
-      impacted.forEach((impac) => {
-        const body = {
-          id_user_impact: impac.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    if (experts.length > 0) {
-      console.warn("il y a des experts");
-      experts.forEach((expert) => {
-        console.warn(expert);
-        const body = {
-          id_user_expert: expert.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-
     // handle errors
     setErrors("");
     const options = {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
+
     if (result.error) {
       setErrors(result.error.details);
     } else {
@@ -164,6 +159,10 @@ function DecisionsForm() {
         content: JSON.stringify(result.value),
         status: 1,
         id_user_creator: user.id,
+        users_impact: usersImpacted,
+        users_expert: usersExperts,
+        groups_impact: groupsImpacted,
+        groups_expert: groupsExperts,
       };
       setIsSubmit(true);
       return api
@@ -230,7 +229,7 @@ function DecisionsForm() {
             type="text"
             name="title"
             id="title"
-            defaultValue={JSON.parse(data.content).title}
+            defaultValue={decisionTitle}
             onChange={(event) => {
               setForm({ ...form, [event.target.name]: event.target.value });
             }}
@@ -253,7 +252,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            defaultValue={JSON.parse(data.content).description}
+            defaultValue={decisionDescription}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -276,7 +275,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            defaultValue={JSON.parse(data.content).utility}
+            defaultValue={decisionUtility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -299,7 +298,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            defaultValue={JSON.parse(data.content).context}
+            defaultValue={decisionContext}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -320,8 +319,9 @@ function DecisionsForm() {
           </label>
           <ReactQuill
             theme="snow"
+            name="pros"
             modules={modules}
-            defaultValue={JSON.parse(data.content).pros}
+            defaultValue={decisionPros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -342,8 +342,9 @@ function DecisionsForm() {
           </label>
           <ReactQuill
             theme="snow"
+            name="cons"
             modules={modules}
-            defaultValue={JSON.parse(data.content).cons}
+            defaultValue={decisionCons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
