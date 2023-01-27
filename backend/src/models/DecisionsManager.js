@@ -73,7 +73,8 @@ class DecisionsManager extends AbstractManager {
     status,
     duree,
     userId,
-    userConcerned,
+    userImpacted,
+    userExpert,
     groupImpacted,
     groupExpert,
     userComment
@@ -93,8 +94,11 @@ class DecisionsManager extends AbstractManager {
       andUser = `AND ${this.table}.id_user_creator = ${userId}`;
     }
     let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`;
-    if (userConcerned !== "0") {
-      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userConcerned} UNION SELECT decisions_experts.id_decision FROM decisions_experts WHERE decisions_experts.id_user_expert = ${userConcerned} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    if (userImpacted !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userImpacted} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
+    }
+    if (userExpert !== "0") {
+      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decision FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userExpert} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
     }
     if (groupImpacted !== "0") {
       queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_impacts ON ${this.table}.id = decisions_g_impacts.id_decision INNER JOIN groups ON groups.id = decisions_g_impacts.id_g_impact INNER JOIN group_user ON group_user.id_group = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;

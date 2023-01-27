@@ -4,7 +4,8 @@ const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
-  const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const userImpacted = req.query.idImpacted ? req.query.idImpacted : "0";
+  const userExpert = req.query.idExpert ? req.query.idExpert : "0";
   const groupImpacted = req.query.idUserInGroupImpacted
     ? req.query.idUserInGroupImpacted
     : "0";
@@ -17,7 +18,8 @@ const browse = (req, res) => {
       status,
       duree,
       userId,
-      userConcerned,
+      userImpacted,
+      userExpert,
       groupImpacted,
       groupExpert,
       userComment

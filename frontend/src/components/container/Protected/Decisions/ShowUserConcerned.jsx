@@ -7,8 +7,10 @@ import { Text } from "../../../../contexts/Language";
 import Spinner from "../../../Spinner";
 
 export default function ShowUserConcerned() {
-  const [decisionsWhereUserConcerned, setDecisionsWhereUserConcerned] =
-    useState([]);
+  const [decisionsWhereUserImpacted, setDecisionsWhereUserImpacted] = useState(
+    []
+  );
+  const [decisionsWhereUserExpert, setDecisionsWhereUserExpert] = useState([]);
   const [decisionsWhereGroupImpacted, setDecisionsWhereGroupImpacted] =
     useState([]);
   const [decisionsWhereGroupExpert, setDecisionsWhereGroupExpert] = useState(
@@ -27,17 +29,23 @@ export default function ShowUserConcerned() {
     // Options query
     let duree;
     let status;
-    const userConcerned = `idConcerned=${user.id}`;
+    const userImpacted = `idImpacted=${user.id}`;
+    const userExpert = `idExpert=${user.id}`;
     const groupImpacted = `idUserInGroupImpacted=${user.id}`;
     const groupExpert = `idUserInGroupExpert=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
-      const getDecisionsWhereUserConcerned = await api.apigetmysql(
+      const getDecisionsWhereUserImpacted = await api.apigetmysql(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/decisions?${status}&${duree}&${userConcerned}`
+        }/decisions?${status}&${duree}&${userImpacted}`
+      );
+      const getDecisionsWhereUserExpert = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${userExpert}`
       );
       const getDecisionsWhereGroupImpacted = await api.apigetmysql(
         `${
@@ -49,7 +57,8 @@ export default function ShowUserConcerned() {
           import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${groupExpert}`
       );
-      setDecisionsWhereUserConcerned(getDecisionsWhereUserConcerned);
+      setDecisionsWhereUserImpacted(getDecisionsWhereUserImpacted);
+      setDecisionsWhereUserExpert(getDecisionsWhereUserExpert);
       setDecisionsWhereGroupImpacted(getDecisionsWhereGroupImpacted);
       setDecisionsWhereGroupExpert(getDecisionsWhereGroupExpert);
       setIsLoaded(true);
@@ -76,7 +85,8 @@ export default function ShowUserConcerned() {
     setIsLoaded(false);
   };
 
-  return decisionsWhereUserConcerned.length ||
+  return decisionsWhereUserImpacted.length ||
+    decisionsWhereUserExpert.length ||
     decisionsWhereGroupImpacted.length ||
     decisionsWhereGroupExpert.length ? (
     <>
@@ -161,13 +171,52 @@ export default function ShowUserConcerned() {
         </div>
       </div>
       <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Les décisions où je suis directement concerné
+        Les décisions où je suis directement impacté
       </h1>
-      {decisionsWhereUserConcerned.length ? (
+      {decisionsWhereUserImpacted.length ? (
         <div>
           {
             // eslint-disable-next-line react/prop-types
-            decisionsWhereUserConcerned
+            decisionsWhereUserImpacted
+              // eslint-disable-next-line react/prop-types
+              .filter((data) =>
+                JSON.parse(data.content)
+                  .title.normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+                  .includes(
+                    searchTerm
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toLocaleLowerCase()
+                  )
+              )
+              .map((data) => (
+                <button
+                  type="button"
+                  key={data.id}
+                  id={data.id}
+                  onClick={() => {
+                    navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                  }}
+                  className=""
+                >
+                  <Card key={data.id} data={data} user={user} />
+                </button>
+              ))
+          }
+        </div>
+      ) : (
+        <div className="my-5">Il n'y a pas de décision.</div>
+      )}
+      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Les décisions où je suis expert
+      </h1>
+      {decisionsWhereUserExpert.length ? (
+        <div>
+          {
+            // eslint-disable-next-line react/prop-types
+            decisionsWhereUserExpert
               // eslint-disable-next-line react/prop-types
               .filter((data) =>
                 JSON.parse(data.content)
