@@ -115,56 +115,6 @@ function DecisionsForm() {
           return json;
         });
     }
-    // handle users impacted and experts
-    if (usersImpacted.length > 0) {
-      usersImpacted.forEach((impac) => {
-        const body = {
-          id_user_impact: impac.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    if (usersExperts.length > 0) {
-      usersExperts.forEach((expert) => {
-        const body = {
-          id_user_expert: expert.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    // handle users impacted and experts
-    if (groupsImpacted.length > 0) {
-      groupsImpacted.forEach((impac) => {
-        const body = {
-          id_g_impact: impac.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    if (groupsExperts.length > 0) {
-      groupsExperts.forEach((expert) => {
-        const body = {
-          id_g_expert: expert.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
   }
 
   return (
