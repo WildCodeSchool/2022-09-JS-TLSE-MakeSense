@@ -15,7 +15,6 @@ const {
   verifyToken,
 } = require("./midleware/Password");
 const scriptfs = require("./scripts/fs");
-// const { genInputGroupStyle } = require("antd/es/input/style");
 
 router.post("/addlang", langControllers.add);
 
