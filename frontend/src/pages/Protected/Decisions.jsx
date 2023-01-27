@@ -6,9 +6,7 @@ import Spinner from "../../components/Spinner";
 function Decisions() {
   const navigate = useNavigate();
   const URLParam = useLocation().search;
-  const comp = new URLSearchParams(URLParam).get("comp")
-    ? new URLSearchParams(URLParam).get("comp")
-    : "All";
+  const comp = new URLSearchParams(URLParam).get("comp") ?? "All";
 
   return (
     <div>
