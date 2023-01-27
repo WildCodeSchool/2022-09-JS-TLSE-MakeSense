@@ -188,7 +188,7 @@ export default function ProfilePage() {
                   htmlFor="password"
                   className="block text-m font-medium text-gray-700"
                 >
-                <Text tid="password" />
+                  <Text tid="password" />
                 </label>
                 {showInput ? (
                   <input
@@ -234,7 +234,7 @@ export default function ProfilePage() {
       </div>
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <h2 className="text-2xl leading-6 font-bold text-gray-900">
-        <Text tid="mygroup" />
+          <Text tid="mygroup" />
         </h2>
       </div>
     </>
