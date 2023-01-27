@@ -192,7 +192,7 @@ function UsersManager() {
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Delete
+                          <Text tid="delete" />
                         </th>
                       </tr>
                     </thead>

@@ -110,7 +110,7 @@ export default function ShowUserDecisions() {
             >
               <option value="">
                 {" "}
-                <Text tid="alldecision" />
+                <Text tid="alldecisions" />
               </option>
               <option value="1">
                 <Text tid="waitopinion" />

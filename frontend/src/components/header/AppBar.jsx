@@ -27,16 +27,16 @@ function AppBar({ menu }) {
   // RETURN //
   return (
     <>
-      <div className="bg-slate-200 flex flex-row justify-between items-center">
+      <div className="sm-slate-50 flex flex-row justify-between items-center md-slate-100 flex flex-row justify-between items-center bg-slate-200 flex flex-row justify-between items-center">
         <a
           href="https://makesense.org/"
           className="text-blueDiane hover:text-calypso font-medium text-l px-5"
         >
-          Retourner au site de makesense
+          <Text tid="returntomakesensewebsite" />
         </a>
         <LanguageSelector />
       </div>
-      <nav className="bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
+      <nav className="sm-w-100bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
         <div className="pl-5">
           <button
             type="button"
@@ -44,7 +44,11 @@ function AppBar({ menu }) {
               navigate(`/user/decisions`);
             }}
           >
-            <img src={logo} className="h-6 mr-3 sm:h-9" alt="Makesense Logo" />
+            <img
+              src={logo}
+              className="xl: hidden h-8 mr-4 lg: h-6 mr-3  md:h-4 mr-2"
+              alt="Makesense Logo"
+            />
           </button>
         </div>
         <div className="flex ">
