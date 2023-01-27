@@ -62,6 +62,10 @@ function DecisionsForm() {
   const [decisionCons, setDecisionCons] = useState();
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [usersImpacted, setUsersImpacted] = useState([]);
+  const [usersExperts, setUsersExperts] = useState([]);
+  const [groupsImpacted, setGroupsImpacted] = useState([]);
+  const [groupsExperts, setGroupsExperts] = useState([]);
   const [impacted, setImpacted] = useState([]);
   const [experts, setExperts] = useState([]);
   const [usersAndGroups, setUsersAndGroups] = useState([]);
@@ -70,12 +74,12 @@ function DecisionsForm() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [data, setData] = useState();
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    utility: "",
-    context: "",
-    pros: "",
-    cons: "",
+    title: { decisionTitle },
+    description: { decisionDescription },
+    utility: { decisionUtility },
+    context: { decisionContext },
+    pros: { decisionPros },
+    cons: { decisionCons },
     firstDate: new Date(),
     dateOpinion: new Date(),
     dateFirstDecision: new Date(),
@@ -102,11 +106,31 @@ function DecisionsForm() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
+      setDecisionTitle(JSON.parse(getDecisions.content).title);
       setDecisionDescription(JSON.parse(getDecisions.content).description);
       setDecisionContext(JSON.parse(getDecisions.content).context);
       setDecisionUtility(JSON.parse(getDecisions.content).utility);
       setDecisionPros(JSON.parse(getDecisions.content).pros);
       setDecisionCons(JSON.parse(getDecisions.content).cons);
+      setForm({
+        title: { decisionTitle },
+        description: { decisionDescription },
+        utility: { decisionUtility },
+        context: { decisionContext },
+        pros: { decisionPros },
+        cons: { decisionCons },
+        firstDate: new Date(JSON.parse(getDecisions.content).firstDate),
+        dateOpinion: new Date(JSON.parse(getDecisions.content).dateOpinion),
+        dateFirstDecision: new Date(
+          JSON.parse(getDecisions.content).dateFirstDecision
+        ),
+        dateEndConflict: new Date(
+          JSON.parse(getDecisions.content).dateEndConflict
+        ),
+        dateFinaleDecision: new Date(
+          JSON.parse(getDecisions.content).dateFinaleDecision
+        ),
+      });
       setData(getDecisions);
     };
     getDecisionsData(); // lance la fonction getDecisionsData
@@ -118,44 +142,15 @@ function DecisionsForm() {
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmit(e) {
+  function handleSubmitNewData(e) {
     e.preventDefault();
-
-    // handle impacted and experts
-    if (impacted.length > 0) {
-      console.warn("il y a des impactés");
-      impacted.forEach((impac) => {
-        const body = {
-          id_user_impact: impac.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/impacted`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-    if (experts.length > 0) {
-      console.warn("il y a des experts");
-      experts.forEach((expert) => {
-        console.warn(expert);
-        const body = {
-          id_user_expert: expert.id,
-        };
-        return api
-          .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/experts`, body)
-          .then((json) => {
-            return json;
-          });
-      });
-    }
-
     // handle errors
     setErrors("");
     const options = {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
+
     if (result.error) {
       setErrors(result.error.details);
     } else {
@@ -164,14 +159,35 @@ function DecisionsForm() {
         content: JSON.stringify(result.value),
         status: 1,
         id_user_creator: user.id,
+        users_impact: usersImpacted,
+        users_expert: usersExperts,
+        groups_impact: groupsImpacted,
+        groups_expert: groupsExperts,
       };
       setIsSubmit(true);
       return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions`, body)
+        .apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`,
+          body
+        )
         .then((json) => {
           return json;
         });
     }
+
+    const body = {
+      title: JSON.parse(data.content).title,
+      description: JSON.parse(data.content).description,
+      utility: JSON.parse(data.content).utility,
+      context: JSON.parse(data.content).context,
+      pros: JSON.parse(data.content).pros,
+      cons: JSON.parse(data.content).cons,
+      firstDate: new Date(),
+      dateOpinion: new Date(),
+      dateFirstDecision: new Date(),
+      dateEndConflict: new Date(),
+      dateFinaleDecision: new Date(),
+    };
   }
 
   return (
@@ -203,7 +219,7 @@ function DecisionsForm() {
         <h1>
           <Text tid="fileadecision" />
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitNewData}>
           <legend className="hello">
             <Text tid="describealltheelementsofhisdecision" />
           </legend>
@@ -213,7 +229,7 @@ function DecisionsForm() {
             type="text"
             name="title"
             id="title"
-            value={form.title}
+            defaultValue={decisionTitle}
             onChange={(event) => {
               setForm({ ...form, [event.target.name]: event.target.value });
             }}
@@ -236,7 +252,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="description"
-            defaultValue={JSON.parse(data.content).description}
+            defaultValue={decisionDescription}
             onChange={(event) => {
               setForm({ ...form, description: event });
             }}
@@ -259,7 +275,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="utility"
-            defaultValue={JSON.parse(data.content).utility}
+            defaultValue={decisionUtility}
             onChange={(event) => {
               setForm({ ...form, utility: event });
             }}
@@ -282,7 +298,7 @@ function DecisionsForm() {
             theme="snow"
             modules={modules}
             name="context"
-            defaultValue={JSON.parse(data.content).context}
+            defaultValue={decisionContext}
             onChange={(event) => {
               setForm({ ...form, context: event });
             }}
@@ -303,8 +319,9 @@ function DecisionsForm() {
           </label>
           <ReactQuill
             theme="snow"
+            name="pros"
             modules={modules}
-            defaultValue={JSON.parse(data.content).pros}
+            defaultValue={decisionPros}
             onChange={(event) => {
               setForm({ ...form, pros: event });
             }}
@@ -325,8 +342,9 @@ function DecisionsForm() {
           </label>
           <ReactQuill
             theme="snow"
+            name="cons"
             modules={modules}
-            defaultValue={JSON.parse(data.content).cons}
+            defaultValue={decisionCons}
             onChange={(event) => {
               setForm({ ...form, cons: event });
             }}
@@ -466,8 +484,12 @@ function DecisionsForm() {
                 return null;
               })}
           </fieldset>
-          <button type="submit" className="buttonForm">
-            Poster ma décision
+          <button
+            type="submit"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            onSubmit={handleSubmitNewData}
+          >
+            <Text tid="validatemydecision" />
           </button>
         </form>
       </div>

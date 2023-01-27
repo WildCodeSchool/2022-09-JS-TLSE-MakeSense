@@ -113,6 +113,13 @@ class DecisionsManager extends AbstractManager {
     return this.connection.query(queryContent, [status]);
   }
 
+  update(decision) {
+    return this.connection.query(
+      `update ${this.table} set content = ?, date_update = NOW() where id = ?`,
+      [decision.content, decision.id]
+    );
+  }
+
   updatestatus(id, status) {
     return this.connection.query(
       `update ${this.table} set status = ? where id = ?`,
