@@ -419,7 +419,7 @@ function DecisionsForm() {
                     <Text tid="calendar" />
                   </h3>
                   <p className="mt-1 text-xl text-gray-500">
-                    <Text tid="Set decision-making timeline" />
+                    <Text tid="setdecision-makingtimeline" />
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
