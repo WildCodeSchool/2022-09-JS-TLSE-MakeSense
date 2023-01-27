@@ -36,6 +36,13 @@ export function AuthProvider({ children }) {
       );
       LoadUser(payload.sub).then((returnuser) => {
         if (returnuser.status === 401) {
+          setUser({
+            admin: null,
+            email: null,
+            firstname: null,
+            lastname: null,
+            id: null,
+          });
           navigate("/", { replace: true });
         } else {
           setUser({

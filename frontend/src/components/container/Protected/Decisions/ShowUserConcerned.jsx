@@ -7,7 +7,12 @@ import { Text } from "../../../../contexts/Language";
 import Spinner from "../../../Spinner";
 
 export default function ShowUserConcerned() {
-  const [datas, setDatas] = useState(null);
+  const [decisionsWhereUserConcerned, setDecisionsWhereUserConcerned] =
+    useState([]);
+  const [decisionsWhereGroupImpacted, setDecisionsWhereGroupImpacted] =
+    useState(null);
+  const [decisionsWhereGroupExpert, setDecisionsWhereGroupExpert] =
+    useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [StatusSelect, setStatusSelect] = useState(null);
@@ -22,47 +27,30 @@ export default function ShowUserConcerned() {
     let duree;
     let status;
     const userConcerned = `idConcerned=${user.id}`;
+    const groupImpacted = `idUserInGroupImpacted=${user.id}`;
+    const groupExpert = `idUserInGroupExpert=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
-      const decisions = await api.apigetmysql(
+      const getDecisionsWhereUserConcerned = await api.apigetmysql(
         `${
           import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${userConcerned}`
       );
-      if (datas === null) {
-        decisions.forEach((dec) => {
-          const content = JSON.parse(dec.content);
-          const body = {};
-          let updateStatus;
-          if (new Date(content.dateOpinion) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/2`,
-              body
-            );
-          }
-          if (new Date(content.dateFirstDecision) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/3`,
-              body
-            );
-          }
-          if (new Date(content.dateEndConflict) < new Date()) {
-            updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
-                dec.id
-              }/4`,
-              body
-            );
-          }
-        });
-      }
-      setDatas(decisions);
+      const getDecisionsWhereGroupImpacted = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${groupImpacted}`
+      );
+      const getDecisionsWhereGroupExpert = await api.apigetmysql(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/decisions?${status}&${duree}&${groupExpert}`
+      );
+      setDecisionsWhereUserConcerned(getDecisionsWhereUserConcerned);
+      setDecisionsWhereGroupImpacted(getDecisionsWhereGroupImpacted);
+      setDecisionsWhereGroupExpert(getDecisionsWhereGroupExpert);
       setIsLoaded(true);
     };
     getDatas(); // lance la fonction getDatas
@@ -87,7 +75,7 @@ export default function ShowUserConcerned() {
     setIsLoaded(false);
   };
 
-  return datas ? (
+  return decisionsWhereUserConcerned ? (
     <>
       <div className="rounded flex flex-col items-center">
         <input
@@ -171,10 +159,10 @@ export default function ShowUserConcerned() {
       </div>
       {
         // eslint-disable-next-line react/prop-types
-        datas
+        decisionsWhereUserConcerned
           // eslint-disable-next-line react/prop-types
-          .filter((data) =>
-            JSON.parse(data.content)
+          .filter((decision) =>
+            JSON.parse(decision.content)
               .title.normalize("NFD")
               .replace(/\p{Diacritic}/gu, "")
               .toLocaleLowerCase()
@@ -185,17 +173,92 @@ export default function ShowUserConcerned() {
                   .toLocaleLowerCase()
               )
           )
-          .map((data) => (
+          .map((decision) => (
             <button
               type="button"
-              key={data.id}
-              id={data.id}
+              key={decision.id}
+              id={decision.id}
               onClick={() => {
-                navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                navigate(`/user/decisions?comp=Page&id=${decision.id}`);
               }}
               className=""
             >
-              <Card key={data.id} data={data} user={user} />
+              <Card
+                key={decision.id}
+                data={decisionsWhereUserConcerned}
+                user={user}
+                statut="conerné personnellement"
+              />
+            </button>
+          ))
+      }
+      {
+        // eslint-disable-next-line react/prop-types
+        decisionsWhereGroupImpacted
+          // eslint-disable-next-line react/prop-types
+          .filter((decision) =>
+            JSON.parse(decision.content)
+              .title.normalize("NFD")
+              .replace(/\p{Diacritic}/gu, "")
+              .toLocaleLowerCase()
+              .includes(
+                searchTerm
+                  .normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+              )
+          )
+          .map((decision) => (
+            <button
+              type="button"
+              key={decision.id}
+              id={decision.id}
+              onClick={() => {
+                navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+              }}
+              className=""
+            >
+              <Card
+                key={decision.id}
+                data={decisionsWhereGroupImpacted}
+                user={user}
+                statut="groupes impactés"
+              />
+            </button>
+          ))
+      }
+      {
+        // eslint-disable-next-line react/prop-types
+        decisionsWhereGroupExpert
+          // eslint-disable-next-line react/prop-types
+          .filter((decision) =>
+            JSON.parse(decision.content)
+              .title.normalize("NFD")
+              .replace(/\p{Diacritic}/gu, "")
+              .toLocaleLowerCase()
+              .includes(
+                searchTerm
+                  .normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toLocaleLowerCase()
+              )
+          )
+          .map((decision) => (
+            <button
+              type="button"
+              key={decision.id}
+              id={decision.id}
+              onClick={() => {
+                navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+              }}
+              className=""
+            >
+              <Card
+                key={decision.id}
+                data={decisionsWhereGroupExpert}
+                user={user}
+                statut="groupes experts"
+              />
             </button>
           ))
       }

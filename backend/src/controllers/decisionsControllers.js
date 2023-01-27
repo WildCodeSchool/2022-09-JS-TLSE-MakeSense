@@ -5,9 +5,23 @@ const browse = (req, res) => {
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
   const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const groupImpacted = req.query.idUserInGroupImpacted
+    ? req.query.idUserInGroupImpacted
+    : "0";
+  const groupExpert = req.query.idUserInGroupExpert
+    ? req.query.idUserInGroupExpert
+    : "0";
   const userComment = req.query.idUserComment ? req.query.idUserComment : "0";
   models.decisions
-    .readfilter(status, duree, userId, userConcerned, userComment)
+    .readfilter(
+      status,
+      duree,
+      userId,
+      userConcerned,
+      groupImpacted,
+      groupExpert,
+      userComment
+    )
     .then(([rows]) => {
       res.send(rows);
     })
