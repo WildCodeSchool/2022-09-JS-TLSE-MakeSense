@@ -31,7 +31,7 @@ router.get("/decisions", decisionsControllers.browse);
 router.get("/decisions/:id", decisionsControllers.read);
 router.post("/decisions", decisionsControllers.add);
 router.put("/decisions/status/:id/:status", decisionsControllers.statusedit);
-// router.put("/decisions/:id", decisionsControllers.edit);
+router.put("/decisions/:id", decisionsControllers.edit);
 router.delete("/decisions/:id", decisionsControllers.destroy);
 
 router.post("/comments", commentsControllers.add);

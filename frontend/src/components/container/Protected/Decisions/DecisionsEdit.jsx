@@ -119,9 +119,8 @@ function DecisionsForm() {
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmit(e) {
+  function handleSubmitNewData(e) {
     e.preventDefault();
-
     // handle impacted and experts
     if (impacted.length > 0) {
       console.warn("il y a des impactés");
@@ -168,37 +167,27 @@ function DecisionsForm() {
       };
       setIsSubmit(true);
       return api
-        .apipostmysql(`${import.meta.env.VITE_BACKEND_URL}/decisions/`, body)
+        .apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`,
+          body
+        )
         .then((json) => {
           return json;
         });
     }
-    const handleSubmitNewDecision = (event) => {
-      event.preventDefault();
-      const body = {
-        title: JSON.parse(data.content).title,
-        description: JSON.parse(data.content).description,
-        utility: JSON.parse(data.content).utility,
-        context: JSON.parse(data.content).context,
-        pros: JSON.parse(data.content).pros,
-        cons: JSON.parse(data.content).cons,
-        firstDate: new Date(),
-        dateOpinion: new Date(),
-        dateFirstDecision: new Date(),
-        dateEndConflict: new Date(),
-        dateFinaleDecision: new Date(),
-      };
 
-      const updateUserData = async () => {
-        const updateUser = await api.apiputmysql(
-          `${import.meta.env.VITE_BACKEND_URL}/decisions`,
-          body
-        );
-        if (updateUser.status === 204) {
-          setIsSubmit(true);
-        }
-      };
-      updateUserData();
+    const body = {
+      title: JSON.parse(data.content).title,
+      description: JSON.parse(data.content).description,
+      utility: JSON.parse(data.content).utility,
+      context: JSON.parse(data.content).context,
+      pros: JSON.parse(data.content).pros,
+      cons: JSON.parse(data.content).cons,
+      firstDate: new Date(),
+      dateOpinion: new Date(),
+      dateFirstDecision: new Date(),
+      dateEndConflict: new Date(),
+      dateFinaleDecision: new Date(),
     };
   }
 
@@ -231,7 +220,7 @@ function DecisionsForm() {
         <h1>
           <Text tid="fileadecision" />
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitNewData}>
           <legend className="hello">
             <Text tid="describealltheelementsofhisdecision" />
           </legend>
@@ -494,8 +483,12 @@ function DecisionsForm() {
                 return null;
               })}
           </fieldset>
-          <button type="submit" className="buttonForm">
-            Poster ma décision
+          <button
+            type="submit"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            onSubmit={handleSubmitNewData}
+          >
+            Valider ma décision
           </button>
         </form>
       </div>
