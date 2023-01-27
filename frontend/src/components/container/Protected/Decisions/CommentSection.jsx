@@ -1,10 +1,8 @@
-/* eslint-disable import/no-unresolved */
 import { useEffect, useState } from "react";
 import api from "@services/api";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
-import { useAuth } from "../../contexts/useAuth";
-import { Text } from "../../contexts/Language";
+import { useAuth } from "../../../../contexts/useAuth";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -68,7 +66,7 @@ function CommentSection({ id, comments, setComments }) {
             type="submit"
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            <Text tid="givemyopinion" />
+            Donner mon avis
           </button>
         </form>
       </details>
@@ -99,7 +97,7 @@ function CommentSection({ id, comments, setComments }) {
               type="submit"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             >
-              <Text tid="givemyopinion" />
+              Donner mon avis
             </button>
           </form>
           <div className="flex flex-row justify-center">

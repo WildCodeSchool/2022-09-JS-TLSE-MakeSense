@@ -1,10 +1,11 @@
-import api from "@services/api";
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/useAuth";
-import Spinner from "../../components/Spinner";
+import api from "../../../../services/api";
+import { useAuth } from "../../../../contexts/useAuth";
+import Spinner from "../../../Spinner";
+import { Text } from "../../../../contexts/Language";
 
-export default function ProfilePage() {
+function ProfilUser() {
   const navigate = useNavigate();
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
@@ -69,7 +70,7 @@ export default function ProfilePage() {
             <div className="relative bg-white rounded-lg shadow">
               <div className="p-6 text-center">
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  Les données ont été modifiées avec succès !
+                  <Text tid="thedatahasbeenchangedsuccessfully!" />
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -79,13 +80,17 @@ export default function ProfilePage() {
                     navigate("/user/profile", { replace: true });
                   }}
                 >
-                  Revenir au profil
+                  <Text tid="backtoprofile" />
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
+      {/* <div className="max-w-7xl mx-auto px-2 py-10 rounded flex flex-col mt-0">
+        <div className="mx-auto w-10/12">
+          <div className="w-full flex flex-row justify-center m-5"> */}
+
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
@@ -119,7 +124,7 @@ export default function ProfilePage() {
                   htmlFor="first-name"
                   className="block text-m font-medium text-gray-700"
                 >
-                  First name
+                  <Text tid="firstname" />
                 </label>
                 {showInput ? (
                   <input
@@ -142,7 +147,7 @@ export default function ProfilePage() {
                   htmlFor="last-name"
                   className="block text-m font-medium text-gray-700"
                 >
-                  Last name
+                  <Text tid="lastname" />
                 </label>
                 {showInput ? (
                   <input
@@ -164,7 +169,7 @@ export default function ProfilePage() {
                   htmlFor="email"
                   className="block text-m font-medium text-gray-700"
                 >
-                  Email
+                  <Text tid="email" />
                 </label>
                 {showInput ? (
                   <input
@@ -187,7 +192,7 @@ export default function ProfilePage() {
                   htmlFor="password"
                   className="block text-m font-medium text-gray-700"
                 >
-                  Password
+                  <Text tid="password" />
                 </label>
                 {showInput ? (
                   <input
@@ -216,7 +221,7 @@ export default function ProfilePage() {
               onClick={handleSubmit}
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
-              Valider mes informations personnelles
+              <Text tid="validatemypersonalinformation" />
             </button>
           )}
           <button
@@ -233,11 +238,15 @@ export default function ProfilePage() {
       </div>
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <h2 className="text-2xl leading-6 font-bold text-gray-900">
-          Mes groupes
+          <Text tid="mygroup" />
         </h2>
       </div>
     </>
   ) : (
     <Spinner />
   );
+  //   </div >
+  // </div >
+  // );
 }
+export default ProfilUser;

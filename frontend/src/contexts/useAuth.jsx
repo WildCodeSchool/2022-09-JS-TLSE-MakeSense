@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+// eslint-disable-next-line import/no-cycle
 import { LoadUser } from "./functions/ReconnectApi";
 
 const AuthContext = createContext();
@@ -35,13 +36,24 @@ export function AuthProvider({ children }) {
         window.atob(token.match(/(?<=\.)(.*?)(?=\.)/g))
       );
       LoadUser(payload.sub).then((returnuser) => {
-        setUser({
-          admin: returnuser.admin,
-          email: returnuser.email,
-          firstname: returnuser.firstname,
-          lastname: returnuser.lastname,
-          id: returnuser.id,
-        });
+        if (returnuser.status === 401) {
+          setUser({
+            admin: null,
+            email: null,
+            firstname: null,
+            lastname: null,
+            id: null,
+          });
+          navigate("/", { replace: true });
+        } else {
+          setUser({
+            admin: returnuser.admin,
+            email: returnuser.email,
+            firstname: returnuser.firstname,
+            lastname: returnuser.lastname,
+            id: returnuser.id,
+          });
+        }
         setIsLoaded(true);
       });
     } else {

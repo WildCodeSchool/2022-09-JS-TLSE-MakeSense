@@ -5,6 +5,13 @@ class UsersManager extends AbstractManager {
     super({ table: "users" });
   }
 
+  findusergroups(idgroup) {
+    return this.connection.query(
+      `SELECT ${this.table}.id, ${this.table}.firstname, ${this.table}.lastname FROM ${this.table} INNER JOIN group_user ON group_user.id_user = ${this.table}.id WHERE group_user.id_group = ?;`,
+      [idgroup]
+    );
+  }
+
   insert(users) {
     return this.connection.query(
       `insert into ${this.table}(lastname, firstname, email, password, serviceId, admin) values (?, ?, ?, ?, ?, ?);`,
@@ -17,12 +24,6 @@ class UsersManager extends AbstractManager {
         users.admin,
       ]
     );
-  }
-
-  find(id) {
-    return this.connection.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
   }
 
   readForLogin(users) {

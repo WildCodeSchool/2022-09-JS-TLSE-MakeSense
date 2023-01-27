@@ -5,14 +5,25 @@ class GroupManager extends AbstractManager {
     super({ table: "groups" });
   }
 
-  find(id) {
-    return this.connection.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
+  findgroup(id) {
+    return this.connection.query(
+      `SELECT * FROM ${this.table} INNER JOIN group_user ON group_user.id_group = ? WHERE ${this.table}.id = ?`,
+      [id, id]
+    );
   }
 
-  findAll() {
-    return this.connection.query(`SELECT * FROM ${this.table}`);
+  findImpactedWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.name FROM ${this.table} INNER JOIN decisions_g_impacts ON decisions_g_impacts.id_g_impact = ${this.table}.id AND decisions_g_impacts.id_decision = ? LIMIT 5;`,
+      [id]
+    );
+  }
+
+  findExpertsWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT ${this.table}.name FROM ${this.table} INNER JOIN decisions_g_experts ON decisions_g_experts.id_g_expert = ${this.table}.id AND decisions_g_experts.id_decision = ? LIMIT 5;`,
+      [id]
+    );
   }
 
   insert(body) {
@@ -21,12 +32,22 @@ class GroupManager extends AbstractManager {
     ]);
   }
 
-  insertusergroup(groupid, users) {
+  update(groups) {
+    return this.connection.query(
+      `update ${this.table} set name = ? where id = ?`,
+      [groups.name, groups.id]
+    );
+  }
+
+  deleteinsertusergroup(groupid, users) {
     let values = "";
     users.forEach((el) => {
       values += `, (${el.id}, ${groupid})`;
     });
     values = values.substring(1);
+    this.connection.query(
+      `DELETE FROM group_user WHERE EXISTS(SELECT id_group WHERE id_group = ${groupid});`
+    );
     return this.connection.query(
       `INSERT INTO group_user (id_user, id_group) VALUES ${values};`
     );

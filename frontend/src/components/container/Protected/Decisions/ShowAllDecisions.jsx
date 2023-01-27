@@ -6,7 +6,7 @@ import { useAuth } from "../../../../contexts/useAuth";
 import { Text } from "../../../../contexts/Language";
 import Spinner from "../../../Spinner";
 
-export default function ShowUserDecisions() {
+export default function ShowAllDecisions() {
   const [datas, setDatas] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,21 +15,16 @@ export default function ShowUserDecisions() {
 
   const navigate = useNavigate();
 
-  const { user } = useAuth();
-
   useEffect(() => {
     // Options query
     let duree;
     let status;
-    const userId = `id=${user.id}`;
     /* eslint-disable no-unused-expressions */
     StatusSelect ? (status = `status=${StatusSelect}`) : (status = "");
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
       const decisions = await api.apigetmysql(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/decisions?${status}&${duree}&${userId}`
+        `${import.meta.env.VITE_BACKEND_URL}/decisions?${status}&${duree}`
       );
       if (datas === null) {
         decisions.forEach((dec) => {
@@ -57,6 +52,17 @@ export default function ShowUserDecisions() {
               `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
                 dec.id
               }/4`,
+              body
+            );
+          }
+          if (
+            new Date(content.dateFinaleDecision) <
+            new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
+          ) {
+            updateStatus = api.apiputmysql(
+              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
+                dec.id
+              }/5`,
               body
             );
           }
@@ -185,36 +191,38 @@ export default function ShowUserDecisions() {
           </div>
         </div>
       </div>
-      {
-        // eslint-disable-next-line react/prop-types
-        datas
+      <div className="mx-auto grid grid-cols-3">
+        {
           // eslint-disable-next-line react/prop-types
-          .filter((data) =>
-            JSON.parse(data.content)
-              .title.normalize("NFD")
-              .replace(/\p{Diacritic}/gu, "")
-              .toLocaleLowerCase()
-              .includes(
-                searchTerm
-                  .normalize("NFD")
-                  .replace(/\p{Diacritic}/gu, "")
-                  .toLocaleLowerCase()
-              )
-          )
-          .map((data) => (
-            <button
-              type="button"
-              key={data.id}
-              id={data.id}
-              onClick={() => {
-                navigate(`/user/decisions?comp=Page&id=${data.id}`);
-              }}
-              className=""
-            >
-              <Card key={data.id} data={data} user={user} />
-            </button>
-          ))
-      }
+          datas
+            // eslint-disable-next-line react/prop-types
+            .filter((data) =>
+              JSON.parse(data.content)
+                .title.normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchTerm
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                )
+            )
+            .map((data) => (
+              <button
+                type="button"
+                key={data.id}
+                id={data.id}
+                onClick={() => {
+                  navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                }}
+                className=""
+              >
+                <Card key={data.id} data={data} />
+              </button>
+            ))
+        }
+      </div>
     </>
   ) : (
     <Spinner />

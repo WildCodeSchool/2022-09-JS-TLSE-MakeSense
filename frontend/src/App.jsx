@@ -8,7 +8,6 @@ import "./index.css";
 
 function App() {
   const { pages, components } = useContext(FolderContext);
-
   /// / Array pour les routes du dossier pages
   let routes = [];
   Object.values(pages).forEach((element, index) => {

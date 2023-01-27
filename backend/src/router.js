@@ -31,19 +31,28 @@ router.get("/decisions", decisionsControllers.browse);
 router.get("/decisions/:id", decisionsControllers.read);
 router.post("/decisions", decisionsControllers.add);
 router.put("/decisions/status/:id/:status", decisionsControllers.statusedit);
+router.put("/decisions/:id", decisionsControllers.edit);
 router.delete("/decisions/:id", decisionsControllers.destroy);
 
 router.post("/comments", commentsControllers.add);
 router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
+router.get(
+  "/impacted/groups/:id",
+  groupsControllers.browseImpactedWithDecisionId
+);
+router.get(
+  "/experts/groups/:id",
+  groupsControllers.browseExpertsWithDecisionId
+);
 router.post("/groups", groupsControllers.add);
+router.put("/groups/:id", groupsControllers.edit);
+router.get("/groups/:id", groupsControllers.read);
 router.delete("/groups/:id", groupsControllers.destroy);
 
-router.post("/impacted", impactedControllers.add);
-router.get("/impacted/:id", impactedControllers.read);
-router.post("/experts", expertsControllers.add);
-router.get("/experts/:id", expertsControllers.read);
+router.get("/impacted/users/:id", impactedControllers.read);
+router.get("/experts/users/:id", expertsControllers.read);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
