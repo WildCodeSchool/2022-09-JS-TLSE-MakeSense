@@ -435,7 +435,7 @@ function DecisionsPage() {
                 {usersImpacted.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      <Text tid="designatethepeopleconcerned" />
+                      <Text tid="userimpacted" />
                     </h3>
                     <div>
                       <Text tid="noonehasbeennamedasimpacted" />
@@ -444,7 +444,7 @@ function DecisionsPage() {
                 ) : (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      <Text tid="designatethepeopleconcerned" />
+                      <Text tid="userimpacted" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
                       {usersImpacted.map((person) => (
@@ -473,7 +473,7 @@ function DecisionsPage() {
                 {usersExperts.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      <Text tid="designatethepeopleconcerned" />
+                      <Text tid="userexpert" />
                     </h3>
                     <div>
                       <Text tid="noonehasbeenappointedasanexpert" />
@@ -482,7 +482,7 @@ function DecisionsPage() {
                 ) : (
                   <>
                     <h3 className="text-lg text-gray-900">
-                      <Text tid="designatethepeopleconcerned" />
+                      <Text tid="userexpert" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
                       {usersExperts.map((person) => (
