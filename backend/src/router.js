@@ -38,6 +38,7 @@ router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
 router.post("/groups", groupsControllers.add);
+router.put("/groups/:id", groupsControllers.edit);
 router.get("/groups/:id", groupsControllers.read);
 router.delete("/groups/:id", groupsControllers.destroy);
 

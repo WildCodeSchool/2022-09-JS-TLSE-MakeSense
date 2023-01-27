@@ -18,12 +18,22 @@ class GroupManager extends AbstractManager {
     ]);
   }
 
-  insertusergroup(groupid, users) {
+  update(groups) {
+    return this.connection.query(
+      `update ${this.table} set name = ? where id = ?`,
+      [groups.name, groups.id]
+    );
+  }
+
+  deleteinsertusergroup(groupid, users) {
     let values = "";
     users.forEach((el) => {
       values += `, (${el.id}, ${groupid})`;
     });
     values = values.substring(1);
+    this.connection.query(
+      `DELETE FROM group_user WHERE EXISTS(SELECT id_group WHERE id_group = ${groupid});`
+    );
     return this.connection.query(
       `INSERT INTO group_user (id_user, id_group) VALUES ${values};`
     );

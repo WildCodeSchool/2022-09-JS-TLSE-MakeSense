@@ -12,6 +12,11 @@ export default function HomeLayout() {
   const outlet = useOutlet();
   const { Text, dictionary } = useContext(LanguageContext);
 
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    localStorage.setItem("location", "/");
+  }
   const location = localStorage.getItem("location");
   // Si connecté redirige vers profile page
   if (user.email) {
