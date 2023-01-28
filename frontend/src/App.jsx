@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { useRoutes, useLocation } from "react-router-dom";
 import { Suspense, useContext } from "react";
 import Loader from "./services/Loader";
 import { FolderContext } from "./contexts/Folder";
@@ -47,6 +47,8 @@ function App() {
   });
   /// On rajoute les components dans les sous-routes
   const element = useRoutes(routes);
+  const URL = useLocation().pathname + useLocation().search;
+  localStorage.setItem("location", URL);
 
   return element;
 }

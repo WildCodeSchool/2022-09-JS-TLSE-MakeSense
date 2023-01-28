@@ -68,6 +68,7 @@ export default function AdminLayout() {
       menuadmin = [...menuadmin, addmenuadmin];
     });
 
+  menu = [];
   return (
     <main className="flex flex-col justify-between h-screen">
       <header>

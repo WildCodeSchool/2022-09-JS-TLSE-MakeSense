@@ -25,7 +25,7 @@ export default function ProtectedLayout() {
   }
   // Si NON connecté redirige vers Home
   if (!user.email) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   // Creation pages
@@ -50,6 +50,7 @@ export default function ProtectedLayout() {
       menu = [...menu, addmenu];
     });
 
+  menu = [];
   return (
     <main className="flex flex-col justify-between h-screen">
       <header className="">

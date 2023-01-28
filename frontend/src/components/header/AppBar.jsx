@@ -51,6 +51,23 @@ function AppBar({ menu }) {
             />
           </button>
         </div>
+        <div className="flex ">
+          {menu?.map((page, index) => (
+            <div className="wrapper-menu" key={`wrapper-${page.label}`}>
+              <button
+                type="button"
+                key={page.label}
+                id={page.label}
+                onClick={() => {
+                  handleCloseNavMenu(page.path);
+                }}
+                className="text-blueDiane hover:text-calypso font-bold text-xl px-5"
+              >
+                <Text tid={page.label} />
+              </button>
+            </div>
+          ))}
+        </div>
         {!!user.email && (
           <div className="flex">
             <button
@@ -123,7 +140,7 @@ function AppBar({ menu }) {
                       <button
                         type="button"
                         onClick={() => {
-                          navigate(`/user/decisions?comp=Profil`);
+                          navigate(`/user/profile`);
                           setUserMenu(false);
                         }}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
