@@ -66,6 +66,7 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [showValidate, setShowValidate] = useState(false);
   const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
@@ -100,6 +101,16 @@ function DecisionsEdit() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
+
+      const verifyUser = () => {
+        if (user.id === getDecisions.id_user_creator) {
+          setShowValidate(true);
+        } else {
+          setShowValidate(false);
+        }
+      };
+      verifyUser();
+
       setForm({
         title: JSON.parse(getDecisions.content).title,
         description: JSON.parse(getDecisions.content).description,
@@ -472,13 +483,15 @@ function DecisionsEdit() {
                 return null;
               })}
           </fieldset>
-          <button
-            type="submit"
-            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            onSubmit={handleSubmitNewData}
-          >
-            Valider ma décision
-          </button>
+          {showValidate ? (
+            <button
+              type="submit"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onSubmit={handleSubmitNewData}
+            >
+              Valider ma décision
+            </button>
+          ) : null}
         </form>
       </div>
     )
