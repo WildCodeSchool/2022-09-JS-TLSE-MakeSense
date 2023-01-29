@@ -9,18 +9,15 @@ import Concerned from "../Protected/Decisions/form/Concerned";
 function UsersManager() {
   const navigate = useNavigate();
   const [IsLoaded, SetIsLoaded] = useState(false);
-  const [AllUsers, setAllUsers] = useState();
-  const [AllGroups, setAllGroups] = useState();
+  const [AllUsers, setAllUsers] = useState({});
+  const [AllGroups, setAllGroups] = useState({});
+  const [Group, setGroup] = useState({});
   const [listUsers, setListUsers] = useState([]);
   const URLParam = useLocation().search;
   const [ModeSelect, setModeSelect] = useState(
-    new URLSearchParams(URLParam).get("mode")
-      ? new URLSearchParams(URLParam).get("mode")
-      : `list`
+    new URLSearchParams(URLParam).get("mode") ?? `list`
   );
-  const idedit = new URLSearchParams(URLParam).get("id")
-    ? new URLSearchParams(URLParam).get("id")
-    : "";
+  const idedit = new URLSearchParams(URLParam).get("id") ?? "";
   if (ModeSelect === "edit" && !idedit) {
     setModeSelect("list");
     navigate(`/admin/dashboard?tools=GroupsManager&mode=list`, {
@@ -63,11 +60,19 @@ function UsersManager() {
     const name = e.target.gname.value;
     const body = { users: listUsers, name };
     const sendForm = async () => {
-      const resgroupadd = await api.apipostmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/groups`,
-        body
-      );
-      if (resgroupadd.status === 201) {
+      let resgroup;
+      if (ModeSelect === "edit" && idedit) {
+        resgroup = await api.apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/groups/${idedit}`,
+          body
+        );
+      } else {
+        resgroup = await api.apipostmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/groups`,
+          body
+        );
+      }
+      if (resgroup.status === 201) {
         SetIsLoaded(false);
         navigate(`/admin/dashboard?tools=GroupsManager`, {
           replace: true,
@@ -82,11 +87,25 @@ function UsersManager() {
       const allusers = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/users`
       );
-      const allgroups = await api.apigetmysql(
+      const allusersgroups = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/groups/${idedit}`
       );
+      // Formatage du json pour le paquet
+      if (allusersgroups.users) {
+        setGroup(allusersgroups.group);
+        const userofgroup = allusersgroups.users.map((user) => {
+          return {
+            ...user,
+            id: user.id.toString(),
+            text: user.firstname
+              ? `${user.firstname} ${user.lastname}`
+              : `${user.name}`,
+          };
+        });
+        setListUsers(userofgroup);
+      }
       setAllUsers(allusers);
-      setAllGroups(allgroups);
+      setAllGroups(allusersgroups);
       SetIsLoaded(true);
     };
     getAllapi();
@@ -99,7 +118,7 @@ function UsersManager() {
   }
 
   return IsLoaded ? (
-    <div className="comp-admin-wrapper">
+    <div className="w-2/3">
       {(ModeSelect === "add" || ModeSelect === "edit") && (
         <>
           <button
@@ -110,14 +129,20 @@ function UsersManager() {
           >
             <Text tid="list" />
           </button>
-          <div className="">
+          <div className="w-2/3">
             <div className="px-4 sm:px-6 lg:px-8 w-full">
               <div className="sm:flex sm:items-center">
                 <form onSubmit={handleSubmit}>
                   <label htmlFor="groupname">
                     <Text tid="name" />
                   </label>
-                  <input type="text" id="gname" name="gname" required />
+                  <input
+                    defaultValue={Group.name ?? ""}
+                    type="text"
+                    id="gname"
+                    name="gname"
+                    required
+                  />
                   <Concerned
                     table={AllUsers}
                     name="users"
@@ -129,7 +154,7 @@ function UsersManager() {
                     type="submit"
                     className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
                   >
-                    <Text tid="add" />
+                    <Text tid={ModeSelect} />
                   </button>
                 </form>
               </div>

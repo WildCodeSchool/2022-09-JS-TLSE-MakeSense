@@ -1,11 +1,11 @@
-import api from "@services/api";
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 import Spinner from "../../components/Spinner";
 import { Text } from "../../contexts/Language";
 
-export default function ProfilePage() {
+function ProfilUser() {
   const navigate = useNavigate();
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
@@ -87,6 +87,10 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
+      {/* <div className="max-w-7xl mx-auto px-2 py-10 rounded flex flex-col mt-0">
+        <div className="mx-auto w-10/12">
+          <div className="w-full flex flex-row justify-center m-5"> */}
+
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
@@ -241,4 +245,8 @@ export default function ProfilePage() {
   ) : (
     <Spinner />
   );
+  //   </div >
+  // </div >
+  // );
 }
+export default ProfilUser;

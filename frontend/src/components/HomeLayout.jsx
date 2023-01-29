@@ -11,8 +11,21 @@ export default function HomeLayout() {
   const { user } = useAuth();
   const outlet = useOutlet();
   const { Text, dictionary } = useContext(LanguageContext);
-
-  const location = localStorage.getItem("location");
+  let location = "";
+  if (
+    !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
+  ) {
+    localStorage.setItem("location", "/login");
+  }
+  if (
+    localStorage.getItem("location") !== "/" &&
+    localStorage.getItem("location") !== "/login" &&
+    localStorage.getItem("location") !== "/register"
+  ) {
+    location = localStorage.getItem("location");
+  } else {
+    location = "";
+  }
   // Si connecté redirige vers profile page
   if (user.email) {
     return <Navigate to={location || "/user/decisions"} replace />;

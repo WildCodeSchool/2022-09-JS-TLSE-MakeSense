@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const browseImpactedWithDecisionId = (req, res) => {
   models.groups
-    .findImpactedWithDecisionId(req.params.id)
+    .findGroupsImpactedWithDecisionId(req.params.id)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -26,7 +26,7 @@ const browseImpactedWithDecisionId = (req, res) => {
 
 const browseExpertsWithDecisionId = (req, res) => {
   models.groups
-    .findExpertsWithDecisionId(req.params.id)
+    .findGroupsExpertsWithDecisionId(req.params.id)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -38,12 +38,18 @@ const browseExpertsWithDecisionId = (req, res) => {
 
 const read = (req, res) => {
   models.groups
-    .findgroup(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows);
+    .find(req.params.id)
+    .then(async ([rows]) => {
+      const decision = await rows[0];
+      return decision;
+    })
+    .then((group) => {
+      try {
+        models.users.findusergroups(req.params.id).then(([users]) => {
+          res.status(200).json({ group, users });
+        });
+      } catch (error) {
+        throw new Error(error);
       }
     })
     .catch((err) => {
@@ -62,7 +68,15 @@ const edit = (req, res) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {
-        res.sendStatus(204);
+        models.groups
+          .deleteinsertusergroup(groups.id, groups.users)
+          .then(() => {
+            res.location(`/admin/dashboard`).sendStatus(201);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.json(`Error when add users on group : ${err}`).sendStatus(500);
+          });
       }
     })
     .catch((err) => {

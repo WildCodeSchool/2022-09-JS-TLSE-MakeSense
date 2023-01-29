@@ -27,7 +27,7 @@ function AppBar({ menu }) {
   // RETURN //
   return (
     <>
-      <div className="sm-slate-50 flex flex-row justify-between items-center md-slate-100 flex flex-row justify-between items-center bg-slate-200 flex flex-row justify-between items-center">
+      <div className="sm-slate-50 flex flex-row justify-between items-center md-slate-100">
         <a
           href="https://makesense.org/"
           className="text-blueDiane hover:text-calypso font-medium text-l px-5"
@@ -36,7 +36,7 @@ function AppBar({ menu }) {
         </a>
         <LanguageSelector />
       </div>
-      <nav className="sm-w-100bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
+      <nav className="sm-w-100 bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
         <div className="pl-5">
           <button
             type="button"
@@ -46,7 +46,7 @@ function AppBar({ menu }) {
           >
             <img
               src={logo}
-              className="xl: hidden h-8 mr-4 lg: h-6 mr-3  md:h-4 mr-2"
+              className="h-10 lg:h-6 md:h-4 mr-2"
               alt="Makesense Logo"
             />
           </button>
@@ -91,7 +91,7 @@ function AppBar({ menu }) {
                 onKeyDown={() => setUserMenu(!userMenu)}
               >
                 <img
-                  className="w-8 h-8 rounded-full"
+                  className="w-10 h-10 rounded-full"
                   src="https://randomuser.me/api/portraits/women/2.jpg"
                   alt="user logo"
                 />
@@ -114,12 +114,38 @@ function AppBar({ menu }) {
                       <button
                         type="button"
                         onClick={() => {
-                          navigate(`/user/decisions?comp=User`);
+                          navigate(`/user/decisions`);
                           setUserMenu(false);
                         }}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
-                        <Text tid="mydecisions" />
+                        Décisions
+                      </button>
+                    </li>
+                    {user.admin === 1 ? (
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigate(`/admin/dashboard`);
+                            setUserMenu(false);
+                          }}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Tableau de bord
+                        </button>
+                      </li>
+                    ) : null}
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate(`/user/profile`);
+                          setUserMenu(false);
+                        }}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Mon profil
                       </button>
                     </li>
                     {!!user.email && (

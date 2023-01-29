@@ -4,10 +4,26 @@ const browse = (req, res) => {
   const status = req.query.status ? req.query.status : "0";
   const duree = req.query.duree ? req.query.duree : "0";
   const userId = req.query.id ? req.query.id : "0";
-  const userConcerned = req.query.idConcerned ? req.query.idConcerned : "0";
+  const userImpacted = req.query.idImpacted ? req.query.idImpacted : "0";
+  const userExpert = req.query.idExpert ? req.query.idExpert : "0";
+  const groupImpacted = req.query.idUserInGroupImpacted
+    ? req.query.idUserInGroupImpacted
+    : "0";
+  const groupExpert = req.query.idUserInGroupExpert
+    ? req.query.idUserInGroupExpert
+    : "0";
   const userComment = req.query.idUserComment ? req.query.idUserComment : "0";
   models.decisions
-    .readfilter(status, duree, userId, userConcerned, userComment)
+    .readfilter(
+      status,
+      duree,
+      userId,
+      userImpacted,
+      userExpert,
+      groupImpacted,
+      groupExpert,
+      userComment
+    )
     .then(([rows]) => {
       res.send(rows);
     })
@@ -18,14 +34,39 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.decisions
-    .finddec(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
-      }
+  let decision;
+  let uimpacted;
+  let uexpert;
+  let gimpacted;
+  let gexpert;
+  const promise1 = models.decisions.finddec(req.params.id).then(([rows]) => {
+    [decision] = rows;
+  });
+  const promise2 = models.users
+    .findUsersImpactedWithDecisionId(req.params.id)
+    .then(([usersimpacted]) => {
+      uimpacted = usersimpacted;
+    });
+  const promise3 = models.users
+    .findUsersExpertsWithDecisionId(req.params.id)
+    .then(([usersexpert]) => {
+      uexpert = usersexpert;
+    });
+  const promise4 = models.groups
+    .findGroupsImpactedWithDecisionId(req.params.id)
+    .then(([groupsimpacted]) => {
+      gimpacted = groupsimpacted;
+    });
+  const promise5 = models.groups
+    .findGroupsExpertsWithDecisionId(req.params.id)
+    .then(([groupsexpert]) => {
+      gexpert = groupsexpert;
+    });
+  Promise.all([promise1, promise2, promise3, promise4, promise5])
+    .then(() => {
+      res
+        .status(200)
+        .json({ decision, uimpacted, uexpert, gimpacted, gexpert });
     })
     .catch((err) => {
       console.error(err);

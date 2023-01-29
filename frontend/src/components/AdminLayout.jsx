@@ -10,18 +10,21 @@ import Loader from "../services/Loader";
 import Spinner from "./Spinner";
 
 export default function AdminLayout() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 
   const URLParam = useLocation().search;
-  const tools = new URLSearchParams(URLParam).get("tools")
-    ? new URLSearchParams(URLParam).get("tools")
-    : "Dashboard";
+  const tools = new URLSearchParams(URLParam).get("tools") ?? "Dashboard";
 
   if (
     !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
   ) {
+    setUser({
+      admin: null,
+      email: null,
+      id: null,
+    });
     return <Navigate to="/login" />;
   }
   if (!user.email) {
@@ -65,6 +68,7 @@ export default function AdminLayout() {
       menuadmin = [...menuadmin, addmenuadmin];
     });
 
+  menu = [];
   return (
     <main className="flex flex-col justify-between h-screen">
       <header>
