@@ -136,13 +136,14 @@ function DecisionsEdit() {
       setUsersExperts(formatConcerned(getDecisions.uexpert));
       setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
       setGroupsExperts(formatConcerned(getDecisions.gexpert));
+
       setIsLoaded(true); // enfin nous avons tout
     };
     getAllData(); // lance la fonction getDecisionsData
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmitNewData(e) {
+  async function handleSubmitNewData(e) {
     e.preventDefault();
     // handle errors
     setErrors("");
@@ -150,11 +151,11 @@ function DecisionsEdit() {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
-
     if (result.error) {
+      console.warn(result.error);
       setErrors(result.error.details);
     } else {
-      console.warn("il n'y a pas d'erreur");
+      console.warn("Pas d'ereur de formulaire");
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
