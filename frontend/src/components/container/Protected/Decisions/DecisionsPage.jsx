@@ -29,7 +29,7 @@ function DecisionsPage() {
     };
     getAllApis();
   }, [isLoaded]);
- 
+
   return isLoaded ? (
     <div className="min-h-full">
       <main className="py-10">
