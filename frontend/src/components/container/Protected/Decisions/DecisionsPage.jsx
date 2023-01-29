@@ -254,7 +254,7 @@ function DecisionsPage() {
                       </div>
                     </div>
                   </details>
-                  {user.id === decisions.id_user_creator ? (
+                  {user.id === decisions.decision.id_user_creator ? (
                     <button
                       className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                       type="button"
