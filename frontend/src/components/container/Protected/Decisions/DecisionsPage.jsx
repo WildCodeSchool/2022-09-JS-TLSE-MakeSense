@@ -1,6 +1,5 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Menu, Popover, Transition } from "@headlessui/react";
 import api from "../../../../services/api";
 import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
@@ -8,13 +7,8 @@ import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
-  const [usersImpacted, setUsersImpacted] = useState([]);
-  const [usersExperts, setUsersExperts] = useState([]);
-  const [groupsImpacted, setGroupsImpacted] = useState([]);
-  const [groupsExperts, setGroupsExperts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
-  const [contentComment, setContentComment] = useState();
 
   const navigate = useNavigate();
   const URLParam = useLocation().search;
@@ -28,27 +22,7 @@ function DecisionsPage() {
       const callDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      // get the users impacted
-      const callUserImpacted = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/impacted/users/${id}`
-      );
-      // get the users experts
-      const callUserExperts = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/experts/users/${id}`
-      );
-      // get the groups impacted
-      const callGroupsImpacted = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/impacted/groups/${id}`
-      );
-      // get the groups experts
-      const callGroupsExperts = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/experts/groups/${id}`
-      );
       setDecisions(callDecisions);
-      setUsersImpacted(callUserImpacted);
-      setUsersExperts(callUserExperts);
-      setGroupsImpacted(callGroupsImpacted);
-      setGroupsExperts(callGroupsExperts);
       setIsLoaded(true);
     };
     getAllApis();
@@ -67,11 +41,11 @@ function DecisionsPage() {
                     id="applicant-information-title"
                     className="text-lg leading-6 font-medium text-gray-900"
                   >
-                    {JSON.parse(decisions.content).title}
+                    {JSON.parse(decisions.decision.content).title}
                   </h2>
                   <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                    <Text tid="through" /> {decisions.firstname}{" "}
-                    {decisions.lastname}
+                    <Text tid="through" /> {decisions.decision.firstname}{" "}
+                    {decisions.decision.lastname}
                   </p>
                 </div>
                 <div
@@ -113,7 +87,8 @@ function DecisionsPage() {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: JSON.parse(decisions.content).description,
+                            __html: JSON.parse(decisions.decision.content)
+                              .description,
                           }}
                         />
                       </div>
@@ -152,7 +127,8 @@ function DecisionsPage() {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: JSON.parse(decisions.content).context,
+                            __html: JSON.parse(decisions.decision.content)
+                              .context,
                           }}
                         />
                       </div>
@@ -191,7 +167,8 @@ function DecisionsPage() {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: JSON.parse(decisions.content).utility,
+                            __html: JSON.parse(decisions.decision.content)
+                              .utility,
                           }}
                         />
                       </div>
@@ -230,7 +207,7 @@ function DecisionsPage() {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: JSON.parse(decisions.content).pros,
+                            __html: JSON.parse(decisions.decision.content).pros,
                           }}
                         />
                       </div>
@@ -269,7 +246,7 @@ function DecisionsPage() {
                         <div
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
-                            __html: JSON.parse(decisions.content).cons,
+                            __html: JSON.parse(decisions.decision.content).cons,
                           }}
                         />
                       </div>
@@ -280,9 +257,11 @@ function DecisionsPage() {
                     type="button"
                     key="key"
                     value="edit"
-                    id={decisions.id}
+                    id={decisions.decision.id}
                     onClick={() => {
-                      navigate(`/user/decisions?comp=Edit&id=${decisions.id}`);
+                      navigate(
+                        `/user/decisions?comp=Edit&id=${decisions.decision.id}`
+                      );
                     }}
                   >
                     <Text tid="modify" />
@@ -318,7 +297,7 @@ function DecisionsPage() {
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                           __html: JSON.parse(
-                            decisions.content
+                            decisions.decision.content
                           ).firstDate.substring(0, 10),
                         }}
                       />
@@ -327,10 +306,11 @@ function DecisionsPage() {
                       <Text tid="decisionmakingstarted" />
                     </h3>
                   </li>
-                  {JSON.parse(decisions.content).dateOpinion ? (
+                  {JSON.parse(decisions.decision.content).dateOpinion ? (
                     <li className="mb-10 ml-4">
-                      {new Date(JSON.parse(decisions.content).dateOpinion) >
-                      new Date() ? (
+                      {new Date(
+                        JSON.parse(decisions.decision.content).dateOpinion
+                      ) > new Date() ? (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
                         <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
@@ -340,7 +320,7 @@ function DecisionsPage() {
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
                             __html: JSON.parse(
-                              decisions.content
+                              decisions.decision.content
                             ).dateOpinion.substring(0, 10),
                           }}
                         />
@@ -350,10 +330,10 @@ function DecisionsPage() {
                       </h3>
                     </li>
                   ) : null}
-                  {JSON.parse(decisions.content).dateFirstDecision ? (
+                  {JSON.parse(decisions.decision.content).dateFirstDecision ? (
                     <li className="mb-10 ml-4">
                       {new Date(
-                        JSON.parse(decisions.content).dateFirstDecision
+                        JSON.parse(decisions.decision.content).dateFirstDecision
                       ) > new Date() ? (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
@@ -364,7 +344,7 @@ function DecisionsPage() {
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
                             __html: JSON.parse(
-                              decisions.content
+                              decisions.decision.content
                             ).dateFirstDecision.substring(0, 10),
                           }}
                         />
@@ -374,33 +354,10 @@ function DecisionsPage() {
                       </h5>
                     </li>
                   ) : null}
-                  {JSON.parse(decisions.content).dateEndConflict ? (
-                    <li className="mb-10 ml-4">
-                      {new Date(JSON.parse(decisions.content).dateEndConflict) >
-                      new Date() ? (
-                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
-                      ) : (
-                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
-                      )}
-                      <time className="mb-1 text-calypso text-m font-bold leading-none">
-                        <div
-                          // eslint-disable-next-line react/no-danger
-                          dangerouslySetInnerHTML={{
-                            __html: JSON.parse(
-                              decisions.content
-                            ).dateEndConflict.substring(0, 10),
-                          }}
-                        />
-                      </time>
-                      <h3 className="text-m font-normal text-gray-900">
-                        <Text tid="deadlinetoenterdispute" />
-                      </h3>
-                    </li>
-                  ) : null}
-                  {JSON.parse(decisions.content).dateFinaleDecision ? (
+                  {JSON.parse(decisions.decision.content).dateEndConflict ? (
                     <li className="mb-10 ml-4">
                       {new Date(
-                        JSON.parse(decisions.content).dateFinaleDecision
+                        JSON.parse(decisions.decision.content).dateEndConflict
                       ) > new Date() ? (
                         <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                       ) : (
@@ -411,7 +368,33 @@ function DecisionsPage() {
                           // eslint-disable-next-line react/no-danger
                           dangerouslySetInnerHTML={{
                             __html: JSON.parse(
-                              decisions.content
+                              decisions.decision.content
+                            ).dateEndConflict.substring(0, 10),
+                          }}
+                        />
+                      </time>
+                      <h3 className="text-m font-normal text-gray-900">
+                        <Text tid="deadlinetoenterdispute" />
+                      </h3>
+                    </li>
+                  ) : null}
+                  {JSON.parse(decisions.decision.content).dateFinaleDecision ? (
+                    <li className="mb-10 ml-4">
+                      {new Date(
+                        JSON.parse(
+                          decisions.decision.content
+                        ).dateFinaleDecision
+                      ) > new Date() ? (
+                        <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
+                      ) : (
+                        <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
+                      )}
+                      <time className="mb-1 text-calypso text-m font-bold leading-none">
+                        <div
+                          // eslint-disable-next-line react/no-danger
+                          dangerouslySetInnerHTML={{
+                            __html: JSON.parse(
+                              decisions.decision.content
                             ).dateFinaleDecision.substring(0, 10),
                           }}
                         />
@@ -432,7 +415,7 @@ function DecisionsPage() {
                 >
                   <Text tid="peopleconcerned" />
                 </h2>
-                {usersImpacted.length === 0 ? (
+                {decisions.uimpacted.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="userimpacted" />
@@ -447,10 +430,10 @@ function DecisionsPage() {
                       <Text tid="userimpacted" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {usersImpacted.map((person) => (
-                        <div>
+                      {decisions.uimpacted.map((person) => (
+                        <div key={`"userimpacted:"${person.id}`}>
                           <img
-                            key={person.id}
+                            key={person.name}
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt={`${
@@ -462,7 +445,7 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {usersImpacted.length > 4 && (
+                      {decisions.uimpacted.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>
@@ -470,7 +453,7 @@ function DecisionsPage() {
                     </div>
                   </>
                 )}
-                {usersExperts.length === 0 ? (
+                {decisions.uexpert.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="userexpert" />
@@ -485,10 +468,10 @@ function DecisionsPage() {
                       <Text tid="userexpert" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {usersExperts.map((person) => (
-                        <div>
+                      {decisions.uexpert.map((person) => (
+                        <div key={`"userexpert:"${person.id}`}>
                           <img
-                            key={person.id}
+                            key={person.name}
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt={`${
@@ -500,7 +483,7 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {usersExperts.length > 4 && (
+                      {decisions.uexpert.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>
@@ -518,7 +501,7 @@ function DecisionsPage() {
                 >
                   <Text tid="groupsconcerned" />
                 </h2>
-                {groupsImpacted.length === 0 ? (
+                {decisions.gimpacted.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="groupsimpacted" />
@@ -533,10 +516,10 @@ function DecisionsPage() {
                       <Text tid="groupsimpacted" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {groupsImpacted.map((group) => (
-                        <div>
+                      {decisions.gimpacted.map((group) => (
+                        <div key={`"groupimpacted:"${group.id}`}>
                           <img
-                            key={group.id}
+                            key={group.name}
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt={group.name}
@@ -544,7 +527,7 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {groupsImpacted.length > 4 && (
+                      {decisions.gimpacted.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>
@@ -552,7 +535,7 @@ function DecisionsPage() {
                     </div>
                   </>
                 )}
-                {groupsExperts.length === 0 ? (
+                {decisions.gexpert.length === 0 ? (
                   <>
                     <h3 className="text-lg text-gray-900">
                       <Text tid="groupsexperts" />
@@ -567,10 +550,10 @@ function DecisionsPage() {
                       <Text tid="designatethepeopleconcerned" />
                     </h3>
                     <div className="flex -space-x-2 overflow-hidden">
-                      {groupsExperts.map((group) => (
-                        <div>
+                      {decisions.gexpert.map((group) => (
+                        <div key={`"groupexpert:"${group.id}`}>
                           <img
-                            key={group.id}
+                            key={group.name}
                             className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt={group.name}
@@ -578,7 +561,7 @@ function DecisionsPage() {
                           />
                         </div>
                       ))}
-                      {groupsExperts.length > 4 && (
+                      {decisions.gexpert.length > 4 && (
                         <div>
                           <Text tid="andothers" />
                         </div>

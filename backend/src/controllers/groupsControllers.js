@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const browseImpactedWithDecisionId = (req, res) => {
   models.groups
-    .findImpactedWithDecisionId(req.params.id)
+    .findGroupsImpactedWithDecisionId(req.params.id)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -26,7 +26,7 @@ const browseImpactedWithDecisionId = (req, res) => {
 
 const browseExpertsWithDecisionId = (req, res) => {
   models.groups
-    .findExpertsWithDecisionId(req.params.id)
+    .findGroupsExpertsWithDecisionId(req.params.id)
     .then(([rows]) => {
       res.send(rows);
     })
@@ -39,12 +39,9 @@ const browseExpertsWithDecisionId = (req, res) => {
 const read = (req, res) => {
   models.groups
     .find(req.params.id)
-    .then(([rows]) => {
-      try {
-        return rows[0];
-      } catch (error) {
-        throw new Error(error);
-      }
+    .then(async ([rows]) => {
+      const decision = await rows[0];
+      return decision;
     })
     .then((group) => {
       try {
