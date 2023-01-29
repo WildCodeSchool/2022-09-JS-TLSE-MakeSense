@@ -8,7 +8,7 @@ import { FolderContext } from "../contexts/Folder";
 
 export default function ProtectedLayout() {
   const { pages } = useContext(FolderContext);
-  const { user, setUser } = useAuth();
+  const { user, logout } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
@@ -16,11 +16,7 @@ export default function ProtectedLayout() {
   if (
     !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
   ) {
-    setUser({
-      admin: null,
-      email: null,
-      id: null,
-    });
+    logout();
     return <Navigate to="/login" />;
   }
   // Si NON connecté redirige vers Home

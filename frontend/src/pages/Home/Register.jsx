@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Navigate, redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/useAuth";
 import api from "../../services/api";
 import { Text } from "../../contexts/Language";

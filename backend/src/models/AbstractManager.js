@@ -13,7 +13,6 @@ class AbstractManager {
     return this.connection.query(`select * from  ${this.table}`);
   }
 
-  // UPDATE TABLE DE LIAISON
   updateliaison(decisionid, usersgroups, tableliaison, secondcolumn) {
     let values = "";
     usersgroups.forEach((el) => {
@@ -27,7 +26,6 @@ class AbstractManager {
       `INSERT INTO ${tableliaison} (id_${this.table}, ${secondcolumn}) VALUES ${values};`
     );
   }
-  /// FIN TABLE DE LIAISON
 
   delete(id) {
     return this.connection.query(`delete from ${this.table} where id = ?`, [

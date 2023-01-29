@@ -60,7 +60,7 @@ const verifyToken = (req, res, next) => {
   } catch (err) {
     console.error("Erreur de verification Token:", err);
     res
-      .location(`/login`)
+      .location(`/login?datareset=1`)
       .clearCookie("makesense_access_token")
       .sendStatus(401);
   }
