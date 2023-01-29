@@ -13,6 +13,22 @@ class AbstractManager {
     return this.connection.query(`select * from  ${this.table}`);
   }
 
+  // UPDATE TABLE DE LIAISON
+  updateliaison(decisionid, usersgroups, tableliaison, secondcolumn) {
+    let values = "";
+    usersgroups.forEach((el) => {
+      values += `, (${decisionid},${el.id})`;
+    });
+    values = values.substring(1);
+    this.connection.query(
+      `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
+    );
+    return this.connection.query(
+      `INSERT INTO ${tableliaison} (id_${this.table}, ${secondcolumn}) VALUES ${values};`
+    );
+  }
+  /// FIN TABLE DE LIAISON
+
   delete(id) {
     return this.connection.query(`delete from ${this.table} where id = ?`, [
       id,

@@ -7,21 +7,21 @@ class GroupManager extends AbstractManager {
 
   findgroup(id) {
     return this.connection.query(
-      `SELECT * FROM ${this.table} INNER JOIN group_user ON group_user.id_group = ? WHERE ${this.table}.id = ?`,
+      `SELECT * FROM ${this.table} INNER JOIN group_user ON group_user.id_groups = ? WHERE ${this.table}.id = ?`,
       [id, id]
     );
   }
 
   findGroupsImpactedWithDecisionId(id) {
     return this.connection.query(
-      `SELECT ${this.table}.name, ${this.table}.id FROM ${this.table} INNER JOIN decisions_g_impacts ON decisions_g_impacts.id_g_impact = ${this.table}.id AND decisions_g_impacts.id_decision = ? LIMIT 5;`,
+      `SELECT ${this.table}.name, ${this.table}.id FROM ${this.table} INNER JOIN decisions_g_impacts ON decisions_g_impacts.id_g_impact = ${this.table}.id AND decisions_g_impacts.id_decisions = ? LIMIT 5;`,
       [id]
     );
   }
 
   findGroupsExpertsWithDecisionId(id) {
     return this.connection.query(
-      `SELECT ${this.table}.name, ${this.table}.id FROM ${this.table} INNER JOIN decisions_g_experts ON decisions_g_experts.id_g_expert = ${this.table}.id AND decisions_g_experts.id_decision = ? LIMIT 5;`,
+      `SELECT ${this.table}.name, ${this.table}.id FROM ${this.table} INNER JOIN decisions_g_experts ON decisions_g_experts.id_g_expert = ${this.table}.id AND decisions_g_experts.id_decisions = ? LIMIT 5;`,
       [id]
     );
   }
@@ -36,20 +36,6 @@ class GroupManager extends AbstractManager {
     return this.connection.query(
       `update ${this.table} set name = ? where id = ?`,
       [groups.name, groups.id]
-    );
-  }
-
-  deleteinsertusergroup(groupid, users) {
-    let values = "";
-    users.forEach((el) => {
-      values += `, (${el.id}, ${groupid})`;
-    });
-    values = values.substring(1);
-    this.connection.query(
-      `DELETE FROM group_user WHERE EXISTS(SELECT id_group WHERE id_group = ${groupid});`
-    );
-    return this.connection.query(
-      `INSERT INTO group_user (id_user, id_group) VALUES ${values};`
     );
   }
 
