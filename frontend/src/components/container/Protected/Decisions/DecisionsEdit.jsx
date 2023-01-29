@@ -61,7 +61,6 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
-  const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -136,14 +135,13 @@ function DecisionsEdit() {
       setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
       setGroupsExperts(formatConcerned(getDecisions.gexpert));
 
-      setData(getDecisions);
       setIsLoaded(true); // enfin nous avons tout
     };
     getAllData(); // lance la fonction getDecisionsData
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmitNewData(e) {
+  async function handleSubmitNewData(e) {
     e.preventDefault();
     // handle errors
     setErrors("");
@@ -151,11 +149,11 @@ function DecisionsEdit() {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
-
     if (result.error) {
+      console.warn(result.error);
       setErrors(result.error.details);
     } else {
-      console.warn("il n'y a pas d'erreur");
+      console.warn("Pas d'ereur de formulaire");
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
@@ -175,19 +173,6 @@ function DecisionsEdit() {
           return json;
         });
     }
-    const body = {
-      title: JSON.parse(data.content).title,
-      description: JSON.parse(data.content).description,
-      utility: JSON.parse(data.content).utility,
-      context: JSON.parse(data.content).context,
-      pros: JSON.parse(data.content).pros,
-      cons: JSON.parse(data.content).cons,
-      firstDate: new Date(),
-      dateOpinion: new Date(),
-      dateFirstDecision: new Date(),
-      dateEndConflict: new Date(),
-      dateFinaleDecision: new Date(),
-    };
   }
 
   return (
