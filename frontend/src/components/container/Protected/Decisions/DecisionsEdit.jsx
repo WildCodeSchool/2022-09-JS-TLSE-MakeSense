@@ -61,7 +61,7 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
-  const [data, setData] = useState();
+  let idCreator = "";
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -79,7 +79,7 @@ function DecisionsEdit() {
   // useEffect to set the original data
   useEffect(() => {
     const getAllData = async () => {
-      // get the original decision
+      // get the users
       const callAllUsers = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/users`
       );
@@ -93,7 +93,7 @@ function DecisionsEdit() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-
+      idCreator = getDecisions.id_user_creator;
       setForm({
         title: JSON.parse(getDecisions.decision.content).title,
         description: JSON.parse(getDecisions.decision.content).description,
@@ -136,8 +136,6 @@ function DecisionsEdit() {
       setUsersExperts(formatConcerned(getDecisions.uexpert));
       setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
       setGroupsExperts(formatConcerned(getDecisions.gexpert));
-
-      setData(getDecisions);
       setIsLoaded(true); // enfin nous avons tout
     };
     getAllData(); // lance la fonction getDecisionsData
@@ -176,19 +174,6 @@ function DecisionsEdit() {
           return json;
         });
     }
-    const body = {
-      title: JSON.parse(data.content).title,
-      description: JSON.parse(data.content).description,
-      utility: JSON.parse(data.content).utility,
-      context: JSON.parse(data.content).context,
-      pros: JSON.parse(data.content).pros,
-      cons: JSON.parse(data.content).cons,
-      firstDate: new Date(),
-      dateOpinion: new Date(),
-      dateFirstDecision: new Date(),
-      dateEndConflict: new Date(),
-      dateFinaleDecision: new Date(),
-    };
   }
 
   return (
@@ -496,7 +481,7 @@ function DecisionsEdit() {
                 return null;
               })}
           </fieldset>
-          {user.id === data.id_user_creator ? (
+          {user.id === idCreator ? (
             <button
               type="submit"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

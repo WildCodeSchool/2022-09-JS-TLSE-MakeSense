@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/useAuth";
 import api from "../../../../services/api";
 import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
 import { Text } from "../../../../contexts/Language";
 
 function DecisionsPage() {
+  const { user } = useAuth();
   const [decisions, setDecisions] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
@@ -27,7 +29,7 @@ function DecisionsPage() {
     };
     getAllApis();
   }, [isLoaded]);
-
+ 
   return isLoaded ? (
     <div className="min-h-full">
       <main className="py-10">
