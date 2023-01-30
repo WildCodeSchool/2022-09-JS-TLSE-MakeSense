@@ -1,0 +1,51 @@
+$box-size: 100%;
+
+.frame {
+  overflow: hidden; // to hide the other boxs
+}
+
+.box-container {
+  display: flex;
+}
+
+.box {
+  box-sizing: border-box;
+  width: 100%;
+  height: $box-size;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button {
+  background: #666;
+  color: #fff;
+  width: 50px;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button-2-container {
+  display: flex;
+}
+
+.button-2 {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: #e0e0e0;
+  margin: 6px;
+  cursor: pointer;
+}
+
+.active {
+  background: #999;
+}
