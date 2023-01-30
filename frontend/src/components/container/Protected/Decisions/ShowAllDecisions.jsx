@@ -95,7 +95,7 @@ export default function ShowAllDecisions() {
 
   return datas ? (
     <>
-      <div className="rounded flex flex-col items-center">
+      <div className="rounded flex flex-col items-center justify-center">
         <input
           key="searchbar"
           id="searchbar"
@@ -104,15 +104,15 @@ export default function ShowAllDecisions() {
           value={searchTerm}
           onChange={handleChange}
           placeholder="Rechercher une décision..."
-          className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
+          className="block py-4 pl-10 text-m w-10/12 sm:w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
         />
-        <div className="flex flex-row w-full justify-between p-3">
+        <div className="flex flex-wrap sm:flex-row sm:w-full justify-center sm:justify-between p-3">
           <div>
             <select
               value={StatusSelect || ""}
               id="select-status"
               onChange={HandlerStatus}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 my-5"
             >
               <option value="">
                 {" "}
@@ -191,7 +191,7 @@ export default function ShowAllDecisions() {
           </div>
         </div>
       </div>
-      <div className="mx-auto grid grid-cols-3">
+      <div className="mx-auto grid sm:grid-cols-3 ">
         {
           // eslint-disable-next-line react/prop-types
           datas

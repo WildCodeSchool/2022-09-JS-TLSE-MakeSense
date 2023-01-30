@@ -90,30 +90,7 @@ function ProfilUser() {
       <div className="mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
-          <div className="flex flew-row justify-between">
-            <div className="mt-6 flex flex-col lg:flex-row">
-              <div className="mt-10 flex-grow lg:mt-5 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
-                <div className="relative rounded-full overflow-hidden lg:block">
-                  <img
-                    className="relative rounded-full w-40 h-40"
-                    src="https://randomuser.me/api/portraits/women/2.jpg"
-                    alt="user img"
-                  />
-                  <label
-                    htmlFor="desktop-user-photo"
-                    className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
-                  >
-                    <span>Change</span>
-                    {/* <input
-                    type="file"
-                    id="desktop-user-photo"
-                    name="user-photo"
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-                  /> */}
-                  </label>
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col ms:flew-row justify-between">
             <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
               <div className="col-span-12 sm:col-span-6">
                 <label
