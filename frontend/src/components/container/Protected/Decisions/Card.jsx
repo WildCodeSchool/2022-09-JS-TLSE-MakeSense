@@ -22,7 +22,7 @@ function Card({ data, user }) {
   }
   return (
     data && (
-      <div className="col-span-1 bg-white block max-w-sm p-10 m-5 border border-gray-200 rounded-lg shadow-md">
+      <div className="col-span-1 text-center bg-white block max-w-xs sm:max-w-sm p-10 my-3 sm:m-5 border border-gray-200 rounded-lg shadow-md">
         <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {dataContent.title}
         </h2>

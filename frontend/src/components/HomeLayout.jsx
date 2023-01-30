@@ -49,7 +49,7 @@ export default function HomeLayout() {
         <AppBar menu={menu} />
       </header>
 
-      <div className="flex flex-row justify-center items-center p-20">
+      <div className="flex flex-row justify-center items-center p-10 sm:p-20">
         {outlet}
       </div>
 
