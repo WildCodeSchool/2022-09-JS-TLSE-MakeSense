@@ -1,5 +1,5 @@
 import { useContext, Suspense } from "react";
-import { Navigate, useOutlet, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AdminBar from "@components/container/Admin/AdminBar";
 import { useAuth } from "../contexts/useAuth";
 import AppBar from "./header/AppBar";
@@ -10,7 +10,7 @@ import Loader from "../services/Loader";
 import Spinner from "./Spinner";
 
 export default function AdminLayout() {
-  const { user, setUser } = useAuth();
+  const { user, logout } = useAuth();
   const { dictionary } = useContext(LanguageContext);
   const { pages, components } = useContext(FolderContext);
 
@@ -20,11 +20,7 @@ export default function AdminLayout() {
   if (
     !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
   ) {
-    setUser({
-      admin: null,
-      email: null,
-      id: null,
-    });
+    logout();
     return <Navigate to="/login" />;
   }
   if (!user.email) {

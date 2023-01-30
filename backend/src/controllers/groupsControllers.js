@@ -69,7 +69,7 @@ const edit = (req, res) => {
         res.sendStatus(404);
       } else {
         models.groups
-          .deleteinsertusergroup(groups.id, groups.users)
+          .updateliaison(groups.id, groups.users, "group_user", "id_user")
           .then(() => {
             res.location(`/admin/dashboard`).sendStatus(201);
           })

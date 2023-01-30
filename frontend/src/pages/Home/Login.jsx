@@ -1,13 +1,12 @@
 import { React, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 import { Text } from "../../contexts/Language";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [errotConnect, setErrotConnect] = useState(false);
-  const navigate = useNavigate();
+  const [errorConnect, setErrotConnect] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +44,7 @@ export default function LoginPage() {
 
   useEffect(() => {}, [setErrotConnect]);
 
-  return errotConnect ? (
+  return errorConnect ? (
     <div
       id="popup-modal"
       tabIndex="-1"
