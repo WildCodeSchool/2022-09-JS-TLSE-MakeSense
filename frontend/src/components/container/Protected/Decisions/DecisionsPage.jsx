@@ -4,6 +4,7 @@ import api from "../../../../services/api";
 import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
 import { Text } from "../../../../contexts/Language";
+import { useAuth } from "../../../../contexts/useAuth";
 
 function DecisionsPage() {
   const [decisions, setDecisions] = useState(null);
@@ -15,6 +16,9 @@ function DecisionsPage() {
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
     : "";
+
+  // get user logged in from Context
+  const { user } = useAuth();
 
   useEffect(() => {
     const getAllApis = async () => {
@@ -252,20 +256,22 @@ function DecisionsPage() {
                       </div>
                     </div>
                   </details>
-                  <button
-                    className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-2"
-                    type="button"
-                    key="key"
-                    value="edit"
-                    id={decisions.decision.id}
-                    onClick={() => {
-                      navigate(
-                        `/user/decisions?comp=Edit&id=${decisions.decision.id}`
-                      );
-                    }}
-                  >
-                    <Text tid="modify" />
-                  </button>
+                  {user.id === decisions.decision.id_user_creator ? (
+                    <button
+                      className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-2"
+                      type="button"
+                      key="key"
+                      value="edit"
+                      id={decisions.decision.id}
+                      onClick={() => {
+                        navigate(
+                          `/user/decisions?comp=Edit&id=${decisions.decision.id}`
+                        );
+                      }}
+                    >
+                      <Text tid="modify" />
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </section>
