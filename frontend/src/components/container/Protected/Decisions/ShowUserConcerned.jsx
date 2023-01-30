@@ -334,6 +334,6 @@ export default function ShowUserConcerned() {
       )}
     </>
   ) : (
-    <Spinner />
+    <div>Il n'y a pas de décision.</div>
   );
 }
