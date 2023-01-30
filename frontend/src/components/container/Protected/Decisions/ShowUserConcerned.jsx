@@ -38,23 +38,19 @@ export default function ShowUserConcerned() {
     DureeSelect ? (duree = `duree=${DureeSelect}`) : (duree = "");
     const getDatas = async () => {
       const getDecisionsWhereUserImpacted = await api.apigetmysql(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${userImpacted}`
       );
       const getDecisionsWhereUserExpert = await api.apigetmysql(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${userExpert}`
       );
       const getDecisionsWhereGroupImpacted = await api.apigetmysql(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${groupImpacted}`
       );
       const getDecisionsWhereGroupExpert = await api.apigetmysql(
-        `${
-          import.meta.env.VITE_BACKEND_URL
+        `${import.meta.env.VITE_BACKEND_URL
         }/decisions?${status}&${duree}&${groupExpert}`
       );
       setDecisionsWhereUserImpacted(getDecisionsWhereUserImpacted);
@@ -334,6 +330,6 @@ export default function ShowUserConcerned() {
       )}
     </>
   ) : (
-    <Spinner />
+    <div>Il n'y a pas de décision.</div>
   );
 }

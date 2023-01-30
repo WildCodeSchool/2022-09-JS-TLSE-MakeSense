@@ -115,8 +115,6 @@ function Dashboard() {
     setDatagraph(arraydatagraph);
   }
 
-  console.log(datagraph)
-
   useEffect(() => {
     const getAllApis = async () => {
       // get the decision
@@ -180,7 +178,9 @@ function Dashboard() {
               className="carousel-control-prev-icon inline-block bg-no-repeat"
               aria-hidden="true"
             />
-            <span className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">Previous</span>
+            <span className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
+              Previous
+            </span>
           </button>
           <button
             className="carousel-control-next relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
@@ -193,7 +193,9 @@ function Dashboard() {
               className="carousel-control-next-icon inline-block bg-no-repeat"
               aria-hidden="true"
             />
-            <span className="visually-hidden text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">Next</span>
+            <span className="visually-hidden text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
+              Next
+            </span>
           </button>
         </div>
       </div>
