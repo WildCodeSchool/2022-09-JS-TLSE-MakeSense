@@ -11,13 +11,10 @@ function Comments({ comments, page, limit }) {
             {selectedComments.map((comment) => (
               <li key={comment.id}>
                 <div className="flex space-x-3">
-                  {/* <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={`https://images.unsplash.com/photo-${comment.imageId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`}
-                      alt=""
-                    />
-                  </div> */}
+                  <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
+                    {comment.lastname.substring(0, 1)}
+                    {comment.firstname.substring(0, 1)}
+                  </div>
                   <div>
                     <div className="text-sm">
                       <a href="/" className="font-medium text-gray-900">

@@ -1,8 +1,6 @@
 $box-size: 100%;
 
 .frame {
-  border: 1px solid #ff8e00;
-  width: $box-size;
   overflow: hidden; // to hide the other boxs
 }
 
@@ -12,9 +10,7 @@ $box-size: 100%;
 
 .box {
   box-sizing: border-box;
-  border: 5px solid #fff;
-  background: #00e7ff;
-  width: $box-size;
+  width: 100%;
   height: $box-size;
   flex-shrink: 0;
   display: flex;

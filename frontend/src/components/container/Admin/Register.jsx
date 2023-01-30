@@ -67,7 +67,9 @@ function LoginPage() {
   return (
     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
       <div className="register">
-        <h1 className="text-xl font-medium text-gray-900">Register</h1>
+        <h1 className="text-xl font-medium text-gray-900">
+          Enregister un utilisateur
+        </h1>
 
         <form noValidate className="space-y-6" onSubmit={handleSubmit}>
           <div>
@@ -75,7 +77,7 @@ function LoginPage() {
               htmlFor="firstname"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Prénom
+              <Text tid="firstname" />
             </label>
             <input
               required
@@ -92,7 +94,7 @@ function LoginPage() {
               htmlFor="lastname"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Nom de famille
+              <Text tid="lastname" />
             </label>
             <input
               required
@@ -109,7 +111,7 @@ function LoginPage() {
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Email
+              <Text tid="email" />
             </label>
             <input
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -126,7 +128,7 @@ function LoginPage() {
               htmlFor="password"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Password
+              <Text tid="password" />
             </label>
             <input
               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
@@ -143,7 +145,7 @@ function LoginPage() {
             type="submit"
             className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            Register
+            Enregistrer
           </button>
         </form>
       </div>
