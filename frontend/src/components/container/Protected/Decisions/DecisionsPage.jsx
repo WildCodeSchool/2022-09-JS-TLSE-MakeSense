@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../../contexts/useAuth";
 import api from "../../../../services/api";
 import CommentSection from "./CommentSection";
 import Spinner from "../../../Spinner";
 import { Text } from "../../../../contexts/Language";
+import { useAuth } from "../../../../contexts/useAuth";
 
 function DecisionsPage() {
-  const { user } = useAuth();
   const [decisions, setDecisions] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [comments, setComments] = useState();
@@ -17,6 +16,9 @@ function DecisionsPage() {
   const id = new URLSearchParams(URLParam).get("id")
     ? new URLSearchParams(URLParam).get("id")
     : "";
+
+  // get user logged in from Context
+  const { user } = useAuth();
 
   useEffect(() => {
     const getAllApis = async () => {
@@ -33,7 +35,7 @@ function DecisionsPage() {
   return isLoaded ? (
     <div className="min-h-full">
       <main className="py-10">
-        <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+        <div className="mt-8 max-w-7xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:grid-flow-col-dense lg:grid-cols-3">
           <div className="space-y-6 lg:col-start-1 lg:col-span-2">
             {/* Description list */}
             <section aria-labelledby="applicant-information-title">
@@ -256,14 +258,14 @@ function DecisionsPage() {
                   </details>
                   {user.id === decisions.decision.id_user_creator ? (
                     <button
-                      className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-2"
                       type="button"
                       key="key"
                       value="edit"
-                      id={decisions.id}
+                      id={decisions.decision.id}
                       onClick={() => {
                         navigate(
-                          `/user/decisions?comp=Edit&id=${decisions.id}`
+                          `/user/decisions?comp=Edit&id=${decisions.decision.id}`
                         );
                       }}
                     >
@@ -436,17 +438,13 @@ function DecisionsPage() {
                     <div className="flex -space-x-2 overflow-hidden">
                       {decisions.uimpacted.map((person) => (
                         <div key={`"userimpacted:"${person.id}`}>
-                          <img
-                            key={person.name}
-                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt={`${
-                              person.firstname
-                            } ${person.lastname.toUpperCase()}`}
-                            title={`${
-                              person.firstname
-                            } ${person.lastname.toUpperCase()}`}
-                          />
+                          <div
+                            className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
+                            title={`${person.lastname} ${person.firstname}`}
+                          >
+                            {person.lastname.substring(0, 1)}
+                            {person.firstname.substring(0, 1)}
+                          </div>
                         </div>
                       ))}
                       {decisions.uimpacted.length > 4 && (
@@ -474,17 +472,13 @@ function DecisionsPage() {
                     <div className="flex -space-x-2 overflow-hidden">
                       {decisions.uexpert.map((person) => (
                         <div key={`"userexpert:"${person.id}`}>
-                          <img
-                            key={person.name}
-                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt={`${
-                              person.firstname
-                            } ${person.lastname.toUpperCase()}`}
-                            title={`${
-                              person.firstname
-                            } ${person.lastname.toUpperCase()}`}
-                          />
+                          <div
+                            className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
+                            title={`${person.lastname} ${person.firstname}`}
+                          >
+                            {person.lastname.substring(0, 1)}
+                            {person.firstname.substring(0, 1)}
+                          </div>
                         </div>
                       ))}
                       {decisions.uexpert.length > 4 && (
@@ -522,13 +516,21 @@ function DecisionsPage() {
                     <div className="flex -space-x-2 overflow-hidden">
                       {decisions.gimpacted.map((group) => (
                         <div key={`"groupimpacted:"${group.id}`}>
-                          <img
-                            key={group.name}
-                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt={group.name}
+                          <div
+                            className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
                             title={group.name}
-                          />
+                          >
+                            {group.name
+                              .split(/\s/)
+                              .reduce(
+                                // eslint-disable-next-line no-return-assign
+                                (response, word) =>
+                                  // eslint-disable-next-line no-param-reassign
+                                  (response += word.slice(0, 1)),
+                                ""
+                              )
+                              .substring(0, 2)}
+                          </div>
                         </div>
                       ))}
                       {decisions.gimpacted.length > 4 && (
@@ -556,13 +558,21 @@ function DecisionsPage() {
                     <div className="flex -space-x-2 overflow-hidden">
                       {decisions.gexpert.map((group) => (
                         <div key={`"groupexpert:"${group.id}`}>
-                          <img
-                            key={group.name}
-                            className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt={group.name}
+                          <div
+                            className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
                             title={group.name}
-                          />
+                          >
+                            {group.name
+                              .split(/\s/)
+                              .reduce(
+                                // eslint-disable-next-line no-return-assign
+                                (response, word) =>
+                                  // eslint-disable-next-line no-param-reassign
+                                  (response += word.slice(0, 1)),
+                                ""
+                              )
+                              .substring(0, 2)}
+                          </div>
                         </div>
                       ))}
                       {decisions.gexpert.length > 4 && (
