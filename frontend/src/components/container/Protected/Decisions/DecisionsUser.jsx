@@ -11,8 +11,8 @@ function DecisionsUser() {
 
   // eslint-disable-next-line eqeqeq
   return (
-    <div className="max-w-7xl mx-auto px-2 py-10 rounded flex flex-col mt-0">
-      <div className="mx-auto w-10/12">
+    <div className="mx-auto px-2 rounded flex flex-col mt-0">
+      <div className="mx-auto">
         <div className="w-full flex flex-row justify-center m-5">
           <button
             type="button"

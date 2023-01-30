@@ -101,7 +101,7 @@ export default function ShowUserConcerned() {
           placeholder="Rechercher une décision..."
           className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
         />
-        <div className="flex flex-row w-full justify-between p-3 my-10">
+        <div className="flex flex-row w-full justify-end p-3">
           <div>
             <select
               value={StatusSelect || ""}
@@ -248,48 +248,47 @@ export default function ShowUserConcerned() {
       ) : (
         <div className="my-5">Il n'y a pas de décision.</div>
       )}
-      {decisionsWhereGroupImpacted.length ? (
-        <div>
-          <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Les décisions qui impactent mes groupes
-          </h1>
-          {decisionsWhereGroupImpacted.length &&
+      <div>
+        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Les décisions qui impactent mes groupes
+        </h1>
+        {decisionsWhereGroupImpacted.length ? (
+          // eslint-disable-next-line react/prop-types
+          decisionsWhereGroupImpacted
             // eslint-disable-next-line react/prop-types
-            decisionsWhereGroupImpacted
-              // eslint-disable-next-line react/prop-types
-              .filter((decision) =>
-                JSON.parse(decision.content)
-                  .title.normalize("NFD")
-                  .replace(/\p{Diacritic}/gu, "")
-                  .toLocaleLowerCase()
-                  .includes(
-                    searchTerm
-                      .normalize("NFD")
-                      .replace(/\p{Diacritic}/gu, "")
-                      .toLocaleLowerCase()
-                  )
-              )
-              .map((decision) => (
-                <button
-                  type="button"
+            .filter((decision) =>
+              JSON.parse(decision.content)
+                .title.normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchTerm
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                )
+            )
+            .map((decision) => (
+              <button
+                type="button"
+                key={decision.id}
+                id={decision.id}
+                onClick={() => {
+                  navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+                }}
+              >
+                <Card
                   key={decision.id}
-                  id={decision.id}
-                  onClick={() => {
-                    navigate(`/user/decisions?comp=Page&id=${decision.id}`);
-                  }}
-                >
-                  <Card
-                    key={decision.id}
-                    data={decision}
-                    user={user}
-                    statut="groupes impactés"
-                  />
-                </button>
-              ))}
-        </div>
-      ) : (
-        <div className="my-5">Il n'y a pas de décision.</div>
-      )}
+                  data={decision}
+                  user={user}
+                  statut="groupes impactés"
+                />
+              </button>
+            ))
+        ) : (
+          <div className="my-5">Il n'y a pas de décision.</div>
+        )}
+      </div>
       <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         Les décisions qui ont besoin de l'expertise de mes groupes
       </h1>

@@ -23,23 +23,25 @@ function AdminBar({ menuadmin, tools }) {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <nav className="pb-4 flex flex-col flex-grow">
           <div className="flex-grow mt-5 fixed">
-            {menuadmin.map((page) => (
-              <button
-                className={
-                  page.label === tools
-                    ? "font-bold text-xl text-calypso border-l-4 border-broom pl-5 py-5"
-                    : "font-bold text-m border-transparent text-gray-600 hover:text-calypso border-l-4 py-2 px-3 flex items-center py-5"
-                }
-                type="button"
-                key={page.label}
-                id={page.label}
-                onClick={() => {
-                  handleCloseNavMenu(page.path);
-                }}
-              >
-                <Text tid={page.label} />
-              </button>
-            ))}
+            {menuadmin
+              .filter((file) => file.label !== "Register")
+              .map((page) => (
+                <button
+                  className={
+                    page.label === tools
+                      ? "font-bold text-xl text-calypso border-l-4 border-broom pl-5 py-5"
+                      : "font-bold text-m border-transparent text-gray-600 hover:text-calypso border-l-4 py-2 px-3 flex items-center py-5"
+                  }
+                  type="button"
+                  key={page.label}
+                  id={page.label}
+                  onClick={() => {
+                    handleCloseNavMenu(page.path);
+                  }}
+                >
+                  <Text tid={page.label} />
+                </button>
+              ))}
           </div>
         </nav>
       </div>

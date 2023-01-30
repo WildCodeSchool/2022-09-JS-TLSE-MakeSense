@@ -152,7 +152,7 @@ function DecisionsForm() {
             onSubmit={handleSubmit}
             className="sm:rounded-lg mt-8 max-w-7xl mx-auto space-y-6"
           >
-            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 max-w-7xl mx-auto">
+            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 mx-auto">
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">

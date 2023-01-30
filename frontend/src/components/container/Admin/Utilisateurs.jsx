@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import { HiPencilSquare } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
@@ -10,6 +11,8 @@ function UsersManager() {
   const [toModify, setToModify] = useState(false);
   const [userData, setUserData] = useState();
   const [userToModify, setUserToModify] = useState(userData);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllapi = async () => {
@@ -41,8 +44,46 @@ function UsersManager() {
     setToModify(false);
   };
 
+  const handleDelete = (id) => {
+    const deleteUser = async () => {
+      // delete the user
+      const deleteTheUser = await api.apideletemysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/${id}`
+      );
+    };
+    deleteUser();
+    setIsSubmit(true);
+  };
+
   return IsLoaded ? (
     <>
+      {isSubmit && (
+        <div
+          id="popup-modal"
+          tabIndex="-1"
+          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+        >
+          <div className="w-full max-w-md md:h-auto">
+            <div className="relative bg-white rounded-lg shadow">
+              <div className="p-6 text-center">
+                <h3 className="mb-5 text-lg font-normal text-gray-500">
+                  L'utilisateur a été supprimé
+                </h3>
+                <button
+                  data-modal-hide="popup-modal"
+                  type="button"
+                  className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  onClick={() => {
+                    setIsSubmit(false);
+                  }}
+                >
+                  <Text tid="backtodecisions" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {toModify && (
         <div
           id="popup-modal"
@@ -147,6 +188,7 @@ function UsersManager() {
               <button
                 type="button"
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
+                onClick={() => navigate(`/admin/dashboard?tools=Register`)}
               >
                 Ajouter un utilisateur
               </button>
@@ -183,6 +225,12 @@ function UsersManager() {
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
                         Edit
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                      >
+                        <Text tid="delete" />
                       </th>
                     </tr>
                   </thead>
@@ -224,11 +272,10 @@ function UsersManager() {
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                           <div className="flex items-center">
                             <div className="h-10 w-10 flex-shrink-0">
-                              <img
-                                className="h-10 w-10 rounded-full"
-                                src=""
-                                alt=""
-                              />
+                              <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
+                                {data.lastname.substring(0, 1)}
+                                {data.firstname.substring(0, 1)}
+                              </div>
                             </div>
                             <div className="ml-4">
                               <div className="font-medium text-gray-900">
@@ -254,6 +301,14 @@ function UsersManager() {
                             }}
                           >
                             <HiPencilSquare />
+                          </button>
+                        </td>
+                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-m font-medium">
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(data.id)}
+                          >
+                            <HiOutlineArchiveBoxXMark />
                           </button>
                         </td>
                       </tr>
