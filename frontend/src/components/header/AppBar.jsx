@@ -94,8 +94,8 @@ function AppBar({ menu }) {
                   className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
                   title={`${user.lastname} ${user.firstname}`}
                 >
-                  {user.lastname.substring(0, 1)}
-                  {user.firstname.substring(0, 1)}
+                  {user && user.lastname.substring(0, 1)}
+                  {user && user.firstname.substring(0, 1)}
                 </div>
               </button>
               {userMenu && (
