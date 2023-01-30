@@ -61,6 +61,7 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  let idCreator = "";
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -78,10 +79,7 @@ function DecisionsEdit() {
   // useEffect to set the original data
   useEffect(() => {
     const getAllData = async () => {
-      // get the original decision
-      const getDecisions = await api.apigetmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
-      );
+      // get the users
       const callAllUsers = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/users`
       );
@@ -91,6 +89,11 @@ function DecisionsEdit() {
         `${import.meta.env.VITE_BACKEND_URL}/groups`
       );
       setGroups(callAllGroups);
+      // get the original decision
+      const getDecisions = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
+      );
+      idCreator = getDecisions.id_user_creator;
       setForm({
         title: JSON.parse(getDecisions.decision.content).title,
         description: JSON.parse(getDecisions.decision.content).description,
@@ -133,14 +136,13 @@ function DecisionsEdit() {
       setUsersExperts(formatConcerned(getDecisions.uexpert));
       setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
       setGroupsExperts(formatConcerned(getDecisions.gexpert));
-
       setIsLoaded(true); // enfin nous avons tout
     };
     getAllData(); // lance la fonction getDecisionsData
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  async function handleSubmitNewData(e) {
+  function handleSubmitNewData(e) {
     e.preventDefault();
     // handle errors
     setErrors("");
@@ -148,11 +150,11 @@ function DecisionsEdit() {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
+
     if (result.error) {
-      console.warn(result.error);
       setErrors(result.error.details);
     } else {
-      console.warn("Pas d'ereur de formulaire");
+      console.warn("il n'y a pas d'erreur");
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
