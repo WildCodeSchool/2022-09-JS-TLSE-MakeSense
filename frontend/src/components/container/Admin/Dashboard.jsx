@@ -109,11 +109,13 @@ function Dashboard() {
       ["En attente première décision", status2],
       ["En conflit", status3],
       ["Décision définitive prise", status4],
-      ["Décision archivées(au bout de 3 mois)", status5],
+      ["Décision archivées", status5],
       ["Décision non aboutie", status6],
     ];
     setDatagraph(arraydatagraph);
   }
+
+  console.log(datagraph)
 
   useEffect(() => {
     const getAllApis = async () => {
@@ -138,9 +140,8 @@ function Dashboard() {
   };
 
   return isLoaded ? (
-    <div className="w-full justify-center m-5">
-      <h1>Dashboard</h1>
-      <p>{month}</p>
+    <div className="w-1/2 bg-white rounded shadow p-5 justify-center m-5">
+      <p className="font-bold text-xl text-calypso pl-5 py-5">{month}</p>
 
       <div className="frame">
         <div className="box-container" ref={ref}>
@@ -149,51 +150,52 @@ function Dashboard() {
               <Chart
                 chartType="PieChart"
                 width="100%"
-                height="400px"
                 data={datagraph}
                 options={options}
               />
             </div>
           ))}
         </div>
-        <button
-          className="carousel-control-prev relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev"
-          onClick={prev}
-        >
-          <span
-            className="carousel-control-prev-icon inline-block bg-no-repeat"
-            aria-hidden="true"
-          />
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next"
-          onClick={next}
-        >
-          <span
-            className="carousel-control-next-icon inline-block bg-no-repeat"
-            aria-hidden="true"
-          />
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-      <div className="button-2-container">
-        {allmonth.map((num, index) => (
+        <div className="button-2-container">
+          {allmonth.map((num, index) => (
+            <button
+              type="button"
+              className={`button-2 ${num === current && "active"}`}
+              onClick={desired}
+              id={index}
+              key={num}
+              aria-label={num}
+            />
+          ))}
+        </div>
+        <div className="flex">
           <button
+            className="carousel-control-prev relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
             type="button"
-            className={`button-2 ${num === current && "active"}`}
-            onClick={desired}
-            id={index}
-            key={num}
-            aria-label={num}
-          />
-        ))}
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev"
+            onClick={prev}
+          >
+            <span
+              className="carousel-control-prev-icon inline-block bg-no-repeat"
+              aria-hidden="true"
+            />
+            <span className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next"
+            onClick={next}
+          >
+            <span
+              className="carousel-control-next-icon inline-block bg-no-repeat"
+              aria-hidden="true"
+            />
+            <span className="visually-hidden text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">Next</span>
+          </button>
+        </div>
       </div>
     </div>
   ) : (
