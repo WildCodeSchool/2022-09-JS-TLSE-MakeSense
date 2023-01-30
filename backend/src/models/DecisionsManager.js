@@ -107,7 +107,7 @@ class DecisionsManager extends AbstractManager {
       queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_experts ON ${this.table}.id = decisions_g_experts.id_decisions INNER JOIN groups ON groups.id = decisions_g_experts.id_g_expert INNER JOIN group_user ON group_user.id_groups = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
     }
     if (userComment !== "0") {
-      queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
     }
 
     return this.connection.query(queryContent, [status]);
