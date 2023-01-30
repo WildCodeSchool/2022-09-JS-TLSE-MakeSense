@@ -33,21 +33,24 @@ export default function ShowAllDecisions() {
           let updateStatus;
           if (new Date(content.dateOpinion) < new Date()) {
             updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${dec.id
+              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
+                dec.id
               }/2`,
               body
             );
           }
           if (new Date(content.dateFirstDecision) < new Date()) {
             updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${dec.id
+              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
+                dec.id
               }/3`,
               body
             );
           }
           if (new Date(content.dateEndConflict) < new Date()) {
             updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${dec.id
+              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
+                dec.id
               }/4`,
               body
             );
@@ -57,7 +60,8 @@ export default function ShowAllDecisions() {
             new Date().setMonth(new Date().getMonth() - 3) // au bout de 3 mois, passe en statut archivée
           ) {
             updateStatus = api.apiputmysql(
-              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${dec.id
+              `${import.meta.env.VITE_BACKEND_URL}/decisions/status/${
+                dec.id
               }/5`,
               body
             );
