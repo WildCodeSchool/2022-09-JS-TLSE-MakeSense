@@ -30,9 +30,9 @@ const verifyPassword = (req, res) => {
         });
         delete req.user.password;
         res
-          .status(201)
+          .status(200)
           .cookie("makesense_access_token", `Bearer ${token}`, {
-            expires: new Date(Date.now() + 0.2 * 3600000), // cookie will be removed after 2 hours
+            expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
           })
           .json({ admin: req.user.admin, id: req.user.id });
       } else {
@@ -60,7 +60,7 @@ const verifyToken = (req, res, next) => {
   } catch (err) {
     console.error("Erreur de verification Token:", err);
     res
-      .location(`/login`)
+      .location(`/login?datareset=1`)
       .clearCookie("makesense_access_token")
       .sendStatus(401);
   }

@@ -34,14 +34,39 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.decisions
-    .finddec(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
-      }
+  let decision;
+  let uimpacted;
+  let uexpert;
+  let gimpacted;
+  let gexpert;
+  const promise1 = models.decisions.finddec(req.params.id).then(([rows]) => {
+    [decision] = rows;
+  });
+  const promise2 = models.users
+    .findUsersImpactedWithDecisionId(req.params.id)
+    .then(([usersimpacted]) => {
+      uimpacted = usersimpacted;
+    });
+  const promise3 = models.users
+    .findUsersExpertsWithDecisionId(req.params.id)
+    .then(([usersexpert]) => {
+      uexpert = usersexpert;
+    });
+  const promise4 = models.groups
+    .findGroupsImpactedWithDecisionId(req.params.id)
+    .then(([groupsimpacted]) => {
+      gimpacted = groupsimpacted;
+    });
+  const promise5 = models.groups
+    .findGroupsExpertsWithDecisionId(req.params.id)
+    .then(([groupsexpert]) => {
+      gexpert = groupsexpert;
+    });
+  Promise.all([promise1, promise2, promise3, promise4, promise5])
+    .then(() => {
+      res
+        .status(200)
+        .json({ decision, uimpacted, uexpert, gimpacted, gexpert });
     })
     .catch((err) => {
       console.error(err);
@@ -53,15 +78,50 @@ const edit = (req, res) => {
   const decisions = req.body;
   // TODO validations (length, format...)
   decisions.id = parseInt(req.params.id, 10);
-
-  models.decisions
-    .update(decisions)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+  const promise1 = models.decisions.update(decisions);
+  const promise2 = models.decisions
+    .updateliaison(
+      decisions.id,
+      decisions.users_impact,
+      "decisions_impacts",
+      "id_user_impact"
+    )
+    .then(() => {
+      console.warn("Liaison decisions_impacts update");
+    });
+  const promise3 = models.decisions
+    .updateliaison(
+      decisions.id,
+      decisions.users_expert,
+      "decisions_experts",
+      "id_user_expert"
+    )
+    .then(() => {
+      console.warn("Liaison decisions_experts update");
+    });
+  const promise4 = models.decisions
+    .updateliaison(
+      decisions.id,
+      decisions.groups_impact,
+      "decisions_g_impacts",
+      "id_g_impact"
+    )
+    .then(() => {
+      console.warn("Liaison decisions_g_impacts update");
+    });
+  const promise5 = models.decisions
+    .updateliaison(
+      decisions.id,
+      decisions.groups_expert,
+      "decisions_g_impacts",
+      "id_g_impact"
+    )
+    .then(() => {
+      console.warn("Liaison decisions_g_impacts update");
+    });
+  Promise.all([promise1, promise2, promise3, promise4, promise5])
+    .then(() => {
+      res.sendStatus(204);
     })
     .catch((err) => {
       console.error(err);

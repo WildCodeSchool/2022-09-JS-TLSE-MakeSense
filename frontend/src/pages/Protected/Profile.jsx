@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../../../services/api";
-import { useAuth } from "../../../../contexts/useAuth";
-import Spinner from "../../../Spinner";
-import { Text } from "../../../../contexts/Language";
+import api from "../../services/api";
+import { useAuth } from "../../contexts/useAuth";
+import Spinner from "../../components/Spinner";
+import { Text } from "../../contexts/Language";
 
 function ProfilUser() {
   const navigate = useNavigate();

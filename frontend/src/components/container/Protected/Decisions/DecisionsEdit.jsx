@@ -9,7 +9,6 @@ import api from "@services/api";
 import Concerned from "./form/Concerned";
 import { useAuth } from "../../../../contexts/useAuth";
 import { Text } from "../../../../contexts/Language";
-import DecisionsPage from "./DecisionsPage";
 
 function DecisionsEdit() {
   const navigate = useNavigate();
@@ -53,20 +52,15 @@ function DecisionsEdit() {
   });
 
   // states for form
-  const [updateData, setUpdateData] = useState(false);
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [usersImpacted, setUsersImpacted] = useState([]);
   const [usersExperts, setUsersExperts] = useState([]);
   const [groupsImpacted, setGroupsImpacted] = useState([]);
   const [groupsExperts, setGroupsExperts] = useState([]);
-  const [impacted, setImpacted] = useState([]);
-  const [experts, setExperts] = useState([]);
-  const [usersAndGroups, setUsersAndGroups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
-  const [data, setData] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -81,56 +75,73 @@ function DecisionsEdit() {
     dateFinaleDecision: new Date(),
   });
 
-  const getUsers = async () => {
-    const callAllUsers = await api.apigetmysql(
-      `${import.meta.env.VITE_BACKEND_URL}/users`
-    );
-    setUsers(callAllUsers);
-    const callAllGroups = await api.apigetmysql(
-      `${import.meta.env.VITE_BACKEND_URL}/groups`
-    );
-    setGroups(callAllGroups);
-    setIsLoaded(true);
-  };
-
   // useEffect to set the original data
   useEffect(() => {
-    const getDecisionsData = async () => {
+    const getAllData = async () => {
+      // get the original decision
+      const callAllUsers = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users`
+      );
+      setUsers(callAllUsers);
+      // get all groups
+      const callAllGroups = await api.apigetmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/groups`
+      );
+      setGroups(callAllGroups);
       // get the original decision
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
       setForm({
-        title: JSON.parse(getDecisions.content).title,
-        description: JSON.parse(getDecisions.content).description,
-        utility: JSON.parse(getDecisions.content).context,
-        context: JSON.parse(getDecisions.content).utility,
-        pros: JSON.parse(getDecisions.content).pros,
-        cons: JSON.parse(getDecisions.content).cons,
-        firstDate: new Date(JSON.parse(getDecisions.content).firstDate),
-        dateOpinion: new Date(JSON.parse(getDecisions.content).dateOpinion),
+        title: JSON.parse(getDecisions.decision.content).title,
+        description: JSON.parse(getDecisions.decision.content).description,
+        utility: JSON.parse(getDecisions.decision.content).context,
+        context: JSON.parse(getDecisions.decision.content).utility,
+        pros: JSON.parse(getDecisions.decision.content).pros,
+        cons: JSON.parse(getDecisions.decision.content).cons,
+        firstDate: new Date(
+          JSON.parse(getDecisions.decision.content).firstDate
+        ),
+        dateOpinion: new Date(
+          JSON.parse(getDecisions.decision.content).dateOpinion
+        ),
         dateFirstDecision: new Date(
-          JSON.parse(getDecisions.content).dateFirstDecision
+          JSON.parse(getDecisions.decision.content).dateFirstDecision
         ),
         dateEndConflict: new Date(
-          JSON.parse(getDecisions.content).dateEndConflict
+          JSON.parse(getDecisions.decision.content).dateEndConflict
         ),
         dateFinaleDecision: new Date(
-          JSON.parse(getDecisions.content).dateFinaleDecision
+          JSON.parse(getDecisions.decision.content).dateFinaleDecision
         ),
       });
-      setData(getDecisions);
-    };
-    getDecisionsData(); // lance la fonction getDecisionsData
-  }, [updateData]);
 
-  useEffect(() => {
-    getUsers();
-    setUsersAndGroups(users);
+      // function de formatage
+      function formatConcerned(state) {
+        // Formatage du json pour le paquet
+        const value = state.map((item) => {
+          return {
+            ...item,
+            id: item.id.toString(),
+            text: item.firstname
+              ? `${item.firstname} ${item.lastname}`
+              : `${item.name}`,
+          };
+        });
+        return value;
+      }
+      setUsersImpacted(formatConcerned(getDecisions.uimpacted));
+      setUsersExperts(formatConcerned(getDecisions.uexpert));
+      setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
+      setGroupsExperts(formatConcerned(getDecisions.gexpert));
+
+      setIsLoaded(true); // enfin nous avons tout
+    };
+    getAllData(); // lance la fonction getDecisionsData
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return
-  function handleSubmitNewData(e) {
+  async function handleSubmitNewData(e) {
     e.preventDefault();
     // handle errors
     setErrors("");
@@ -138,11 +149,11 @@ function DecisionsEdit() {
       abortEarly: false,
     };
     const result = decisionSchema.validate(form, options);
-
     if (result.error) {
+      console.warn(result.error);
       setErrors(result.error.details);
     } else {
-      console.warn("il n'y a pas d'erreur");
+      console.warn("Pas d'ereur de formulaire");
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
@@ -162,20 +173,6 @@ function DecisionsEdit() {
           return json;
         });
     }
-
-    const body = {
-      title: JSON.parse(data.content).title,
-      description: JSON.parse(data.content).description,
-      utility: JSON.parse(data.content).utility,
-      context: JSON.parse(data.content).context,
-      pros: JSON.parse(data.content).pros,
-      cons: JSON.parse(data.content).cons,
-      firstDate: new Date(),
-      dateOpinion: new Date(),
-      dateFirstDecision: new Date(),
-      dateEndConflict: new Date(),
-      dateFinaleDecision: new Date(),
-    };
   }
 
   return (
@@ -352,17 +349,28 @@ function DecisionsEdit() {
             <Text tid="designatethepeopleconcerned" />
           </legend>
           <Concerned
-            table={usersAndGroups}
-            name="concernés"
-            type={impacted}
-            updateType={(event) => setImpacted(event)}
+            table={users}
+            name="personnes impactées"
+            type={usersImpacted}
+            updateType={(event) => setUsersImpacted(event)}
           />
-
           <Concerned
-            table={usersAndGroups}
-            name="experts"
-            type={experts}
-            updateType={(event) => setExperts(event)}
+            table={users}
+            name="personnes expertes"
+            type={usersExperts}
+            updateType={(event) => setUsersExperts(event)}
+          />
+          <Concerned
+            table={groups}
+            name="groupes impactés"
+            type={groupsImpacted}
+            updateType={(event) => setGroupsImpacted(event)}
+          />
+          <Concerned
+            table={groups}
+            name="groupes experts"
+            type={groupsExperts}
+            updateType={(event) => setGroupsExperts(event)}
           />
           <fieldset>
             <legend>

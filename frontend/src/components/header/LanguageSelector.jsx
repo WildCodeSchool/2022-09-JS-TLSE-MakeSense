@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
 import { LanguageContext } from "../../contexts/Language";
 
 export default function LanguageSelector() {
-  const URL = useLocation().pathname + useLocation().search;
   const { userLanguage, userLanguageChange, languageOptions } =
     useContext(LanguageContext);
-  localStorage.setItem("location", URL);
 
   // set selected language by calling context method
   const handleLanguageChange = (e) => {

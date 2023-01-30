@@ -8,7 +8,7 @@ import { FolderContext } from "../contexts/Folder";
 
 export default function ProtectedLayout() {
   const { pages } = useContext(FolderContext);
-  const { user, setUser } = useAuth();
+  const { user, logout } = useAuth();
   const outlet = useOutlet();
   const { dictionary } = useContext(LanguageContext);
 
@@ -16,16 +16,12 @@ export default function ProtectedLayout() {
   if (
     !document.cookie.match(/^(.*;)?\s*makesense_access_token\s*=\s*[^;]+(.*)?$/)
   ) {
-    setUser({
-      admin: null,
-      email: null,
-      id: null,
-    });
+    logout();
     return <Navigate to="/login" />;
   }
   // Si NON connecté redirige vers Home
   if (!user.email) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   // Creation pages
@@ -50,6 +46,7 @@ export default function ProtectedLayout() {
       menu = [...menu, addmenu];
     });
 
+  menu = [];
   return (
     <main className="flex flex-col justify-between h-screen">
       <header className="">

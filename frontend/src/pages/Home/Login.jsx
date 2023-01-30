@@ -1,10 +1,12 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
+import { Text } from "../../contexts/Language";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const [errorConnect, setErrotConnect] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,23 +26,51 @@ export default function LoginPage() {
             `${import.meta.env.VITE_BACKEND_URL}/login`,
             body
           );
-          const cookieValue = await document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("makesense_access_token="))
-            ?.split("=")[1];
-          const jsonadmin = await reslogin.json();
-          login({
-            admin: jsonadmin.admin,
-            email,
-            id: jsonadmin.id,
-          });
+          if (reslogin.status === 200) {
+            const jsonadmin = await reslogin.json();
+            login({
+              admin: jsonadmin.admin,
+              email,
+              id: jsonadmin.id,
+            });
+          } else {
+            setErrotConnect(true);
+          }
         };
         sendForm();
       }
     }
   };
 
-  return (
+  useEffect(() => {}, [setErrotConnect]);
+
+  return errorConnect ? (
+    <div
+      id="popup-modal"
+      tabIndex="-1"
+      className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+    >
+      <div className="w-full max-w-md md:h-auto">
+        <div className="relative bg-white rounded-lg shadow">
+          <div className="p-6 text-center">
+            <h3 className="mb-5 text-lg font-normal text-gray-500">
+              <Text tid="errorconnection" />
+            </h3>
+            <button
+              data-modal-hide="popup-modal"
+              type="button"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              onClick={() => {
+                setErrotConnect(false);
+              }}
+            >
+              <Text tid="login" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
       <div className="login">
         <h1 className="text-xl font-medium text-gray-900">Log In</h1>

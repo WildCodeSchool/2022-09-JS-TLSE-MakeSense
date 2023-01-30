@@ -7,8 +7,22 @@ class UsersManager extends AbstractManager {
 
   findusergroups(idgroup) {
     return this.connection.query(
-      `SELECT ${this.table}.id, ${this.table}.firstname, ${this.table}.lastname FROM ${this.table} INNER JOIN group_user ON group_user.id_user = ${this.table}.id WHERE group_user.id_group = ?;`,
+      `SELECT ${this.table}.id, ${this.table}.firstname, ${this.table}.lastname FROM ${this.table} INNER JOIN group_user ON group_user.id_user = ${this.table}.id WHERE group_user.id_groups = ?;`,
       [idgroup]
+    );
+  }
+
+  findUsersImpactedWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT decisions_impacts.id_user_impact, ${this.table}.id, ${this.table}.lastname, ${this.table}.firstname FROM ${this.table} INNER JOIN decisions_impacts ON decisions_impacts.id_user_impact = ${this.table}.id WHERE decisions_impacts.id_decisions = ? LIMIT 5;`,
+      [id]
+    );
+  }
+
+  findUsersExpertsWithDecisionId(id) {
+    return this.connection.query(
+      `SELECT decisions_experts.id_user_expert, ${this.table}.id, ${this.table}.lastname, ${this.table}.firstname FROM ${this.table} INNER JOIN decisions_experts ON decisions_experts.id_user_expert = ${this.table}.id WHERE decisions_experts.id_decisions = ? LIMIT 5;`,
+      [id]
     );
   }
 

@@ -5,8 +5,6 @@ const usersControllers = require("./controllers/usersControllers");
 const decisionsControllers = require("./controllers/decisionsControllers");
 const commentsControllers = require("./controllers/commentsControllers");
 const groupsControllers = require("./controllers/groupsControllers");
-const expertsControllers = require("./controllers/expertsControllers");
-const impactedControllers = require("./controllers/impactedControllers");
 const langControllers = require("./controllers/langControllers");
 const { validateUser } = require("./midleware/validator");
 const {
@@ -38,21 +36,10 @@ router.post("/comments", commentsControllers.add);
 router.get("/comments/:id", commentsControllers.browseWithDecisionId);
 
 router.get("/groups", groupsControllers.browse);
-router.get(
-  "/impacted/groups/:id",
-  groupsControllers.browseImpactedWithDecisionId
-);
-router.get(
-  "/experts/groups/:id",
-  groupsControllers.browseExpertsWithDecisionId
-);
 router.post("/groups", groupsControllers.add);
 router.put("/groups/:id", groupsControllers.edit);
 router.get("/groups/:id", groupsControllers.read);
 router.delete("/groups/:id", groupsControllers.destroy);
-
-router.get("/impacted/users/:id", impactedControllers.read);
-router.get("/experts/users/:id", expertsControllers.read);
 
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);

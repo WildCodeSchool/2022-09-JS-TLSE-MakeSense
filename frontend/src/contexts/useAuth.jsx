@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
 
   const login = async (data) => {
     setUser(data);
-    navigate("/user/profile", { replace: true });
+    navigate("/user/decisions", { replace: true });
   };
 
   const logout = () => {
@@ -78,7 +78,6 @@ export function AuthProvider({ children }) {
       user,
       login,
       logout,
-      setUser,
     }),
     [user]
   );
