@@ -93,7 +93,7 @@ class DecisionsManager extends AbstractManager {
     if (userId !== "0") {
       andUser = `AND ${this.table}.id_user_creator = ${userId}`;
     }
-    let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ;`;
+    let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ORDER BY ${this.table}.status;`;
     if (userImpacted !== "0") {
       queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decisions FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userImpacted} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
     }

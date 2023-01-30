@@ -74,19 +74,6 @@ function LangSettings() {
     <div className=" ">
       <div className="w-full flex flex-row justify-center m-5">
         <button
-          key="edit"
-          type="button"
-          value="edit"
-          onClick={HandlerMode}
-          className={
-            ModeSelect === "edit"
-              ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
-              : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
-          }
-        >
-          <Text tid="modify" />
-        </button>
-        <button
           key="add"
           type="button"
           value="add"
@@ -100,17 +87,17 @@ function LangSettings() {
           <Text tid="add" />
         </button>
         <button
-          key="delete"
+          key="edit"
           type="button"
-          value="delete"
+          value="edit"
           onClick={HandlerMode}
           className={
-            ModeSelect === "delete"
+            ModeSelect === "edit"
               ? "text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center mx-2"
               : "text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
           }
         >
-          <Text tid="delete" />
+          <Text tid="modify" />
         </button>
       </div>
       {ModeSelect !== "delete" && (
@@ -141,11 +128,13 @@ function LangSettings() {
             <section className="lg:col-start-3 lg:col-span-1 py-5">
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
                 <div key={key} className="wrapper-form">
-                  <div className="key">Mot : {key[0]}</div>
+                  <div className="pb-5">
+                    Clé de la base de donnée : {key[0]}
+                  </div>
                   {/* Lang courante exemple */}
-                  <div className="inputs-keys">
-                    <div className="div-input">
-                      <label>{userLanguage}</label>
+                  <div className="">
+                    <div className="pb-5">
+                      Mot :
                       {ModeSelect === "add" && (
                         <input value={key[1]} readOnly />
                       )}
@@ -162,8 +151,8 @@ function LangSettings() {
                     </div>
                     {/* Lang que l'on veut ajouter */}
                     {ModeSelect === "add" && (
-                      <div className="div-input">
-                        <label>
+                      <div>
+                        <label className="text-rose-500">
                           {AddLangSelect ?? <Text tid="selectlanguage" />}
                         </label>
                         <input
@@ -171,6 +160,7 @@ function LangSettings() {
                           id={key[0]}
                           onChange={HandlerKey}
                           required
+                          disabled={!AddLangSelect && true}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
                         />
                       </div>
