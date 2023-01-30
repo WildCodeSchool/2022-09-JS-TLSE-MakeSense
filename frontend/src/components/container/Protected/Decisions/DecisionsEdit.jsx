@@ -179,27 +179,31 @@ function DecisionsEdit() {
     isLoaded && (
       <div>
         {isSubmit && (
-          <>
-            <button
-              type="button"
-              aria-label="form submit"
-              className="modal-overlay"
-              onClick={() => setIsSubmit(!isSubmit)}
-            />
-            <div className="modal">
-              <h2>
-                <Text tid="theformhasbeensubmittedsuccessfully!" />
-              </h2>
-              <button
-                type="submit"
-                onClick={() => {
-                  navigate(`/user/decisions`);
-                }}
-              >
-                <Text tid="home" />
-              </button>
+          <div
+            id="popup-modal"
+            tabIndex="-1"
+            className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+          >
+            <div className="w-full max-w-md md:h-auto">
+              <div className="relative bg-white rounded-lg shadow">
+                <div className="p-6 text-center">
+                  <h3 className="mb-5 text-lg font-normal text-gray-500">
+                    <Text tid="theformhasbeensubmittedsuccessfully!" />
+                  </h3>
+                  <button
+                    data-modal-hide="popup-modal"
+                    type="button"
+                    className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    onClick={() => {
+                      navigate(`/user/decisions`);
+                    }}
+                  >
+                    <Text tid="backtodecision" />
+                  </button>
+                </div>
+              </div>
             </div>
-          </>
+          </div>
         )}
         <form
           onSubmit={handleSubmitNewData}
