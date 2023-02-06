@@ -186,133 +186,92 @@ export default function ShowUserConcerned() {
           </div>
         </div>
       </div>
-      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Les décisions où je suis directement impacté
-      </h1>
-      {decisionsWhereUserImpacted.length ? (
-        <div>
-          {
-            // eslint-disable-next-line react/prop-types
-            decisionsWhereUserImpacted
-              // eslint-disable-next-line react/prop-types
-              .filter((data) =>
-                JSON.parse(data.content)
-                  .title.normalize("NFD")
-                  .replace(/\p{Diacritic}/gu, "")
-                  .toLocaleLowerCase()
-                  .includes(
-                    searchTerm
-                      .normalize("NFD")
-                      .replace(/\p{Diacritic}/gu, "")
-                      .toLocaleLowerCase()
-                  )
-              )
-              .map((data) => (
-                <button
-                  type="button"
-                  key={data.id}
-                  id={data.id}
-                  onClick={() => {
-                    navigate(`/user/decisions?comp=Page&id=${data.id}`);
-                  }}
-                  className=""
-                >
-                  <Card key={data.id} data={data} user={user} />
-                </button>
-              ))
-          }
-        </div>
-      ) : (
-        <div className="my-5">Il n'y a pas de décision.</div>
-      )}
-      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Les décisions où je suis expert
-      </h1>
-      {decisionsWhereUserExpert.length ? (
-        <div>
-          {
-            // eslint-disable-next-line react/prop-types
-            decisionsWhereUserExpert
-              // eslint-disable-next-line react/prop-types
-              .filter((data) =>
-                JSON.parse(data.content)
-                  .title.normalize("NFD")
-                  .replace(/\p{Diacritic}/gu, "")
-                  .toLocaleLowerCase()
-                  .includes(
-                    searchTerm
-                      .normalize("NFD")
-                      .replace(/\p{Diacritic}/gu, "")
-                      .toLocaleLowerCase()
-                  )
-              )
-              .map((data) => (
-                <button
-                  type="button"
-                  key={data.id}
-                  id={data.id}
-                  onClick={() => {
-                    navigate(`/user/decisions?comp=Page&id=${data.id}`);
-                  }}
-                  className=""
-                >
-                  <Card key={data.id} data={data} user={user} />
-                </button>
-              ))
-          }
-        </div>
-      ) : (
-        <div className="my-5">Il n'y a pas de décision.</div>
-      )}
-      <div>
-        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          Les décisions qui impactent mes groupes
+      <div className="ml-10 mr-10">
+        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          Les décisions où je suis directement impacté
         </h1>
-        {decisionsWhereGroupImpacted.length ? (
-          // eslint-disable-next-line react/prop-types
-          decisionsWhereGroupImpacted
-            // eslint-disable-next-line react/prop-types
-            .filter((decision) =>
-              JSON.parse(decision.content)
-                .title.normalize("NFD")
-                .replace(/\p{Diacritic}/gu, "")
-                .toLocaleLowerCase()
-                .includes(
-                  searchTerm
-                    .normalize("NFD")
+        {decisionsWhereUserImpacted.length ? (
+          <div>
+            {
+              // eslint-disable-next-line react/prop-types
+              decisionsWhereUserImpacted
+                // eslint-disable-next-line react/prop-types
+                .filter((data) =>
+                  JSON.parse(data.content)
+                    .title.normalize("NFD")
                     .replace(/\p{Diacritic}/gu, "")
                     .toLocaleLowerCase()
+                    .includes(
+                      searchTerm
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                    )
                 )
-            )
-            .map((decision) => (
-              <button
-                type="button"
-                key={decision.id}
-                id={decision.id}
-                onClick={() => {
-                  navigate(`/user/decisions?comp=Page&id=${decision.id}`);
-                }}
-              >
-                <Card
-                  key={decision.id}
-                  data={decision}
-                  user={user}
-                  statut="groupes impactés"
-                />
-              </button>
-            ))
+                .map((data) => (
+                  <button
+                    type="button"
+                    key={data.id}
+                    id={data.id}
+                    onClick={() => {
+                      navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                    }}
+                    className=""
+                  >
+                    <Card key={data.id} data={data} user={user} />
+                  </button>
+                ))
+            }
+          </div>
         ) : (
           <div className="my-5">Il n'y a pas de décision.</div>
         )}
-      </div>
-      <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Les décisions qui ont besoin de l'expertise de mes groupes
-      </h1>
-      {decisionsWhereGroupExpert.length ? (
+        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          Les décisions où je suis expert
+        </h1>
+        {decisionsWhereUserExpert.length ? (
+          <div>
+            {
+              // eslint-disable-next-line react/prop-types
+              decisionsWhereUserExpert
+                // eslint-disable-next-line react/prop-types
+                .filter((data) =>
+                  JSON.parse(data.content)
+                    .title.normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                    .includes(
+                      searchTerm
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                    )
+                )
+                .map((data) => (
+                  <button
+                    type="button"
+                    key={data.id}
+                    id={data.id}
+                    onClick={() => {
+                      navigate(`/user/decisions?comp=Page&id=${data.id}`);
+                    }}
+                    className=""
+                  >
+                    <Card key={data.id} data={data} user={user} />
+                  </button>
+                ))
+            }
+          </div>
+        ) : (
+          <div className="my-5">Il n'y a pas de décision.</div>
+        )}
         <div>
-          {
+          <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
+            Les décisions qui impactent mes groupes
+          </h1>
+          {decisionsWhereGroupImpacted.length ? (
             // eslint-disable-next-line react/prop-types
-            decisionsWhereGroupExpert
+            decisionsWhereGroupImpacted
               // eslint-disable-next-line react/prop-types
               .filter((decision) =>
                 JSON.parse(decision.content)
@@ -339,17 +298,62 @@ export default function ShowUserConcerned() {
                     key={decision.id}
                     data={decision}
                     user={user}
-                    statut="groupes experts"
+                    statut="groupes impactés"
                   />
                 </button>
               ))
-          }
+          ) : (
+            <div className="my-5">Il n'y a pas de décision.</div>
+          )}
         </div>
-      ) : (
-        <div className="my-5">Il n'y a pas de décision.</div>
-      )}
+        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          Les décisions qui ont besoin de l'expertise de mes groupes
+        </h1>
+        {decisionsWhereGroupExpert.length ? (
+          <div>
+            {
+              // eslint-disable-next-line react/prop-types
+              decisionsWhereGroupExpert
+                // eslint-disable-next-line react/prop-types
+                .filter((decision) =>
+                  JSON.parse(decision.content)
+                    .title.normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                    .includes(
+                      searchTerm
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toLocaleLowerCase()
+                    )
+                )
+                .map((decision) => (
+                  <button
+                    type="button"
+                    key={decision.id}
+                    id={decision.id}
+                    onClick={() => {
+                      navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+                    }}
+                  >
+                    <Card
+                      key={decision.id}
+                      data={decision}
+                      user={user}
+                      statut="groupes experts"
+                    />
+                  </button>
+                ))
+            }
+          </div>
+        ) : (
+          <div className="my-5">Il n'y a pas de décision.</div>
+        )}
+      </div>
     </>
   ) : (
-    <div>Il n'y a pas de décision.</div>
+    <div className="flex flex-col justify-center items-center h-2/3">
+      <p>Il n'y a pas encore de décision où je suis concerné !</p>
+    </div>
   );
 }
