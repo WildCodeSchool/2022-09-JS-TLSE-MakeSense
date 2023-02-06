@@ -45,7 +45,7 @@ function LoginPage() {
               id: jsonadmin.id,
             });
           } else {
-            setErrotConnect(true);
+            console.warn("erreur");
           }
         }
       };
