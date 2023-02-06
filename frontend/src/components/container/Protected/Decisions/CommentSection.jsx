@@ -101,7 +101,11 @@ function CommentSection({ id, comments, setComments }) {
             </button>
           </form>
           <div className="flex flex-row justify-center">
-            <Pagination totalPages={totalPages} handleClick={handleClick} />
+            <Pagination
+              totalPages={totalPages}
+              handleClick={handleClick}
+              page={page}
+            />
           </div>
           <Comments comments={comments} page={page} limit={limit} />
         </div>
