@@ -112,51 +112,51 @@ function AppBar({ menu }) {
                     </span>
                   </div>
                   <ul className="py-1" aria-labelledby="user-menu-button">
-                    <li>
+                    <li className=" hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() => {
                           navigate(`/user/decisions`);
                           setUserMenu(false);
                         }}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block px-4 py-2 text-sm text-gray-700"
                       >
                         Décisions
                       </button>
                     </li>
                     {user.admin === 1 && window.screen.width >= "640" ? (
-                      <li>
+                      <li className="hover:bg-gray-100">
                         <button
                           type="button"
                           onClick={() => {
                             navigate(`/admin/dashboard`);
                             setUserMenu(false);
                           }}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block px-4 py-2 text-sm text-gray-700"
                         >
                           Tableau de bord
                         </button>
                       </li>
                     ) : null}
-                    <li>
+                    <li className="hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() => {
                           navigate(`/user/profile`);
                           setUserMenu(false);
                         }}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block px-4 py-2 text-sm text-gray-700"
                       >
                         Mon profil
                       </button>
                     </li>
                     {!!user.email && (
-                      <li>
+                      <li className="hover:bg-gray-100">
                         <button
                           type="button"
                           key="logout"
                           onClick={() => logout()}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block px-4 py-2 text-sm text-gray-700"
                         >
                           <Text tid="logout" />
                         </button>
