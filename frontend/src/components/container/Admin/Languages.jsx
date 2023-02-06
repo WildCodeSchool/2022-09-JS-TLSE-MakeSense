@@ -125,7 +125,7 @@ function LangSettings() {
           )}
 
           {Object.entries(dictionary).map((key, index) => (
-            <section className="lg:col-start-3 lg:col-span-1 py-5">
+            <section key={key.id} className="lg:col-start-3 lg:col-span-1 py-5">
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
                 <div key={key} className="wrapper-form">
                   <div className="pb-5">
