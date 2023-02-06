@@ -19,9 +19,7 @@ function App() {
         {
           path: `${files.toLocaleLowerCase()}`,
           element: (
-            <Suspense fallback={<Spinner />}>
               <Loader foldername={`pages/${folder}`} filename={files} />
-            </Suspense>
           ),
           errorElement: <ErrorPage />,
         },
@@ -36,9 +34,7 @@ function App() {
           .replace("home", "")
           .replace("protected", "user")}`,
         element: (
-          <Suspense fallback={<Spinner />}>
             <Loader foldername="components" filename={`${folder}Layout`} />
-          </Suspense>
         ),
         errorElement: <ErrorPage />,
         children: childrenroutes,
