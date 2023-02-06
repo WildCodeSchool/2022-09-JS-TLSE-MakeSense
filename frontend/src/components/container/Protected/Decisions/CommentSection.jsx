@@ -86,11 +86,11 @@ function CommentSection({ id, comments, setComments }) {
                 name="comments"
                 id="comments"
                 rows={3}
-                placeholder="Ajouter un commentaire"
+                placeholder="Ajouter un commentaire..."
                 value={contentComment}
                 onChange={(event) => setContentComment(event.target.value)}
                 required
-                className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
+                className="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md p-5"
               />
             </div>
             <button

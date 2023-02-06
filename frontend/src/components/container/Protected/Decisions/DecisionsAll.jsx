@@ -14,7 +14,7 @@ function DecisionsAll() {
     <div className="mx-auto px-2 rounded flex flex-col mt-0">
       <div className="">
         <div className="mx-auto">
-          <div className="w-11/12 sm:w-full flex sm:flex-row sm:justify-center flex-col m-5">
+          <div className="w-11/12 flex sm:flex-row sm:justify-center flex-col m-5">
             <button
               type="button"
               value="allDecisions"

@@ -90,7 +90,7 @@ function ProfilUser() {
         <div
           id="popup-modal"
           tabIndex="-1"
-          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-row justify-center items-center backdrop-blur"
         >
           <div className="w-full max-w-md md:h-auto">
             <div className="relative bg-white rounded-lg shadow">
@@ -113,10 +113,10 @@ function ProfilUser() {
           </div>
         </div>
       )}
-      <div className="mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
+      <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
-          <div className="flex flex-col ms:flew-row justify-between">
+          <div className="flex ms:fles-row justify-between">
             <form encType="multipart/form-data" onSubmit={hSubmit}>
               <div className="mt-6 flex flex-col lg:flex-row">
                 <div className="mt-10 flex-grow lg:mt-5 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
