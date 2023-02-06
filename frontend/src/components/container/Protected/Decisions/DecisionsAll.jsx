@@ -11,7 +11,7 @@ function DecisionsAll() {
   const [tab, setTab] = useState("all");
 
   return (
-    <div className="mx-auto px-2 rounded flex flex-col mt-0">
+    <div className="mx-auto  w-10/12 px-2 rounded flex flex-col mt-0">
       <div className="">
         <div className="mx-auto">
           <div className="w-11/12 flex sm:flex-row sm:justify-center flex-col m-5">
