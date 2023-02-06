@@ -4,6 +4,7 @@ import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
+import { id } from "date-fns/locale";
 
 function UsersManager() {
   const [IsLoaded, SetIsLoaded] = useState(false);
@@ -12,6 +13,7 @@ function UsersManager() {
   const [userData, setUserData] = useState();
   const [userToModify, setUserToModify] = useState(userData);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [newAdmin, setNewAdmin] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +56,15 @@ function UsersManager() {
     deleteUser();
     setIsSubmit(true);
   };
+  const handleChangeAdmin = (id) => {
+    const modifyAdmin = async () => {
+      await api.apiputmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/${admin}`
+      );
+    };
+    modifyAdmin();
+    setNewAdmin(true);
+  }
 
   return IsLoaded ? (
     <>
@@ -141,6 +152,30 @@ function UsersManager() {
                           }
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                         />
+                      </div>
+                      <div className="">
+                        <p>Sélectionnez une option:</p>
+                        <input
+                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                          type="text"
+                          id="selectadmin"
+                          name="selectadmin"
+                          defaultValue={userData.admin}
+                          onChange={(event) =>
+                            setUserToModify({
+                              ...userToModify,
+                              [event.target.name]: event.target.value,
+                            })
+                          }
+                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                        />
+                        <div>
+                          <select onChange={(e) => handleChangeAdmin(e)}>
+                            <option value="admin">Administrateur</option>
+                            <option value="user">Utilisateur</option>
+                          </select>
+
+                        </div>
                       </div>
                     </div>
                   </div>
