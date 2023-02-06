@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
+import { id } from "date-fns/locale";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
-import { id } from "date-fns/locale";
 
 function UsersManager() {
   const [IsLoaded, SetIsLoaded] = useState(false);
@@ -46,7 +46,7 @@ function UsersManager() {
     setToModify(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     const deleteUser = async () => {
       // delete the user
       const deleteTheUser = await api.apideletemysql(
@@ -56,15 +56,13 @@ function UsersManager() {
     deleteUser();
     setIsSubmit(true);
   };
-  const handleChangeAdmin = (id) => {
+  const handleChangeAdmin = () => {
     const modifyAdmin = async () => {
-      await api.apiputmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/users/${admin}`
-      );
+      await api.apiputmysql(`${import.meta.env.VITE_BACKEND_URL}/users/${id}`);
     };
     modifyAdmin();
     setNewAdmin(true);
-  }
+  };
 
   return IsLoaded ? (
     <>
@@ -174,7 +172,6 @@ function UsersManager() {
                             <option value="admin">Administrateur</option>
                             <option value="user">Utilisateur</option>
                           </select>
-
                         </div>
                       </div>
                     </div>
