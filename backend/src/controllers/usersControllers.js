@@ -68,6 +68,24 @@ const edit = (req, res) => {
     });
 };
 
+const editAvatar = (req, res) => {
+  const users = req.body;
+  users.id = parseInt(req.params.id, 10);
+  models.users
+    .updateAvatar(users)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const add = (req, res) => {
   const users = req.body;
 
@@ -102,6 +120,7 @@ module.exports = {
   browse,
   read,
   edit,
+  editAvatar,
   add,
   destroy,
   login,
