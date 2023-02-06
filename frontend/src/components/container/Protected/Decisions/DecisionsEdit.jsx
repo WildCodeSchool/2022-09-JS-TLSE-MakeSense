@@ -201,292 +201,385 @@ function DecisionsEdit() {
             </div>
           </>
         )}
-        <h1>
-          <Text tid="fileadecision" />
-        </h1>
-        <form onSubmit={handleSubmitNewData}>
-          <legend className="hello">
-            <Text tid="describealltheelementsofhisdecision" />
-          </legend>
-          <label htmlFor="title">Titre</label>
-          <br />
-          <input
-            type="text"
-            name="title"
-            id="title"
-            defaultValue={form.title}
-            onChange={(event) => {
-              setForm({ ...form, [event.target.name]: event.target.value });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "title") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+        <form
+          onSubmit={handleSubmitNewData}
+          className="sm:rounded-lg mt-8 max-w-7xl mx-auto space-y-6"
+        >
+          <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 mx-auto">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+              <div className="md:col-span-1 border-r border-r-gray-300">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  <Text tid="description" />
+                </h3>
+                <p className="mt-1 text-xl text-gray-500">
+                  <Text tid="describeherealltheinformationconcerningthedescription" />
+                </p>
+              </div>
+              <div className="mt-5 md:mt-0 md:col-span-2">
+                <div className="my-10">
+                  <label
+                    htmlFor="company-website"
+                    className="block text-xl font-medium text-gray-700"
+                  >
+                    <Text tid="title" />
+                  </label>
+                  <div className="mt-1 flex rounded-md shadow-sm">
+                    <input
+                      type="text"
+                      name="title"
+                      id="title"
+                      defaultValue={form.title}
+                      onChange={(event) => {
+                        setForm({
+                          ...form,
+                          [event.target.name]: event.target.value,
+                        });
+                      }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
+                    />
                   </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="description">
-            <Text tid="description" />
-          </label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="description"
-            defaultValue={form.description}
-            onChange={(event) => {
-              setForm({ ...form, description: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "description") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="utility">
-            <Text tid="usefulnessfortheorganization" />
-          </label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="utility"
-            defaultValue={form.utility}
-            onChange={(event) => {
-              setForm({ ...form, utility: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "utility") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="context">
-            <Text tid="contextaroundthedecision" />
-          </label>
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            name="context"
-            defaultValue={form.context}
-            onChange={(event) => {
-              setForm({ ...form, context: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "context") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="pros">
-            <Text tid="benefits" />
-          </label>
-          <ReactQuill
-            theme="snow"
-            name="pros"
-            modules={modules}
-            defaultValue={form.pros}
-            onChange={(event) => {
-              setForm({ ...form, pros: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "pros") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <label htmlFor="cons">
-            <Text tid="disadvantages" />
-          </label>
-          <ReactQuill
-            theme="snow"
-            name="cons"
-            modules={modules}
-            defaultValue={form.cons}
-            onChange={(event) => {
-              setForm({ ...form, cons: event });
-            }}
-          />
-          {errors &&
-            errors.map((error) => {
-              if (error.path[0] === "cons") {
-                return (
-                  <div key={error.context.key} className="field-error">
-                    <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          <legend>
-            <Text tid="designatethepeopleconcerned" />
-          </legend>
-          <Concerned
-            table={users}
-            name="personnes impactées"
-            type={usersImpacted}
-            updateType={(event) => setUsersImpacted(event)}
-          />
-          <Concerned
-            table={users}
-            name="personnes expertes"
-            type={usersExperts}
-            updateType={(event) => setUsersExperts(event)}
-          />
-          <Concerned
-            table={groups}
-            name="groupes impactés"
-            type={groupsImpacted}
-            updateType={(event) => setGroupsImpacted(event)}
-          />
-          <Concerned
-            table={groups}
-            name="groupes experts"
-            type={groupsExperts}
-            updateType={(event) => setGroupsExperts(event)}
-          />
-          <fieldset>
-            <legend>
-              <Text tid="setschedule" />
-            </legend>
-            <div className="datepicker">
-              <p>
-                <Text tid="dateoffilingofthedecision" />
-              </p>
-              <DatePicker
-                selected={form.firstDate}
-                minDate={form.firstDate}
-                maxDate={form.firstDate}
-                readOnly
-              />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "title") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+                <div className="my-10">
+                  <label htmlFor="description">
+                    <Text tid="description" />
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    modules={modules}
+                    name="description"
+                    defaultValue={form.description}
+                    onChange={(event) => {
+                      setForm({ ...form, description: event });
+                    }}
+                  />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "description") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+                <div className="my-10">
+                  <label htmlFor="utility">
+                    <Text tid="usefulnessfortheorganization" />
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    modules={modules}
+                    name="utility"
+                    defaultValue={form.utility}
+                    onChange={(event) => {
+                      setForm({ ...form, utility: event });
+                    }}
+                  />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "utility") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+                <div className="my-10">
+                  <label htmlFor="context">
+                    <Text tid="contextaroundthedecision" />
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    modules={modules}
+                    name="context"
+                    defaultValue={form.context}
+                    onChange={(event) => {
+                      setForm({ ...form, context: event });
+                    }}
+                  />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "context") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+                <div className="my-10">
+                  <label htmlFor="pros">
+                    <Text tid="benefits" />
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    name="pros"
+                    modules={modules}
+                    defaultValue={form.pros}
+                    onChange={(event) => {
+                      setForm({ ...form, pros: event });
+                    }}
+                  />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "pros") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+                <div className="my-10">
+                  <label htmlFor="cons">
+                    <Text tid="disadvantages" />
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    name="cons"
+                    modules={modules}
+                    defaultValue={form.cons}
+                    onChange={(event) => {
+                      setForm({ ...form, cons: event });
+                    }}
+                  />
+                  {errors &&
+                    errors.map((error) => {
+                      if (error.path[0] === "cons") {
+                        return (
+                          <div
+                            key={error.context.key}
+                            className="text-rose-500	"
+                          >
+                            <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                </div>
+              </div>
             </div>
-            <div className="datepicker">
-              <p>
-                <Text tid="endoftakingopinions" />
-              </p>
-              <DatePicker
-                selected={form.dateOpinion}
-                minDate={form.firstDate}
-                onChange={(d) => {
-                  setForm({ ...form, dateOpinion: d });
-                }}
-              />
+          </div>
+          <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 mx-auto">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+              <div className="md:col-span-1 border-r border-r-gray-300">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  <Text tid="peopleconcerned" />
+                </h3>
+                <p className="mt-1 text-xl text-gray-500">
+                  <Text tid="designatethepeopleconcerned" />
+                </p>
+              </div>
+              <div className="mt-5 md:mt-0 md:col-span-2">
+                <div className="mr-4">
+                  <Concerned
+                    table={users}
+                    name="personnes impactées"
+                    type={usersImpacted}
+                    updateType={(event) => setUsersImpacted(event)}
+                  />
+                  <Concerned
+                    table={users}
+                    name="personnes expertes"
+                    type={usersExperts}
+                    updateType={(event) => setUsersExperts(event)}
+                  />
+                </div>
+                <div className="">
+                  <div className="">
+                    <Concerned
+                      table={groups}
+                      name="groupes impactés"
+                      type={groupsImpacted}
+                      updateType={(event) => setGroupsImpacted(event)}
+                    />
+                    <Concerned
+                      table={groups}
+                      name="groupes experts"
+                      type={groupsExperts}
+                      updateType={(event) => setGroupsExperts(event)}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateOpinion") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      <Text tid="thisdatemustbegreaterthantodaysdate" />
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>
-                <Text tid="endofthefirstdecision" />
-              </p>
-              <DatePicker
-                selected={form.dateFirstDecision}
-                minDate={form.dateOpinion}
-                onChange={(d) => {
-                  setForm({ ...form, dateFirstDecision: d });
-                }}
-              />
+          </div>
+          <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 mx-auto">
+            <div className="md:grid md:grid-cols-3 md:gap-6">
+              <div className="md:col-span-1 border-r border-r-gray-300">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
+                  <Text tid="calendar" />
+                </h3>
+                <p className="mt-1 text-xl text-gray-500">
+                  <Text tid="setdecision-makingtimeline" />
+                </p>
+              </div>
+              <div className="mt-5 md:mt-0 md:col-span-2">
+                <div className="my-5">
+                  <p className="mb-5">
+                    <Text tid="dateoffilingofthedecision" />
+                  </p>
+                  <DatePicker
+                    selected={form.firstDate}
+                    minDate={form.firstDate}
+                    maxDate={form.firstDate}
+                    readOnly
+                    className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
+                  />
+                </div>
+                <div className="my-5">
+                  <p className="mb-5">
+                    <Text tid="deadlinetogivefeedback" />
+                  </p>
+                  <DatePicker
+                    selected={form.dateOpinion}
+                    minDate={form.firstDate}
+                    onChange={(d) => {
+                      setForm({ ...form, dateOpinion: d });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
+                  />
+                </div>
+                {errors &&
+                  errors.map((error) => {
+                    if (error.path[0] === "dateOpinion") {
+                      return (
+                        <div key={error.context.key} className="text-rose-500	">
+                          <Text tid="thisdatemustbegreaterthantodaysdate" />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                <div className="my-5">
+                  <p className="mb-5">
+                    <Text tid="dateofirstdecision" />
+                  </p>
+                  <DatePicker
+                    selected={form.dateFirstDecision}
+                    minDate={form.dateOpinion}
+                    onChange={(d) => {
+                      setForm({ ...form, dateFirstDecision: d });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
+                  />
+                </div>
+                {errors &&
+                  errors.map((error) => {
+                    if (error.path[0] === "dateFirstDecision") {
+                      return (
+                        <div key={error.context.key} className="text-rose-500	">
+                          <Text tid="thisdatemustbegreaterthantodaysdate" />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                <div className="my-5">
+                  <p className="mb-5">
+                    <Text tid="deadlinetoenterdispute" />
+                  </p>
+                  <DatePicker
+                    selected={form.dateEndConflict}
+                    minDate={form.dateFirstDecision}
+                    onChange={(d) => {
+                      setForm({ ...form, dateEndConflict: d });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
+                  />
+                </div>
+                {errors &&
+                  errors.map((error) => {
+                    if (error.path[0] === "dateEndConflict") {
+                      return (
+                        <div key={error.context.key} className="text-rose-500	">
+                          <Text tid="thisdatemustbegreaterthantodaysdate" />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                <div className="my-5">
+                  <p className="mb-5">
+                    <Text tid="Date of final decision" />
+                  </p>
+                  <DatePicker
+                    selected={form.dateFinaleDecision}
+                    minDate={form.dateEndConflict}
+                    onChange={(d) => {
+                      setForm({ ...form, dateFinaleDecision: d });
+                    }}
+                    className="bg-gray-50 border border-gray-300 text-gray-400 text-l w-1/3 rounded-lg p-2.5 focus:outline-none"
+                  />
+                </div>
+                {errors &&
+                  errors.map((error) => {
+                    if (error.path[0] === "dateFinaleDecision") {
+                      return (
+                        <div key={error.context.key} className="text-rose-500	">
+                          <Text tid="thisdatemustbegreaterthantodaysdate" />
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+              </div>
             </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateFirstDecision") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      <Text tid="thisdatemustbegreaterthantodaysdate" />
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>
-                <Text tid="endoftheconflictonthefirstdecision" />
-              </p>
-              <DatePicker
-                selected={form.dateEndConflict}
-                minDate={form.dateFirstDecision}
-                onChange={(d) => {
-                  setForm({ ...form, dateEndConflict: d });
-                }}
-              />
-            </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateEndConflict") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      <Text tid="thisdatemustbegreaterthantodaysdate" />
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            <div className="datepicker">
-              <p>
-                <Text tid="finaldecision" />
-              </p>
-              <DatePicker
-                selected={form.dateFinaleDecision}
-                minDate={form.dateEndConflict}
-                onChange={(d) => {
-                  setForm({ ...form, dateFinaleDecision: d });
-                }}
-              />
-            </div>
-            {errors &&
-              errors.map((error) => {
-                if (error.path[0] === "dateFinaleDecision") {
-                  return (
-                    <div key={error.context.key} className="field-error">
-                      <Text tid="thisdatemustbegreaterthantodaysdate" />
-                    </div>
-                  );
-                }
-                return null;
-              })}
-          </fieldset>
-          <button
-            type="submit"
-            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            onSubmit={handleSubmitNewData}
-          >
-            Valider ma décision
-          </button>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="text-calypso hover:text-gray-600 border border-calypso font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
+              onClick={() => {
+                navigate(`/user`);
+              }}
+            >
+              <Text tid="cancel" />
+            </button>
+            <button
+              type="submit"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
+              onSubmit={handleSubmitNewData}
+            >
+              <Text tid="save" />
+            </button>
+          </div>
         </form>
       </div>
     )

@@ -152,7 +152,7 @@ function DecisionsForm() {
             onSubmit={handleSubmit}
             className="sm:rounded-lg mt-8 max-w-7xl mx-auto space-y-6"
           >
-            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 max-w-7xl mx-auto">
+            <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6 mt-8 mx-auto">
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1 border-r border-r-gray-300">
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
@@ -163,184 +163,180 @@ function DecisionsForm() {
                   </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                  <div className="">
-                    <div className="">
-                      <div className="my-10">
-                        <label
-                          htmlFor="company-website"
-                          className="block text-xl font-medium text-gray-700"
-                        >
-                          <Text tid="title" />
-                        </label>
-                        <div className="mt-1 flex rounded-md shadow-sm">
-                          <input
-                            type="text"
-                            name="title"
-                            id="title"
-                            value={form.title}
-                            onChange={(event) => {
-                              setForm({
-                                ...form,
-                                [event.target.name]: event.target.value,
-                              });
-                            }}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
-                          />
-                        </div>
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "title") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
-                      <div className="my-10">
-                        <label htmlFor="description">
-                          <Text tid="description" />
-                        </label>
-                        <ReactQuill
-                          theme="snow"
-                          modules={modules}
-                          name="description"
-                          value={form.description}
-                          onChange={(event) => {
-                            setForm({ ...form, description: event });
-                          }}
-                        />
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "description") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500	"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
-                      <div className="my-10">
-                        <label htmlFor="utility">
-                          <Text tid="usefulnessfortheorganization" />
-                        </label>
-                        <ReactQuill
-                          theme="snow"
-                          modules={modules}
-                          name="utility"
-                          value={form.utility}
-                          onChange={(event) => {
-                            setForm({ ...form, utility: event });
-                          }}
-                        />
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "utility") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500	"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
-                      <div className="my-10">
-                        <label htmlFor="context">
-                          <Text tid="contextaroundthedecision" />
-                        </label>
-                        <ReactQuill
-                          theme="snow"
-                          modules={modules}
-                          name="context"
-                          value={form.context}
-                          onChange={(event) => {
-                            setForm({ ...form, context: event });
-                          }}
-                        />
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "context") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500	"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
-                      <div className="my-10">
-                        <label htmlFor="pros">
-                          <Text tid="benefits" />
-                        </label>
-                        <ReactQuill
-                          theme="snow"
-                          modules={modules}
-                          value={form.pros}
-                          onChange={(event) => {
-                            setForm({ ...form, pros: event });
-                          }}
-                        />
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "pros") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500	"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
-                      <div className="my-10">
-                        <label htmlFor="cons">
-                          <Text tid="disadvantages" />
-                        </label>
-                        <ReactQuill
-                          theme="snow"
-                          modules={modules}
-                          value={form.cons}
-                          onChange={(event) => {
-                            setForm({ ...form, cons: event });
-                          }}
-                        />
-                        {errors &&
-                          errors.map((error) => {
-                            if (error.path[0] === "cons") {
-                              return (
-                                <div
-                                  key={error.context.key}
-                                  className="text-rose-500	"
-                                >
-                                  <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
-                                </div>
-                              );
-                            }
-                            return null;
-                          })}
-                      </div>
+                  <div className="my-10">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-xl font-medium text-gray-700"
+                    >
+                      <Text tid="title" />
+                    </label>
+                    <div className="mt-1 flex rounded-md shadow-sm">
+                      <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        value={form.title}
+                        onChange={(event) => {
+                          setForm({
+                            ...form,
+                            [event.target.name]: event.target.value,
+                          });
+                        }}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
+                      />
                     </div>
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "title") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                  <div className="my-10">
+                    <label htmlFor="description">
+                      <Text tid="description" />
+                    </label>
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      name="description"
+                      value={form.description}
+                      onChange={(event) => {
+                        setForm({ ...form, description: event });
+                      }}
+                    />
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "description") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500	"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                  <div className="my-10">
+                    <label htmlFor="utility">
+                      <Text tid="usefulnessfortheorganization" />
+                    </label>
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      name="utility"
+                      value={form.utility}
+                      onChange={(event) => {
+                        setForm({ ...form, utility: event });
+                      }}
+                    />
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "utility") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500	"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                  <div className="my-10">
+                    <label htmlFor="context">
+                      <Text tid="contextaroundthedecision" />
+                    </label>
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      name="context"
+                      value={form.context}
+                      onChange={(event) => {
+                        setForm({ ...form, context: event });
+                      }}
+                    />
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "context") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500	"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                  <div className="my-10">
+                    <label htmlFor="pros">
+                      <Text tid="benefits" />
+                    </label>
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      value={form.pros}
+                      onChange={(event) => {
+                        setForm({ ...form, pros: event });
+                      }}
+                    />
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "pros") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500	"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                  </div>
+                  <div className="my-10">
+                    <label htmlFor="cons">
+                      <Text tid="disadvantages" />
+                    </label>
+                    <ReactQuill
+                      theme="snow"
+                      modules={modules}
+                      value={form.cons}
+                      onChange={(event) => {
+                        setForm({ ...form, cons: event });
+                      }}
+                    />
+                    {errors &&
+                      errors.map((error) => {
+                        if (error.path[0] === "cons") {
+                          return (
+                            <div
+                              key={error.context.key}
+                              className="text-rose-500	"
+                            >
+                              <Text tid="Thisfieldisrequiredandmustcontainatleast5characters" />
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
                   </div>
                 </div>
               </div>
@@ -371,22 +367,20 @@ function DecisionsForm() {
                       updateType={(event) => setUsersExperts(event)}
                     />
                   </div>
-                  <div className="">
-                    <div className="">
-                      <Concerned
-                        table={groups}
-                        name="groupes impactés"
-                        type={groupsImpacted}
-                        updateType={(event) => setGroupsImpacted(event)}
-                      />
+                  <div className="mr-4">
+                    <Concerned
+                      table={groups}
+                      name="groupes impactés"
+                      type={groupsImpacted}
+                      updateType={(event) => setGroupsImpacted(event)}
+                    />
 
-                      <Concerned
-                        table={groups}
-                        name="groupes experts"
-                        type={groupsExperts}
-                        updateType={(event) => setGroupsExperts(event)}
-                      />
-                    </div>
+                    <Concerned
+                      table={groups}
+                      name="groupes experts"
+                      type={groupsExperts}
+                      updateType={(event) => setGroupsExperts(event)}
+                    />
                   </div>
                 </div>
               </div>

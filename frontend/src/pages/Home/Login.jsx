@@ -73,9 +73,7 @@ export default function LoginPage() {
   ) : (
     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
       <div className="login">
-        <h1 className="text-xl font-medium text-gray-900">
-          <Text tid="login" />
-        </h1>
+        <h1 className="text-xl font-medium text-gray-900">Log In</h1>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
@@ -95,10 +93,7 @@ export default function LoginPage() {
               autoComplete="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
-            <span className="form__error">
-              {" "}
-              <Text tid="wrongemail" />
-            </span>
+            <span className="form__error">email erroné</span>
           </div>
           <div>
             <label
@@ -126,15 +121,13 @@ export default function LoginPage() {
             type="submit"
             className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            <Text tid="logintoyouraccount" />
+            Login to your account
           </button>
           <div className="text-sm font-medium text-gray-500">
-            <Text tid="notregistered?" />{" "}
+            Not registered?{" "}
             <span href="#" className="text-blue-700 hover:underline">
               {" "}
-              <Link to="/register">
-                <Text tid="Vous n'avez pas encore de compte? S'inscrire" />
-              </Link>
+              <Link to="/register">Don't have an account yet? Sign Up</Link>
             </span>
           </div>
         </form>
