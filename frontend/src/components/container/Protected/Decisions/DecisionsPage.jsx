@@ -434,13 +434,13 @@ function DecisionsPage() {
                       <div className="flex -space-x-2 overflow-hidden">
                         {decisions.uimpacted.map((person) => (
                           <div key={`"userimpacted:"${person.id}`}>
-                            <div
-                              className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
+                            <img
+                              key={person.id}
+                              className="w-10 h-10 rounded-full"
+                              src={person.avatar_url}
+                              alt={`${person.lastname} ${person.firstname}`}
                               title={`${person.lastname} ${person.firstname}`}
-                            >
-                              {person.lastname.substring(0, 1)}
-                              {person.firstname.substring(0, 1)}
-                            </div>
+                            />
                           </div>
                         ))}
                         {decisions.uimpacted.length > 4 && (
@@ -467,15 +467,13 @@ function DecisionsPage() {
                       </h3>
                       <div className="flex -space-x-2 overflow-hidden">
                         {decisions.uexpert.map((person) => (
-                          <div key={`"userexpert:"${person.id}`}>
-                            <div
-                              className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
-                              title={`${person.lastname} ${person.firstname}`}
-                            >
-                              {person.lastname.substring(0, 1)}
-                              {person.firstname.substring(0, 1)}
-                            </div>
-                          </div>
+                          <img
+                            key={person.id}
+                            className="w-10 h-10 rounded-full"
+                            src={person.avatar_url}
+                            alt={`${person.lastname} ${person.firstname}`}
+                            title={`${person.lastname} ${person.firstname}`}
+                          />
                         ))}
                         {decisions.uexpert.length > 4 && (
                           <div>

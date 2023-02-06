@@ -17,6 +17,7 @@ export function AuthProvider({ children }) {
     firstname: null,
     lastname: null,
     id: null,
+    avatar_url: null,
   });
   const navigate = useNavigate();
 
@@ -43,6 +44,7 @@ export function AuthProvider({ children }) {
             firstname: null,
             lastname: null,
             id: null,
+            avatar_url: null,
           });
           navigate("/", { replace: true });
         } else {
@@ -52,6 +54,7 @@ export function AuthProvider({ children }) {
             firstname: returnuser.firstname,
             lastname: returnuser.lastname,
             id: returnuser.id,
+            avatar_url: returnuser.avatar_url,
           });
         }
         setIsLoaded(true);

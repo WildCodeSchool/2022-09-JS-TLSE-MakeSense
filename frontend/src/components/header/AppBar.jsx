@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text } from "../../contexts/Language";
 import logo from "../../assets/img/logo-makesense.png";
+import profile from "../../assets/img/profile.png";
 
 function AppBar({ menu }) {
   // CONST //
@@ -90,13 +91,11 @@ function AppBar({ menu }) {
                 onClick={() => setUserMenu(!userMenu)}
                 onKeyDown={() => setUserMenu(!userMenu)}
               >
-                <div
-                  className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
-                  title={`${user.lastname} ${user.firstname}`}
-                >
-                  {user.lastname?.substring(0, 1)}
-                  {user.firstname?.substring(0, 1)}
-                </div>
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={user.avatar_url}
+                  alt="user logo"
+                />
               </button>
               {userMenu && (
                 <div

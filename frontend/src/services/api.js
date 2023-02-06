@@ -44,7 +44,21 @@ function api() {
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
     });
-    return await res;
+    return res;
+  };
+
+  const apipostimg = async (url, body) => {
+    checktoken();
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": import.meta.env.VITE_BACKEND_URL,
+        Authorization: `Bearer ${token}`,
+      },
+      body,
+      credentials: "include",
+    });
+    return res.json();
   };
 
   const apiputmysql = async (url, body) => {
@@ -59,7 +73,7 @@ function api() {
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
     });
-    return await res;
+    return res;
   };
 
   const apideletemysql = async (url, body) => {
@@ -74,12 +88,13 @@ function api() {
       body: JSON.stringify(body), // body data type must match "Content-Type" header
       credentials: "include",
     });
-    return await res;
+    return res;
   };
 
   return {
     apigetmysql,
     apipostmysql,
+    apipostimg,
     apiputmysql,
     apideletemysql,
   };

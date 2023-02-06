@@ -54,14 +54,15 @@ router.put("/users/:id", validateUser, hashPassword, usersControllers.edit);
 router.put("/users/:id/avatar", usersControllers.editAvatar);
 router.delete("/users/:id", usersControllers.destroy);
 router.post("/users/avatar", upload.single("avatar"), (req, res) => {
-  const { originalname, filename } = req.file;
   const fileUUID = uuidv4();
   fs.rename(
-    `public/uploads/${filename}`,
-    `public/uploads/${fileUUID}-${originalname}`,
+    `public/uploads/${req.file.filename}`,
+    `public/uploads/${fileUUID}-${req.file.originalname}`,
     (err) => {
       if (err) throw err;
-      res.json(`${process.env.URL_UPLOAD}/${fileUUID}-${originalname}`);
+      res.json({
+        avatarUrl: `${process.env.URL_UPLOAD}/${fileUUID}-${req.file.originalname}`,
+      });
     }
   );
 });
