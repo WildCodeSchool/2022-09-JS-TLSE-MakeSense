@@ -36,7 +36,7 @@ function AppBar({ menu }) {
         </a>
         <LanguageSelector />
       </div>
-      <nav className="sm-w-100 bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
+      <nav className="sm-w-100 bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 flex flex-col justify-end sm:flex-row sm:justify-between items-center">
         <div className="pl-5">
           <button
             type="button"
@@ -124,7 +124,7 @@ function AppBar({ menu }) {
                         Décisions
                       </button>
                     </li>
-                    {user.admin === 1 ? (
+                    {user.admin === 1 && window.screen.width >= "640" ? (
                       <li>
                         <button
                           type="button"
