@@ -109,12 +109,6 @@ function DecisionsPage() {
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        <Text tid="Statut" />
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
-                      >
                         <Text tid="depositdate" />
                       </th>
                       <th
@@ -171,16 +165,25 @@ function DecisionsPage() {
                             {decision.firstname} {decision.lastname}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
-                            {decision.status}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
                             {JSON.parse(decision.content).firstDate.substring(
                               0,
                               10
                             )}
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
-                            <HiPencilSquare />
+                            <button
+                              type="button"
+                              key="key"
+                              value="edit"
+                              id={decision.id}
+                              onClick={() => {
+                                navigate(
+                                  `/user/decisions?comp=Edit&id=${decision.id}`
+                                );
+                              }}
+                            >
+                              <HiPencilSquare />
+                            </button>
                           </td>
                           <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
                             <button

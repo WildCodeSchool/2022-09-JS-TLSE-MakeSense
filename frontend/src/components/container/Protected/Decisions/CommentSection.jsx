@@ -95,7 +95,7 @@ function CommentSection({ id, comments, setComments }) {
             </div>
             <button
               type="submit"
-              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 mx-10 text-center"
             >
               Donner mon avis
             </button>

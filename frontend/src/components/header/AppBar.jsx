@@ -36,7 +36,7 @@ function AppBar({ menu }) {
         </a>
         <LanguageSelector />
       </div>
-      <nav className="sm-w-100 bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 flex justify-between items-center">
+      <nav className="sm-w-100 bg-white w-full py-6 z-20 top-0 left-0 border-b border-gray-200 flex flex-col justify-end sm:flex-row sm:justify-between items-center">
         <div className="pl-5">
           <button
             type="button"
@@ -90,11 +90,13 @@ function AppBar({ menu }) {
                 onClick={() => setUserMenu(!userMenu)}
                 onKeyDown={() => setUserMenu(!userMenu)}
               >
-                <img
-                  className="w-10 h-10 rounded-full"
-                  src="https://randomuser.me/api/portraits/women/2.jpg"
-                  alt="user logo"
-                />
+                <div
+                  className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
+                  title={`${user.lastname} ${user.firstname}`}
+                >
+                  {user && user.lastname.substring(0, 1)}
+                  {user && user.firstname.substring(0, 1)}
+                </div>
               </button>
               {userMenu && (
                 <div
@@ -122,7 +124,7 @@ function AppBar({ menu }) {
                         Décisions
                       </button>
                     </li>
-                    {user.admin === 1 ? (
+                    {user.admin === 1 && window.screen.width >= "640" ? (
                       <li>
                         <button
                           type="button"

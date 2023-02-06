@@ -90,7 +90,7 @@ export default function ShowUserConcerned() {
     decisionsWhereGroupImpacted.length ||
     decisionsWhereGroupExpert.length ? (
     <>
-      <div className="rounded flex flex-col items-center">
+      <div className="rounded flex flex-col items-center justify-center">
         <input
           key="searchbar"
           id="searchbar"
@@ -99,23 +99,39 @@ export default function ShowUserConcerned() {
           value={searchTerm}
           onChange={handleChange}
           placeholder="Rechercher une décision..."
-          className="block py-4 my-10 pl-10 text-m w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
+          className="block py-4 pl-10 text-m w-10/12 sm:w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
         />
-        <div className="flex flex-row w-full justify-between p-3 my-10">
+        <div className="flex flex-wrap sm:flex-row sm:w-full justify-center sm:justify-between p-3">
           <div>
             <select
               value={StatusSelect || ""}
               id="select-status"
               onChange={HandlerStatus}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 my-5"
             >
-              <option value="">-- Toutes les décisions --</option>
-              <option value="1">En attente d'avis</option>
-              <option value="2">En attente première décision</option>
-              <option value="3">En conflit</option>
-              <option value="4">Décision prise définitivement</option>
-              <option value="5">Décisions archivées</option>
-              <option value="6">Décisions non abouties</option>
+              <option value="">
+                {" "}
+                <Text tid="alldecisions" />
+              </option>
+              <option value="1">
+                <Text tid="waitopinion" />
+              </option>
+              <option value="2">
+                {" "}
+                <Text tid="awaitingfirstdecision" />
+              </option>
+              <option value="3">
+                <Text tid="inconflict" />
+              </option>
+              <option value="4">
+                <Text tid="finaldecision" />
+              </option>
+              <option value="5">
+                <Text tid="archiveddecisions" />
+              </option>
+              <option value="6">
+                <Text tid="unsuccessfuldecisions" />
+              </option>
             </select>
           </div>
           <div>
@@ -248,48 +264,47 @@ export default function ShowUserConcerned() {
       ) : (
         <div className="my-5">Il n'y a pas de décision.</div>
       )}
-      {decisionsWhereGroupImpacted.length ? (
-        <div>
-          <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Les décisions qui impactent mes groupes
-          </h1>
-          {decisionsWhereGroupImpacted.length &&
+      <div>
+        <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Les décisions qui impactent mes groupes
+        </h1>
+        {decisionsWhereGroupImpacted.length ? (
+          // eslint-disable-next-line react/prop-types
+          decisionsWhereGroupImpacted
             // eslint-disable-next-line react/prop-types
-            decisionsWhereGroupImpacted
-              // eslint-disable-next-line react/prop-types
-              .filter((decision) =>
-                JSON.parse(decision.content)
-                  .title.normalize("NFD")
-                  .replace(/\p{Diacritic}/gu, "")
-                  .toLocaleLowerCase()
-                  .includes(
-                    searchTerm
-                      .normalize("NFD")
-                      .replace(/\p{Diacritic}/gu, "")
-                      .toLocaleLowerCase()
-                  )
-              )
-              .map((decision) => (
-                <button
-                  type="button"
+            .filter((decision) =>
+              JSON.parse(decision.content)
+                .title.normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLocaleLowerCase()
+                .includes(
+                  searchTerm
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toLocaleLowerCase()
+                )
+            )
+            .map((decision) => (
+              <button
+                type="button"
+                key={decision.id}
+                id={decision.id}
+                onClick={() => {
+                  navigate(`/user/decisions?comp=Page&id=${decision.id}`);
+                }}
+              >
+                <Card
                   key={decision.id}
-                  id={decision.id}
-                  onClick={() => {
-                    navigate(`/user/decisions?comp=Page&id=${decision.id}`);
-                  }}
-                >
-                  <Card
-                    key={decision.id}
-                    data={decision}
-                    user={user}
-                    statut="groupes impactés"
-                  />
-                </button>
-              ))}
-        </div>
-      ) : (
-        <div className="my-5">Il n'y a pas de décision.</div>
-      )}
+                  data={decision}
+                  user={user}
+                  statut="groupes impactés"
+                />
+              </button>
+            ))
+        ) : (
+          <div className="my-5">Il n'y a pas de décision.</div>
+        )}
+      </div>
       <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         Les décisions qui ont besoin de l'expertise de mes groupes
       </h1>
@@ -335,6 +350,6 @@ export default function ShowUserConcerned() {
       )}
     </>
   ) : (
-    <Spinner />
+    <div>Il n'y a pas de décision.</div>
   );
 }

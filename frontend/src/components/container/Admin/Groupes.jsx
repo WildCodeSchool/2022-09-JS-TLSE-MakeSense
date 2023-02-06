@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 import Spinner from "@components/Spinner";
+import { differenceInCalendarQuarters } from "date-fns";
 import { Text } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Concerned from "../Protected/Decisions/form/Concerned";
@@ -20,7 +21,7 @@ function UsersManager() {
   const idedit = new URLSearchParams(URLParam).get("id") ?? "";
   if (ModeSelect === "edit" && !idedit) {
     setModeSelect("list");
-    navigate(`/admin/dashboard?tools=GroupsManager&mode=list`, {
+    navigate(`/admin/dashboard?tools=Groupes&mode=list`, {
       replace: true,
     });
   }
@@ -29,7 +30,7 @@ function UsersManager() {
     setModeSelect(mode.currentTarget.value);
     SetIsLoaded(false);
     navigate(
-      `/admin/dashboard?tools=GroupsManager&mode=${
+      `/admin/dashboard?tools=Groupes&mode=${
         mode.currentTarget.value === "edit"
           ? `${mode.currentTarget.value}&id=${mode.currentTarget.id}`
           : mode.currentTarget.value
@@ -48,7 +49,7 @@ function UsersManager() {
     );
     if (deletegroup.status === 204) {
       SetIsLoaded(false);
-      navigate(`/admin/dashboard?tools=GroupsManager`, {
+      navigate(`/admin/dashboard?tools=Groupes`, {
         replace: true,
       });
     }
@@ -74,7 +75,7 @@ function UsersManager() {
       }
       if (resgroup.status === 201) {
         SetIsLoaded(false);
-        navigate(`/admin/dashboard?tools=GroupsManager`, {
+        navigate(`/admin/dashboard?tools=Groupes`, {
           replace: true,
         });
       }
@@ -120,47 +121,44 @@ function UsersManager() {
   return IsLoaded ? (
     <div className="w-2/3">
       {(ModeSelect === "add" || ModeSelect === "edit") && (
-        <>
-          <button
-            type="button"
-            value="list"
-            onClick={HandlerMode}
-            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
-          >
-            <Text tid="list" />
-          </button>
-          <div className="w-2/3">
-            <div className="px-4 sm:px-6 lg:px-8 w-full">
-              <div className="sm:flex sm:items-center">
-                <form onSubmit={handleSubmit}>
-                  <label htmlFor="groupname">
-                    <Text tid="name" />
-                  </label>
-                  <input
-                    defaultValue={Group.name ?? ""}
-                    type="text"
-                    id="gname"
-                    name="gname"
-                    required
-                  />
-                  <Concerned
-                    table={AllUsers}
-                    name="users"
-                    type={listUsers}
-                    updateType={(event) => setListUsers(event)}
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
-                  >
-                    <Text tid={ModeSelect} />
-                  </button>
-                </form>
-              </div>
+        <div className="w-2/3  bg-white rounded shadow">
+          <div className="px-4 sm:px-6 lg:px-8 w-full">
+            <div className="sm:flex sm:items-center">
+              <form onSubmit={handleSubmit} className="mt-5">
+                <Text tid="name" />
+                <input
+                  defaultValue={Group.name ?? ""}
+                  type="text"
+                  id="gname"
+                  name="gname"
+                  required
+                  className="block p-2 my-5 text-m text-center w-1/2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-2 focus:outline-cyan-800"
+                />
+                <Concerned
+                  table={AllUsers}
+                  name="users"
+                  type={listUsers}
+                  updateType={(event) => setListUsers(event)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 m-5 text-center"
+                >
+                  <Text tid={ModeSelect} />
+                </button>
+                <button
+                  type="button"
+                  value="list"
+                  onClick={HandlerMode}
+                  className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2"
+                >
+                  <Text tid="list" />
+                </button>
+              </form>
             </div>
           </div>
-        </>
+        </div>
       )}
       {ModeSelect === "list" && (
         <div className="">
@@ -203,19 +201,13 @@ function UsersManager() {
                         </th>
                         <th
                           scope="col"
-                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
-                        >
-                          <Text tid="numberofpersons" />
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                          className="px-3 py-3.5 text-center text-m font-semibold text-gray-900"
                         >
                           <Text tid="edit" />
                         </th>
                         <th
                           scope="col"
-                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                          className="px-3 py-3.5 text-center text-m font-semibold text-gray-900"
                         >
                           <Text tid="delete" />
                         </th>
@@ -238,25 +230,25 @@ function UsersManager() {
                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
                             <div className="flex items-center">
                               <div className="h-10 w-10 flex-shrink-0">
-                                <img
-                                  className="h-10 w-10 rounded-full"
-                                  src=""
-                                  alt=""
-                                />
+                                <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
+                                  {data.name
+                                    .split(/\s/)
+                                    .reduce(
+                                      // eslint-disable-next-line no-return-assign
+                                      (response, word) =>
+                                        // eslint-disable-next-line no-param-reassign
+                                        (response += word.slice(0, 1)),
+                                      ""
+                                    )
+                                    .substring(0, 2)}
+                                </div>
                               </div>
                               <div className="ml-4">
                                 <div className="text-gray-500">{data.name}</div>
                               </div>
                             </div>
                           </td>
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
-                            <div className="flex items-center">
-                              <div className="h-10 w-10 flex-shrink-0">
-                                <div className="text-gray-500">...</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xl font-medium">
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-xl font-medium">
                             <button
                               key={data.id}
                               id={data.id}
@@ -267,7 +259,7 @@ function UsersManager() {
                               <HiPencilSquare />
                             </button>
                           </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-m font-medium">
                             <button
                               type="button"
                               value={data.id}
