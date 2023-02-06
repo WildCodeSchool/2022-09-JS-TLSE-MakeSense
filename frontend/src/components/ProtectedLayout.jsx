@@ -52,7 +52,7 @@ export default function ProtectedLayout() {
       <header className="">
         <AppBar menu={menu} />
       </header>
-      <div className="">{outlet}</div>
+      <div className="h-max">{outlet}</div>
       <footer className="">
         <FooterBar />
       </footer>

@@ -1,4 +1,11 @@
 const express = require("express");
+const fs = require("fs");
+
+const multer = require("multer");
+
+const upload = multer({ dest: "./public/uploads" });
+
+const { v4: uuidv4 } = require("uuid");
 
 const router = express.Router();
 const usersControllers = require("./controllers/usersControllers");
@@ -44,6 +51,19 @@ router.delete("/groups/:id", groupsControllers.destroy);
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
 router.put("/users/:id", validateUser, hashPassword, usersControllers.edit);
+router.put("/users/:id/avatar", usersControllers.editAvatar);
 router.delete("/users/:id", usersControllers.destroy);
+router.post("/users/avatar", upload.single("avatar"), (req, res) => {
+  const { originalname, filename } = req.file;
+  const fileUUID = uuidv4();
+  fs.rename(
+    `public/uploads/${filename}`,
+    `public/uploads/${fileUUID}-${originalname}`,
+    (err) => {
+      if (err) throw err;
+      res.json(`${process.env.URL_UPLOAD}/${fileUUID}-${originalname}`);
+    }
+  );
+});
 
 module.exports = router;

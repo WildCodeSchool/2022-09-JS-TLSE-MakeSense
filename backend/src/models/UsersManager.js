@@ -60,6 +60,13 @@ class UsersManager extends AbstractManager {
     );
   }
 
+  updateAvatar(users) {
+    return this.connection.query(
+      `update ${this.table} set avatar_url = ? where id = ?`,
+      [users.urlAvatar, users.id]
+    );
+  }
+
   delete(id) {
     return this.connection.query(`delete from ${this.table} where id = ?`, [
       id,

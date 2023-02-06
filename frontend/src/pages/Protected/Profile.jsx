@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from "react";
+import axios from "axios";
+import { React, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
@@ -15,8 +16,12 @@ function ProfilUser() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [picture, setPicture] = useState(
+    "https://randomuser.me/api/portraits/women/2.jpg"
+  );
   const { user } = useAuth();
   let serviceId = null;
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -58,13 +63,34 @@ function ProfilUser() {
     setShowInput(!showInput);
   };
 
+  const hSubmit = async (evt) => {
+    evt.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar", inputRef.current.files[0]);
+    const getAvatar = await api
+      .apipostmysql(
+        `${import.meta.env.VITE_BACKEND_URL}/users/avatar`,
+        formData
+      )
+      .then((res) => {
+        const body = {
+          id: user.id,
+          urlAvatar: res.data,
+        };
+        const updateAvatar = api.apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}/avatar`,
+          body
+        );
+      });
+  };
+
   return isLoaded ? (
     <>
       {isSubmit && (
         <div
           id="popup-modal"
           tabIndex="-1"
-          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-col justify-center items-center backdrop-blur"
+          className="fixed top-0 left-0 right-0 z-50 p-4 h-full overflow-x-hidden overflow-y-auto flex flex-row justify-center items-center backdrop-blur"
         >
           <div className="w-full max-w-md md:h-auto">
             <div className="relative bg-white rounded-lg shadow">
@@ -87,10 +113,36 @@ function ProfilUser() {
           </div>
         </div>
       )}
-      <div className="mx-auto px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10 w-10/12">
+      <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
-          <div className="flex flex-col ms:flew-row justify-between">
+          <div className="flex ms:fles-row justify-between">
+            <form encType="multipart/form-data" onSubmit={hSubmit}>
+              <div className="mt-6 flex flex-col lg:flex-row">
+                <div className="mt-10 flex-grow lg:mt-5 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
+                  <div className="relative rounded-full overflow-hidden lg:block">
+                    <img
+                      className="relative rounded-full w-40 h-40"
+                      src={picture}
+                      alt="user img"
+                    />
+                    <label
+                      htmlFor="desktop-user-photo"
+                      className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
+                    >
+                      <input
+                        ref={inputRef}
+                        type="file"
+                        id="desktop-user-photo"
+                        name="user-photo"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
             <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
               <div className="col-span-12 sm:col-span-6">
                 <label
@@ -153,6 +205,7 @@ function ProfilUser() {
                     defaultValue={userEmail}
                     onChange={(event) => setUserEmail(event.target.value)}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                    disabled
                   />
                 ) : (
                   <div className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200">
@@ -213,8 +266,5 @@ function ProfilUser() {
   ) : (
     <Spinner />
   );
-  //   </div >
-  // </div >
-  // );
 }
 export default ProfilUser;

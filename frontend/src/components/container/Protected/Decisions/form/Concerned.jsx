@@ -44,8 +44,10 @@ function Concerned({ table, name, type, updateType }) {
         handleAddition={handleAddition}
         inputFieldPosition="top"
         maxLength={91}
+        autocomplete
         allowDragDrop={false}
         autofocus={false}
+        allowAdditionFromPaste={false}
         placeholder="Recherche une personne concernée"
         allowDeleteFromEmptyInput={false}
         classNames={{
