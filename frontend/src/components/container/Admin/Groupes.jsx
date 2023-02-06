@@ -28,6 +28,7 @@ function UsersManager() {
   }
 
   const HandlerMode = (mode) => {
+    mode.preventDefault();
     setModeSelect(mode.currentTarget.value);
     SetIsLoaded(false);
     navigate(
