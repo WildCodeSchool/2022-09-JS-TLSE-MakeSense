@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart } from "react-google-charts";
 import "../../../assets/css/container/admin/Dashboard.scss";
+import Spinner from "@components/Spinner";
+import { Text } from "../../../contexts/Language";
 import api from "../../../services/api";
 
 function Dashboard() {
@@ -139,7 +141,9 @@ function Dashboard() {
 
   return isLoaded ? (
     <div className="w-1/2 bg-white rounded shadow p-5 justify-center m-5">
-      <p className="font-bold text-xl text-calypso pl-5 py-5">Statistiques</p>
+      <div className="font-bold text-xl text-calypso pl-5 py-5">
+        <Text tid="statistics" />
+      </div>
       <div className="frame">
         <div className="box-container" ref={ref}>
           {allmonth.map((item) => (
@@ -178,7 +182,7 @@ function Dashboard() {
               aria-hidden="true"
             />
             <span className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
-              Previous
+              <Text tid="previous" />
             </span>
           </button>
           <button
@@ -193,14 +197,14 @@ function Dashboard() {
               aria-hidden="true"
             />
             <span className="visually-hidden text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
-              Next
+              <Text tid="next" />
             </span>
           </button>
         </div>
       </div>
     </div>
   ) : (
-    <div>... Loading</div>
+    <Spinner />
   );
 }
 export default Dashboard;

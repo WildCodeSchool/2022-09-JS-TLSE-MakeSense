@@ -7,7 +7,7 @@ class CommentsManager extends AbstractManager {
 
   findcomment(id) {
     return this.connection.query(
-      `select ${this.table}.id, ${this.table}.text, ${this.table}.date_creation, ${this.table}.id_user_writer, ${this.table}.id_decision, users.lastname, users.firstname FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_writer = users.id WHERE id_decision = ?`,
+      `select ${this.table}.id, ${this.table}.text, ${this.table}.date_creation, ${this.table}.id_user_writer, ${this.table}.id_decision, users.lastname, users.firstname, users.avatar_url FROM ${this.table} INNER JOIN users ON ${this.table}.id_user_writer = users.id WHERE id_decision = ?`,
       [id]
     );
   }

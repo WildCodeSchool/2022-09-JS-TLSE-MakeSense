@@ -83,7 +83,7 @@ function LangSettings() {
             <div className="relative bg-white rounded-lg shadow">
               <div className="p-6 text-center">
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  Le langage a été modifié
+                  <Text tid="thelanguagehasbeenmodified" />
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -93,7 +93,7 @@ function LangSettings() {
                     setIsModified(false);
                   }}
                 >
-                  Retourner aux languages
+                  <Text tid="backtolanguages" />
                 </button>
               </div>
             </div>
@@ -163,20 +163,20 @@ function LangSettings() {
                             scope="col"
                             className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                           >
-                            Clé de la base de donnée
+                            <Text tid="databasekey" />
                           </th>
                           <th
                             scope="col"
                             className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                           >
-                            Mot
+                            <Text tid="word" />
                           </th>
                           {ModeSelect === "add" && (
                             <th
                               scope="col"
                               className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                             >
-                              Traduction
+                              <Text tid="translation" />
                             </th>
                           )}
                         </tr>
@@ -247,7 +247,7 @@ function LangSettings() {
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center my-5"
                 onClick={() => setIsModified(true)}
               >
-                <Text tid="send" />
+                <Text tid="validatethemodification" />
               </button>
             </div>
           </form>

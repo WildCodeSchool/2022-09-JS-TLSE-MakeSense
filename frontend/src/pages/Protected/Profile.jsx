@@ -110,7 +110,9 @@ function ProfilUser() {
       )}
       <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
-          <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
+          <h2 className="text-2xl leading-6 font-bold text-gray-900">
+            <Text tid="profile" />
+          </h2>
           <div className="flex flex-col ms:flex-row justify-center">
             <form
               encType="multipart/form-data"
@@ -129,7 +131,10 @@ function ProfilUser() {
                       htmlFor="desktop-user-photo"
                       className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
                     >
-                      <span>Modifier</span>
+                      <span>
+                        {" "}
+                        <Text tid="modify" />
+                      </span>
                       <input
                         ref={inputRef}
                         type="file"
@@ -145,7 +150,7 @@ function ProfilUser() {
                 type="submit"
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 m-5"
               >
-                Valider la nouvelle photo
+                <Text tid="validatethenewphoto" />
               </button>
             </form>
             <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
