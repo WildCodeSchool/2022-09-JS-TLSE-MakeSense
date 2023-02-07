@@ -83,7 +83,7 @@ function AppBar({ menu }) {
             <div className="flex flex-col items-end mx-4">
               <button
                 type="button"
-                className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
                 id="user-menu-button"
                 aria-expanded="false"
                 data-dropdown-toggle="user-dropdown"
@@ -99,14 +99,14 @@ function AppBar({ menu }) {
               </button>
               {userMenu && (
                 <div
-                  className="fixed my-10 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+                  className="fixed my-10 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded shadow"
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900 dark:text-white">
+                    <span className="block text-sm text-gray-900">
                       {user.firstname} {user.lastname}
                     </span>
-                    <span className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
+                    <span className="block text-sm font-medium text-gray-500 truncate">
                       {user.email}
                     </span>
                   </div>

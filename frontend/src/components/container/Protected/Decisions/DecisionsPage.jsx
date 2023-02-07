@@ -95,8 +95,8 @@ function DecisionsPage() {
                   <div
                     id="accordion-flush"
                     data-accordion="collapse"
-                    data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                    data-inactive-classes="text-gray-500 dark:text-gray-400"
+                    data-active-classes="bg-white"
+                    data-inactive-classes="text-gray-500"
                   >
                     <details className="text-gray-500 border-b border-gray-200">
                       <summary
@@ -115,7 +115,7 @@ function DecisionsPage() {
                         id="accordion-flush-body-1"
                         aria-labelledby="accordion-flush-heading-1"
                       >
-                        <div className="p-5 font-light border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-5 font-light border-b border-gray-200">
                           <div
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{
@@ -143,7 +143,7 @@ function DecisionsPage() {
                         id="accordion-flush-body-1"
                         aria-labelledby="accordion-flush-heading-1"
                       >
-                        <div className="p-5 font-light border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-5 font-light border-b border-gray-200">
                           <div
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{
@@ -171,7 +171,7 @@ function DecisionsPage() {
                         id="accordion-flush-body-1"
                         aria-labelledby="accordion-flush-heading-1"
                       >
-                        <div className="p-5 font-light border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-5 font-light border-b border-gray-200">
                           <div
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{
@@ -227,7 +227,7 @@ function DecisionsPage() {
                         id="accordion-flush-body-1"
                         aria-labelledby="accordion-flush-heading-1"
                       >
-                        <div className="p-5 font-light border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-5 font-light border-b border-gray-200">
                           <div
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{
@@ -287,7 +287,7 @@ function DecisionsPage() {
                   </h2>
 
                   {/* Activity Feed */}
-                  <ol className="relative border-l border-gray-200 dark:border-gray-700">
+                  <ol className="relative border-l border-gray-200">
                     <li className="mb-10 ml-4">
                       <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
                       <time className="mb-1 text-calypso text-m font-bold leading-none">
