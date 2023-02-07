@@ -123,59 +123,99 @@ function LangSettings() {
               ))}
             </select>
           )}
-
-          {Object.entries(dictionary).map((key, index) => (
-            <section key={key.id} className="lg:col-start-3 lg:col-span-1 py-5">
-              <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                <div key={key} className="wrapper-form">
-                  <div className="pb-5">
-                    Clé de la base de donnée : {key[0]}
-                  </div>
-                  {/* Lang courante exemple */}
-                  <div className="">
-                    <div className="pb-5">
-                      Mot :
-                      {ModeSelect === "add" && (
-                        <input value={key[1]} readOnly />
-                      )}
-                      {ModeSelect === "edit" && (
-                        <input
-                          key={key[1]}
-                          value={key[1]}
-                          id={key[1]}
-                          onChange={HandlerKey}
-                          required
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
-                        />
-                      )}
-                    </div>
-                    {/* Lang que l'on veut ajouter */}
-                    {ModeSelect === "add" && (
-                      <div>
-                        <label className="text-rose-500">
-                          {AddLangSelect ?? <Text tid="selectlanguage" />}
-                        </label>
-                        <input
-                          key={key[0]}
-                          id={key[0]}
-                          onChange={HandlerKey}
-                          required
-                          disabled={!AddLangSelect && true}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
-                        />
-                      </div>
-                    )}
-                  </div>
+          <div className="mt-8 flex flex-col">
+            <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-300">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
+                        >
+                          Clé de la base de donnée
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                        >
+                          Mot
+                        </th>
+                        {ModeSelect === "add" && (
+                          <th
+                            scope="col"
+                            className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
+                          >
+                            Traduction
+                          </th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 bg-white">
+                      {Object.entries(dictionary).map((key, index) => (
+                        <tr key={key}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
+                            <div className="flex items-center">
+                              <div className="ml-4">{key[0]}</div>
+                            </div>
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                {ModeSelect === "add" && (
+                                  <input value={key[1]} readOnly />
+                                )}
+                                {ModeSelect === "edit" && (
+                                  <input
+                                    key={key[1]}
+                                    value={key[1]}
+                                    id={key[1]}
+                                    onChange={HandlerKey}
+                                    required
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
+                                  />
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
+                            <div className="flex items-center">
+                              <div className="ml-4">
+                                {ModeSelect === "add" && (
+                                  <div>
+                                    <label className="text-rose-500 flex flex-col">
+                                      {AddLangSelect ?? (
+                                        <Text tid="selectlanguage" />
+                                      )}
+                                    </label>
+                                    <input
+                                      key={key[0]}
+                                      id={key[0]}
+                                      onChange={HandlerKey}
+                                      required
+                                      disabled={!AddLangSelect && true}
+                                      className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </section>
-          ))}
-          <div className="w-full flex justify-center">
+            </div>
+          </div>
+          <div className="flex justify-center">
             <button
               key="submit"
               type="submit"
               value="Submit"
-              className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center my-5"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center my-5"
             >
               <Text tid="send" />
             </button>
