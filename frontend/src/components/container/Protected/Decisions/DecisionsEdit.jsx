@@ -35,7 +35,7 @@ function DecisionsEdit() {
 
   // get user logged in from Context
   const { user } = useAuth();
-  let idCreatorLoad = "";
+
   // form verifications in frontend before post decision
   const decisionSchema = Joi.object({
     title: Joi.string().min(5).max(250).message("Title is required").required(),
@@ -62,6 +62,7 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [idCreatorLoad, setIdCreatorLoad] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -95,7 +96,7 @@ function DecisionsEdit() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
-      idCreatorLoad = await getDecisions.decision.id_user_creator;
+      setIdCreatorLoad(getDecisions.decision.id_user_creator);
       // console.log(idCreatorLoad);
       setForm({
         title: JSON.parse(getDecisions.decision.content).title,
@@ -177,10 +178,11 @@ function DecisionsEdit() {
         });
     }
   }
-  // console.log(user.id, idCreatorLoad, !user.admin);
 
-  if (user.id !== idCreatorLoad && !user.admin) {
-    navigate("/user/decisions");
+  if (isLoaded) {
+    if (user.id !== idCreatorLoad && !user.admin) {
+      navigate("/user/decisions");
+    }
   }
 
   return (
