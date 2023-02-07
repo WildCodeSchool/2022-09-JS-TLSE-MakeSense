@@ -126,7 +126,7 @@ function UsersManager() {
             <div className="relative bg-white rounded-lg shadow">
               <div className="p-6 text-center">
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  Le groupe a été supprimé
+                  <Text tid="thegrouphasbeendeleted" />
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -138,7 +138,7 @@ function UsersManager() {
                     });
                   }}
                 >
-                  Revenir aux groupes
+                  <Text tid="backtogroups" />
                 </button>
               </div>
             </div>

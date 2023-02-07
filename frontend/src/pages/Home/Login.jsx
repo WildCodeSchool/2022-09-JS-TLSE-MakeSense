@@ -117,8 +117,7 @@ export default function LoginPage() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
             <span className="text-rose-500 text-xs">
-              Minimum 8 caracteres, une majuscule, une minuscule, un chiffre, un
-              caractère spécial.
+              <Text tid="minimum8charactersoneuppercaseonelowercase" />
             </span>
           </div>
           <button

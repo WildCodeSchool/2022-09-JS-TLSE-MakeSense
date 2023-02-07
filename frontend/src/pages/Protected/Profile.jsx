@@ -129,7 +129,9 @@ function ProfilUser() {
                       htmlFor="desktop-user-photo"
                       className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
                     >
-                      <span>Modifier</span>
+                      <span>
+                        <Text tid="modify" />
+                      </span>
                       <input
                         ref={inputRef}
                         type="file"
@@ -145,7 +147,7 @@ function ProfilUser() {
                 type="submit"
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 m-5"
               >
-                Valider la nouvelle photo
+                <Text tid="validatethenewphoto" />
               </button>
             </form>
             <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">

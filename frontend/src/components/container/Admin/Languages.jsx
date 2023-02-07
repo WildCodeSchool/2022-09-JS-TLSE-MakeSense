@@ -134,20 +134,20 @@ function LangSettings() {
                           scope="col"
                           className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                         >
-                          Clé de la base de donnée
+                          <Text tid="databasekey" />
                         </th>
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                         >
-                          Mot
+                          <Text tid="word" />
                         </th>
                         {ModeSelect === "add" && (
                           <th
                             scope="col"
                             className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                           >
-                            Traduction
+                            <Text tid="translation" />
                           </th>
                         )}
                       </tr>

@@ -75,7 +75,7 @@ function UsersManager() {
             <div className="relative bg-white rounded-lg shadow">
               <div className="p-6 text-center">
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
-                  L'utilisateur a été supprimé
+                  <Text tid="userhasbeendeleted" />
                 </h3>
                 <button
                   data-modal-hide="popup-modal"
@@ -151,14 +151,17 @@ function UsersManager() {
                         />
                       </div>
                       <div className="">
-                        <p className="pb-2">Sélectionnez une option:</p>
+                        <p>
+                          <Text tid="selectanoption" />
+                        </p>
                         <div>
-                          <select
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
-                            onChange={(e) => handleChangeAdmin(e)}
-                          >
-                            <option value={1}>Administrateur</option>
-                            <option value={0}>Utilisateur</option>
+                          <select onChange={(e) => handleChangeAdmin(e)}>
+                            <option value={1}>
+                              <Text tid="administrator " />
+                            </option>
+                            <option value={0}>
+                              <Text tid="users" />
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -174,7 +177,7 @@ function UsersManager() {
                     }}
                     className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2"
                   >
-                    Valider les nouvelles informations
+                    <Text tid="validatenewinformation" />
                   </button>
                   <button
                     type="button"
@@ -183,7 +186,7 @@ function UsersManager() {
                     }}
                     className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm  px-5 py-2.5 mr-2 mb-2"
                   >
-                    Revenir
+                    <Text tid="tocomeback" />
                   </button>
                 </div>
               </div>
@@ -210,7 +213,7 @@ function UsersManager() {
                 className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 text-center"
                 onClick={() => navigate(`/admin/dashboard?tools=Register`)}
               >
-                Ajouter un utilisateur
+                <Text tid="addautility" />
               </button>
             </div>
           </div>
@@ -226,25 +229,25 @@ function UsersManager() {
                         scope="col"
                         className="py-3.5 pl-4 pr-3 text-left text-m font-semibold text-gray-900 sm:pl-6"
                       >
-                        Name
+                        <Text tid="name" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Email
+                        <Text tid="email" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Statut
+                        <Text tid="statut" />
                       </th>
                       <th
                         scope="col"
                         className="px-3 py-3.5 text-left text-m font-semibold text-gray-900"
                       >
-                        Edit
+                        <Text tid="edit" />
                       </th>
                       <th
                         scope="col"
