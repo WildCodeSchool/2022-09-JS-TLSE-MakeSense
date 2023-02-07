@@ -52,6 +52,7 @@ function DecisionsEdit() {
   });
 
   // states for form
+
   const [users, setUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [usersImpacted, setUsersImpacted] = useState([]);
@@ -61,6 +62,7 @@ function DecisionsEdit() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [errors, setErrors] = useState();
   const [isSubmit, setIsSubmit] = useState(false);
+  const [idCreatorLoad, setIdCreatorLoad] = useState();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -94,6 +96,8 @@ function DecisionsEdit() {
       const getDecisions = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
+      setIdCreatorLoad(getDecisions.decision.id_user_creator);
+      // console.log(idCreatorLoad);
       setForm({
         title: JSON.parse(getDecisions.decision.content).title,
         description: JSON.parse(getDecisions.decision.content).description,
@@ -157,7 +161,7 @@ function DecisionsEdit() {
       const body = {
         content: JSON.stringify(result.value),
         status: 1,
-        id_user_creator: user.id,
+        id_user_creator: idCreatorLoad,
         users_impact: usersImpacted,
         users_expert: usersExperts,
         groups_impact: groupsImpacted,
@@ -172,6 +176,12 @@ function DecisionsEdit() {
         .then((json) => {
           return json;
         });
+    }
+  }
+
+  if (isLoaded) {
+    if (user.id !== idCreatorLoad && !user.admin) {
+      navigate("/user/decisions");
     }
   }
 
