@@ -104,7 +104,7 @@ function UsersManager() {
                 <div className="py-6 px-4 sm:p-6 lg:pb-8 flex justify-center items-center">
                   <div className="flex flew-row justify-between">
                     <div className="mt-6">
-                      <div className="flex justify-center items-center">
+                      <div className="flex justify-center items-center pb-2">
                         <input
                           type="text"
                           id="lastname"
@@ -119,7 +119,7 @@ function UsersManager() {
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                         />
                       </div>
-                      <div className="">
+                      <div className="pb-2">
                         <input
                           type="text"
                           id="firstname"
@@ -134,7 +134,7 @@ function UsersManager() {
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                         />
                       </div>
-                      <div className="">
+                      <div className="pb-2">
                         <input
                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                           type="email"
