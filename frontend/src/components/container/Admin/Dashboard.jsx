@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Chart } from "react-google-charts";
 import "../../../assets/css/container/admin/Dashboard.scss";
 import api from "../../../services/api";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { Text } from "../../../../contexts/Language";
 
 function Dashboard() {
   const [datagraph, setDatagraph] = useState([]);
@@ -178,7 +180,7 @@ function Dashboard() {
               aria-hidden="true"
             />
             <span className="text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
-              Previous
+              <Text tid="previous" />
             </span>
           </button>
           <button
@@ -193,7 +195,7 @@ function Dashboard() {
               aria-hidden="true"
             />
             <span className="visually-hidden text-calypso bg-white opacity-1 hover:bg-calypsoLight hover:text-white font-medium rounded-lg border border-calypso text-sm px-5 py-2.5 text-center mx-2">
-              Next
+              <Text tid="next" />
             </span>
           </button>
         </div>

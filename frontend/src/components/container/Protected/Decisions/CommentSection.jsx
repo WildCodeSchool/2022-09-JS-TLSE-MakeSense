@@ -3,6 +3,7 @@ import api from "@services/api";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 import { useAuth } from "../../../../contexts/useAuth";
+import { Text } from "../../../../contexts/Language";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,8 +49,13 @@ function CommentSection({ id, comments, setComments }) {
   return comments === undefined ? (
     <div>
       <details>
-        <summary>Avis (0)</summary>
-        <div>Il n'y a pas encore d'avis sur cette décision.</div>
+        <summary>
+          <Text tid="notice" /> (0)
+        </summary>
+        <div>
+          {" "}
+          <Text tid="thereisnoopiniononthisdecisionyet." />
+        </div>
         <form onSubmit={handleSubmit}>
           <textarea
             name="comments"
@@ -66,7 +72,7 @@ function CommentSection({ id, comments, setComments }) {
             type="submit"
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            Donner mon avis
+            <Text tid="Dar su opinión" />
           </button>
         </form>
       </details>
@@ -97,7 +103,7 @@ function CommentSection({ id, comments, setComments }) {
               type="submit"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 mx-10 text-center"
             >
-              Donner mon avis
+              <Text tid="Dar su opinión" />
             </button>
           </form>
           <div className="flex flex-row justify-center">
