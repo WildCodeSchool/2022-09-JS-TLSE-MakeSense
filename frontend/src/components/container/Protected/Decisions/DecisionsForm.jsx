@@ -158,7 +158,7 @@ function DecisionsForm() {
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     <Text tid="description" />
                   </h3>
-                  <p className="mt-1 text-xl text-gray-500">
+                  <p className="mt-1 text-mb text-gray-500">
                     <Text tid="describeherealltheinformationconcerningthedescription" />
                   </p>
                 </div>
@@ -166,7 +166,7 @@ function DecisionsForm() {
                   <div className="my-10">
                     <label
                       htmlFor="company-website"
-                      className="block text-xl font-medium text-gray-700"
+                      className="block text-mb font-medium text-gray-700"
                     >
                       <Text tid="title" />
                     </label>
@@ -201,7 +201,10 @@ function DecisionsForm() {
                       })}
                   </div>
                   <div className="my-10">
-                    <label htmlFor="description">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-mb font-medium text-gray-700 mb-3"
+                    >
                       <Text tid="description" />
                     </label>
                     <ReactQuill
@@ -229,7 +232,10 @@ function DecisionsForm() {
                       })}
                   </div>
                   <div className="my-10">
-                    <label htmlFor="utility">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-mb font-medium text-gray-700 mb-3"
+                    >
                       <Text tid="usefulnessfortheorganization" />
                     </label>
                     <ReactQuill
@@ -257,7 +263,11 @@ function DecisionsForm() {
                       })}
                   </div>
                   <div className="my-10">
-                    <label htmlFor="context">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-mb font-medium text-gray-700 mb-3"
+                    >
+                      {" "}
                       <Text tid="contextaroundthedecision" />
                     </label>
                     <ReactQuill
@@ -285,7 +295,11 @@ function DecisionsForm() {
                       })}
                   </div>
                   <div className="my-10">
-                    <label htmlFor="pros">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-mb font-medium text-gray-700 mb-3"
+                    >
+                      {" "}
                       <Text tid="benefits" />
                     </label>
                     <ReactQuill
@@ -312,7 +326,11 @@ function DecisionsForm() {
                       })}
                   </div>
                   <div className="my-10">
-                    <label htmlFor="cons">
+                    <label
+                      htmlFor="company-website"
+                      className="block text-mb font-medium text-gray-700 mb-3"
+                    >
+                      {" "}
                       <Text tid="disadvantages" />
                     </label>
                     <ReactQuill
@@ -347,7 +365,7 @@ function DecisionsForm() {
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     <Text tid="peopleconcerned" />
                   </h3>
-                  <p className="mt-1 text-xl text-gray-500">
+                  <p className="mt-1 text-mb text-gray-500">
                     <Text tid="designatethepeopleconcerned" />
                   </p>
                 </div>
@@ -391,7 +409,7 @@ function DecisionsForm() {
                   <h3 className="text-lg font-medium leading-6 text-gray-900">
                     <Text tid="calendar" />
                   </h3>
-                  <p className="mt-1 text-xl text-gray-500">
+                  <p className="mt-1 text-mb text-gray-500">
                     <Text tid="setdecision-makingtimeline" />
                   </p>
                 </div>

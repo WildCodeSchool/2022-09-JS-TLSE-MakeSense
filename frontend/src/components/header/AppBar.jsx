@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/useAuth";
 import LanguageSelector from "./LanguageSelector";
 import { Text } from "../../contexts/Language";
 import logo from "../../assets/img/logo-makesense.png";
+import profile from "../../assets/img/profile.png";
 
 function AppBar({ menu }) {
   // CONST //
@@ -90,13 +91,11 @@ function AppBar({ menu }) {
                 onClick={() => setUserMenu(!userMenu)}
                 onKeyDown={() => setUserMenu(!userMenu)}
               >
-                <div
-                  className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso"
-                  title={`${user.lastname} ${user.firstname}`}
-                >
-                  {user.lastname?.substring(0, 1)}
-                  {user.firstname?.substring(0, 1)}
-                </div>
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={user.avatar_url}
+                  alt="user logo"
+                />
               </button>
               {userMenu && (
                 <div
@@ -112,51 +111,51 @@ function AppBar({ menu }) {
                     </span>
                   </div>
                   <ul className="py-1" aria-labelledby="user-menu-button">
-                    <li>
+                    <li className=" hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() => {
                           navigate(`/user/decisions`);
                           setUserMenu(false);
                         }}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block px-4 py-2 text-sm text-gray-700"
                       >
                         Décisions
                       </button>
                     </li>
                     {user.admin === 1 && window.screen.width >= "640" ? (
-                      <li>
+                      <li className="hover:bg-gray-100">
                         <button
                           type="button"
                           onClick={() => {
                             navigate(`/admin/dashboard`);
                             setUserMenu(false);
                           }}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block px-4 py-2 text-sm text-gray-700"
                         >
                           Tableau de bord
                         </button>
                       </li>
                     ) : null}
-                    <li>
+                    <li className="hover:bg-gray-100">
                       <button
                         type="button"
                         onClick={() => {
                           navigate(`/user/profile`);
                           setUserMenu(false);
                         }}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block px-4 py-2 text-sm text-gray-700"
                       >
                         Mon profil
                       </button>
                     </li>
                     {!!user.email && (
-                      <li>
+                      <li className="hover:bg-gray-100">
                         <button
                           type="button"
                           key="logout"
                           onClick={() => logout()}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block px-4 py-2 text-sm text-gray-700"
                         >
                           <Text tid="logout" />
                         </button>

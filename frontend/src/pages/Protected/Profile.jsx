@@ -16,10 +16,8 @@ function ProfilUser() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [picture, setPicture] = useState(
-    "https://randomuser.me/api/portraits/women/2.jpg"
-  );
   const { user } = useAuth();
+  const [picture, setPicture] = useState(user.avatar_url);
   let serviceId = null;
   const inputRef = useRef(null);
 
@@ -68,19 +66,17 @@ function ProfilUser() {
     const formData = new FormData();
     formData.append("avatar", inputRef.current.files[0]);
     const getAvatar = await api
-      .apipostmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/users/avatar`,
-        formData
-      )
+      .apipostimg(`${import.meta.env.VITE_BACKEND_URL}/users/avatar`, formData)
       .then((res) => {
         const body = {
           id: user.id,
-          urlAvatar: res.data,
+          urlAvatar: res.avatarUrl,
         };
         const updateAvatar = api.apiputmysql(
           `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}/avatar`,
           body
         );
+        setPicture(body.urlAvatar);
       });
   };
 
@@ -116,9 +112,13 @@ function ProfilUser() {
       <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
           <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
-          <div className="flex ms:fles-row justify-between">
-            <form encType="multipart/form-data" onSubmit={hSubmit}>
-              <div className="mt-6 flex flex-col lg:flex-row">
+          <div className="flex flex-col ms:flex-row justify-center">
+            <form
+              encType="multipart/form-data"
+              onSubmit={hSubmit}
+              className="flex flex-col justify-center items-center"
+            >
+              <div className="mt-6 flex lg:flex-row">
                 <div className="mt-10 flex-grow lg:mt-5 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0">
                   <div className="relative rounded-full overflow-hidden lg:block">
                     <img
@@ -130,6 +130,7 @@ function ProfilUser() {
                       htmlFor="desktop-user-photo"
                       className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
                     >
+                      <span>Modifier</span>
                       <input
                         ref={inputRef}
                         type="file"
@@ -141,7 +142,12 @@ function ProfilUser() {
                   </div>
                 </div>
               </div>
-              <button type="submit">Submit</button>
+              <button
+                type="submit"
+                className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 m-5"
+              >
+                Valider la nouvelle photo
+              </button>
             </form>
             <div className="mt-6 grid grid-cols-12 gap-6 grow pl-10">
               <div className="col-span-12 sm:col-span-6">

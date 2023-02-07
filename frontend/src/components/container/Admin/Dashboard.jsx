@@ -139,8 +139,7 @@ function Dashboard() {
 
   return isLoaded ? (
     <div className="w-1/2 bg-white rounded shadow p-5 justify-center m-5">
-      <p className="font-bold text-xl text-calypso pl-5 py-5">{month}</p>
-
+      <p className="font-bold text-xl text-calypso pl-5 py-5">Statistiques</p>
       <div className="frame">
         <div className="box-container" ref={ref}>
           {allmonth.map((item) => (
@@ -158,7 +157,7 @@ function Dashboard() {
           {allmonth.map((num, index) => (
             <button
               type="button"
-              className={`button-2 ${num === current && "active"}`}
+              className={`button-1 ${num === current && "active"}`}
               onClick={desired}
               id={index}
               key={num}
@@ -166,7 +165,7 @@ function Dashboard() {
             />
           ))}
         </div>
-        <div className="flex">
+        <div className="flex justify-between">
           <button
             className="carousel-control-prev relative top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
             type="button"
