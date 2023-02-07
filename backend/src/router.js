@@ -61,7 +61,7 @@ router.post("/users/avatar", upload.single("avatar"), (req, res) => {
     (err) => {
       if (err) throw err;
       res.json({
-        avatarUrl: `${process.env.URL_UPLOAD}/${fileUUID}-${req.file.originalname}`,
+        avatar_url: `${process.env.URL_UPLOAD}/${fileUUID}-${req.file.originalname}`,
       });
     }
   );
