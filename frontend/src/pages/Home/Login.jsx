@@ -32,6 +32,7 @@ export default function LoginPage() {
               admin: jsonadmin.admin,
               email,
               id: jsonadmin.id,
+              avatar_url: jsonadmin.avatar_url,
             });
           } else {
             setErrotConnect(true);

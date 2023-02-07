@@ -24,7 +24,7 @@ export default function AdminLayout() {
     return <Navigate to="/login" />;
   }
   if (!user.email) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
   if (user.email && !user.admin) {
     return <Navigate to="../user/decisions" />;

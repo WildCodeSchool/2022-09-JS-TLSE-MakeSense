@@ -93,7 +93,7 @@ function AppBar({ menu }) {
               >
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={user.avatar_url}
+                  src={user.avatar_url ?? profile}
                   alt="user logo"
                 />
               </button>
