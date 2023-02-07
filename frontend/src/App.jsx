@@ -18,9 +18,7 @@ function App() {
         ...childrenroutes,
         {
           path: `${files.toLocaleLowerCase()}`,
-          element: (
-              <Loader foldername={`pages/${folder}`} filename={files} />
-          ),
+          element: <Loader foldername={`pages/${folder}`} filename={files} />,
           errorElement: <ErrorPage />,
         },
       ];
@@ -34,7 +32,7 @@ function App() {
           .replace("home", "")
           .replace("protected", "user")}`,
         element: (
-            <Loader foldername="components" filename={`${folder}Layout`} />
+          <Loader foldername="components" filename={`${folder}Layout`} />
         ),
         errorElement: <ErrorPage />,
         children: childrenroutes,
