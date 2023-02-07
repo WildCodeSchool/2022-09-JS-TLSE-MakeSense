@@ -77,11 +77,13 @@ function DecisionsEdit() {
 
   // useEffect to set the original data
   useEffect(() => {
+    // console.log("on est ici");
     const getAllData = async () => {
       // get the original decision
       const callAllUsers = await api.apigetmysql(
         `${import.meta.env.VITE_BACKEND_URL}/users`
       );
+      // console.log(user);
       setUsers(callAllUsers);
       // get all groups
       const callAllGroups = await api.apigetmysql(
@@ -115,7 +117,6 @@ function DecisionsEdit() {
           JSON.parse(getDecisions.decision.content).dateFinaleDecision
         ),
       });
-
       // function de formatage
       function formatConcerned(state) {
         // Formatage du json pour le paquet
@@ -134,10 +135,9 @@ function DecisionsEdit() {
       setUsersExperts(formatConcerned(getDecisions.uexpert));
       setGroupsImpacted(formatConcerned(getDecisions.gimpacted));
       setGroupsExperts(formatConcerned(getDecisions.gexpert));
-
       setIsLoaded(true); // enfin nous avons tout
     };
-    getAllData(); // lance la fonction getDecisionsData
+    getAllData(); // lance la fonction getAllData
   }, [isLoaded]);
 
   // eslint-disable-next-line consistent-return

@@ -1,17 +1,21 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPencilSquare, HiOutlineArchiveBoxXMark } from "react-icons/hi2";
+import { id } from "date-fns/locale";
 import { Text, LanguageContext } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Spinner from "../../Spinner";
+import { useAuth } from "../../../contexts/useAuth";
 
 function UsersManager() {
+  const { user } = useAuth();
   const [IsLoaded, SetIsLoaded] = useState(false);
   const [AllUsers, setAllUsers] = useState();
   const [toModify, setToModify] = useState(false);
   const [userData, setUserData] = useState();
   const [userToModify, setUserToModify] = useState(userData);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [newAdmin, setNewAdmin] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +48,7 @@ function UsersManager() {
     setToModify(false);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     const deleteUser = async () => {
       // delete the user
       const deleteTheUser = await api.apideletemysql(
@@ -53,6 +57,10 @@ function UsersManager() {
     };
     deleteUser();
     setIsSubmit(true);
+  };
+  const handleChangeAdmin = (e) => {
+    e.preventDefault();
+    setUserData({ ...userData, admin: e.target.value });
   };
 
   return IsLoaded ? (
@@ -141,6 +149,15 @@ function UsersManager() {
                           }
                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
                         />
+                      </div>
+                      <div className="">
+                        <p>Sélectionnez une option:</p>
+                        <div>
+                          <select onChange={(e) => handleChangeAdmin(e)}>
+                            <option value={1}>Administrateur</option>
+                            <option value={0}>Utilisateur</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -267,52 +284,54 @@ function UsersManager() {
                               .replace(/\p{Diacritic}/gu, "")
                               .toLocaleLowerCase()
                           )
-                    ).map((data) => (
-                      <tr key={data.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
-                          <div className="flex items-center">
-                            <div className="h-10 w-10 flex-shrink-0">
-                              <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
-                                {data.lastname.substring(0, 1)}
-                                {data.firstname.substring(0, 1)}
+                    )
+                      .filter((userFilter) => userFilter.email !== user.email)
+                      .map((data) => (
+                        <tr key={data.id}>
+                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-m sm:pl-6">
+                            <div className="flex items-center">
+                              <div className="h-10 w-10 flex-shrink-0">
+                                <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
+                                  {data.lastname.substring(0, 1)}
+                                  {data.firstname.substring(0, 1)}
+                                </div>
+                              </div>
+                              <div className="ml-4">
+                                <div className="font-medium text-gray-900">
+                                  {data.lastname} {data.firstname}
+                                </div>
                               </div>
                             </div>
-                            <div className="ml-4">
-                              <div className="font-medium text-gray-900">
-                                {data.lastname} {data.firstname}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
+                          </td>
 
-                        <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
-                          {data.email}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
-                          {data.admin === 0 ? "Utilisateur" : "Admin"}
-                        </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setToModify(true);
-                              setUserData(data);
-                              setUserToModify(data);
-                            }}
-                          >
-                            <HiPencilSquare />
-                          </button>
-                        </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-m font-medium">
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(data.id)}
-                          >
-                            <HiOutlineArchiveBoxXMark />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                          <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
+                            {data.email}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-m text-gray-500">
+                            {data.admin === 0 ? "Utilisateur" : "Admin"}
+                          </td>
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-m font-medium">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setToModify(true);
+                                setUserData(data);
+                                setUserToModify(data);
+                              }}
+                            >
+                              <HiPencilSquare />
+                            </button>
+                          </td>
+                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-m font-medium">
+                            <button
+                              type="button"
+                              onClick={() => handleDelete(data.id)}
+                            >
+                              <HiOutlineArchiveBoxXMark />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
