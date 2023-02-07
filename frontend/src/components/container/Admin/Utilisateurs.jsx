@@ -152,20 +152,6 @@ function UsersManager() {
                       </div>
                       <div className="">
                         <p>Sélectionnez une option:</p>
-                        {/* <input
-                          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                          type="text"
-                          id="selectadmin"
-                          name="selectadmin"
-                          defaultValue={userData.admin}
-                          onChange={(event) =>
-                            setUserToModify({
-                              ...userToModify,
-                              [event.target.name]: event.target.value,
-                            })
-                          }
-                          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
-                        /> */}
                         <div>
                           <select onChange={(e) => handleChangeAdmin(e)}>
                             <option value={1}>Administrateur</option>
