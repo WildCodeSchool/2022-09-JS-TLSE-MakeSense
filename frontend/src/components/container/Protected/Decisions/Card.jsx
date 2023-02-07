@@ -30,7 +30,7 @@ function Card({ data, user }) {
   return (
     data && (
       <div className="col-span-1 text-center bg-white block max-w-md sm:max-w-sm max-h-xs p-10 my-3 sm:m-5 border border-gray-200 rounded-lg shadow-md">
-        <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white truncate">
+        <h2 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900 truncate">
           {dataContent.title}
         </h2>
         <div className="flex flex-row justify-between">
@@ -48,7 +48,7 @@ function Card({ data, user }) {
             {data.name}
           </div>
         ) : null}
-        <p className="font-normal text-justify py-5 text-gray-700 dark:text-gray-400 longText">
+        <p className="font-normal text-justify py-5 text-gray-700 longText">
           {parseDescription.props.children}
         </p>
         <div className="flex flex-row justify-between text-xs text-gray-400 items-baseline">

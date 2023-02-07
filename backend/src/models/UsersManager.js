@@ -27,8 +27,9 @@ class UsersManager extends AbstractManager {
   }
 
   insert(users) {
+    const avatar = "http://localhost:3000/src/assets/img/profile.png";
     return this.connection.query(
-      `insert into ${this.table}(lastname, firstname, email, password, serviceId, admin) values (?, ?, ?, ?, ?, ?);`,
+      `insert into ${this.table}(lastname, firstname, email, password, serviceId, admin, avatar_url) values (?, ?, ?, ?, ?, ?, ?);`,
       [
         users.lastname,
         users.firstname,
@@ -36,6 +37,7 @@ class UsersManager extends AbstractManager {
         users.hashedPassword,
         users.serviceId,
         users.admin,
+        avatar,
       ]
     );
   }
@@ -64,7 +66,7 @@ class UsersManager extends AbstractManager {
   updateAvatar(users) {
     return this.connection.query(
       `update ${this.table} set avatar_url = ? where id = ?`,
-      [users.urlAvatar, users.id]
+      [users.avatar_url, users.id]
     );
   }
 

@@ -5,6 +5,7 @@ import api from "../../services/api";
 import { useAuth } from "../../contexts/useAuth";
 import Spinner from "../../components/Spinner";
 import { Text } from "../../contexts/Language";
+import profile from "../../assets/img/profile.png";
 
 function ProfilUser() {
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ function ProfilUser() {
   const [showInput, setShowInput] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const { user } = useAuth();
-  const [picture, setPicture] = useState(user.avatar_url);
   let serviceId = null;
   const inputRef = useRef(null);
 
@@ -70,13 +70,12 @@ function ProfilUser() {
       .then((res) => {
         const body = {
           id: user.id,
-          urlAvatar: res.avatarUrl,
+          avatar_url: res.avatar_url,
         };
         const updateAvatar = api.apiputmysql(
           `${import.meta.env.VITE_BACKEND_URL}/users/${user.id}/avatar`,
           body
         );
-        setPicture(body.urlAvatar);
       });
   };
 
@@ -123,7 +122,7 @@ function ProfilUser() {
                   <div className="relative rounded-full overflow-hidden lg:block">
                     <img
                       className="relative rounded-full w-40 h-40"
-                      src={picture}
+                      src={user.avatar_url ?? profile}
                       alt="user img"
                     />
                     <label
@@ -251,7 +250,7 @@ function ProfilUser() {
             <button
               type="button"
               onClick={handleSubmit}
-              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2"
             >
               <Text tid="validatemypersonalinformation" />
             </button>
@@ -259,7 +258,7 @@ function ProfilUser() {
           <button
             type="button"
             onClick={() => setShowInput(!showInput)}
-            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2"
           >
             {" "}
             {showInput

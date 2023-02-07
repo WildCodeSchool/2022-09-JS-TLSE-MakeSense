@@ -10,7 +10,6 @@ const hashPassword = async (req, res, next) => {
       t: 2,
       p: 1,
     });
-    // console.log(hashedPassword);
     req.body.hashedPassword = hashedPassword;
     delete req.body.password;
     next();
@@ -34,7 +33,11 @@ const verifyPassword = (req, res) => {
           .cookie("makesense_access_token", `Bearer ${token}`, {
             expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
           })
-          .json({ admin: req.user.admin, id: req.user.id });
+          .json({
+            admin: req.user.admin,
+            id: req.user.id,
+            avatar_url: req.user.avatar_url,
+          });
       } else {
         res.status(401).send("Réfléchis encore !");
       }
