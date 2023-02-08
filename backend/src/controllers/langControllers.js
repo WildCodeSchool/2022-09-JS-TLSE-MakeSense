@@ -36,8 +36,27 @@ const add = (req, res) => {
     });
 };
 
+const edit = (req, res) => {
+  const { body } = req;
+  // TODO validations (length, format...)
+  models.lang_active
+    .update(body)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   alllang,
   langlist,
   add,
+  edit,
 };

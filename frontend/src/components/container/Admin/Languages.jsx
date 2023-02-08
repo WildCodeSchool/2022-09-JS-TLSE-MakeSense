@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import Spinner from "@components/Spinner";
 import { HiPencilSquare } from "react-icons/hi2";
 import { Text, LanguageContext } from "../../../contexts/Language";
@@ -11,7 +11,7 @@ function LangSettings() {
   const [Alllang, setAlllang] = useState();
   const [LangActive, setLangActive] = useState();
   const [AddLangSelect, setAddLangSelect] = useState();
-  const [AddLangForm, setAddLangForm] = useState({});
+  const [AddLangForm, setAddLangForm] = useState(dictionary ?? {});
   const [IsLoaded, SetIsLoaded] = useState(false);
   const [isModified, setIsModified] = useState(false);
 
@@ -42,18 +42,23 @@ function LangSettings() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     const lang = event.target.addlangselect.value;
     const json = JSON.stringify(AddLangForm);
     const body = { lang, json };
     const sendForm = async () => {
-      const resalllang = await api.apipostmysql(
-        `${import.meta.env.VITE_BACKEND_URL}/addlang`,
-        body
-      );
+      if (ModeSelect === "edit") {
+        const resalllang = await api.apiputmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/addlang`,
+          body
+        );
+      } else {
+        const resalllang = await api.apipostmysql(
+          `${import.meta.env.VITE_BACKEND_URL}/addlang`,
+          body
+        );
+      }
     };
     sendForm();
-    navigate("/admin/dashboard?tools=Languages", { replace: true });
   };
 
   useEffect(() => {
@@ -85,16 +90,6 @@ function LangSettings() {
                 <h3 className="mb-5 text-lg font-normal text-gray-500">
                   <Text tid="thelanguagehasbeenmodified" />
                 </h3>
-                <button
-                  data-modal-hide="popup-modal"
-                  type="button"
-                  className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                  onClick={() => {
-                    setIsModified(false);
-                  }}
-                >
-                  <Text tid="backtolanguages" />
-                </button>
               </div>
             </div>
           </div>
@@ -152,6 +147,14 @@ function LangSettings() {
                 ))}
               </select>
             )}
+            {ModeSelect === "edit" && (
+              <input
+                type="hidden"
+                key="addlangselect"
+                id="addlangselect"
+                defaultValue={userLanguage}
+              />
+            )}
             <div className="mt-8 flex flex-col">
               <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -197,9 +200,9 @@ function LangSettings() {
                                   )}
                                   {ModeSelect === "edit" && (
                                     <input
-                                      key={key[1]}
+                                      key={key[0]}
                                       defaultValue={key[1]}
-                                      id={key[1]}
+                                      id={key[0]}
                                       onChange={HandlerKey}
                                       required
                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:outline-2 focus:outline-cyan-800 w-full p-2.5"
