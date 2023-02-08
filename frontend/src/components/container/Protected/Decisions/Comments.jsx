@@ -11,10 +11,12 @@ function Comments({ comments, page, limit }) {
             {selectedComments.map((comment) => (
               <li key={comment.id}>
                 <div className="flex space-x-3">
-                  <div className="h-10 w-10 rounded-full border flex justify-center items-center text-white bg-calypso">
-                    {comment.lastname.substring(0, 1)}
-                    {comment.firstname.substring(0, 1)}
-                  </div>
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={comment.avatar_url}
+                    alt={`${comment.lastname} ${comment.firstname}`}
+                    title={`${comment.lastname} ${comment.firstname}`}
+                  />
                   <div>
                     <div className="text-sm">
                       <a href="/" className="font-medium text-gray-900">

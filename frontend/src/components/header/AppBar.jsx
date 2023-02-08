@@ -120,7 +120,7 @@ function AppBar({ menu }) {
                         }}
                         className="block px-4 py-2 text-sm text-gray-700"
                       >
-                        Décisions
+                        <Text tid="decisions" />
                       </button>
                     </li>
                     {user.admin === 1 && window.screen.width >= "640" ? (
@@ -133,7 +133,7 @@ function AppBar({ menu }) {
                           }}
                           className="block px-4 py-2 text-sm text-gray-700"
                         >
-                          Tableau de bord
+                          <Text tid="dashboard" />
                         </button>
                       </li>
                     ) : null}
@@ -146,7 +146,7 @@ function AppBar({ menu }) {
                         }}
                         className="block px-4 py-2 text-sm text-gray-700"
                       >
-                        Mon profil
+                        <Text tid="profile" />
                       </button>
                     </li>
                     {!!user.email && (

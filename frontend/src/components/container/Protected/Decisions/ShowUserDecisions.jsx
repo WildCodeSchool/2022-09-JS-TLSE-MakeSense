@@ -220,7 +220,9 @@ export default function ShowUserDecisions() {
       </>
     ) : (
       <div className="flex flex-col justify-center items-center h-2/3">
-        <p>Il n'y a pas encore de décision !</p>
+        <p>
+          <Text tid="thereisnodecision" />
+        </p>
         <button
           type="button"
           className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 my-5 text-center"
@@ -228,7 +230,7 @@ export default function ShowUserDecisions() {
             navigate(`/user/decisions?comp=Form`);
           }}
         >
-          Déposer une décision
+          <Text tid="fileadecision" />
         </button>
       </div>
     )

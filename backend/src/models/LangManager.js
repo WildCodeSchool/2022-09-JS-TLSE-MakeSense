@@ -21,6 +21,13 @@ class LangManager extends AbstractManager {
       [body.lang, body.json]
     );
   }
+
+  update(body) {
+    return this.connection.query(
+      `update ${this.table} set json = ? where id_language = (SELECT id FROM languages WHERE iso_639_1 = ?)`,
+      [body.json, body.lang]
+    );
+  }
 }
 
 module.exports = LangManager;

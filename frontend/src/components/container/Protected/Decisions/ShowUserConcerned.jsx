@@ -188,7 +188,7 @@ export default function ShowUserConcerned() {
       </div>
       <div className="ml-10 mr-10">
         <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          Les décisions où je suis directement impacté
+          <Text tid="decisionswhereiamdirectlyimpacted" />
         </h1>
         {decisionsWhereUserImpacted.length ? (
           <div>
@@ -224,10 +224,12 @@ export default function ShowUserConcerned() {
             }
           </div>
         ) : (
-          <div className="my-5">Il n'y a pas de décision.</div>
+          <div className="my-5">
+            <Text tid="thereisnodecision" />
+          </div>
         )}
         <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          Les décisions où je suis expert
+          <Text tid="decisionswhereiamanexpert" />
         </h1>
         {decisionsWhereUserExpert.length ? (
           <div>
@@ -263,11 +265,13 @@ export default function ShowUserConcerned() {
             }
           </div>
         ) : (
-          <div className="my-5">Il n'y a pas de décision.</div>
+          <div className="my-5">
+            <Text tid="thereisnodecision" />
+          </div>
         )}
         <div>
           <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            Les décisions qui impactent mes groupes
+            <Text tid="decisionsthatimpactmygroups" />
           </h1>
           {decisionsWhereGroupImpacted.length ? (
             // eslint-disable-next-line react/prop-types
@@ -303,11 +307,14 @@ export default function ShowUserConcerned() {
                 </button>
               ))
           ) : (
-            <div className="my-5">Il n'y a pas de décision.</div>
+            <div className="my-5">
+              {" "}
+              <Text tid="thereisnodecision" />
+            </div>
           )}
         </div>
         <h1 className="text-left mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          Les décisions qui ont besoin de l'expertise de mes groupes
+          <Text tid="decisionsthatneedtheexpertiseofmygroups" />
         </h1>
         {decisionsWhereGroupExpert.length ? (
           <div>
@@ -347,13 +354,18 @@ export default function ShowUserConcerned() {
             }
           </div>
         ) : (
-          <div className="my-5">Il n'y a pas de décision.</div>
+          <div className="my-5">
+            {" "}
+            <Text tid="thereisnodecision" />
+          </div>
         )}
       </div>
     </>
   ) : (
     <div className="flex flex-col justify-center items-center h-2/3">
-      <p>Il n'y a pas encore de décision où je suis concerné !</p>
+      <p>
+        <Text tid="thereisnodecisionyetwhereiamconcerned!" />
+      </p>
     </div>
   );
 }
