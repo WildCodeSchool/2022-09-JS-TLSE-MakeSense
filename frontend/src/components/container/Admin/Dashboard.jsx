@@ -4,6 +4,8 @@ import "../../../assets/css/container/admin/Dashboard.scss";
 import Spinner from "@components/Spinner";
 import { Text } from "../../../contexts/Language";
 import api from "../../../services/api";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { Text } from "../../../../contexts/Language";
 
 function Dashboard() {
   const [datagraph, setDatagraph] = useState([]);

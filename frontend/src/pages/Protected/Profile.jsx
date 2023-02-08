@@ -132,7 +132,6 @@ function ProfilUser() {
                       className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-m font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
                     >
                       <span>
-                        {" "}
                         <Text tid="modify" />
                       </span>
                       <input
