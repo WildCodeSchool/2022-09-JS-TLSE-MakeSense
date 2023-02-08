@@ -208,7 +208,7 @@ function DecisionsEdit() {
                       navigate(`/user/decisions`);
                     }}
                   >
-                    <Text tid="backtodecision" />
+                    <Text tid="backtodecisions" />
                   </button>
                 </div>
               </div>

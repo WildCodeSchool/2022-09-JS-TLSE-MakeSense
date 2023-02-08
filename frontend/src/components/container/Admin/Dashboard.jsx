@@ -137,7 +137,7 @@ function Dashboard() {
 
   // Options Graphique
   const options = {
-    title: `${month} Activities`,
+    title: `${month} ${year} Activités`,
   };
 
   return isLoaded ? (

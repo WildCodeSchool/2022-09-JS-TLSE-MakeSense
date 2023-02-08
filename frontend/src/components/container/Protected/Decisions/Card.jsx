@@ -27,6 +27,7 @@ function Card({ data, user }) {
     decisionStatus = "Décision non aboutie";
     textColor = "stone";
   }
+
   return (
     data && (
       <div className="col-span-1 text-center bg-white block max-w-md sm:max-w-sm max-h-xs p-10 my-3 sm:m-5 border border-gray-200 rounded-lg shadow-md">

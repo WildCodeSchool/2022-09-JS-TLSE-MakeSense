@@ -62,7 +62,7 @@ function DecisionsPage() {
                     setIsSubmit(false);
                   }}
                 >
-                  <Text tid="backtodecisions" />
+                  <Text tid="backtodecisionss" />
                 </button>
               </div>
             </div>

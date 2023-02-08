@@ -66,7 +66,7 @@ function DecisionsPage() {
                   className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   onClick={() => navigate(`/user/decisions`)}
                 >
-                  <Text tid="backtodecisions" />
+                  <Text tid="backtodecisionss" />
                 </button>
               </div>
             </div>

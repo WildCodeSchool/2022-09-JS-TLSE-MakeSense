@@ -140,7 +140,7 @@ function DecisionsForm() {
                       navigate(`/user/decisions`);
                     }}
                   >
-                    <Text tid="backtodecisions" />
+                    <Text tid="backtodecisionss" />
                   </button>
                 </div>
               </div>

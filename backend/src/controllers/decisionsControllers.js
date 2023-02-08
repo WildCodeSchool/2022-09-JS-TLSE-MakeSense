@@ -120,8 +120,8 @@ const edit = (req, res) => {
       console.warn("Liaison decisions_g_impacts update");
     });
   Promise.all([promise1, promise2, promise3, promise4, promise5])
-    .then(() => {
-      res.sendStatus(204);
+    .then((result) => {
+      res.sendStatus(204, result);
     })
     .catch((err) => {
       console.error(err);

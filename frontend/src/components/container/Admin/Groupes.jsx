@@ -7,7 +7,7 @@ import { Text } from "../../../contexts/Language";
 import api from "../../../services/api";
 import Concerned from "../Protected/Decisions/form/Concerned";
 
-function UsersManager() {
+function GroupsManager() {
   const navigate = useNavigate();
   const [IsLoaded, SetIsLoaded] = useState(false);
   const [AllUsers, setAllUsers] = useState({});
@@ -316,4 +316,4 @@ function UsersManager() {
     <Spinner />
   );
 }
-export default UsersManager;
+export default GroupsManager;
