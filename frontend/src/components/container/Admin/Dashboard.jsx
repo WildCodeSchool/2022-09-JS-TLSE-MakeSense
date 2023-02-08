@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Chart } from "react-google-charts";
 import "../../../assets/css/container/admin/Dashboard.scss";
+import Spinner from "@components/Spinner";
+import { Text } from "../../../contexts/Language";
 import api from "../../../services/api";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { Text } from "../../../../contexts/Language";
@@ -141,7 +143,9 @@ function Dashboard() {
 
   return isLoaded ? (
     <div className="w-1/2 bg-white rounded shadow p-5 justify-center m-5">
-      <p className="font-bold text-xl text-calypso pl-5 py-5">Statistiques</p>
+      <div className="font-bold text-xl text-calypso pl-5 py-5">
+        <Text tid="statistics" />
+      </div>
       <div className="frame">
         <div className="box-container" ref={ref}>
           {allmonth.map((item) => (
@@ -202,7 +206,7 @@ function Dashboard() {
       </div>
     </div>
   ) : (
-    <div>... Loading</div>
+    <Spinner />
   );
 }
 export default Dashboard;

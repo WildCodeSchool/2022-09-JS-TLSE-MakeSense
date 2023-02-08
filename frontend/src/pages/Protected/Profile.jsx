@@ -110,7 +110,9 @@ function ProfilUser() {
       )}
       <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
-          <h2 className="text-2xl leading-6 font-bold text-gray-900">Profil</h2>
+          <h2 className="text-2xl leading-6 font-bold text-gray-900">
+            <Text tid="profile" />
+          </h2>
           <div className="flex flex-col ms:flex-row justify-center">
             <form
               encType="multipart/form-data"

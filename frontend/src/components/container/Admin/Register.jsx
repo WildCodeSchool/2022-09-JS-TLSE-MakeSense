@@ -68,7 +68,7 @@ function LoginPage() {
     <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8">
       <div className="register">
         <h1 className="text-xl font-medium text-gray-900">
-          <Text tid="registerauser" />
+          <Text tid="register" />
         </h1>
 
         <form noValidate className="space-y-6" onSubmit={handleSubmit}>
@@ -145,7 +145,7 @@ function LoginPage() {
             type="submit"
             className="w-full text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            <Text tid="register" />
+            <Text tid="save" />
           </button>
         </form>
       </div>

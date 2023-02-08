@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "@services/api";
+import { Text } from "../../../../contexts/Language";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 import { useAuth } from "../../../../contexts/useAuth";
@@ -50,11 +51,10 @@ function CommentSection({ id, comments, setComments }) {
     <div>
       <details>
         <summary>
-          <Text tid="notice" /> (0)
+          <Text tid="opinion" /> (0)
         </summary>
         <div>
-          {" "}
-          <Text tid="thereisnoopiniononthisdecisionyet." />
+          <Text tid="thereisnoopiniononthisdecisionyet" />
         </div>
         <form onSubmit={handleSubmit}>
           <textarea
@@ -72,7 +72,7 @@ function CommentSection({ id, comments, setComments }) {
             type="submit"
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            <Text tid="Dar su opinión" />
+            <Text tid="givemyopinion" />
           </button>
         </form>
       </details>
@@ -83,7 +83,7 @@ function CommentSection({ id, comments, setComments }) {
         <div>
           <div className="px-4 pt-5 sm:px-6">
             <h2 id="notes-title" className="text-lg font-medium text-gray-900">
-              Avis ({comments.length})
+              <Text tid="opinion" /> ({comments.length})
             </h2>
           </div>
           <form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ function CommentSection({ id, comments, setComments }) {
               type="submit"
               className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-sm px-5 py-2.5 mx-10 text-center"
             >
-              <Text tid="Dar su opinión" />
+              <Text tid="givemyopinion" />
             </button>
           </form>
           <div className="flex flex-row justify-center">

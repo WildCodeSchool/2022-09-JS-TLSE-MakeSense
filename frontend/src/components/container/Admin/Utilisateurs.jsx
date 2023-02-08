@@ -151,16 +151,19 @@ function UsersManager() {
                         />
                       </div>
                       <div className="">
-                        <p>
-                          <Text tid="selectanoption" />
+                        <p className="pb-2">
+                          <Text tid="selectanoption:" />
                         </p>
                         <div>
-                          <select onChange={(e) => handleChangeAdmin(e)}>
+                          <select
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                            onChange={(e) => handleChangeAdmin(e)}
+                          >
                             <option value={1}>
-                              <Text tid="administrator " />
+                              <Text tid="admin" />
                             </option>
                             <option value={0}>
-                              <Text tid="users" />
+                              <Text tid="user" />
                             </option>
                           </select>
                         </div>

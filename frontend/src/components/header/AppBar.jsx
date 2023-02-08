@@ -146,7 +146,7 @@ function AppBar({ menu }) {
                         }}
                         className="block px-4 py-2 text-sm text-gray-700"
                       >
-                        <Text tid="myprofil" />
+                        <Text tid="profile" />
                       </button>
                     </li>
                     {!!user.email && (
