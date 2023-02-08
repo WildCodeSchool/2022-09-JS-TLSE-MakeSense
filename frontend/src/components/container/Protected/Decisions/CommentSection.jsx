@@ -4,7 +4,6 @@ import { Text } from "../../../../contexts/Language";
 import Comments from "./Comments";
 import Pagination from "./Pagination";
 import { useAuth } from "../../../../contexts/useAuth";
-import { Text } from "../../../../contexts/Language";
 
 function CommentSection({ id, comments, setComments }) {
   const [isLoaded, setIsLoaded] = useState(false);
