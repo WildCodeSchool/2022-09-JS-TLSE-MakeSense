@@ -45,7 +45,7 @@ function Card({ data, user }) {
           </div>
         </div>
         {data.name ? (
-          <div className="bg-rose-100 text-rose-800 text-xs font-medium px-2.5 py-1.5 rounded-full max-w-max">
+          <div className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1.5 rounded-full max-w-max my-2">
             {data.name}
           </div>
         ) : null}
