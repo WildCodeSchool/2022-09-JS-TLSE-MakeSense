@@ -19,6 +19,11 @@ class AbstractManager {
       values += `, (${decisionid},${el.id})`;
     });
     values = values.substring(1);
+    if (!values.length) {
+      return this.connection.query(
+        `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
+      );
+    }
     this.connection.query(
       `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
     );
