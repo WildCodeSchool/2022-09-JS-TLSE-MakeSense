@@ -218,7 +218,7 @@ export default function ShowUserConcerned() {
                     }}
                     className=""
                   >
-                    <Card key={data.id} data={data} user={user} />
+                    <Card key={data.id} data={data} />
                   </button>
                 ))
             }
@@ -259,7 +259,7 @@ export default function ShowUserConcerned() {
                     }}
                     className=""
                   >
-                    <Card key={data.id} data={data} user={user} />
+                    <Card key={data.id} data={data} />
                   </button>
                 ))
             }
@@ -301,7 +301,6 @@ export default function ShowUserConcerned() {
                   <Card
                     key={decision.id}
                     data={decision}
-                    user={user}
                     statut="groupes impactés"
                   />
                 </button>
@@ -346,7 +345,6 @@ export default function ShowUserConcerned() {
                     <Card
                       key={decision.id}
                       data={decision}
-                      user={user}
                       statut="groupes experts"
                     />
                   </button>

@@ -20,16 +20,21 @@ class AbstractManager {
     });
     values = values.substring(1);
     if (!values.length) {
-      return this.connection.query(
+      this.connection.query(
         `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
       );
     }
-    this.connection.query(
-      `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
-    );
-    return this.connection.query(
-      `INSERT INTO ${tableliaison} (id_${this.table}, ${secondcolumn}) VALUES ${values};`
-    );
+    if (values.length) {
+      this.connection
+        .query(
+          `DELETE FROM ${tableliaison} WHERE EXISTS(SELECT id_${this.table} WHERE id_${this.table} = ${decisionid});`
+        )
+        .then(() => {
+          this.connection.query(
+            `INSERT INTO ${tableliaison} (id_${this.table}, ${secondcolumn}) VALUES ${values};`
+          );
+        });
+    }
   }
 
   delete(id) {

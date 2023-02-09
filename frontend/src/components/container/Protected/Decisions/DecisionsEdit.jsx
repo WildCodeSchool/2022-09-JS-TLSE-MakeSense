@@ -45,10 +45,10 @@ function DecisionsEdit() {
     pros: Joi.string().min(5).required(),
     cons: Joi.string().min(5).required(),
     firstDate: Joi.date().required(),
-    dateOpinion: Joi.date().greater(new Date()).required(),
-    dateFirstDecision: Joi.date().greater(new Date()).required(),
-    dateEndConflict: Joi.date().greater(new Date()).required(),
-    dateFinaleDecision: Joi.date().greater(new Date()).required(),
+    dateOpinion: Joi.date().required(),
+    dateFirstDecision: Joi.date().required(),
+    dateEndConflict: Joi.date().required(),
+    dateFinaleDecision: Joi.date().required(),
   });
 
   // states for form
@@ -97,7 +97,6 @@ function DecisionsEdit() {
         `${import.meta.env.VITE_BACKEND_URL}/decisions/${id}`
       );
       setIdCreatorLoad(getDecisions.decision.id_user_creator);
-      // console.log(idCreatorLoad);
       setForm({
         title: JSON.parse(getDecisions.decision.content).title,
         description: JSON.parse(getDecisions.decision.content).description,
