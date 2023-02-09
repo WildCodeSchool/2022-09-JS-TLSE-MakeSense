@@ -110,9 +110,6 @@ function ProfilUser() {
       )}
       <div className="px-2 sm:px-4 lg:px-8 bg-white shadow sm:rounded-lg py-10 m-10">
         <div className="py-6 px-4 sm:p-6 lg:pb-8">
-          <h2 className="text-2xl leading-6 font-bold text-gray-900">
-            <Text tid="myprofil" />
-          </h2>
           <div className="flex flex-col ms:flex-row justify-center">
             <form
               encType="multipart/form-data"
@@ -213,7 +210,7 @@ function ProfilUser() {
                     name="email"
                     defaultValue={userEmail}
                     onChange={(event) => setUserEmail(event.target.value)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-200"
                     disabled
                   />
                 ) : (
@@ -265,9 +262,11 @@ function ProfilUser() {
             className="text-white bg-calypso hover:bg-calypsoLight font-medium rounded-lg text-m px-5 py-2.5 mr-2 mb-2"
           >
             {" "}
-            {showInput
-              ? "Revenir à mon profil"
-              : "Modifier mes informations personnelles"}
+            {showInput ? (
+              <Text tid="backtoprofile" />
+            ) : (
+              <Text tid="modifymypersonalinformations" />
+            )}
           </button>
         </div>
       </div>

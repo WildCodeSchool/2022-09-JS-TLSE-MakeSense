@@ -309,7 +309,7 @@ function DecisionsPage() {
                       <li className="mb-10 ml-4">
                         {new Date(
                           JSON.parse(decisions.decision.content).dateOpinion
-                        ) > new Date() ? (
+                        ) >= new Date() ? (
                           <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                         ) : (
                           <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
@@ -336,7 +336,7 @@ function DecisionsPage() {
                           JSON.parse(
                             decisions.decision.content
                           ).dateFirstDecision
-                        ) > new Date() ? (
+                        ) >= new Date() ? (
                           <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                         ) : (
                           <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
@@ -360,7 +360,7 @@ function DecisionsPage() {
                       <li className="mb-10 ml-4">
                         {new Date(
                           JSON.parse(decisions.decision.content).dateEndConflict
-                        ) > new Date() ? (
+                        ) >= new Date() ? (
                           <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                         ) : (
                           <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
@@ -387,7 +387,7 @@ function DecisionsPage() {
                           JSON.parse(
                             decisions.decision.content
                           ).dateFinaleDecision
-                        ) > new Date() ? (
+                        ) >= new Date() ? (
                           <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white" />
                         ) : (
                           <div className="absolute w-3 h-3 bg-calypso rounded-full mt-1.5 -left-1.5 border border-white" />
@@ -548,7 +548,7 @@ function DecisionsPage() {
                   ) : (
                     <>
                       <h3 className="text-lg text-gray-900">
-                        <Text tid="designatethepeopleconcerned" />
+                        <Text tid="groupsexperts" />
                       </h3>
                       <div className="flex -space-x-2 overflow-hidden">
                         {decisions.gexpert.map((group) => (

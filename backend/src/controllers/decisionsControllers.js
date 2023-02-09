@@ -79,49 +79,35 @@ const edit = (req, res) => {
   // TODO validations (length, format...)
   decisions.id = parseInt(req.params.id, 10);
   const promise1 = models.decisions.update(decisions);
-  const promise2 = models.decisions
-    .updateliaison(
-      decisions.id,
-      decisions.users_impact,
-      "decisions_impacts",
-      "id_user_impact"
-    )
-    .then(() => {
-      console.warn("Liaison decisions_impacts update");
-    });
-  const promise3 = models.decisions
-    .updateliaison(
-      decisions.id,
-      decisions.users_expert,
-      "decisions_experts",
-      "id_user_expert"
-    )
-    .then(() => {
-      console.warn("Liaison decisions_experts update");
-    });
-  const promise4 = models.decisions
-    .updateliaison(
-      decisions.id,
-      decisions.groups_impact,
-      "decisions_g_impacts",
-      "id_g_impact"
-    )
-    .then(() => {
-      console.warn("Liaison decisions_g_impacts update");
-    });
-  const promise5 = models.decisions
-    .updateliaison(
-      decisions.id,
-      decisions.groups_expert,
-      "decisions_g_impacts",
-      "id_g_impact"
-    )
-    .then(() => {
-      console.warn("Liaison decisions_g_impacts update");
-    });
+  const promise2 = models.decisions.updateliaison(
+    decisions.id,
+    decisions.users_impact,
+    "decisions_impacts",
+    "id_user_impact"
+  );
+  const promise3 = models.decisions.updateliaison(
+    decisions.id,
+    decisions.users_expert,
+    "decisions_experts",
+    "id_user_expert"
+  );
+  const promise4 = models.decisions.updateliaison(
+    decisions.id,
+    decisions.groups_impact,
+    "decisions_g_impacts",
+    "id_g_impact"
+  );
+  const promise5 = models.decisions.updateliaison(
+    decisions.id,
+    decisions.groups_expert,
+    "decisions_g_experts",
+    "id_g_expert"
+  );
   Promise.all([promise1, promise2, promise3, promise4, promise5])
-    .then((result) => {
-      res.sendStatus(204, result);
+    .then((resultall) => {
+      if (resultall) {
+        res.sendStatus(204);
+      }
     })
     .catch((err) => {
       console.error(err);
