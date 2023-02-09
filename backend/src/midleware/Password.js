@@ -25,13 +25,13 @@ const verifyPassword = (req, res) => {
       if (isVerified) {
         const payload = { sub: req.user.id, role: req.user.admin };
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "1h",
+          expiresIn: "5h",
         });
         delete req.user.password;
         res
           .status(200)
           .cookie("makesense_access_token", `Bearer ${token}`, {
-            expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
+            expires: new Date(Date.now() + 5 * 3600000), // cookie will be removed after 2 hours
           })
           .json({
             admin: req.user.admin,
