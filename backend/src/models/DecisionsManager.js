@@ -95,16 +95,16 @@ class DecisionsManager extends AbstractManager {
     }
     let queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.id_user_creator, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND status ${operator} ? ${durees} ${andUser} ORDER BY ${this.table}.status;`;
     if (userImpacted !== "0") {
-      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decisions FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userImpacted} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND ${this.table}.id IN (SELECT decisions_impacts.id_decisions FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userImpacted} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
     }
     if (userExpert !== "0") {
-      queryContent = `SELECT * FROM ${this.table} WHERE id IN (SELECT decisions_impacts.id_decisions FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userExpert} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, ${this.table}.date_created, ${this.table}.date_update, users.firstname, users.lastname FROM ${this.table} INNER JOIN users WHERE ${this.table}.id_user_creator = users.id AND ${this.table}.id IN (SELECT decisions_impacts.id_decisions FROM decisions_impacts WHERE decisions_impacts.id_user_impact = ${userExpert} GROUP BY id_decisions) AND status ${operator} ? ${durees};`;
     }
     if (groupImpacted !== "0") {
-      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_impacts ON ${this.table}.id = decisions_g_impacts.id_decisions INNER JOIN groups ON groups.id = decisions_g_impacts.id_g_impact INNER JOIN group_user ON group_user.id_groups = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name, users.firstname, users.lastname FROM ${this.table} INNER JOIN decisions_g_impacts ON ${this.table}.id = decisions_g_impacts.id_decisions INNER JOIN groups ON groups.id = decisions_g_impacts.id_g_impact INNER JOIN group_user ON group_user.id_groups = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
     }
     if (groupExpert !== "0") {
-      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name FROM ${this.table} INNER JOIN decisions_g_experts ON ${this.table}.id = decisions_g_experts.id_decisions INNER JOIN groups ON groups.id = decisions_g_experts.id_g_expert INNER JOIN group_user ON group_user.id_groups = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
+      queryContent = `SELECT ${this.table}.id, ${this.table}.content, ${this.table}.status, groups.name, users.firstname, users.lastname FROM ${this.table} INNER JOIN decisions_g_experts ON ${this.table}.id = decisions_g_experts.id_decisions INNER JOIN groups ON groups.id = decisions_g_experts.id_g_expert INNER JOIN group_user ON group_user.id_groups = groups.id INNER JOIN users ON users.id = group_user.id_user WHERE users.id = ${groupImpacted} AND status ${operator} ? ${durees};`;
     }
     if (userComment !== "0") {
       queryContent = `SELECT * FROM ${this.table} WHERE ${this.table}.id IN (SELECT comments.id_decision FROM comments WHERE id_user_writer=${userComment} GROUP BY id_decision) AND status ${operator} ? ${durees};`;
